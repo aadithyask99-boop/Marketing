@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import ScrollStory from "../components/ScrollStory.astro";
-import { SERVICES, WORK } from "../data/site";
+import { SERVICES, WORK, url } from "../data/site";
 ---
 
 <BaseLayout>
@@ -17,7 +17,7 @@ import { SERVICES, WORK } from "../data/site";
     <div class="rows">
       {
         SERVICES.map((s) => (
-          <a class="row" href="/services" data-cursor="View">
+          <a class="row" href={url("/services")} data-cursor="View">
             <span class="display row-name">{s.name}</span>
             <p class="row-desc">{s.desc}</p>
           </a>
@@ -34,7 +34,7 @@ import { SERVICES, WORK } from "../data/site";
         WORK.slice(0, 3).map((w) => (
           <a
             class:list={["card", w.tone === "blue" && "card--blue", w.tone === "ink" && "card--ink", w.tone === "cream" && "card--red"]}
-            href="/work"
+            href={url("/work")}
             data-cursor="View"
           >
             <span class="card-meta">{w.category}</span>
@@ -43,7 +43,7 @@ import { SERVICES, WORK } from "../data/site";
         ))
       }
     </div>
-    <p style="margin-top: 2rem"><a class="btn" href="/work">See all work</a></p>
+    <p style="margin-top: 2rem"><a class="btn" href={url("/work")}>See all work</a></p>
   </section>
 
   <section class="section" aria-labelledby="cta-title">
@@ -51,6 +51,6 @@ import { SERVICES, WORK } from "../data/site";
       Ready to be <span class="accent">found</span>,<br />remembered and chosen?
     </h2>
     <p class="lede">Tell us where you want to be. We'll show you the fastest route there.</p>
-    <p style="margin-top: 2rem"><a class="btn" href="/contact" data-cursor="Hello">Start a project</a></p>
+    <p style="margin-top: 2rem"><a class="btn" href={url("/contact")} data-cursor="Hello">Start a project</a></p>
   </section>
 </BaseLayout>

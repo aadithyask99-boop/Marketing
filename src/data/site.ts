@@ -1,3 +1,6 @@
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+export const url = (path: string) => `${base}${path}`;
+
 export const SITE = {
   name: "Maximus Mediascape",
   tagline: "Search, story and strategy under one roof.",

@@ -2,7 +2,7 @@
 import RotatingWord from "./RotatingWord.astro";
 import Asterisk from "./Asterisk.astro";
 import Badge from "./Badge.astro";
-import { ROTATING_WORDS, SITE } from "../data/site";
+import { ROTATING_WORDS, SITE, url } from "../data/site";
 
 const label = `Your ${ROTATING_WORDS.map((w) => w.toLowerCase()).join(", ")} agency`;
 ---
@@ -16,7 +16,7 @@ const label = `Your ${ROTATING_WORDS.map((w) => w.toLowerCase()).join(", ")} age
     <span class="hero-line">
       <span aria-hidden="true">Agency</span>
       <Asterisk />
-      <Badge href="/contact" label="Let's bond" />
+      <Badge href={url("/contact")} label="Let's bond" />
     </span>
   </h1>
 </section>

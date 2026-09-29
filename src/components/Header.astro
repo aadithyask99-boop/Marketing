@@ -1,9 +1,9 @@
 ---
-import { SITE } from "../data/site";
+import { SITE, url } from "../data/site";
 ---
 
 <header class="site-header">
-  <a class="logo" href="/" aria-label={`${SITE.name} home`}>{SITE.name}</a>
+  <a class="logo" href={url("/")} aria-label={`${SITE.name} home`}>{SITE.name}</a>
   <button
     class="menu-btn"
     type="button"

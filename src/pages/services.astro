@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { SERVICES } from "../data/site";
+import { SERVICES, url } from "../data/site";
 ---
 
 <BaseLayout
@@ -32,6 +32,6 @@ import { SERVICES } from "../data/site";
   <section class="section">
     <h2 class="display section-title">Not sure where to start?</h2>
     <p class="lede">We'll audit what you have and tell you what will move the needle first.</p>
-    <p style="margin-top: 2rem"><a class="btn" href="/contact" data-cursor="Hello">Talk to us</a></p>
+    <p style="margin-top: 2rem"><a class="btn" href={url("/contact")} data-cursor="Hello">Talk to us</a></p>
   </section>
 </BaseLayout>

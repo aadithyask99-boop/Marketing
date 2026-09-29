@@ -1,13 +1,14 @@
 ---
-import { NAV } from "../data/site";
+import { NAV, url } from "../data/site";
 
-const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const basePath = url("");
+const path = Astro.url.pathname.slice(basePath.length).replace(/\/$/, "") || "/";
 ---
 
 <nav id="menu" class="menu" aria-label="Main" hidden>
   {
     NAV.map((item) => (
-      <a href={item.href} aria-current={path === item.href ? "page" : undefined}>
+      <a href={url(item.href)} aria-current={path === item.href ? "page" : undefined}>
         {item.label}
       </a>
     ))
