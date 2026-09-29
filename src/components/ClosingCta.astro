@@ -1,19 +1,174 @@
 ---
-import LeadForm from "./LeadForm.astro";
-import { LEAD } from "../data/site";
+import "../styles/lead.css";
+import "../styles/closer.css";
+import { CHIPS } from "../data/search";
+import { DIAL_CODES } from "../data/countries";
+import { LEAD, SITE } from "../data/site";
+const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
 ---
 
-<section class="closer" id="start" aria-labelledby="closer-title">
+<section
+  class="closer"
+  id="start"
+  aria-labelledby="closer-title"
+  data-endpoint={endpoint}
+  data-email={SITE.email}
+  data-success={LEAD.success}
+>
   <p class="eyebrow">Start here</p>
   <h2 id="closer-title" class="display section-title">{LEAD.heading}</h2>
   <p class="lede">{LEAD.lede}</p>
-  <LeadForm id="closer" />
+
+  <form class="closer-form" novalidate>
+    <div class="closer-step" data-step="1">
+      <div class="closer-bar">
+        <svg class="closer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="10.5" cy="10.5" r="6.5"></circle>
+          <path d="M16 16l5 5"></path>
+        </svg>
+        <label class="sr-only" for="closer-msg">{LEAD.heading}</label>
+        <input id="closer-msg" name="message" type="text" maxlength="1000" autocomplete="off" placeholder={LEAD.placeholder} />
+        <button class="closer-send" type="submit" aria-label="Continue" data-cursor="Go">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+        </button>
+      </div>
+      <p class="field-error closer-error" hidden></p>
+      <ul class="lead-chips" aria-label="Examples">
+        {CHIPS.map((c) => <li><button type="button" data-example>{c}</button></li>)}
+      </ul>
+    </div>
+
+    <div class="closer-step" data-step="2" hidden>
+      <p class="closer-reply">{LEAD.reply}</p>
+      <p class="closer-echo"></p>
+      <div class="closer-fields">
+        <label class="sr-only" for="closer-email">Email</label>
+        <input class="closer-input" id="closer-email" name="email" type="email" maxlength="254" autocomplete="email" placeholder="Email" />
+        <div class="closer-phone">
+          <label class="sr-only" for="closer-cc">Country code</label>
+          <select class="closer-input" id="closer-cc" name="cc" autocomplete="tel-country-code">
+            {DIAL_CODES.map((d) => <option value={d.code} data-iso={d.iso.join(",")}>{d.label}</option>)}
+          </select>
+          <label class="sr-only" for="closer-phone">Phone number</label>
+          <input class="closer-input" id="closer-phone" name="phone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel-national" placeholder="Phone number" />
+        </div>
+        <button class="btn closer-go" type="submit" data-cursor="Send">Send</button>
+      </div>
+      <p class="field-error closer-error" hidden></p>
+      <button class="closer-back" type="button">Edit my message</button>
+    </div>
+
+    <div class="closer-step" data-step="3" hidden>
+      <p class="closer-thanks"></p>
+      <p class="closer-echo"></p>
+    </div>
+
+    <div class="lead-trap" aria-hidden="true">
+      <label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <p class="sr-only" role="status" aria-live="polite" data-live></p>
+  </form>
 </section>
 
-<style>
-  .closer {
-    padding: clamp(4rem, 10vw, 8rem) var(--gutter);
-    background: var(--ink);
-    color: var(--cream);
+<script>
+  import { submitLead } from "../scripts/submitLead";
+
+  const root = document.querySelector<HTMLElement>(".closer");
+  const form = root?.querySelector<HTMLFormElement>(".closer-form");
+  if (root && form) {
+    const steps = [...form.querySelectorAll<HTMLElement>(".closer-step")];
+    const msg = form.elements.namedItem("message") as HTMLInputElement;
+    const email = form.elements.namedItem("email") as HTMLInputElement;
+    const phone = form.elements.namedItem("phone") as HTMLInputElement;
+    const cc = form.elements.namedItem("cc") as HTMLSelectElement;
+    const trap = form.elements.namedItem("_gotcha") as HTMLInputElement;
+    const live = form.querySelector<HTMLElement>("[data-live]")!;
+    const go = form.querySelector<HTMLButtonElement>(".closer-go")!;
+    const errors = form.querySelectorAll<HTMLElement>(".closer-error");
+    let step = 1;
+
+    const region = navigator.language?.split("-")[1]?.toUpperCase();
+    const local = [...cc.options].find((o) => o.dataset.iso?.split(",").includes(region ?? ""));
+    if (local) cc.value = local.value;
+
+    const show = (n: number) => {
+      step = n;
+      steps.forEach((s) => (s.hidden = s.dataset.step !== String(n)));
+      const target = n === 1 ? msg : n === 2 ? email : null;
+      target?.focus();
+    };
+    const setError = (input: HTMLElement, text: string) => {
+      const p = input.closest<HTMLElement>(".closer-step")!.querySelector<HTMLElement>(".closer-error")!;
+      p.textContent = text;
+      p.hidden = false;
+      input.setAttribute("aria-invalid", "true");
+      p.id ||= `closer-err-${step}`;
+      input.setAttribute("aria-describedby", p.id);
+      input.focus();
+      live.textContent = text;
+    };
+    const clearErrors = () => {
+      errors.forEach((p) => {
+        p.hidden = true;
+        p.textContent = "";
+      });
+      [msg, email, phone].forEach((i) => i.removeAttribute("aria-invalid"));
+    };
+    form.addEventListener("input", clearErrors);
+
+    form.querySelectorAll<HTMLButtonElement>("[data-example]").forEach((b) =>
+      b.addEventListener("click", () => {
+        msg.value = b.textContent ?? "";
+        clearErrors();
+        msg.focus();
+      }),
+    );
+    form.querySelector(".closer-back")?.addEventListener("click", () => {
+      clearErrors();
+      show(1);
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearErrors();
+      const message = msg.value.replace(/\s+/g, " ").trim();
+
+      if (step === 1) {
+        if (message.length < 10) return setError(msg, "Tell us a little more, at least a short sentence.");
+        form.querySelector<HTMLElement>('[data-step="2"] .closer-echo')!.textContent = `“${message}”`;
+        return show(2);
+      }
+      if (step !== 2) return;
+
+      const mail = email.value.trim();
+      const digits = phone.value.replace(/[\s\-().]/g, "");
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) return setError(email, "Please enter a valid email address.");
+      if (!/^\d{6,15}$/.test(digits)) return setError(phone, "Enter your phone number without the country code (6 to 15 digits).");
+
+      const done = (text: string) => {
+        form.querySelector<HTMLElement>(".closer-thanks")!.textContent = text;
+        form.querySelector<HTMLElement>('[data-step="3"] .closer-echo')!.textContent = `“${message}”`;
+        live.textContent = text;
+        show(3);
+      };
+
+      if (trap.value) return done(root.dataset.success ?? "Thanks.");
+
+      go.disabled = true;
+      go.textContent = "Sending...";
+      const result = await submitLead(
+        { message, email: mail, phone: `+${cc.value}${digits}` },
+        { endpoint: root.dataset.endpoint ?? "", toEmail: root.dataset.email ?? "" },
+      );
+      go.disabled = false;
+      go.textContent = "Send";
+
+      if (!result.ok) return setError(email, "Something went wrong sending that. Please try again, or email us directly.");
+      done(
+        result.mode === "mailto"
+          ? "Your email app should open with everything ready to send."
+          : (root.dataset.success ?? "Thanks."),
+      );
+    });
   }
-</style>
+</script>

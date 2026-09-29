@@ -68,6 +68,8 @@ const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
 </div>
 
 <script>
+  import { submitLead } from "../scripts/submitLead";
+
   document.querySelectorAll<HTMLElement>(".lead").forEach((root) => {
     const form = root.querySelector<HTMLFormElement>(".lead-form");
     const status = root.querySelector<HTMLElement>(".lead-status");
@@ -169,33 +171,19 @@ const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
       submit.disabled = true;
       submit.textContent = "Sending...";
 
-      if (endpoint) {
-        try {
-          const res = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify(d),
-          });
-          if (!res.ok) throw new Error(String(res.status));
-          finish(root.dataset.success ?? "Thanks.", true);
-          form.reset();
-        } catch {
-          finish("Something went wrong sending that. Please try again, or email us directly.", false);
-        }
+      const { _gotcha, ...lead } = d;
+      const result = await submitLead(lead, { endpoint, toEmail });
+      if (!result.ok) {
+        finish("Something went wrong sending that. Please try again, or email us directly.", false);
         return;
       }
-
-      const lines = [`Name: ${d.name}`, `Email: ${d.email}`];
-      if (d.website) lines.push(`Website: ${d.website}`);
-      if (d.service) lines.push(`Interested in: ${d.service}`);
-      lines.push("", d.message);
-      const href = `mailto:${toEmail}?subject=${encodeURIComponent("New enquiry from the website")}&body=${encodeURIComponent(lines.join("\n"))}`;
-      const link = document.createElement("a");
-      link.href = href;
-      document.body.append(link);
-      link.click();
-      link.remove();
-      finish("Your email app should open with your message ready to send.", true);
+      finish(
+        result.mode === "mailto"
+          ? "Your email app should open with your message ready to send."
+          : (root.dataset.success ?? "Thanks."),
+        true,
+      );
+      if (result.mode === "endpoint") form.reset();
     });
   });
 </script>

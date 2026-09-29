@@ -1,0 +1,45 @@
+export interface Dial {
+  code: string;
+  label: string;
+  iso: string[];
+}
+
+export const DIAL_CODES: Dial[] = [
+  { code: "1", label: "US/CA +1", iso: ["US", "CA"] },
+  { code: "44", label: "UK +44", iso: ["GB"] },
+  { code: "91", label: "IN +91", iso: ["IN"] },
+  { code: "61", label: "AU +61", iso: ["AU"] },
+  { code: "64", label: "NZ +64", iso: ["NZ"] },
+  { code: "353", label: "IE +353", iso: ["IE"] },
+  { code: "971", label: "UAE +971", iso: ["AE"] },
+  { code: "966", label: "SA +966", iso: ["SA"] },
+  { code: "974", label: "QA +974", iso: ["QA"] },
+  { code: "965", label: "KW +965", iso: ["KW"] },
+  { code: "973", label: "BH +973", iso: ["BH"] },
+  { code: "968", label: "OM +968", iso: ["OM"] },
+  { code: "65", label: "SG +65", iso: ["SG"] },
+  { code: "60", label: "MY +60", iso: ["MY"] },
+  { code: "62", label: "ID +62", iso: ["ID"] },
+  { code: "63", label: "PH +63", iso: ["PH"] },
+  { code: "66", label: "TH +66", iso: ["TH"] },
+  { code: "84", label: "VN +84", iso: ["VN"] },
+  { code: "81", label: "JP +81", iso: ["JP"] },
+  { code: "82", label: "KR +82", iso: ["KR"] },
+  { code: "86", label: "CN +86", iso: ["CN"] },
+  { code: "852", label: "HK +852", iso: ["HK"] },
+  { code: "92", label: "PK +92", iso: ["PK"] },
+  { code: "880", label: "BD +880", iso: ["BD"] },
+  { code: "94", label: "LK +94", iso: ["LK"] },
+  { code: "49", label: "DE +49", iso: ["DE"] },
+  { code: "33", label: "FR +33", iso: ["FR"] },
+  { code: "34", label: "ES +34", iso: ["ES"] },
+  { code: "39", label: "IT +39", iso: ["IT"] },
+  { code: "31", label: "NL +31", iso: ["NL"] },
+  { code: "46", label: "SE +46", iso: ["SE"] },
+  { code: "27", label: "ZA +27", iso: ["ZA"] },
+  { code: "234", label: "NG +234", iso: ["NG"] },
+  { code: "254", label: "KE +254", iso: ["KE"] },
+  { code: "20", label: "EG +20", iso: ["EG"] },
+  { code: "55", label: "BR +55", iso: ["BR"] },
+  { code: "52", label: "MX +52", iso: ["MX"] },
+];

@@ -13,7 +13,9 @@ export const SITE = {
 // deliver leads server-side. Until then the form opens the visitor's email app.
 export const LEAD = {
   heading: "What do you want to be found for?",
-  lede: "Tell us in a sentence. We'll come back with a real plan, not a sales pitch.",
+  lede: "One line is enough. We'll come back with a real plan, not a sales pitch.",
+  placeholder: "e.g. get my bakery found when people ask ChatGPT",
+  reply: "Good one. Where should we send the plan?",
   success: "Thanks, we've got it. We'll be in touch soon.",
   privacy: "We only use this to reply to you. No spam.",
 };
