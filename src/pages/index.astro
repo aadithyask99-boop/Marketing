@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import ScrollStory from "../components/ScrollStory.astro";
 import SearchStory from "../components/SearchStory.astro";
-import SearchTry from "../components/SearchTry.astro";
+import ClosingCta from "../components/ClosingCta.astro";
 import { SERVICES, WORK, url } from "../data/site";
 ---
 
@@ -11,7 +11,6 @@ import { SERVICES, WORK, url } from "../data/site";
   <Hero />
   <ScrollStory />
   <SearchStory />
-  <SearchTry />
 
   <section class="section" aria-labelledby="services-title">
     <p class="eyebrow">What we do</p>
@@ -50,11 +49,5 @@ import { SERVICES, WORK, url } from "../data/site";
     <p style="margin-top: 2rem"><a class="btn" href={url("/work")}>See all work</a></p>
   </section>
 
-  <section class="section" aria-labelledby="cta-title">
-    <h2 id="cta-title" class="display section-title">
-      Ready to be <span class="accent">found</span>,<br />remembered and chosen?
-    </h2>
-    <p class="lede">Tell us where you want to be. We'll show you the fastest route there.</p>
-    <p style="margin-top: 2rem"><a class="btn" href={url("/contact")} data-cursor="Hello">Start a project</a></p>
-  </section>
+  <ClosingCta />
 </BaseLayout>

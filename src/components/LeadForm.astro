@@ -1,0 +1,201 @@
+---
+import "../styles/lead.css";
+import { CHIPS } from "../data/search";
+import { LEAD, SERVICES, SITE } from "../data/site";
+
+interface Props {
+  id?: string;
+}
+
+const { id = "lead" } = Astro.props;
+const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
+---
+
+<div class="lead" data-endpoint={endpoint} data-email={SITE.email} data-success={LEAD.success}>
+  <p class="lead-hint" id={`${id}-hint`}>Not sure how to start? Tap an example:</p>
+  <ul class="lead-chips" aria-labelledby={`${id}-hint`}>
+    {CHIPS.map((c) => <li><button type="button" data-example>{c}</button></li>)}
+  </ul>
+
+  <form class="lead-form form" novalidate>
+    <div class="form-row">
+      <div class="field">
+        <label for={`${id}-name`}>Name</label>
+        <input id={`${id}-name`} name="name" type="text" autocomplete="name" required />
+        <p class="field-error" id={`${id}-name-err`} hidden></p>
+      </div>
+      <div class="field">
+        <label for={`${id}-email`}>Email</label>
+        <input id={`${id}-email`} name="email" type="email" autocomplete="email" required />
+        <p class="field-error" id={`${id}-email-err`} hidden></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for={`${id}-website`}>Website <span class="opt">(optional)</span></label>
+      <input id={`${id}-website`} name="website" type="text" inputmode="url" autocomplete="url" placeholder="yourbusiness.com" />
+    </div>
+
+    <div class="field">
+      <label for={`${id}-message`}>{LEAD.heading}</label>
+      <textarea
+        id={`${id}-message`}
+        name="message"
+        maxlength="1000"
+        required
+        placeholder="e.g. I run a bakery in Leeds and want more people to find us when they search or ask an AI for the best bakery nearby."></textarea>
+      <p class="field-error" id={`${id}-message-err`} hidden></p>
+    </div>
+
+    <div class="field">
+      <label for={`${id}-service`}>Interested in <span class="opt">(optional)</span></label>
+      <select id={`${id}-service`} name="service">
+        <option value="">Not sure yet</option>
+        {SERVICES.map((s) => <option value={s.name}>{s.name}</option>)}
+      </select>
+    </div>
+
+    <div class="lead-trap" aria-hidden="true">
+      <label>Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
+    </div>
+
+    <div class="lead-actions">
+      <button class="btn" type="submit" data-cursor="Send">Send it over</button>
+      <p class="lead-privacy">{LEAD.privacy}</p>
+    </div>
+    <p class="lead-status" role="status" aria-live="polite"></p>
+  </form>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".lead").forEach((root) => {
+    const form = root.querySelector<HTMLFormElement>(".lead-form");
+    const status = root.querySelector<HTMLElement>(".lead-status");
+    const submit = root.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!form || !status || !submit) return;
+
+    const endpoint = root.dataset.endpoint ?? "";
+    const toEmail = root.dataset.email ?? "";
+    const message = form.elements.namedItem("message") as HTMLTextAreaElement;
+    const service = form.elements.namedItem("service") as HTMLSelectElement;
+
+    const preset = new URLSearchParams(location.search).get("service");
+    if (preset && [...service.options].some((o) => o.value === preset)) service.value = preset;
+
+    root.querySelectorAll<HTMLButtonElement>("[data-example]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        message.value = btn.textContent ?? "";
+        clearError(message);
+        message.focus();
+      });
+    });
+
+    function errorEl(input: HTMLElement) {
+      return document.getElementById(`${input.id}-err`);
+    }
+    function clearError(input: HTMLElement) {
+      const err = errorEl(input);
+      if (err) {
+        err.hidden = true;
+        err.textContent = "";
+      }
+      input.removeAttribute("aria-invalid");
+      input.removeAttribute("aria-describedby");
+    }
+    function setError(input: HTMLElement, text: string) {
+      const err = errorEl(input);
+      if (err) {
+        err.textContent = text;
+        err.hidden = false;
+        input.setAttribute("aria-describedby", err.id);
+      }
+      input.setAttribute("aria-invalid", "true");
+    }
+
+    form.addEventListener("input", (e) => clearError(e.target as HTMLElement));
+
+    function validate() {
+      const name = form!.elements.namedItem("name") as HTMLInputElement;
+      const email = form!.elements.namedItem("email") as HTMLInputElement;
+      const checks: [HTMLElement, boolean, string][] = [
+        [name, name.value.trim().length > 0, "Please tell us your name."],
+        [email, /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()), "Please enter a valid email address."],
+        [message, message.value.trim().length >= 10, "Tell us a little more (at least a sentence)."],
+      ];
+      let first: HTMLElement | null = null;
+      for (const [input, ok, text] of checks) {
+        if (ok) clearError(input);
+        else {
+          setError(input, text);
+          first ??= input;
+        }
+      }
+      first?.focus();
+      return !first;
+    }
+
+    function fieldsToObject() {
+      const data = new FormData(form!);
+      const val = (k: string) => String(data.get(k) ?? "").trim();
+      return {
+        name: val("name"),
+        email: val("email"),
+        website: val("website"),
+        message: val("message"),
+        service: val("service"),
+        _gotcha: val("_gotcha"),
+      };
+    }
+
+    function finish(text: string, ok: boolean) {
+      status!.textContent = text;
+      status!.dataset.state = ok ? "ok" : "error";
+      submit!.disabled = false;
+      submit!.textContent = "Send it over";
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      status.textContent = "";
+      if (!validate()) return;
+
+      const d = fieldsToObject();
+      if (d._gotcha) {
+        finish(root.dataset.success ?? "Thanks.", true);
+        form.reset();
+        return;
+      }
+
+      submit.disabled = true;
+      submit.textContent = "Sending...";
+
+      if (endpoint) {
+        try {
+          const res = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify(d),
+          });
+          if (!res.ok) throw new Error(String(res.status));
+          finish(root.dataset.success ?? "Thanks.", true);
+          form.reset();
+        } catch {
+          finish("Something went wrong sending that. Please try again, or email us directly.", false);
+        }
+        return;
+      }
+
+      const lines = [`Name: ${d.name}`, `Email: ${d.email}`];
+      if (d.website) lines.push(`Website: ${d.website}`);
+      if (d.service) lines.push(`Interested in: ${d.service}`);
+      lines.push("", d.message);
+      const href = `mailto:${toEmail}?subject=${encodeURIComponent("New enquiry from the website")}&body=${encodeURIComponent(lines.join("\n"))}`;
+      const link = document.createElement("a");
+      link.href = href;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      finish("Your email app should open with your message ready to send.", true);
+    });
+  });
+</script>

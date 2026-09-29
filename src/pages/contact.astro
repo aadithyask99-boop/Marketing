@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { SITE, SERVICES } from "../data/site";
+import LeadForm from "../components/LeadForm.astro";
+import { LEAD, SITE } from "../data/site";
 ---
 
 <BaseLayout title="Contact" description="Get in touch with Maximus Mediascape.">
@@ -8,48 +9,9 @@ import { SITE, SERVICES } from "../data/site";
     <p class="eyebrow">Contact</p>
     <h1 class="display page-title">Let's bond</h1>
     <p class="lede">
-      Tell us about your project. Prefer email? Write to
+      {LEAD.lede} Prefer email? Write to
       <a href={`mailto:${SITE.email}`} style="text-decoration: underline">{SITE.email}</a>.
     </p>
-
-    <form class="form" action={`mailto:${SITE.email}`} method="post" enctype="text/plain">
-      <div class="form-row">
-        <div class="field">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" autocomplete="name" required />
-        </div>
-        <div class="field">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
-        </div>
-      </div>
-      <div class="field">
-        <label for="service">Interested in</label>
-        <select id="service" name="service">
-          <option value="">Choose a service</option>
-          {SERVICES.map((s) => <option value={s.name}>{s.name}</option>)}
-        </select>
-      </div>
-      <div class="field">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" required></textarea>
-      </div>
-      <div><button class="btn" type="submit">Send message</button></div>
-    </form>
+    <LeadForm id="contact" />
   </section>
 </BaseLayout>
-
-<script>
-  const params = new URLSearchParams(location.search);
-  const q = params.get("q")?.slice(0, 120);
-  const service = params.get("service");
-  const message = document.getElementById("message") as HTMLTextAreaElement | null;
-  const select = document.getElementById("service") as HTMLSelectElement | null;
-
-  if (q && message && !message.value) {
-    message.value = `I searched: "${q}". I'd like help with this.`;
-  }
-  if (service && select && [...select.options].some((o) => o.value === service)) {
-    select.value = service;
-  }
-</script>

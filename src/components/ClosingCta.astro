@@ -1,0 +1,19 @@
+---
+import LeadForm from "./LeadForm.astro";
+import { LEAD } from "../data/site";
+---
+
+<section class="closer" id="start" aria-labelledby="closer-title">
+  <p class="eyebrow">Start here</p>
+  <h2 id="closer-title" class="display section-title">{LEAD.heading}</h2>
+  <p class="lede">{LEAD.lede}</p>
+  <LeadForm id="closer" />
+</section>
+
+<style>
+  .closer {
+    padding: clamp(4rem, 10vw, 8rem) var(--gutter);
+    background: var(--ink);
+    color: var(--cream);
+  }
+</style>
