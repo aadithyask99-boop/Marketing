@@ -2,12 +2,16 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import ScrollStory from "../components/ScrollStory.astro";
+import SearchStory from "../components/SearchStory.astro";
+import SearchTry from "../components/SearchTry.astro";
 import { SERVICES, WORK, url } from "../data/site";
 ---
 
 <BaseLayout>
   <Hero />
   <ScrollStory />
+  <SearchStory />
+  <SearchTry />
 
   <section class="section" aria-labelledby="services-title">
     <p class="eyebrow">What we do</p>

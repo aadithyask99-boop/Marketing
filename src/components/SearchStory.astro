@@ -1,0 +1,138 @@
+---
+import "@fontsource/instrument-serif/400-italic.css";
+import "../styles/story.css";
+import "../styles/search.css";
+import Sticker from "./Sticker.astro";
+
+const Q2 = "who's the best agency to make my brand show up in AI answers?";
+---
+
+<div class="search-wrap">
+  <div class="search-pin">
+    <div class="search-stage">
+      <div class="search-scene search-scene--a">
+        <p class="search-chip" data-chip>Ask it</p>
+        <div class="search-bar is-chat" aria-hidden="true">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="10.5" cy="10.5" r="6.5"></circle>
+            <path d="M16 16l5 5"></path>
+          </svg>
+          <span class="search-text"><span data-typed>{Q2}</span><span class="search-caret"></span></span>
+          <svg class="search-icon search-icon--mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3z"></path>
+            <path d="M19 11a7 7 0 0 1-14 0M12 18v3"></path>
+          </svg>
+          <svg class="search-icon search-icon--send" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="11" fill="currentColor"></circle>
+            <path d="M12 17V7M7 12l5-5 5 5" fill="none" stroke="#f5efe8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </div>
+        <p class="search-answer" data-answer>
+          <strong>Maximus Mediascape</strong> helps brands get found, cited and chosen in AI answers.
+        </p>
+      </div>
+
+      <div class="search-scene search-scene--b">
+        <h2 class="search-line display">
+          Nobody says &ldquo;Google it&rdquo; anymore. They say <span class="hl">&ldquo;ask it.&rdquo;</span>
+        </h2>
+        <p class="finale-accent">
+          Be what it answers.
+          <svg class="finale-underline" viewBox="0 0 400 24" aria-hidden="true">
+            <path pathLength="1" d="M4 16C60 6 110 4 160 12S250 20 300 10 370 6 396 12"></path>
+          </svg>
+        </p>
+      </div>
+
+      <Sticker name="magnifier" style="left: 6%; top: 22%; --rot: -8deg" />
+      <Sticker name="chat" style="right: 6%; bottom: 14%; --rot: 8deg" />
+    </div>
+  </div>
+</div>
+
+<script>
+  const wrap = document.querySelector<HTMLElement>(".search-wrap");
+  const pin = document.querySelector<HTMLElement>(".search-pin");
+  const stage = document.querySelector<HTMLElement>(".search-stage");
+  const sceneA = document.querySelector<HTMLElement>(".search-scene--a");
+  const sceneB = document.querySelector<HTMLElement>(".search-scene--b");
+  const bar = document.querySelector<HTMLElement>(".search-bar");
+  const typed = document.querySelector<HTMLElement>("[data-typed]");
+  const caret = document.querySelector<HTMLElement>(".search-caret");
+  const chip = document.querySelector<HTMLElement>("[data-chip]");
+  const answer = document.querySelector<HTMLElement>("[data-answer]");
+  const underline = document.querySelector<SVGPathElement>(".search-scene--b .finale-underline path");
+  const stickers = [...document.querySelectorAll<HTMLElement>(".search-stage .sticker")];
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const Q1 = "best marketing agency near me";
+  const Q2 = "who's the best agency to make my brand show up in AI answers?";
+  const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+
+  if (!reduced && wrap && pin && stage && sceneA && sceneB && bar && typed && caret && chip && answer && underline) {
+    let scroll = 0;
+    let ticking = false;
+    let lastText: string | null = null;
+
+    const textFor = (p: number) => {
+      if (p < 0.2) return Q1.slice(0, Math.ceil((Q1.length * p) / 0.2));
+      if (p < 0.3) return Q1;
+      if (p < 0.36) return Q1.slice(0, Math.floor(Q1.length * (1 - (p - 0.3) / 0.06)));
+      if (p < 0.62) return Q2.slice(0, Math.ceil((Q2.length * (p - 0.36)) / 0.26));
+      return Q2;
+    };
+
+    const measure = () => {
+      const h = stage.clientHeight;
+      scroll = h * 3.2;
+      pin.style.height = `${h + scroll}px`;
+      update();
+    };
+
+    const update = () => {
+      ticking = false;
+      const p = clamp(-pin.getBoundingClientRect().top / scroll);
+
+      const text = textFor(p);
+      if (text !== lastText) {
+        typed.textContent = text;
+        lastText = text;
+      }
+      const chat = p >= 0.34;
+      bar.classList.toggle("is-chat", chat);
+      chip.textContent = chat ? "Ask it" : "Google it";
+      caret.style.display = p < 0.66 ? "" : "none";
+
+      const a = 1 - clamp((p - 0.68) / 0.08);
+      const b = clamp((p - 0.74) / 0.1);
+      sceneA.style.opacity = String(a);
+      sceneA.style.transform = `translateY(${(1 - a) * -2}rem)`;
+      answer.style.opacity = String(clamp((p - 0.62) / 0.05));
+      sceneB.style.opacity = String(b);
+      sceneB.style.transform = `translateY(${(1 - b) * 2}rem)`;
+      sceneB.style.pointerEvents = b > 0.5 ? "auto" : "none";
+      underline.style.strokeDasharray = "1";
+      underline.style.strokeDashoffset = String(1 - clamp((p - 0.86) / 0.12));
+
+      stickers.forEach((s, i) => {
+        s.style.translate = `0 ${(i ? 1 : -1) * p * 60}px`;
+      });
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    wrap.classList.add("is-enhanced");
+    const start = () => {
+      measure();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      new ResizeObserver(measure).observe(stage);
+    };
+    if (document.fonts?.ready) document.fonts.ready.then(start);
+    else start();
+  }
+</script>

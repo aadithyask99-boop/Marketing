@@ -38,3 +38,18 @@ import { SITE, SERVICES } from "../data/site";
     </form>
   </section>
 </BaseLayout>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const q = params.get("q")?.slice(0, 120);
+  const service = params.get("service");
+  const message = document.getElementById("message") as HTMLTextAreaElement | null;
+  const select = document.getElementById("service") as HTMLSelectElement | null;
+
+  if (q && message && !message.value) {
+    message.value = `I searched: "${q}". I'd like help with this.`;
+  }
+  if (service && select && [...select.options].some((o) => o.value === service)) {
+    select.value = service;
+  }
+</script>
