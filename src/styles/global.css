@@ -177,7 +177,8 @@ body.menu-open { overflow: hidden; }
 .hero-title {
   font-family: var(--display);
   font-weight: 400;
-  font-size: min(21vw, 28vh);
+  font-size: min(16vw, calc((100vh - var(--header-h) - 8rem) / 2.6));
+  font-size: min(16vw, calc((100svh - var(--header-h) - 8rem) / 2.6));
   line-height: 0.84;
   text-transform: uppercase;
 }
@@ -187,9 +188,7 @@ body.menu-open { overflow: hidden; }
   display: block;
   padding-top: 0.04em;
   white-space: nowrap;
-  transition: opacity 0.35s ease;
 }
-.rotator-word.is-out { opacity: 0; }
 
 .asterisk {
   flex: none;
@@ -344,24 +343,13 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
 }
 
-@media (min-width: 1400px) {
-  .hero-title { font-size: min(19vw, 30vh); }
-}
-
 @media (max-width: 599px) {
-  .hero-title { font-size: min(25vw, 16vh); }
-  .hero-line { flex-wrap: wrap; }
-  .asterisk, .badge { width: 0.7em; height: 0.7em; margin-top: 0.06em; }
-  .badge span { font-size: 0.15em; }
+  .badge span { font-size: 0.17em; }
   .hero { padding-bottom: 1rem; }
-}
-
-@media (max-height: 520px) and (orientation: landscape) {
-  .hero-title { font-size: 26vh; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .asterisk { animation: none; }
-  .badge, .menu-btn, .card, .rotator-word, .cursor-dot, .menu a { transition: none; }
+  .badge, .menu-btn, .card, .cursor-dot, .menu a { transition: none; }
 }

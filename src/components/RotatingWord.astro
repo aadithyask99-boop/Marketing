@@ -27,18 +27,41 @@ const { words, interval = 3000 } = Astro.props;
     if (!el || words.length < 2) return;
 
     let i = 0;
-    setInterval(() => {
-      if (document.hidden) return;
+    let busy = false;
+
+    const change = async () => {
+      if (document.hidden || busy) return;
+      busy = true;
       i = (i + 1) % words.length;
+
       if (reduced) {
         el.textContent = words[i];
+        busy = false;
         return;
       }
-      el.classList.add("is-out");
-      setTimeout(() => {
-        el.textContent = words[i];
-        el.classList.remove("is-out");
-      }, FADE_MS);
-    }, interval);
+
+      const out = el.animate(
+        [
+          { opacity: 1, transform: "translateY(0)" },
+          { opacity: 0, transform: "translateY(-0.06em)" },
+        ],
+        { duration: FADE_MS, easing: "ease-in", fill: "forwards" },
+      );
+      await out.finished;
+
+      el.textContent = words[i];
+      const inn = el.animate(
+        [
+          { opacity: 0, transform: "translateY(0.06em)" },
+          { opacity: 1, transform: "translateY(0)" },
+        ],
+        { duration: FADE_MS, easing: "ease-out" },
+      );
+      out.cancel();
+      await inn.finished;
+      busy = false;
+    };
+
+    setInterval(change, interval);
   });
 </script>
