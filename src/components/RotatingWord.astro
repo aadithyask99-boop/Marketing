@@ -1,0 +1,44 @@
+---
+interface Props {
+  words: string[];
+  interval?: number;
+}
+
+const { words, interval = 3000 } = Astro.props;
+---
+
+<span
+  class="rotator"
+  aria-hidden="true"
+  data-words={JSON.stringify(words)}
+  data-interval={interval}
+>
+  <span class="rotator-word">{words[0]}</span>
+</span>
+
+<script>
+  const FADE_MS = 350;
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll<HTMLElement>(".rotator").forEach((root) => {
+    const words: string[] = JSON.parse(root.dataset.words ?? "[]");
+    const interval = Number(root.dataset.interval) || 3000;
+    const el = root.querySelector<HTMLElement>(".rotator-word");
+    if (!el || words.length < 2) return;
+
+    let i = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      i = (i + 1) % words.length;
+      if (reduced) {
+        el.textContent = words[i];
+        return;
+      }
+      el.classList.add("is-out");
+      setTimeout(() => {
+        el.textContent = words[i];
+        el.classList.remove("is-out");
+      }, FADE_MS);
+    }, interval);
+  });
+</script>

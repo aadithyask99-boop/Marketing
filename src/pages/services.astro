@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SERVICES } from "../data/site";
+---
+
+<BaseLayout
+  title="Services"
+  description="Creative, SEO, branding, marketing, AI, GEO and AEO services from Maximus Mediascape."
+>
+  <section class="section page-top">
+    <p class="eyebrow">Services</p>
+    <h1 class="display page-title">What we do</h1>
+    <p class="lede">
+      From the first idea to being the answer an AI assistant gives, one team covers every step of
+      how people find and choose you.
+    </p>
+  </section>
+
+  <section class="section section--cream" aria-label="Service list">
+    <div class="rows" style="margin-top: 0">
+      {
+        SERVICES.map((s) => (
+          <div class="row">
+            <h2 class="display row-name accent">{s.name}</h2>
+            <p class="row-desc">{s.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="display section-title">Not sure where to start?</h2>
+    <p class="lede">We'll audit what you have and tell you what will move the needle first.</p>
+    <p style="margin-top: 2rem"><a class="btn" href="/contact" data-cursor="Hello">Talk to us</a></p>
+  </section>
+</BaseLayout>

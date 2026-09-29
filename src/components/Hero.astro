@@ -1,0 +1,22 @@
+---
+import RotatingWord from "./RotatingWord.astro";
+import Asterisk from "./Asterisk.astro";
+import Badge from "./Badge.astro";
+import { ROTATING_WORDS, SITE } from "../data/site";
+
+const label = `Your ${ROTATING_WORDS.map((w) => w.toLowerCase()).join(", ")} agency`;
+---
+
+<section class="hero">
+  <p class="hero-tag">{SITE.tagline}</p>
+
+  <h1 class="hero-title" aria-label={label}>
+    <span class="hero-line" aria-hidden="true">Your</span>
+    <span class="hero-line"><RotatingWord words={ROTATING_WORDS} /></span>
+    <span class="hero-line">
+      <span aria-hidden="true">Agency</span>
+      <Asterisk />
+      <Badge href="/contact" label="Let's bond" />
+    </span>
+  </h1>
+</section>

@@ -1,0 +1,39 @@
+---
+import { NAV } from "../data/site";
+
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<nav id="menu" class="menu" aria-label="Main" hidden>
+  {
+    NAV.map((item) => (
+      <a href={item.href} aria-current={path === item.href ? "page" : undefined}>
+        {item.label}
+      </a>
+    ))
+  }
+</nav>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>(".menu-btn");
+  const menu = document.getElementById("menu");
+
+  function setMenu(open: boolean) {
+    if (!btn || !menu) return;
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    menu.hidden = !open;
+    document.body.classList.toggle("menu-open", open);
+  }
+
+  btn?.addEventListener("click", () => setMenu(!!menu?.hidden));
+  menu?.addEventListener("click", (e) => {
+    if ((e.target as Element).closest("a")) setMenu(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && menu && !menu.hidden) {
+      setMenu(false);
+      btn?.focus();
+    }
+  });
+</script>

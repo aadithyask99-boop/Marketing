@@ -1,0 +1,24 @@
+---
+import { NAV, SITE, SERVICES } from "../data/site";
+---
+
+<footer class="site-footer">
+  <a class="footer-cta display" href="/contact" data-cursor="Talk">Let's talk</a>
+
+  <div class="footer-cols">
+    <div>
+      <p>{SITE.tagline}</p>
+      <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    </div>
+    <nav aria-label="Footer">
+      <ul>
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+    <ul aria-label="Services">
+      {SERVICES.map((s) => <li><a href="/services">{s.name}</a></li>)}
+    </ul>
+  </div>
+
+  <p class="footer-legal">&copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
+</footer>

@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const values = [
+  { title: "Be found", body: "Visibility across search and AI answers comes first." },
+  { title: "Be clear", body: "Sharp positioning and copy that says one thing well." },
+  { title: "Be accountable", body: "Goals agreed up front and reported on plainly." },
+];
+---
+
+<BaseLayout title="About" description="About Maximus Mediascape, a marketing agency.">
+  <section class="section page-top">
+    <p class="eyebrow">About</p>
+    <h1 class="display page-title">Maximus Mediascape</h1>
+    <p class="lede">
+      We're a marketing agency that blends creative craft with search and AI know-how. Replace this
+      paragraph with your story, team size and what makes your approach different.
+    </p>
+  </section>
+
+  <section class="section section--cream" aria-labelledby="values-title">
+    <h2 id="values-title" class="display section-title">How we <span class="accent">work</span></h2>
+    <div class="grid grid--3">
+      {
+        values.map((v) => (
+          <div class="card card--ink">
+            <h3 class="display card-title">{v.title}</h3>
+            <p>{v.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  cursor?: string;
+}
+
+const { href, label, cursor = "Bond" } = Astro.props;
+---
+
+<a class="badge" href={href} data-cursor={cursor}>
+  <svg viewBox="0 0 200 200" aria-hidden="true">
+    <g fill="currentColor">
+      <circle cx="100" cy="100" r="62"></circle>
+      <circle cx="100" cy="48" r="38"></circle>
+      <circle cx="136.8" cy="63.2" r="38"></circle>
+      <circle cx="152" cy="100" r="38"></circle>
+      <circle cx="136.8" cy="136.8" r="38"></circle>
+      <circle cx="100" cy="152" r="38"></circle>
+      <circle cx="63.2" cy="136.8" r="38"></circle>
+      <circle cx="48" cy="100" r="38"></circle>
+      <circle cx="63.2" cy="63.2" r="38"></circle>
+    </g>
+  </svg>
+  <span>{label}</span>
+</a>

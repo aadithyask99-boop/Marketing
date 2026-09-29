@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { WORK } from "../data/site";
+---
+
+<BaseLayout title="Work" description="Selected work from Maximus Mediascape.">
+  <section class="section page-top">
+    <p class="eyebrow">Work</p>
+    <h1 class="display page-title">Selected work</h1>
+    <p class="lede">Case studies are coming soon. These cards are placeholders for your projects.</p>
+
+    <div class="grid grid--3">
+      {
+        WORK.map((w) => (
+          <article
+            class:list={["card", w.tone === "blue" && "card--blue", w.tone === "ink" && "card--ink"]}
+          >
+            <span class="card-meta">{w.category}</span>
+            <h2 class="display card-title">{w.title}</h2>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

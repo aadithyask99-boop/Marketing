@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE, SERVICES } from "../data/site";
+---
+
+<BaseLayout title="Contact" description="Get in touch with Maximus Mediascape.">
+  <section class="section page-top">
+    <p class="eyebrow">Contact</p>
+    <h1 class="display page-title">Let's bond</h1>
+    <p class="lede">
+      Tell us about your project. Prefer email? Write to
+      <a href={`mailto:${SITE.email}`} style="text-decoration: underline">{SITE.email}</a>.
+    </p>
+
+    <form class="form" action={`mailto:${SITE.email}`} method="post" enctype="text/plain">
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required />
+        </div>
+      </div>
+      <div class="field">
+        <label for="service">Interested in</label>
+        <select id="service" name="service">
+          <option value="">Choose a service</option>
+          {SERVICES.map((s) => <option value={s.name}>{s.name}</option>)}
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <div><button class="btn" type="submit">Send message</button></div>
+    </form>
+  </section>
+</BaseLayout>
