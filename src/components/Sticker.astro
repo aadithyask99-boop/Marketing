@@ -1,0 +1,57 @@
+---
+type Name = "thumb" | "magnifier" | "chart" | "chat" | "megaphone" | "phone" | "heart";
+
+interface Props {
+  name: Name;
+  speed?: number;
+  style?: string;
+  class?: string;
+}
+
+const { name, speed = 1, style = "", class: className = "" } = Astro.props;
+
+const INK = "#17090a";
+const line = `fill="none" stroke="${INK}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"`;
+const blob = (fill: string) =>
+  `<path d="M60 8c22-2 46 12 50 36s-6 52-32 62-58-2-66-30S28 10 60 8z" fill="${fill}"/>`;
+const sparkle = (x: number, y: number, r: number) =>
+  `<path d="M${x} ${y - r}q${r * 0.15} ${r * 0.85} ${r} ${r}q-${r * 0.85} ${r * 0.15} -${r} ${r}q-${r * 0.15} -${r * 0.85} -${r} -${r}q${r * 0.85} -${r * 0.15} ${r} -${r}z" fill="${INK}"/>`;
+
+const ART: Record<Name, string> = {
+  thumb:
+    blob("#cdebd6") +
+    `<g ${line} fill="#f5efe8"><path d="M44 92V58h10l10-26c6-2 12 2 10 10l-3 14h20c6 0 9 6 7 11l-8 26c-1 4-4 6-8 6H44z"/><path d="M28 58h16v34H28z"/></g>` +
+    sparkle(92, 26, 12),
+  magnifier:
+    blob("#c9ceff") +
+    `<g ${line}><circle cx="52" cy="52" r="26" fill="#f5efe8"/><path d="M72 72l24 24" stroke-width="8"/></g>` +
+    sparkle(52, 52, 12) +
+    sparkle(84, 24, 7),
+  chart:
+    blob("#ffe6a3") +
+    `<g ${line}><path d="M28 28v64h68"/><path d="M36 78l18-20 14 10 24-32"/><path d="M80 34h12v12"/></g>`,
+  chat:
+    blob("#ffc9c2") +
+    `<g ${line} fill="#f5efe8"><path d="M22 32h76a8 8 0 0 1 8 8v34a8 8 0 0 1-8 8H68L50 98V82H22a8 8 0 0 1-8-8V40a8 8 0 0 1 8-8z"/></g>` +
+    sparkle(60, 56, 15) +
+    sparkle(86, 44, 6) +
+    sparkle(34, 68, 5),
+  megaphone:
+    blob("#ffd3e6") +
+    `<g ${line} fill="#f5efe8"><path d="M26 50h24l36-20v60L50 70H26z"/><path d="M40 70l6 24h10l-4-22"/></g>` +
+    `<g ${line}><path d="M94 46q8 14 0 28"/><path d="M102 38q14 22 0 44"/></g>`,
+  phone:
+    blob("#c9ceff") +
+    `<g ${line} fill="#f5efe8"><rect x="42" y="20" width="38" height="64" rx="8" transform="rotate(-16 61 52)"/><path d="M38 78c10 16 30 22 46 8" fill="none"/></g>` +
+    `<g ${line}><path d="M34 26l-8-7"/><path d="M46 16l-1-10"/><path d="M52 40l18-5"/></g>`,
+  heart:
+    blob("#1f8a5b") +
+    `<g ${line} fill="#f5efe8"><path d="M60 92C20 64 24 30 46 30c10 0 14 8 14 12 0-4 4-12 14-12 22 0 26 34-14 62z"/></g>`,
+};
+
+const svg = ART[name];
+---
+
+<div class:list={["sticker", className]} data-speed={speed} style={style} aria-hidden="true">
+  <svg viewBox="0 0 120 120" set:html={svg} />
+</div>

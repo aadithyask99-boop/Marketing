@@ -1,0 +1,162 @@
+---
+import "@fontsource/instrument-serif/400-italic.css";
+import "../styles/story.css";
+import Sticker from "./Sticker.astro";
+import { STORY } from "../data/site";
+---
+
+<div class="story-wrap">
+  <div class="story-pin">
+    <div class="story-stage">
+      <div class="story-rail">
+        <div class="story-track">
+          <h2 class="story-line display">
+            we wanna be where your customers{" "}<span class="hl">search,</span>{" "}<span class="hl">scroll</span>{" "}and ask{" "}<span class="hl">AI</span>
+          </h2>
+
+          <Sticker name="thumb" speed={1.15} style="left: 12%; top: 4%; --rot: -8deg" />
+          <Sticker name="megaphone" speed={0.9} style="left: 28%; bottom: 4%; --rot: 7deg" />
+          <Sticker name="magnifier" speed={1.2} style="left: 44%; top: 4%; --rot: 6deg" />
+          <Sticker name="chat" speed={0.88} style="left: 58%; bottom: 4%; --rot: -6deg" />
+          <Sticker name="chart" speed={1.12} style="left: 72%; top: 4%; --rot: 9deg" />
+          <Sticker name="phone" speed={0.92} style="left: 82%; bottom: 4%; --rot: -10deg" />
+
+          <svg class="story-arc" viewBox="0 0 200 300" aria-hidden="true">
+            <path class="arc-main" d="M60 20C190 20 190 280 60 280"></path>
+            <path class="arc-head" pathLength="1" d="M55 225L100 272L145 225"></path>
+          </svg>
+        </div>
+      </div>
+
+      <p class="story-copy">{STORY.paragraph}</p>
+      <div class="story-arrow-target" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <section class="story-finale" aria-label="What we stand for">
+    <div>
+      <p class="finale-lead display">{STORY.finaleLead}</p>
+      <p class="finale-accent">
+        {STORY.finaleAccent}
+        <svg class="finale-underline" viewBox="0 0 400 24" aria-hidden="true">
+          <path pathLength="1" d="M4 16C60 6 110 4 160 12S250 20 300 10 370 6 396 12"></path>
+        </svg>
+      </p>
+    </div>
+    <Sticker name="heart" class="finale-sticker" />
+  </section>
+</div>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const pin = document.querySelector<HTMLElement>(".story-pin");
+  const stage = document.querySelector<HTMLElement>(".story-stage");
+  const track = document.querySelector<HTMLElement>(".story-track");
+  const arc = document.querySelector<SVGSVGElement>(".story-arc");
+  const arcMain = document.querySelector<SVGPathElement>(".arc-main");
+  const arcHead = document.querySelector<SVGPathElement>(".arc-head");
+  const target = document.querySelector<HTMLElement>(".story-arrow-target");
+  const finale = document.querySelector<HTMLElement>(".story-finale");
+
+  const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+  const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+
+  // Finale reveal
+  if (finale) {
+    if (reduced) {
+      finale.classList.add("js-reveal", "is-in");
+    } else {
+      finale.classList.add("js-reveal");
+      new IntersectionObserver(
+        (entries, obs) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            finale.classList.add("is-in");
+            obs.disconnect();
+          }
+        },
+        { threshold: 0.35 },
+      ).observe(finale);
+    }
+  }
+
+  // Pinned horizontal scroll
+  if (!reduced && pin && stage && track && arc && arcMain && arcHead && target) {
+    const ARC_A = [[60, 20], [190, 20], [190, 280], [60, 280]];
+    const ARC_B = [[100, 20], [100, 100], [100, 200], [100, 270]];
+    const stickers = [...track.querySelectorAll<HTMLElement>(".sticker")].map((el) => ({
+      el,
+      speed: Number(el.dataset.speed) || 1,
+    }));
+
+    let dist = 0;
+    let morph = 0;
+    let dx = 0;
+    let dy = 0;
+    let scale = 1;
+    let unitPx = 1;
+    let ticking = false;
+
+    const measure = () => {
+      track.style.transform = "none";
+      arc.style.transform = "none";
+      stickers.forEach((s) => (s.el.style.translate = "none"));
+
+      const stageRect = stage.getBoundingClientRect();
+      dist = Math.max(0, track.scrollWidth - stage.clientWidth);
+      morph = Math.round(stage.clientHeight * 0.35);
+      pin.style.height = `${stage.clientHeight + dist + morph}px`;
+
+      const a = arc.getBoundingClientRect();
+      const t = target.getBoundingClientRect();
+      const arcCx = a.left - stageRect.left - dist + a.width / 2;
+      const arcCy = a.top - stageRect.top + a.height / 2;
+      dx = t.left - stageRect.left + t.width / 2 - arcCx;
+      dy = t.top - stageRect.top + t.height / 2 - arcCy;
+      scale = t.height / a.height;
+      unitPx = a.height / 300;
+      update();
+    };
+
+    const update = () => {
+      ticking = false;
+      const scrolled = clamp(-pin.getBoundingClientRect().top, 0, dist + morph);
+      const ph = dist ? clamp(scrolled / dist) : 1;
+      const pm = morph ? clamp((scrolled - dist) / morph) : 1;
+      const e = ease(pm);
+
+      track.style.transform = `translate3d(${-dist * ph}px,0,0)`;
+      stickers.forEach((s) => (s.el.style.translate = `${(1 - s.speed) * dist * ph}px 0`));
+
+      arc.style.transform = `translate3d(${dx * e}px, ${dy * e}px, 0) scale(${1 + (scale - 1) * e})`;
+      const sw = (7 + (4 - 7) * e) / (unitPx * (1 + (scale - 1) * e));
+      arcMain.style.strokeWidth = String(sw);
+      arcHead.style.strokeWidth = String(sw);
+      const p = ARC_A.map((pt, i) => pt.map((v, k) => v + (ARC_B[i][k] - v) * e));
+      arcMain.setAttribute(
+        "d",
+        `M${p[0][0]} ${p[0][1]}C${p[1][0]} ${p[1][1]} ${p[2][0]} ${p[2][1]} ${p[3][0]} ${p[3][1]}`,
+      );
+      arcHead.style.strokeDasharray = "1";
+      arcHead.style.strokeDashoffset = String(1 - clamp((pm - 0.4) / 0.6));
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    document.querySelector(".story-wrap")?.classList.add("is-enhanced");
+
+    const start = () => {
+      measure();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      new ResizeObserver(measure).observe(stage);
+      new ResizeObserver(measure).observe(track);
+    };
+    if (document.fonts?.ready) document.fonts.ready.then(start);
+    else start();
+  }
+</script>

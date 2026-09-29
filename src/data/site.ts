@@ -6,6 +6,13 @@ export const SITE = {
     "Maximus Mediascape is a marketing agency for creative, SEO, branding, marketing, AI, GEO and AEO.",
 };
 
+export const STORY = {
+  paragraph:
+    "Buyers research on Google, TikTok and ChatGPT long before they talk to you. We make sure your brand is the one they find, trust and choose.",
+  finaleLead: "an agency built for what's next,",
+  finaleAccent: "from Google to ChatGPT.",
+};
+
 export const NAV = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },

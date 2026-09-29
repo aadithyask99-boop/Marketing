@@ -65,6 +65,7 @@ h1, h2, h3, p { margin: 0; }
 }
 .section--cream { background: var(--cream); color: var(--ink); }
 .section--cream .accent { color: var(--red); }
+.section:not(.section--cream) .accent { color: var(--ink); }
 
 .page-top { padding-top: calc(var(--header-h) + clamp(2rem, 6vw, 5rem)); }
 
@@ -253,6 +254,7 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
 .card:hover { transform: translateY(-4px); }
 .card--blue { background: var(--blue); color: var(--cream); }
 .card--ink { background: var(--ink); color: var(--cream); }
+.card--red { background: var(--red); color: var(--cream); }
 .card-meta { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
 .card-title { font-size: clamp(2.5rem, 5vw, 3.75rem); }
 
