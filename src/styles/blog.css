@@ -15,9 +15,13 @@
   display: flex;
   gap: 0.6rem;
   margin-top: 2.25rem;
-  padding-bottom: 0.25rem;
+  padding: 0 var(--gutter) 0.25rem;
+  margin-inline: calc(-1 * var(--gutter));
+  scroll-padding-inline: var(--gutter);
   overflow-x: auto;
   scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
 }
 .blog-chips::-webkit-scrollbar { display: none; }
 .chip {
