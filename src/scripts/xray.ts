@@ -4,16 +4,22 @@ const split = (el: HTMLElement) => {
   const text = el.textContent ?? "";
   el.dataset.xrText = text;
   el.textContent = "";
-  for (const ch of text) {
-    if (ch === " ") {
-      el.append(" ");
-      continue;
+  // Words stay unbreakable so lines only wrap between words.
+  text.split(/( )/).forEach((part) => {
+    if (part === " " || part === "") {
+      if (part) el.append(" ");
+      return;
     }
-    const s = document.createElement("span");
-    s.className = "xr-ch";
-    s.textContent = ch;
-    el.append(s);
-  }
+    const w = document.createElement("span");
+    w.className = "xr-w";
+    for (const ch of part) {
+      const s = document.createElement("span");
+      s.className = "xr-ch";
+      s.textContent = ch;
+      w.append(s);
+    }
+    el.append(w);
+  });
 };
 
 export function initXray(zone: Element | null, radiusRem = 10) {

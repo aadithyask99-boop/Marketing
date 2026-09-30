@@ -321,6 +321,7 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
 /* X-ray type hover (see scripts/xray.ts): letters blend toward the reveal colour by --t (0 to 1) */
 .hero-title [data-xray] { --xr-base: var(--cream); --xr-rev: var(--ink); }
 .footer-wordmark[data-xray] { --xr-base: var(--ink); --xr-rev: var(--red); }
+.xr-w { display: inline-block; white-space: nowrap; }
 .xr-ch {
   display: inline-block;
   color: color-mix(in srgb, var(--xr-rev) calc(var(--t, 0) * 100%), var(--xr-base));

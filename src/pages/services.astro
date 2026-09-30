@@ -1,45 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceBlocks from "../components/ServiceBlocks.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/offerings.css";
-import { SERVICES, SERVICES_INTRO, url } from "../data/site";
+import "../styles/services.css";
+import { SERVICES_INTRO } from "../data/site";
 ---
 
 <BaseLayout
   title="Services"
-  description="Websites, AI automation, advertising, SEO and content, social media, email and SMS, and branding from Maximus Mediascape."
+  description="AI search (GEO and AEO), SEO and content, websites, AI automation, advertising, email and SMS, social media and branding from Maximus Mediascape."
 >
-  <section class="section page-top page-hero">
+  <section class="svc-hero section page-top page-hero">
     <p class="eyebrow">Services</p>
-    <h1 class="display page-title">What we do</h1>
+    <h1 class="display svc-hero-title">
+      <span data-xray>All the ways we</span> <span class="svc-hero-accent" data-xray>grow brands</span>
+    </h1>
     <p class="lede">{SERVICES_INTRO}</p>
   </section>
 
-  <section class="section section--cream" aria-label="Service list">
-    <div class="svc-list">
-      {
-        SERVICES.map((s) => (
-          <article class="svc" id={s.slug}>
-            <div class="svc-head">
-              <h2 class="display svc-name accent">{s.name}</h2>
-              <p class="svc-summary">{s.summary}</p>
-            </div>
-            <div class="svc-body">
-              <p class="svc-label">What's included</p>
-              <ul class="svc-included">
-                {s.included.map((item) => <li>{item}</li>)}
-              </ul>
-              {s.note && <p class="svc-note">{s.note}</p>}
-              <a class="svc-cta" href={`${url("/contact")}?service=${encodeURIComponent(s.name)}`}>Talk to us about this</a>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="section">
-    <h2 class="display section-title">Not sure where to start?</h2>
-    <p class="lede">Tell us what you want to achieve and we'll point you to the right place.</p>
-    <p style="margin-top: 2rem"><a class="btn" href={url("/contact")} data-cursor="Hello">Talk to us</a></p>
-  </section>
+  <ServiceBlocks />
+  <ClosingCta />
 </BaseLayout>
+
+<script>
+  import { initXray } from "../scripts/xray";
+  initXray(document.querySelector(".svc-hero-title"), 12);
+</script>

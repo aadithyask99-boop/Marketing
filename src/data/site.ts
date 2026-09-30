@@ -48,6 +48,9 @@ export interface Service {
   summary: string;
   included: string[];
   note?: string;
+  category: "ai-search" | "growth" | "web" | "brand";
+  detail: string;
+  bestFor: string;
 }
 
 export const SERVICES_INTRO = "Everything you need to grow your business online, under one roof.";
@@ -55,6 +58,9 @@ export const SERVICES_INTRO = "Everything you need to grow your business online,
 export const SERVICES: Service[] = [
   {
     slug: "ai-search",
+    category: "ai-search",
+    detail: "Assistants like ChatGPT, Gemini and Perplexity answer questions with a handful of brands. We find out whether you are one of them, fix why you are not, and track your share of answers month by month.",
+    bestFor: "Brands whose customers now ask AI before they search.",
     short: "AI Search",
     name: "AI Search Optimisation (GEO & AEO)",
     summary: "Get recommended by ChatGPT, Gemini, Perplexity and Google's AI answers.",
@@ -70,6 +76,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "website-design",
+    category: "web",
+    detail: "Fast, accessible sites designed around one job: turning visitors into enquiries. Built on the platform that suits your team, from Webflow to custom code.",
+    bestFor: "New brands, launches and teams outgrowing a template.",
     short: "Websites",
     name: "Website Design & Development",
     summary: "Fast, modern websites built to turn visitors into customers.",
@@ -85,6 +94,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "website-redesign",
+    category: "web",
+    detail: "We audit what is slowing and confusing visitors, then rebuild the pages that matter most without losing the rankings you have earned.",
+    bestFor: "Sites that look dated or quietly leak leads.",
     short: "Redesign",
     name: "Website Redesign & Optimisation",
     summary: "Transform an outdated website into a modern experience that performs.",
@@ -99,6 +111,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ai-automation",
+    category: "web",
+    detail: "Chatbots, booking flows and CRM hand-offs that answer instantly and pass warm leads to your team. Start with one repetitive task and grow from there.",
+    bestFor: "Teams buried in repeat questions and manual follow-ups.",
     short: "AI & Automation",
     name: "AI, Automation & Chatbot Solutions",
     summary: "Intelligent automation that works for your business 24/7.",
@@ -116,6 +131,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "advertising",
+    category: "growth",
+    detail: "Clear targeting, sharp copy and tight tracking. We test fast, cut what does not pay back and scale what does.",
+    bestFor: "Businesses that want qualified leads now, not in six months.",
     short: "Advertising",
     name: "Digital Marketing & Advertising",
     summary: "Targeted campaigns that bring in qualified leads.",
@@ -129,6 +147,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "seo-content",
+    category: "ai-search",
+    detail: "Rankings still drive trust and traffic. We pair technical SEO with content built to win the click and to be quoted in AI summaries, so one piece of work pays off in both places.",
+    bestFor: "Teams with a good site that is under-found.",
     short: "SEO & Content",
     name: "SEO & Content Creation",
     summary: "Get found by the right people at the right time.",
@@ -144,6 +165,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "social-media",
+    category: "brand",
+    detail: "A calendar, the assets and the posting handled for you, with monthly insight on what is working so content earns its place.",
+    bestFor: "Brands that know they should post but cannot keep up.",
     short: "Social Media",
     name: "Social Media Management",
     summary: "Consistent, engaging content across all your channels.",
@@ -157,6 +181,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "email-sms",
+    category: "growth",
+    detail: "Most leads are not ready on day one. Automated sequences keep you in their inbox and on their phone until they are.",
+    bestFor: "Brands with a list that has gone quiet, or none yet.",
     short: "Email & SMS",
     name: "Email & SMS Marketing",
     summary: "Nurture leads and stay top of mind with automated campaigns.",
@@ -169,6 +196,9 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "brand-identity",
+    category: "brand",
+    detail: "From name to guidelines: a brand that stands out in a crowded feed and is easy for people, and AI models, to recognise and remember.",
+    bestFor: "Startups, rebrands and brands entering new markets.",
     short: "Brand & Identity",
     name: "Brand & Identity",
     summary: "Build a brand that stands out and stays consistent.",
@@ -184,7 +214,8 @@ export const SERVICES: Service[] = [
 ];
 
 export interface Category {
-  id: string;
+  id: "ai-search" | "growth" | "web" | "brand";
+  intro: string;
   title: string;
   blurb: string;
   tags: string[];
@@ -194,6 +225,7 @@ export interface Category {
 export const CATEGORIES: Category[] = [
   {
     id: "ai-search",
+    intro: "Buyers now ask ChatGPT and Google before they ask you. We make sure your brand is the one that shows up, gets cited and is trusted, in classic search and in AI answers alike.",
     title: "AI Search & Visibility",
     blurb: "Be the brand AI assistants and search engines recommend.",
     tags: [
@@ -209,6 +241,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     id: "growth",
+    intro: "Attention is easy to buy and easy to waste. We run campaigns tracked end to end, so every pound points at qualified leads and the results keep compounding.",
     title: "Performance & Growth",
     blurb: "We track, measure and optimise so results keep compounding.",
     tags: [
@@ -224,6 +257,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     id: "web",
+    intro: "Your site is where every channel lands. We design it to be fast, clear and easy to act on, then automate the follow-up so no enquiry waits.",
     title: "Websites & Automation",
     blurb: "Fast websites and smart automation that turn visitors into customers.",
     tags: [
@@ -239,6 +273,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     id: "brand",
+    intro: "A brand people remember makes every other channel work harder. We shape the identity, the voice and the everyday content that keeps you visible.",
     title: "Brand & Content",
     blurb: "A brand that stands out and content that keeps you visible.",
     tags: [
