@@ -60,34 +60,35 @@ import { PROCESS, url } from "../data/site";
   const wide = window.matchMedia("(min-width: 900px)");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // Mouse-only hover state. A phase wakes up when the pointer is over it or close to it,
-  // affects only itself, and returns to rest as soon as the pointer moves away.
+  // Mouse-only hover state for the phase badges (circle + title). A badge wakes up when the
+  // pointer is over it or close to it, changes only itself, and rests again when the pointer leaves.
   if (root && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
     const phases = [...root.querySelectorAll<HTMLElement>(".phase")];
-    const NEAR = 72;
+    const NEAR = 56;
     let active: HTMLElement | null = null;
     let queued = false;
-    let y = 0;
+    let pt = { x: 0, y: 0 };
     const set = (next: HTMLElement | null) => {
       if (next === active) return;
       active?.classList.remove("is-hover");
       next?.classList.add("is-hover");
       active = next;
     };
+    const dist = (r: DOMRect) => Math.hypot(Math.max(r.left - pt.x, 0, pt.x - r.right), Math.max(r.top - pt.y, 0, pt.y - r.bottom));
     const pick = () => {
       queued = false;
       let best: HTMLElement | null = null;
       let bestD = NEAR;
       for (const ph of phases) {
-        const r = ph.getBoundingClientRect();
-        const d = y < r.top ? r.top - y : y > r.bottom ? y - r.bottom : 0;
+        const parts = [ph.querySelector("[data-badge]"), ph.querySelector(".phase-pill")].filter(Boolean) as Element[];
+        const d = Math.min(...parts.map((el) => dist(el.getBoundingClientRect())));
         if (d < bestD || (d === 0 && best === null)) { best = ph; bestD = d; }
       }
       set(best);
     };
     root.addEventListener("pointermove", (e) => {
       if (e.pointerType !== "mouse") return;
-      y = e.clientY;
+      pt = { x: e.clientX, y: e.clientY };
       if (!queued) { queued = true; requestAnimationFrame(pick); }
     });
     const clear = () => set(null);

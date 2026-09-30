@@ -63,14 +63,11 @@
 .process-note + .process-cta { margin-top: 0; }
 
 /* Phase hover micro-interactions (mouse only) */
-.phase-num, .phase-pill, .step, .phase-time { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease, box-shadow 0.3s ease, opacity 0.3s ease; }
+.phase-num, .phase-pill, .phase-time { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease, box-shadow 0.3s ease, opacity 0.3s ease; }
 /* Toggled by script for mouse pointers only, so nothing sticks after the pointer leaves or on touch */
 .phase.is-hover .phase-num { transform: scale(1.14) rotate(-10deg); background: var(--red); box-shadow: 0 0 0 0.5rem rgba(225, 6, 0, 0.16); }
 .phase.is-hover .phase-pill { transform: rotate(0deg) scale(1.06); }
 .phase.is-hover .phase-time { opacity: 1; transform: translateX(0.25rem); }
-.phase.is-hover .step { transform: translateY(-6px); box-shadow: 0 1.5rem 2.5rem rgba(23, 9, 10, 0.14); }
-.phase.is-hover .step:nth-child(2) { transition-delay: 0.05s; }
-.phase.is-hover .step:nth-child(3) { transition-delay: 0.1s; }
 
 /* Process CTA card */
 .process-cta {
@@ -173,7 +170,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .phase-num, .phase-pill, .step, .phase-time, .fw-shape, .cta-btn { transition: none; }
-  .phase.is-hover .phase-num, .phase.is-hover .phase-pill, .phase.is-hover .step, .phase.is-hover .phase-time { transform: none; }
-  .fw-link:hover .fw-shape { transform: translate(-50%, -50%); }
+  .phase-num, .phase-pill, .phase-time, .fw-shape, .cta-btn { transition: none; }
+  .phase.is-hover .phase-num, .phase.is-hover .phase-pill, .phase.is-hover .phase-time { transform: none; }
+  .fw .fw-link:hover .fw-shape { transform: translate(-50%, -50%); }
 }
