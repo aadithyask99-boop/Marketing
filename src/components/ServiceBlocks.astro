@@ -1,6 +1,5 @@
 ---
 import "../styles/services.css";
-import OfferShape from "./OfferShape.astro";
 import { CATEGORIES, SERVICES, url } from "../data/site";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -22,7 +21,6 @@ const blocks = CATEGORIES.map((c, i) => ({ c, i, list: SERVICES.filter((s) => s.
               <span class="count-roll"><span>{pad(i + 1)}</span></span> / {pad(blocks.length)}
             </p>
             <h2 class="display svc-title" data-xray>{c.title}</h2>
-            <OfferShape shape={c.shape} class="svc-shape" />
             <p class="svc-chip">{list.length} {list.length === 1 ? "service" : "services"}</p>
             <a class="svc-talk" href={`${url("/contact")}?service=${encodeURIComponent(c.title)}`} data-cursor="Talk">
               Talk about this <span aria-hidden="true">↗</span>
