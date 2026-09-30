@@ -32,3 +32,42 @@ const items = WORK.slice(0, 3);
     </li>
   </ul>
 </section>
+
+<script>
+  // Same mouse-only proximity hover as the process badges: only the nearest project pill reacts.
+  const pills = [...document.querySelectorAll<HTMLElement>(".fw-pill")];
+  if (pills.length && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const NEAR = 56;
+    let active: HTMLElement | null = null;
+    let queued = false;
+    let pt = { x: 0, y: 0 };
+    const set = (next: HTMLElement | null) => {
+      if (next === active) return;
+      active?.classList.remove("is-hover");
+      next?.classList.add("is-hover");
+      active = next;
+    };
+    const pick = () => {
+      queued = false;
+      let best: HTMLElement | null = null;
+      let bestD = NEAR;
+      for (const el of pills) {
+        const r = el.getBoundingClientRect();
+        const d = Math.hypot(Math.max(r.left - pt.x, 0, pt.x - r.right), Math.max(r.top - pt.y, 0, pt.y - r.bottom));
+        if (d < bestD || (d === 0 && best === null)) { best = el; bestD = d; }
+      }
+      set(best);
+    };
+    const grid = document.querySelector<HTMLElement>(".featured-grid")!;
+    grid.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      pt = { x: e.clientX, y: e.clientY };
+      if (!queued) { queued = true; requestAnimationFrame(pick); }
+    });
+    const clear = () => set(null);
+    grid.addEventListener("pointerleave", clear);
+    window.addEventListener("blur", clear);
+    window.addEventListener("pagehide", clear);
+    document.addEventListener("scroll", () => { if (active && !queued) { queued = true; requestAnimationFrame(pick); } }, { passive: true });
+  }
+</script>

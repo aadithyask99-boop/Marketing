@@ -113,7 +113,6 @@
 .fw .fw-shape { position: absolute; left: 50%; top: 42%; width: 62%; height: auto; aspect-ratio: 1; opacity: 1; transform: translate(-50%, -50%); fill: var(--c); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
 .fw .fw-shape .ring { stroke: var(--c); }
 .fw .fw-shape .solid, .fw .fw-shape .petal { fill: var(--c); }
-.fw .fw-link:hover .fw-shape { transform: translate(-50%, -50%) scale(1.06) rotate(-4deg); }
 .fw-pill {
   position: relative;
   align-self: center;
@@ -128,6 +127,9 @@
   transform: rotate(-3deg);
 }
 .fw--red .fw-pill { background: var(--cream); color: var(--red); }
+.fw-pill { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
+.fw-pill.is-hover { transform: rotate(0deg) scale(1.12); box-shadow: 0 0 0 0.5rem rgba(225, 6, 0, 0.16); }
+.fw--red .fw-pill.is-hover { box-shadow: 0 0 0 0.5rem rgba(245, 239, 232, 0.25); }
 .fw-arrow { position: absolute; left: 1.25rem; bottom: 1.25rem; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--red); color: var(--cream); font-size: 1.2rem; }
 .fw--red .fw-arrow { background: var(--cream); color: var(--red); }
 .fw-tag { position: relative; align-self: flex-end; margin-top: 1rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -172,5 +174,6 @@
 @media (prefers-reduced-motion: reduce) {
   .phase-num, .phase-pill, .phase-time, .fw-shape, .cta-btn { transition: none; }
   .phase.is-hover .phase-num, .phase.is-hover .phase-pill, .phase.is-hover .phase-time { transform: none; }
-  .fw .fw-link:hover .fw-shape { transform: translate(-50%, -50%); }
+  .fw-pill, .fw-pill.is-hover { transition: none; }
+  .fw-pill.is-hover { transform: rotate(-3deg); }
 }
