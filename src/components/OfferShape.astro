@@ -1,0 +1,46 @@
+---
+interface Props {
+  shape: "rings" | "spiral" | "grid" | "stack";
+  class?: string;
+}
+const { shape, class: cls = "" } = Astro.props;
+const petals = Array.from({ length: 21 }, (_, i) => i * (360 / 21));
+---
+
+<svg class={`shape shape--${shape} ${cls}`} viewBox="0 0 400 400" aria-hidden="true">
+  {
+    shape === "rings" && (
+      <>
+        <circle cx="200" cy="200" r="176" class="ring"></circle>
+        <circle cx="200" cy="200" r="110" class="ring"></circle>
+        <circle cx="200" cy="200" r="60" class="solid"></circle>
+      </>
+    )
+  }
+  {
+    shape === "grid" && (
+      <>
+        <circle cx="100" cy="100" r="100"></circle>
+        <circle cx="300" cy="100" r="72" class="ring"></circle>
+        <circle cx="100" cy="300" r="72" class="ring"></circle>
+        <circle cx="300" cy="300" r="100"></circle>
+      </>
+    )
+  }
+  {
+    shape === "spiral" && (
+      <g class="spin" transform="translate(200 200)">
+        {petals.map((deg) => <path class="petal" transform={`rotate(${deg})`} d="M0 0C30 -14 76 -48 100 -122A15 15 0 0 1 128 -110C104 -54 58 -10 0 0Z"></path>)}
+      </g>
+    )
+  }
+  {
+    shape === "stack" && (
+      <>
+        <ellipse cx="200" cy="102" rx="186" ry="76" class="ring"></ellipse>
+        <ellipse cx="200" cy="200" rx="188" ry="84"></ellipse>
+        <ellipse cx="200" cy="298" rx="186" ry="76" class="ring"></ellipse>
+      </>
+    )
+  }
+</svg>

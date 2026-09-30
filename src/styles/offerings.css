@@ -140,3 +140,14 @@
 @media (min-width: 900px) {
   .svc { grid-template-columns: 1fr 1.2fr; }
 }
+
+/* Inline shape inside each panel (phones only) */
+.offer-inline-shape { display: none; }
+.shape.ishape { position: static; opacity: 1; transform: none; width: 9.5rem; height: 9.5rem; transition: none; }
+@media (max-width: 899px) {
+  .offer-shapes { display: none; }
+  .offer-body { gap: 0; margin-top: 2.5rem; }
+  .offer-inline-shape { display: block; margin: 1.75rem 0 0.5rem; }
+  .offer-title { font-size: clamp(2rem, 8.4vw, 3.2rem); }
+  .offer-pills span { font-size: 1rem; }
+}

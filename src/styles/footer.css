@@ -130,3 +130,16 @@
 @media (prefers-reduced-motion: reduce) {
   .footer-go, .footer-social a { transition: none; }
 }
+
+/* Phones and tablets: two-column link grid, compact social pills, stacked legal row */
+@media (max-width: 899px) {
+  .footer-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem 0; margin-top: 0.5rem; }
+  .footer-col { padding-left: 1rem; border-left: 1px solid rgba(23, 9, 10, 0.2); }
+  .footer-col:nth-child(3) { grid-column: 1 / -1; }
+  .footer-col a { font-size: 1.1rem; }
+  .footer-social { gap: 0.4rem; flex-wrap: wrap; }
+  .footer-social a { justify-content: center; width: 2.75rem; padding: 0; }
+  .footer-social .arrow { display: none; }
+  .footer-legal { flex-direction: column; align-items: flex-start; }
+  .footer-legal ul { flex-wrap: wrap; gap: 0 1.25rem; }
+}

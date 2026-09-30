@@ -28,6 +28,10 @@ import { TESTIMONIALS } from "../data/site";
       <button class="voices-btn" type="button" data-dir="1" aria-label="Next testimonial">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
       </button>
+      <button class="voices-btn voices-pause" type="button" aria-pressed="false" aria-label="Pause testimonials">
+        <svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+        <svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -38,12 +42,12 @@ import { TESTIMONIALS } from "../data/site";
   if (region && track) {
     const slides = [...track.children] as HTMLElement[];
     const dots = [...region.querySelectorAll<HTMLButtonElement>(".voices-dot")];
+    const toggle = region.querySelector<HTMLButtonElement>(".voices-pause");
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const DELAY = 3000;
     let index = 0;
-    let hovering = false;
-    let focused = false;
     let visible = false;
+    let userPaused = false;
     let lastTouch = 0;
 
     const width = () => track.clientWidth;
@@ -59,43 +63,44 @@ import { TESTIMONIALS } from "../data/site";
       const n = (i + slides.length) % slides.length;
       track.scrollTo({ left: n * width(), behavior: reduced ? "auto" : "smooth" });
     };
+    const touched = () => (lastTouch = performance.now());
 
     track.addEventListener("scroll", () => requestAnimationFrame(paint), { passive: true });
-    region.querySelectorAll<HTMLButtonElement>(".voices-btn").forEach((b) =>
+    region.querySelectorAll<HTMLButtonElement>(".voices-btn[data-dir]").forEach((b) =>
       b.addEventListener("click", () => {
-        lastTouch = performance.now();
+        touched();
         go(index + Number(b.dataset.dir));
       }),
     );
     dots.forEach((d) =>
       d.addEventListener("click", () => {
-        lastTouch = performance.now();
+        touched();
         go(Number(d.dataset.index));
       }),
     );
     track.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); touched(); go(index + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); touched(); go(index - 1); }
+    });
+    ["touchstart", "pointerdown", "wheel"].forEach((ev) => track.addEventListener(ev, touched, { passive: true }));
+
+    toggle?.addEventListener("click", () => {
+      userPaused = !userPaused;
+      toggle.setAttribute("aria-pressed", String(userPaused));
+      toggle.setAttribute("aria-label", userPaused ? "Play testimonials" : "Pause testimonials");
+      toggle.classList.toggle("is-paused", userPaused);
+      region.setAttribute("aria-live", userPaused ? "polite" : "off");
     });
 
-    region.addEventListener("mouseenter", () => (hovering = true));
-    region.addEventListener("mouseleave", () => { hovering = false; lastTouch = performance.now(); });
-    region.addEventListener("focusin", () => (focused = true));
-    region.addEventListener("focusout", () => { focused = false; lastTouch = performance.now(); });
-    ["touchstart", "pointerdown", "wheel"].forEach((ev) =>
-      track.addEventListener(ev, () => (lastTouch = performance.now()), { passive: true }),
-    );
-    new IntersectionObserver((es) => (visible = es.some((e) => e.isIntersecting)), { threshold: 0.4 }).observe(region);
+    new IntersectionObserver((es) => (visible = es.some((e) => e.isIntersecting)), { threshold: 0.15 }).observe(region);
     new ResizeObserver(() => track.scrollTo({ left: index * width(), behavior: "auto" })).observe(track);
 
     paint();
-    if (!reduced) {
-      region.setAttribute("aria-live", "off");
-      setInterval(() => {
-        if (document.hidden || !visible || hovering || focused) return;
-        if (performance.now() - lastTouch < DELAY) return;
-        go(index + 1);
-      }, DELAY);
-    }
+    region.setAttribute("aria-live", "off");
+    setInterval(() => {
+      if (document.hidden || !visible || userPaused) return;
+      if (performance.now() - lastTouch < DELAY) return;
+      go(index + 1);
+    }, DELAY);
   }
 </script>

@@ -4,7 +4,17 @@ import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/story.css";
 import "../styles/proof.css";
 import Sticker from "./Sticker.astro";
+import { siApple, siPanasonic, siSiemens, siSony, siWorldhealthorganization } from "simple-icons";
 import { CLIENTS } from "../data/site";
+
+// Real brand marks where the open icon set has them; other clients fall back to a text wordmark.
+const LOGOS: Record<string, string> = {
+  Panasonic: siPanasonic.path,
+  Siemens: siSiemens.path,
+  WHO: siWorldhealthorganization.path,
+  Apple: siApple.path,
+  Sony: siSony.path,
+};
 
 const TONES = ["cream", "ink", "lilac", "cream", "pink", "mint", "ink", "yellow"];
 const tiles = CLIENTS.map((name, i) => ({ name, tone: TONES[(i * 3 + Math.floor(i / 2)) % TONES.length] }));
@@ -15,6 +25,9 @@ const colB = tiles.filter((_, i) => i % 2 === 1);
 <section class="proof" aria-labelledby="proof-title">
   <div class="proof-top">
     <div class="proof-copy">
+      <svg class="proof-blob" viewBox="0 0 400 340" aria-hidden="true">
+        <path d="M70 30c50-38 118-22 150-8 46-18 110 2 118 60 4 30-8 46-6 68 4 44-40 74-84 70-30 26-96 34-132 6C64 236 20 210 24 156c2-30 18-42 14-64C36 66 48 46 70 30z"></path>
+      </svg>
       <h2 id="proof-title" class="display proof-heading">
         Clients across our{" "}<span class="finale-accent proof-accent">
           portfolio
@@ -42,10 +55,26 @@ const colB = tiles.filter((_, i) => i % 2 === 1);
             <div class={`proof-col proof-col--${col.dir}`}>
               <div class="proof-track">
                 <div class="proof-list">
-                  {col.list.map((t) => <div class={`tile tile--${t.tone}`}><span>{t.name}</span></div>)}
+                  {col.list.map((t) => (
+                    <div class={`tile tile--${t.tone}`}>
+                      {LOGOS[t.name] ? (
+                        <svg class="tile-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={LOGOS[t.name]} /></svg>
+                      ) : (
+                        <span>{t.name}</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
                 <div class="proof-list proof-list--dup">
-                  {col.list.map((t) => <div class={`tile tile--${t.tone}`}><span>{t.name}</span></div>)}
+                  {col.list.map((t) => (
+                    <div class={`tile tile--${t.tone}`}>
+                      {LOGOS[t.name] ? (
+                        <svg class="tile-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={LOGOS[t.name]} /></svg>
+                      ) : (
+                        <span>{t.name}</span>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
