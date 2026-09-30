@@ -60,19 +60,19 @@
 .step-get span { margin-right: 0.35rem; color: var(--red); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.75rem; }
 
 .process-note { max-width: 90rem; margin: -1.5rem auto 2.5rem; font-size: 0.85rem; opacity: 0.7; }
+.process-note + .process-cta { margin-top: 0; }
 
 /* Phase hover micro-interactions (mouse only) */
 .phase-num, .phase-pill, .step, .phase-time { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.4s ease, box-shadow 0.3s ease, opacity 0.3s ease; }
-@media (hover: hover) and (pointer: fine) {
-  .phase:hover .phase-num { transform: scale(1.14) rotate(-10deg); background: var(--red); box-shadow: 0 0 0 0.5rem rgba(225, 6, 0, 0.16); }
-  .phase:hover .phase-pill { transform: rotate(0deg) scale(1.06); }
-  .phase:hover .phase-time { opacity: 1; transform: translateX(0.25rem); }
-  .phase:hover .step { transform: translateY(-6px); box-shadow: 0 1.5rem 2.5rem rgba(23, 9, 10, 0.14); }
-  .phase:hover .step:nth-child(2) { transition-delay: 0.05s; }
-  .phase:hover .step:nth-child(3) { transition-delay: 0.1s; }
-  .process:has(.phase:hover) .phase:not(:hover) { opacity: 0.55; }
-  .phase { transition: opacity 0.35s ease; }
-}
+/* Toggled by script for mouse pointers only, so nothing sticks after the pointer leaves or on touch */
+.phase.is-hover .phase-num { transform: scale(1.14) rotate(-10deg); background: var(--red); box-shadow: 0 0 0 0.5rem rgba(225, 6, 0, 0.16); }
+.phase.is-hover .phase-pill { transform: rotate(0deg) scale(1.06); }
+.phase.is-hover .phase-time { opacity: 1; transform: translateX(0.25rem); }
+.phase.is-hover .step { transform: translateY(-6px); box-shadow: 0 1.5rem 2.5rem rgba(23, 9, 10, 0.14); }
+.phase.is-hover .step:nth-child(2) { transition-delay: 0.05s; }
+.phase.is-hover .step:nth-child(3) { transition-delay: 0.1s; }
+.phase { transition: opacity 0.35s ease; }
+.process.has-hover .phase:not(.is-hover) { opacity: 0.55; }
 
 /* Process CTA card */
 .process-cta {
@@ -87,8 +87,8 @@
   background: var(--red);
   color: var(--cream);
 }
-.cta-shape { position: static; width: clamp(8rem, 24vw, 16rem); height: auto; aspect-ratio: 1; opacity: 1; transform: none; fill: var(--cream); justify-self: center; }
-.cta-shape .petal { fill: var(--cream); }
+.process-cta .cta-shape { position: static; width: clamp(8rem, 24vw, 16rem); height: auto; aspect-ratio: 1; opacity: 1; transform: none; fill: var(--cream); justify-self: center; }
+.process-cta .cta-shape .petal { fill: var(--cream); }
 .cta-text { max-width: 30rem; font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 600; line-height: 1.15; }
 .cta-btn {
   display: inline-flex;
@@ -115,10 +115,10 @@
 .fw--ink .fw-link { background: var(--ink); color: var(--cream); --c: var(--cream); }
 .fw--cream .fw-link { background: #ebe4d9; --c: var(--red); }
 .fw--red .fw-link { background: var(--red); color: var(--cream); --c: var(--cream); }
-.fw-shape { position: absolute; left: 50%; top: 42%; width: 62%; height: auto; aspect-ratio: 1; opacity: 1; transform: translate(-50%, -50%); fill: var(--c); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
-.fw-shape .ring { stroke: var(--c); }
-.fw-shape .solid, .fw-shape .petal { fill: var(--c); }
-.fw-link:hover .fw-shape { transform: translate(-50%, -50%) scale(1.06) rotate(-4deg); }
+.fw .fw-shape { position: absolute; left: 50%; top: 42%; width: 62%; height: auto; aspect-ratio: 1; opacity: 1; transform: translate(-50%, -50%); fill: var(--c); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.fw .fw-shape .ring { stroke: var(--c); }
+.fw .fw-shape .solid, .fw .fw-shape .petal { fill: var(--c); }
+.fw .fw-link:hover .fw-shape { transform: translate(-50%, -50%) scale(1.06) rotate(-4deg); }
 .fw-pill {
   position: relative;
   align-self: center;
@@ -142,7 +142,7 @@
 .fw-ask { font-weight: 600; text-decoration: underline; }
 
 /* Results */
-.results { padding: clamp(3rem, 7vw, 5.5rem) var(--gutter); background: #ebe4d9; color: var(--ink); text-align: center; }
+.results { padding: clamp(3rem, 7vw, 5.5rem) var(--gutter); background: var(--cream); color: var(--ink); text-align: center; }
 .results ul { display: grid; gap: 2rem; max-width: 70rem; margin: 0 auto; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
 .result-value { display: block; font-family: var(--display); font-size: clamp(4rem, 10vw, 7rem); line-height: 0.9; color: var(--red); }
 .result-label { display: block; margin-top: 0.5rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; }
@@ -167,7 +167,7 @@
   .phase { padding-left: 1.5rem; margin-left: 0.5rem; }
   .process:not(.is-enhanced) .phase { border-left: 3px dotted rgba(225, 6, 0, 0.55); }
   .phase-head { margin-left: -2.75rem; }
-  .process-note { margin-top: 0; }
+  .process-note { margin-top: 0; padding-left: 3.25rem; }
   .phase-time { flex-basis: 100%; padding-left: 3.75rem; margin-top: -0.25rem; }
   .fw-link { min-height: 16rem; }
   .phase-num { width: 3rem; height: 3rem; font-size: 1.6rem; }
@@ -176,6 +176,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .phase-num, .phase-pill, .step, .phase-time, .fw-shape, .cta-btn { transition: none; }
-  .phase:hover .phase-num, .phase:hover .phase-pill, .phase:hover .step, .phase:hover .phase-time { transform: none; }
+  .phase.is-hover .phase-num, .phase.is-hover .phase-pill, .phase.is-hover .step, .phase.is-hover .phase-time { transform: none; }
   .fw-link:hover .fw-shape { transform: translate(-50%, -50%); }
 }

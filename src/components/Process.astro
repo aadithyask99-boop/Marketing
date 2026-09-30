@@ -49,7 +49,7 @@ import { PROCESS, url } from "../data/site";
     <OfferShape shape="spiral" class="cta-shape" />
     <div>
       <p class="cta-text">Whether you're just getting started, stuck or ready to scale, we can help.</p>
-      <a class="cta-btn" href={url("/contact")} data-cursor="Hello">Book a free AI visibility check <span aria-hidden="true">↗</span></a>
+      <a class="cta-btn" href="#start" data-cursor="Go" data-to-form>Book a free consultation <span aria-hidden="true">↗</span></a>
     </div>
   </div>
 </section>
@@ -59,6 +59,32 @@ import { PROCESS, url } from "../data/site";
   const svg = root?.querySelector<SVGSVGElement>(".process-path");
   const wide = window.matchMedia("(min-width: 900px)");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Mouse-only hover state; cleared as soon as the pointer leaves.
+  if (root) {
+    const phases = [...root.querySelectorAll<HTMLElement>(".phase")];
+    const clear = () => { phases.forEach((p) => p.classList.remove("is-hover")); root.classList.remove("has-hover"); };
+    phases.forEach((ph) => {
+      ph.addEventListener("pointerenter", (e) => { if (e.pointerType !== "mouse") return; clear(); ph.classList.add("is-hover"); root.classList.add("has-hover"); });
+      ph.addEventListener("pointerleave", clear);
+      ph.addEventListener("pointercancel", clear);
+    });
+    root.addEventListener("pointerleave", clear);
+    window.addEventListener("blur", clear);
+    window.addEventListener("pagehide", clear);
+  }
+
+  // The CTA glides down to the lead form and focuses it.
+  const cta = document.querySelector<HTMLAnchorElement>("[data-to-form]");
+  cta?.addEventListener("click", (e) => {
+    const form = document.getElementById("start");
+    if (!form) return;
+    e.preventDefault();
+    form.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    const input = document.getElementById("closer-msg");
+    window.setTimeout(() => input?.focus({ preventScroll: true }), reduced ? 0 : 700);
+    history.replaceState(null, "", "#start");
+  });
 
   if (root && svg) {
     const base = svg.querySelector<SVGPathElement>(".pp-base")!;
