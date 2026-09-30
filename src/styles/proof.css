@@ -3,8 +3,9 @@
   align-items: center;
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: clamp(2.5rem, 5vw, 4rem) var(--gutter);
-  background: var(--ink);
-  color: var(--cream);
+  background: #ece7df;
+  color: var(--ink);
+  border-block: 1px solid rgba(23, 9, 10, 0.1);
 }
 .proof-label {
   flex: none;
@@ -26,7 +27,7 @@
   place-items: center;
   height: 3rem;
   margin-right: clamp(3rem, 6vw, 5.5rem);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 .proof-logo { width: auto; }
 .proof-word {
