@@ -11,7 +11,7 @@ import { RESULTS } from "../data/site";
 ---
 
 <BaseLayout title="Work" description="How Maximus Mediascape works, from planning and analysis to design and implementation, plus selected projects.">
-  <section class="work-hero page-top">
+  <section class="work-hero page-top page-hero">
     <p class="eyebrow">Work</p>
     <h1 class="display work-title">This is how we <span class="work-accent">work</span></h1>
     <p class="lede">Three phases, one team, and a plan you can follow from the first call to the results.</p>
@@ -20,8 +20,6 @@ import { RESULTS } from "../data/site";
   <Process />
   <FeaturedWork />
 
-  <Proof />
-
   <section class="results" aria-label="Results">
     <ul>
       {RESULTS.map((r) => <li><span class="result-value">{r.value}</span><span class="result-label">{r.label}</span></li>)}
@@ -29,5 +27,6 @@ import { RESULTS } from "../data/site";
     <p class="results-note">Placeholder figures. Replace with verified results.</p>
   </section>
 
+  <Proof />
   <ClosingCta />
 </BaseLayout>
