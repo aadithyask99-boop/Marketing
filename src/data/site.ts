@@ -322,3 +322,41 @@ export const BLOG_CATEGORIES = [
   { slug: "brand-social", label: "Brand & Social", shape: "stack" },
 ] as const;
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number]["slug"];
+
+// PLACEHOLDER process copy and timings: adjust to how the team really works.
+export const PROCESS = [
+  {
+    title: "Planning & Analysis",
+    time: "Weeks 1-2",
+    steps: [
+      { name: "Discovery", text: "We learn your goals, audience and how visible you are today on Google and in AI answers.", get: "A clear brief and success metrics", icon: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 5v4l3 2" },
+      { name: "Research", text: "An AI-visibility audit, competitor review and the questions your customers actually ask.", get: "Audit report and opportunity list", icon: "M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13zM16 16l5 5" },
+      { name: "Strategy & roadmap", text: "We turn findings into priorities, a plan and the numbers we will be judged on.", get: "Roadmap with KPIs", icon: "M4 19V5M4 19h16M8 15l4-4 3 3 5-6" },
+    ],
+  },
+  {
+    title: "Design",
+    time: "Weeks 3-5",
+    steps: [
+      { name: "Brand & UX", text: "Identity, layout and prototypes that look like you and guide visitors to act.", get: "Design system and prototypes", icon: "M12 3l9 5-9 5-9-5zM3 13l9 5 9-5" },
+      { name: "Content architecture", text: "Page structure, schema plan and answer-ready copy so search and AI can quote you.", get: "Sitemap, schema plan, content briefs", icon: "M5 5h14v4H5zM5 12h6v7H5zM14 12h5v7h-5z" },
+      { name: "Review & approval", text: "Feedback rounds until you are happy, then a clean sign-off before we build.", get: "Approved designs and copy", icon: "M5 12l4 4 10-10" },
+    ],
+  },
+  {
+    title: "Implementation",
+    time: "Week 6 onwards",
+    steps: [
+      { name: "Build & automate", text: "The website, chatbots, workflows and integrations, built fast and tested properly.", get: "Live site and automations", icon: "M8 8l-5 4 5 4M16 8l5 4-5 4M14 5l-4 14" },
+      { name: "Launch & campaigns", text: "SEO, ads, social and email go live together so results build from day one.", get: "Campaigns running across channels", icon: "M5 19c1-6 5-10 14-14-1 9-5 13-11 14zM9 15l-4 4" },
+      { name: "Measure & optimise", text: "We track citations, traffic and enquiries, report clearly and keep improving.", get: "Monthly reporting and support", icon: "M5 20V10M12 20V4M19 20v-7" },
+    ],
+  },
+];
+
+// PLACEHOLDER results: replace with real, verified numbers.
+export const RESULTS = [
+  { value: "+180%", label: "AI answer citations" },
+  { value: "2.3x", label: "Qualified enquiries" },
+  { value: "6 wks", label: "Average time to launch" },
+];

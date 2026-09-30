@@ -1,25 +1,32 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { WORK } from "../data/site";
+import Process from "../components/Process.astro";
+import FeaturedWork from "../components/FeaturedWork.astro";
+import Proof from "../components/Proof.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import "@fontsource/instrument-serif/400-italic.css";
+import "../styles/offerings.css";
+import "../styles/process.css";
+import { RESULTS } from "../data/site";
 ---
 
-<BaseLayout title="Work" description="Selected work from Maximus Mediascape.">
-  <section class="section page-top">
+<BaseLayout title="Work" description="How Maximus Mediascape works, from planning and analysis to design and implementation, plus selected projects.">
+  <section class="work-hero page-top">
     <p class="eyebrow">Work</p>
-    <h1 class="display page-title">Selected work</h1>
-    <p class="lede">Case studies are coming soon. These cards are placeholders for your projects.</p>
-
-    <div class="grid grid--3">
-      {
-        WORK.map((w) => (
-          <article
-            class:list={["card", w.tone === "blue" && "card--blue", w.tone === "ink" && "card--ink"]}
-          >
-            <span class="card-meta">{w.category}</span>
-            <h2 class="display card-title">{w.title}</h2>
-          </article>
-        ))
-      }
-    </div>
+    <h1 class="display work-title">This is how we <span class="work-accent">work</span></h1>
+    <p class="lede">Three phases, one team, and a plan you can follow from the first call to the results.</p>
   </section>
+
+  <Process />
+  <FeaturedWork />
+
+  <section class="results" aria-label="Results">
+    <ul>
+      {RESULTS.map((r) => <li><span class="result-value">{r.value}</span><span class="result-label">{r.label}</span></li>)}
+    </ul>
+    <p class="results-note">Placeholder figures. Replace with verified results.</p>
+  </section>
+
+  <Proof />
+  <ClosingCta />
 </BaseLayout>
