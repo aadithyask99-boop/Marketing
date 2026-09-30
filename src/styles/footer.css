@@ -2,6 +2,7 @@
   background: var(--ink);
   padding: clamp(0.5rem, 1.2vw, 0.85rem);
 }
+.site-footer--red { background: var(--red); }
 .footer-card {
   container-type: inline-size;
   padding: clamp(1.75rem, 3.2vw, 3rem);

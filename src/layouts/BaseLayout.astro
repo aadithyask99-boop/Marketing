@@ -12,9 +12,10 @@ import { SITE, url } from "../data/site";
 interface Props {
   title?: string;
   description?: string;
+  footerTone?: "ink" | "red";
 }
 
-const { title, description = SITE.description } = Astro.props;
+const { title, description = SITE.description, footerTone = "ink" } = Astro.props;
 const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Marketing Agency`;
 ---
 
@@ -39,7 +40,7 @@ const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Marketing 
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    <Footer tone={footerTone} />
     <Cursor />
   </body>
 </html>

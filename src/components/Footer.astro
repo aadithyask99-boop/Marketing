@@ -2,6 +2,7 @@
 import "../styles/footer.css";
 import { NAV, SITE, SERVICES, SOCIALS, url } from "../data/site";
 
+const { tone = "ink" } = Astro.props;
 const endpoint = import.meta.env.PUBLIC_NEWSLETTER_ENDPOINT ?? "";
 const pages = NAV.filter((n) => n.href !== "/");
 const FOOTER_SERVICES = ["ai-search", "website-design", "ai-automation", "advertising", "seo-content", "brand-identity"]
@@ -20,7 +21,7 @@ const ICONS: Record<string, string> = {
 };
 ---
 
-<footer class="site-footer">
+<footer class:list={["site-footer", tone === "red" && "site-footer--red"]}>
   <div class="footer-card" data-endpoint={endpoint} data-email={SITE.email}>
     <div class="footer-top">
       <div class="footer-news">

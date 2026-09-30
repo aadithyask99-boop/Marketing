@@ -124,3 +124,14 @@
   .closer .lead-chips { flex-direction: column; align-items: stretch; gap: 0.6rem; }
   .closer .lead-chips button { width: 100%; justify-content: flex-start; border-radius: 1.5rem; }
 }
+
+/* Red variant (contact page) */
+.closer--red { background: var(--red); text-align: center; padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem)); padding-bottom: clamp(2rem, 5vw, 4rem); }
+.closer--red .closer-bar { box-shadow: 0 1.5rem 4rem rgba(23, 9, 10, 0.3); }
+.closer--red .closer-bar:focus-within { outline-color: var(--cream); }
+.closer--red .closer-input[aria-invalid="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
+.closer--red .closer-go { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+.closer--red .closer-go:hover { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+.closer--red .lead-chips button { background: rgba(23, 9, 10, 0.22); }
+.closer--red .lead-chips button:hover { background: var(--cream); color: var(--red); }
+.closer--red .field-error { color: var(--cream); font-weight: 600; }

@@ -1,17 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import LeadForm from "../components/LeadForm.astro";
-import { LEAD, SITE } from "../data/site";
+import ClosingCta from "../components/ClosingCta.astro";
 ---
 
-<BaseLayout title="Contact" description="Get in touch with Maximus Mediascape.">
-  <section class="section page-top page-hero">
-    <p class="eyebrow">Contact</p>
-    <h1 class="display page-title">Let's grow</h1>
-    <p class="lede">
-      {LEAD.lede} Prefer email? Write to
-      <a href={`mailto:${SITE.email}`} style="text-decoration: underline">{SITE.email}</a>.
-    </p>
-    <LeadForm id="contact" />
-  </section>
+<BaseLayout title="Contact" description="Get in touch with Maximus Mediascape." footerTone="red">
+  <ClosingCta tone="red" heading="h1" />
 </BaseLayout>

@@ -4,6 +4,12 @@ import "../styles/closer.css";
 import { CHIPS } from "../data/search";
 import { DIAL_CODES } from "../data/countries";
 import { LEAD, SITE } from "../data/site";
+interface Props {
+  tone?: "ink" | "red";
+  heading?: "h1" | "h2";
+}
+const { tone = "ink", heading = "h2" } = Astro.props;
+const Heading = heading;
 const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
 const ICONS = [
   '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
@@ -14,7 +20,7 @@ const ICONS = [
 ---
 
 <section
-  class="closer"
+  class:list={["closer", tone === "red" && "closer--red page-top page-hero"]}
   id="start"
   aria-labelledby="closer-title"
   data-endpoint={endpoint}
@@ -22,7 +28,7 @@ const ICONS = [
   data-success={LEAD.success}
 >
   <p class="eyebrow">Try it</p>
-  <h2 id="closer-title" class="display section-title">{LEAD.heading}</h2>
+  <Heading id="closer-title" class="display section-title">{LEAD.heading}</Heading>
   <p class="lede">{LEAD.lede}</p>
 
   <form class="closer-form" novalidate>
@@ -102,6 +108,10 @@ const ICONS = [
     const go = form.querySelector<HTMLButtonElement>(".closer-go")!;
     const errors = form.querySelectorAll<HTMLElement>(".closer-error");
     let step = 1;
+
+    // Links from Services / Featured work pass ?service=... so the message starts with context
+    const svc = new URLSearchParams(location.search).get("service");
+    if (svc && !msg.value) msg.value = `I'd like to talk about: ${svc.slice(0, 120)}`;
 
     const region = navigator.language?.split("-")[1]?.toUpperCase();
     const local = [...cc.options].find((o) => o.dataset.iso?.split(",").includes(region ?? ""));
