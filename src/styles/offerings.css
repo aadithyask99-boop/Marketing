@@ -1,4 +1,4 @@
-.offer { --mute: #a0948a; }
+.offer { --mute: #a0948a; padding-block: clamp(5rem, 12vw, 10rem); }
 .offer-heading {
   margin: 0 auto;
   text-align: center;
@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
-  margin: clamp(2.5rem, 6vw, 5rem) auto 0;
+  margin: clamp(4rem, 9vw, 7.5rem) auto 0;
   max-width: 78rem;
   align-items: center;
 }
@@ -49,7 +49,7 @@
 @keyframes offer-spin { to { transform: translate(200px, 200px) rotate(360deg); } }
 
 /* List */
-.offer-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.5rem; }
+.offer-list { margin: 0; padding: 0; list-style: none; display: grid; gap: clamp(1.75rem, 3.5vw, 2.75rem); }
 .offer-title {
   display: block;
   width: 100%;
@@ -58,7 +58,8 @@
   border: 0;
   background: none;
   color: var(--mute);
-  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-size: clamp(2rem, 4.6vw, 3.75rem);
+  line-height: 1;
   text-align: left;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -69,8 +70,8 @@
 
 .offer-panel { display: grid; grid-template-rows: 1fr; }
 .offer-panel-inner { overflow: hidden; }
-.offer-blurb { margin: 0.5rem 0 1.25rem; font-size: clamp(1.05rem, 1.7vw, 1.3rem); max-width: 34rem; }
-.offer-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.25rem; padding: 0; list-style: none; }
+.offer-blurb { margin: 1rem 0 1.5rem; font-size: clamp(1.05rem, 1.7vw, 1.3rem); max-width: 34rem; }
+.offer-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0 0 0.5rem; padding: 0; list-style: none; }
 .offer-pills a {
   display: inline-flex;
   align-items: center;
@@ -94,7 +95,7 @@
 
 .offer-more {
   display: inline-block;
-  margin-top: 1.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
   min-height: 2.75rem;
   padding: 0.6rem 0;
   font-weight: 600;
@@ -104,7 +105,7 @@
 .offer-more:hover { color: var(--red); }
 
 @media (min-width: 900px) {
-  .offer-body { grid-template-columns: 1.15fr 0.85fr; gap: 4rem; }
+  .offer-body { grid-template-columns: 1.1fr 0.9fr; gap: 6rem; }
   .offer-shapes { order: 2; width: min(100%, 30rem); }
   .offer-list-wrap { order: 1; }
 }
