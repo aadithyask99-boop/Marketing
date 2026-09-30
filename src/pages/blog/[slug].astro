@@ -3,10 +3,14 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import ClosingCta from "../../components/ClosingCta.astro";
+import ArticleToc from "../../components/ArticleToc.astro";
+import ShareRail from "../../components/ShareRail.astro";
+import Faq from "../../components/Faq.astro";
+import OfferShape from "../../components/OfferShape.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/offerings.css";
 import "../../styles/blog.css";
-import { BLOG_CATEGORIES, url } from "../../data/site";
+import { BLOG_CATEGORIES, SITE, url } from "../../data/site";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
@@ -14,25 +18,79 @@ export async function getStaticPaths() {
 }
 
 const { post, posts } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 const d = post.data;
 const cat = BLOG_CATEGORIES.find((c) => c.slug === d.category)!;
 const related = posts.filter((p) => p.id !== post.id && p.data.category === d.category).slice(0, 3);
 const more = related.length ? related : posts.filter((p) => p.id !== post.id).slice(0, 3);
 const TONES = ["cream", "ink", "red"] as const;
 const date = d.date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+const initials = d.author.split(" ").map((w) => w[0]).join("").slice(0, 2);
+const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href;
+const ask = encodeURIComponent(`Summarise this article and tell me the key takeaways: ${pageUrl}`);
+const AI = [
+  { name: "ChatGPT", href: `https://chatgpt.com/?q=${ask}` },
+  { name: "Claude", href: `https://claude.ai/new?q=${ask}` },
+  { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${ask}` },
+];
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: d.title,
+    description: d.excerpt,
+    datePublished: d.date.toISOString(),
+    author: { "@type": "Organization", name: SITE.name },
+    keywords: d.tags.join(", "),
+  },
+  d.faq.length > 0 && {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: d.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
+].filter(Boolean);
 ---
 
 <BaseLayout title={d.title} description={d.excerpt}>
-  <header class="article-head page-top">
-    <a class="article-back" href={url("/blog")}>&larr; All posts</a>
-    <p class="post-tag">{cat.label}</p>
-    <h1 class="display article-title">{d.title}</h1>
-    <p class="article-meta">{d.author} · {date} · {d.readMins} min read</p>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld).replace(/</g, "\\u003c")} />
+
+  <header class="a-head page-top">
+    <div class="a-info">
+      <a class="article-back" href={url("/blog")}>&larr; All posts</a>
+      <p class="a-date">{date} · {d.readMins} min read</p>
+      <h1 class="display a-title">{d.title}</h1>
+      <p class="a-by"><span class="post-avatar" aria-hidden="true">{initials}</span>By {d.author}</p>
+
+      <div class="tldr">
+        <p class="tldr-label"><span class="tldr-dot"></span>Short answer</p>
+        <p class="tldr-text">{d.tldr}</p>
+      </div>
+
+      <div class="ask">
+        <p class="ask-label">Ask AI to summarise</p>
+        <ul class="ask-list" data-ask>
+          {AI.map((a) => <li><a href={a.href} target="_blank" rel="noopener noreferrer">{a.name} <span aria-hidden="true">↗</span></a></li>)}
+        </ul>
+      </div>
+    </div>
+
+    <figure class="a-art">
+      <div class="a-tile"><OfferShape shape={cat.shape} class="a-shape" /></div>
+      <figcaption>{cat.label} · Illustration by {SITE.name}</figcaption>
+    </figure>
   </header>
 
-  <section class="section section--cream">
-    <article class="prose"><Content /></article>
+  <section class="a-body section--cream">
+    <div class="a-grid">
+      <ShareRail title={d.title} />
+      <article class="prose"><Content /></article>
+      <aside class="a-aside"><ArticleToc headings={headings} /></aside>
+    </div>
+    <Faq items={d.faq} />
+    <div class="a-foot">
+      <p class="a-tags"><span>In this article:</span>{d.tags.map((t) => <a href={`${url("/blog")}?q=${encodeURIComponent(t)}`}>#{t}</a>)}</p>
+      <p class="a-geo">Built to be quoted by AI. This page ships with <a href={`${url("/services")}#ai-search`}>the same structured data we set up for clients</a>.</p>
+    </div>
   </section>
 
   <section class="section section--cream related" aria-labelledby="related-title">
@@ -48,3 +106,15 @@ const date = d.date.toLocaleDateString("en-GB", { day: "numeric", month: "long",
 
   <ClosingCta />
 </BaseLayout>
+
+<script>
+  // Point the AI links at the live address (the build may not know the site URL).
+  const links = document.querySelectorAll<HTMLAnchorElement>("[data-ask] a");
+  const q = encodeURIComponent(`Summarise this article and tell me the key takeaways: ${location.origin}${location.pathname}`);
+  const map: Record<string, string> = {
+    ChatGPT: `https://chatgpt.com/?q=${q}`,
+    Claude: `https://claude.ai/new?q=${q}`,
+    Perplexity: `https://www.perplexity.ai/search?q=${q}`,
+  };
+  links.forEach((a) => { const k = a.textContent!.replace(/\s*↗\s*$/, "").trim(); if (map[k]) a.href = map[k]; });
+</script>

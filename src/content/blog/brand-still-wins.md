@@ -6,6 +6,15 @@ category: brand-social
 date: 2026-03-08
 readMins: 4
 featured: false
+tldr: "AI models lean on brands they recognise. A distinct identity and consistent mentions make you the safe answer."
+tags: ["Brand", "GEO", "Identity"]
+faq:
+  - q: "What should I do first?"
+    a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."
+  - q: "How long does it take to see results?"
+    a: "Technical fixes can show within weeks; authority and mentions build over a few months. Expect steady gains, not overnight jumps."
+  - q: "Do I need a new website for this?"
+    a: "Not usually. Most improvements come from restructuring existing pages, adding schema and publishing clearer answers."
 ---
 
 Models cite brands they recognise. Building a distinct, consistent identity is now a search strategy. This is placeholder copy so the blog layout can be reviewed. Replace it with your own article.
@@ -15,6 +24,10 @@ Models cite brands they recognise. Building a distinct, consistent identity is n
 Buyers now research on Google, TikTok and AI assistants long before they speak to a sales team. Showing up in those places is a measurable, repeatable process, not luck.
 
 > Be the brand the answer points to.
+
+## Common mistakes
+
+Chasing every new tactic at once, publishing thin pages, and never measuring whether AI assistants actually mention you.
 
 ## What to do next
 

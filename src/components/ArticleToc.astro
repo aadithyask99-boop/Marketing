@@ -1,0 +1,60 @@
+---
+interface Props { headings: { depth: number; slug: string; text: string }[] }
+const items = Astro.props.headings.filter((h) => h.depth === 2);
+---
+
+{
+  items.length > 0 && (
+    <nav class="toc" aria-label="Table of contents" data-toc>
+      <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="toc-list">
+        <span>Contents</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <div class="toc-body" id="toc-list">
+        <span class="toc-bar" aria-hidden="true"><span class="toc-fill"></span></span>
+        <ol>
+          {items.map((h) => <li><a href={`#${h.slug}`} data-id={h.slug}>{h.text}</a></li>)}
+          <li><a href="#faq" data-id="faq">FAQ</a></li>
+        </ol>
+      </div>
+    </nav>
+  )
+}
+
+<script>
+  const toc = document.querySelector<HTMLElement>("[data-toc]");
+  const article = document.querySelector<HTMLElement>(".prose");
+  if (toc && article) {
+    const toggle = toc.querySelector<HTMLButtonElement>(".toc-toggle")!;
+    const fill = toc.querySelector<HTMLElement>(".toc-fill")!;
+    const links = [...toc.querySelectorAll<HTMLAnchorElement>("a[data-id]")];
+    const KEY = "toc-open";
+    const wide = window.matchMedia("(min-width: 900px)");
+
+    let stored: string | null = null;
+    try { stored = localStorage.getItem(KEY); } catch {}
+    const setOpen = (open: boolean, save = false) => {
+      toc.classList.toggle("is-closed", !open);
+      toggle.setAttribute("aria-expanded", String(open));
+      if (save) try { localStorage.setItem(KEY, open ? "1" : "0"); } catch {}
+    };
+    setOpen(stored ? stored === "1" : wide.matches);
+    toggle.addEventListener("click", () => setOpen(toc.classList.contains("is-closed"), true));
+
+    const targets = links.map((a) => document.getElementById(a.dataset.id!)).filter(Boolean) as HTMLElement[];
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const line = window.innerHeight * 0.3;
+      let current = targets.length ? targets[0].id : "";
+      for (const t of targets) if (t.getBoundingClientRect().top <= line) current = t.id;
+      links.forEach((a) => a.classList.toggle("is-current", a.dataset.id === current));
+      const r = article.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (window.innerHeight * 0.3 - r.top) / r.height));
+      fill.style.transform = `scaleY(${p})`;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  }
+</script>

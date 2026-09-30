@@ -1,0 +1,51 @@
+---
+const ICONS: Record<string, string> = {
+  LinkedIn: '<path fill="currentColor" stroke="none" d="M4 9h4v12H4zM6 3.2a2.3 2.3 0 1 1 0 4.6 2.3 2.3 0 0 1 0-4.6zM10 9h3.8v1.7c.7-1.2 2-2 3.8-2 3.2 0 4.4 2 4.4 5.3V21h-4v-6c0-1.5-.5-2.5-1.9-2.5-1.5 0-2.1 1-2.1 2.6V21h-4z"/>',
+  X: '<path d="M4 4l16 16M20 4L4 20"/>',
+  Facebook: '<path fill="currentColor" stroke="none" d="M14 21v-8h3l.5-3.5H14V7.5c0-1 .4-1.5 1.6-1.5H18V3c-.5 0-1.600-.2-2.800-.2C12.700 2.800 11 4.300 11 7v2.500H8V13h3v8z"/>',
+  Email: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  "Copy link": '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.700-5.700l-1 1M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1"/>',
+};
+const { title } = Astro.props;
+---
+
+<div class="share" data-share data-title={title} role="group" aria-label="Share this article">
+  {
+    Object.entries(ICONS).map(([name, d]) => (
+      <a class="share-btn" href="#" data-net={name} aria-label={name === "Copy link" ? "Copy link" : `Share on ${name}`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" set:html={d} />
+      </a>
+    ))
+  }
+  <span class="share-note" role="status" aria-live="polite"></span>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-share]");
+  if (root) {
+    const href = location.origin + location.pathname;
+    const t = encodeURIComponent(root.dataset.title ?? document.title);
+    const u = encodeURIComponent(href);
+    const targets: Record<string, string> = {
+      LinkedIn: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`,
+      X: `https://twitter.com/intent/tweet?text=${t}&url=${u}`,
+      Facebook: `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+      Email: `mailto:?subject=${t}&body=${u}`,
+    };
+    const note = root.querySelector<HTMLElement>(".share-note")!;
+    root.querySelectorAll<HTMLAnchorElement>("[data-net]").forEach((a) => {
+      const net = a.dataset.net!;
+      if (targets[net]) {
+        a.href = targets[net];
+        if (net !== "Email") { a.target = "_blank"; a.rel = "noopener noreferrer"; }
+      } else {
+        a.addEventListener("click", async (e) => {
+          e.preventDefault();
+          try { await navigator.clipboard.writeText(href); note.textContent = "Link copied"; }
+          catch { note.textContent = "Copy failed"; }
+          setTimeout(() => (note.textContent = ""), 2000);
+        });
+      }
+    });
+  }
+</script>
