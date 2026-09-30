@@ -211,11 +211,11 @@
 .a-art figcaption { margin-top: 0.6rem; text-align: right; font-size: 0.75rem; opacity: 0.8; }
 
 .a-body { padding: clamp(1rem, 3vw, 2rem) var(--gutter) clamp(3rem, 7vw, 6rem); }
-.a-grid { display: grid; gap: 1.5rem; margin: 0 auto; max-width: 78rem; grid-template-columns: minmax(0, 1fr); }
+.a-grid { display: grid; gap: 1.5rem; margin: 0 auto; max-width: 90rem; grid-template-columns: minmax(0, 1fr); }
 .a-aside { order: -1; }
 
 /* Share */
-.share { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+.share { margin-top: 1rem; display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
 .share-btn {
   display: grid;
   place-items: center;
@@ -259,7 +259,8 @@
 .toc a.is-current { color: var(--red); font-weight: 600; opacity: 1; }
 
 /* FAQ */
-.faq { max-width: 42rem; margin: clamp(2.5rem, 6vw, 4.5rem) auto 0; scroll-margin-top: calc(var(--header-h) + 1rem); }
+.a-wrap { max-width: 90rem; margin: 0 auto; }
+.faq { max-width: 42rem; margin: clamp(2.5rem, 6vw, 4.5rem) 0 0; scroll-margin-top: calc(var(--header-h) + 1rem); }
 .faq-title { margin-bottom: 1rem; font-size: clamp(2rem, 4vw, 2.75rem); color: var(--red); }
 .faq-item { border-top: 1px solid rgba(23, 9, 10, 0.2); }
 .faq-item:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
@@ -280,7 +281,7 @@
 .faq-item summary svg { flex: none; width: 1.4rem; height: 1.4rem; transition: transform 0.25s ease; }
 .faq-item[open] summary svg { transform: rotate(45deg); color: var(--red); }
 .faq-item p { padding-bottom: 1.25rem; max-width: 36rem; }
-.a-foot { max-width: 42rem; margin: 2.5rem auto 0; }
+.a-foot { max-width: 42rem; margin: 2.5rem 0 0; }
 .a-tags { display: flex; flex-wrap: wrap; gap: 0.4rem 0.9rem; padding-top: 1.25rem; border-top: 2px solid var(--ink); font-size: 0.9rem; }
 .a-tags span { font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 .a-tags a:hover { color: var(--red); }
@@ -288,17 +289,15 @@
 .a-geo a { text-decoration: underline; }
 
 @media (min-width: 900px) {
-  .a-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4rem); max-width: 90rem; margin: 0 auto; }
-  .a-grid { grid-template-columns: 3rem minmax(0, 42rem) 16rem; justify-content: center; gap: 2.5rem; align-items: start; }
+  .a-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 4rem); max-width: calc(90rem + 2 * var(--gutter)); margin: 0 auto; }
+  .a-grid { grid-template-columns: minmax(0, 42rem) 16rem; justify-content: start; gap: clamp(2rem, 6vw, 6rem); align-items: start; }
   .a-aside { order: 0; position: sticky; top: calc(var(--header-h) + 1rem); }
-  .share { position: sticky; top: calc(var(--header-h) + 1rem); flex-direction: column; align-items: flex-start; }
-  .share-note { position: absolute; left: 3.2rem; top: 8.5rem; white-space: nowrap; }
 }
 @media (max-width: 899px) {
   .toc-body { max-height: 60svh; overflow-y: auto; }
 }
 
-.prose { max-width: 42rem; margin: 0 auto; font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.7; }
+.prose { max-width: 42rem; margin: 0; font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.7; }
 .prose > * + * { margin-top: 1.25rem; }
 .prose h2 { margin-top: 2.5rem; font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1; text-transform: uppercase; color: var(--red); }
 .prose ul { padding-left: 1.25rem; }

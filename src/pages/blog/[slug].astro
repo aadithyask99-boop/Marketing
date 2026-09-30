@@ -82,14 +82,15 @@ const ld = [
 
   <section class="a-body section--cream">
     <div class="a-grid">
-      <ShareRail title={d.title} />
       <article class="prose"><Content /></article>
-      <aside class="a-aside"><ArticleToc headings={headings} /></aside>
+      <aside class="a-aside"><ArticleToc headings={headings} /><ShareRail title={d.title} /></aside>
     </div>
+    <div class="a-wrap">
     <Faq items={d.faq} />
     <div class="a-foot">
       <p class="a-tags"><span>In this article:</span>{d.tags.map((t) => <a href={`${url("/blog")}?q=${encodeURIComponent(t)}`}>#{t}</a>)}</p>
       <p class="a-geo">Built to be quoted by AI. This page ships with <a href={`${url("/services")}#ai-search`}>the same structured data we set up for clients</a>.</p>
+    </div>
     </div>
   </section>
 
