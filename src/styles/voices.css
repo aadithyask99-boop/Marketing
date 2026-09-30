@@ -64,10 +64,6 @@
 .voices-btn:hover { background: var(--ink); color: var(--cream); }
 .voices-btn svg { width: 1.2rem; height: 1.2rem; }
 .voices-dots { display: flex; }
-.voices-pause { margin-left: 0.5rem; }
-.voices-pause .i-play { display: none; }
-.voices-pause.is-paused .i-play { display: block; }
-.voices-pause.is-paused .i-pause { display: none; }
 .voices-dot {
   display: grid;
   place-items: center;
