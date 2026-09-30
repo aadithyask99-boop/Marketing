@@ -92,10 +92,10 @@
   .svc-main { padding-left: 1.75rem; }
 }
 @media (max-width: 899px) {
-  .svc-side .svc-shape { width: 6rem; height: 6rem; position: absolute; right: 0; top: 0; margin: 0; }
+  .svc-side .svc-shape { width: 6rem; height: 6rem; position: absolute; inset: 0 0 auto auto; margin: 0; }
   .svc-tag:nth-child(n+4) { display: none; }
   .svc-side { position: relative; }
-  .svc-title { max-width: 75%; }
+  .svc-title { max-width: calc(100% - 7rem); }
   .svc-talk { margin-bottom: 0.5rem; }
 }
 @media (prefers-reduced-motion: reduce) {

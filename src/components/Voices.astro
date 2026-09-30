@@ -2,9 +2,14 @@
 import "@fontsource/instrument-serif/400.css";
 import "../styles/voices.css";
 import { TESTIMONIALS } from "../data/site";
+
+interface Props {
+  tone?: "cream" | "ink";
+}
+const { tone = "cream" } = Astro.props;
 ---
 
-<section class="voices-section" aria-labelledby="voices-title">
+<section class:list={["voices-section", tone === "ink" && "voices-section--ink"]} aria-labelledby="voices-title">
   <h2 id="voices-title" class="eyebrow voices-eyebrow">What clients say</h2>
   <div class="voices" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
     <ul class="voices-track" tabindex="0" aria-label="Testimonials, scroll sideways">

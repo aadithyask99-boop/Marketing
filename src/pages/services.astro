@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ServiceBlocks from "../components/ServiceBlocks.astro";
+import Proof from "../components/Proof.astro";
+import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/offerings.css";
@@ -21,6 +23,8 @@ import { SERVICES_INTRO } from "../data/site";
   </section>
 
   <ServiceBlocks />
+  <Proof tone="ink" />
+  <Voices tone="ink" />
   <ClosingCta />
 </BaseLayout>
 

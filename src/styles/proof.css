@@ -58,3 +58,6 @@
   .proof-track { animation: none; }
   .proof-list + .proof-list { display: none; }
 }
+
+/* Dark variant (services page) */
+.proof--ink { background: var(--ink); color: var(--cream); }

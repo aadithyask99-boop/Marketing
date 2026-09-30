@@ -23,7 +23,8 @@ const split = (el: HTMLElement) => {
 };
 
 export function initXray(zone: Element | null, radiusRem = 10) {
-  if (!zone) return;
+  if (!zone || (zone as HTMLElement).dataset?.xrayInit) return;
+  (zone as HTMLElement).dataset.xrayInit = "1";
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!fine || reduced) return;
@@ -72,4 +73,24 @@ export function initXray(zone: Element | null, radiusRem = 10) {
   zone.addEventListener("pointerleave", off);
   window.addEventListener("blur", off);
   document.addEventListener("scroll", () => { if (pt) queue(); }, { passive: true });
+}
+
+// Every page hero headline gets the same hover: wrap loose text so each piece can be split into letters.
+export function initHeadlines() {
+  document.querySelectorAll<HTMLElement>("main h1").forEach((h1) => {
+    if (h1.dataset.xrayInit) return;
+    if (!h1.querySelector("[data-xray]")) {
+      [...h1.childNodes].forEach((n) => {
+        if (n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) {
+          const span = document.createElement("span");
+          span.dataset.xray = "";
+          span.textContent = n.textContent;
+          n.replaceWith(span);
+        } else if (n instanceof HTMLElement && !n.children.length && n.textContent?.trim()) {
+          n.dataset.xray = "";
+        }
+      });
+    }
+    initXray(h1, 12);
+  });
 }

@@ -83,6 +83,13 @@
 .voices-dot.is-on span { background: var(--red); transform: scale(1.35); }
 
 
+/* Dark variant (services page) */
+.voices-section--ink { background: var(--ink); color: var(--cream); }
+.voices-section--ink .voices-btn { border-color: var(--cream); }
+.voices-section--ink .voices-btn:hover { background: var(--cream); color: var(--ink); }
+.voices-section--ink .voices-dot span { background: rgba(245, 239, 232, 0.3); }
+.voices-section--ink .voices-dot.is-on span { background: var(--red); }
+
 @media (prefers-reduced-motion: reduce) {
   .voices-track { scroll-behavior: auto; }
   .voices-btn, .voices-dot span { transition: none; }

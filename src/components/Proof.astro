@@ -4,6 +4,11 @@ import { siOpenai, siMicrosoft } from "simple-icons-old";
 import { siShell, siApple, siPanasonic, siSiemens, siSony, siWorldhealthorganization } from "simple-icons";
 import { CLIENTS } from "../data/site";
 
+interface Props {
+  tone?: "cream" | "ink";
+}
+const { tone = "cream" } = Astro.props;
+
 // Real brand marks where the open icon set has them; other clients fall back to a text wordmark.
 // `box` crops each icon to its artwork; `h` is the rendered height in rem (wordmarks are wide and short).
 const LOGOS: Record<string, { d: string; box: string; h: number }> = {
@@ -18,7 +23,7 @@ const LOGOS: Record<string, { d: string; box: string; h: number }> = {
 };
 ---
 
-<section class="proof" aria-labelledby="proof-title">
+<section class:list={["proof", tone === "ink" && "proof--ink"]} aria-labelledby="proof-title">
   <h2 id="proof-title" class="proof-label">Clients across our portfolio</h2>
   <div class="proof-strip" aria-hidden="true">
     <div class="proof-track">
