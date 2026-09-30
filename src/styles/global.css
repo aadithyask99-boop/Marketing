@@ -318,18 +318,11 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
   .badge, .card, .cursor-arrow, .cursor-label, .menu a { transition: none; }
 }
 
-/* X-ray type hover (see scripts/xray.ts) */
-@property --xr-r { syntax: "<length>"; inherits: false; initial-value: 0px; }
-[data-xray] { --xr-r: 0px; --xr-x: -999px; --xr-y: -999px; transition: --xr-r 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+/* X-ray type hover (see scripts/xray.ts): letters blend toward the reveal colour by --t (0 to 1) */
 .hero-title [data-xray] { --xr-base: var(--cream); --xr-rev: var(--ink); }
 .footer-wordmark[data-xray] { --xr-base: var(--ink); --xr-rev: var(--red); }
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  [data-xray].is-xray-ready {
-    color: transparent;
-    background:
-      radial-gradient(circle var(--xr-r) at var(--xr-x) var(--xr-y), var(--xr-rev) 0, var(--xr-rev) calc(var(--xr-r) - 0.9rem), transparent var(--xr-r)),
-      linear-gradient(var(--xr-base), var(--xr-base));
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
+.xr-ch {
+  display: inline-block;
+  color: color-mix(in srgb, var(--xr-rev) calc(var(--t, 0) * 100%), var(--xr-base));
+  transition: color 0.16s ease;
 }
