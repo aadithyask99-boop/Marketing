@@ -113,7 +113,7 @@ import { PROCESS, url } from "../data/site";
       ticking = false;
       if (!len) return;
       const r = root.getBoundingClientRect();
-      const p = reduced ? 1 : clamp((window.innerHeight * 0.6 - r.top) / r.height);
+      const p = reduced ? 1 : clamp((window.innerHeight * 0.85 - r.top) / (r.height * 0.8));
       const at = p * len;
       reveal.style.strokeDashoffset = String(len - at);
       const a = reveal.getPointAtLength(at);
