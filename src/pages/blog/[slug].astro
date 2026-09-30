@@ -22,7 +22,9 @@ const { Content, headings } = await render(post);
 const d = post.data;
 const cat = BLOG_CATEGORIES.find((c) => c.slug === d.category)!;
 const related = posts.filter((p) => p.id !== post.id && p.data.category === d.category).slice(0, 3);
-const more = related.length ? related : posts.filter((p) => p.id !== post.id).slice(0, 3);
+// Always show three: same-category first, then the newest of the rest.
+const others = posts.filter((p) => p.id !== post.id && !related.includes(p)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const more = [...related, ...others].slice(0, 3);
 const TONES = ["cream", "ink", "red"] as const;
 const date = d.date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 const initials = d.author.split(" ").map((w) => w[0]).join("").slice(0, 2);

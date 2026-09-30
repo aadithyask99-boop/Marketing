@@ -171,6 +171,7 @@
   background: var(--red);
   color: var(--cream);
 }
+.a-head { min-height: 100vh; min-height: 100svh; }
 .a-date { font-size: 0.9rem; font-weight: 600; opacity: 0.75; }
 .a-title { margin-top: 0.75rem; font-size: clamp(2.6rem, 6vw, 5rem); }
 .a-by .post-avatar { background: var(--cream); color: var(--red); }
@@ -294,16 +295,22 @@
     align-items: stretch;
     gap: clamp(2rem, 5vw, 4rem);
     padding: 0 0 0 max(var(--gutter), calc((100% - 90rem) / 2));
+    min-height: 100vh;
+    min-height: 100svh;
   }
-  .a-info { padding: calc(var(--header-h) + 1.5rem) 0 clamp(2.5rem, 5vw, 4rem); }
+  .a-info { display: flex; flex-direction: column; justify-content: center; padding: calc(var(--header-h) + 1rem) 0 2rem; }
   .a-art { position: relative; display: flex; margin-top: var(--header-h); }
-  .a-tile { flex: 1; aspect-ratio: auto; min-height: min(70svh, 40rem); border-radius: 1.5rem 0 0 1.5rem; }
+  .a-tile { flex: 1; aspect-ratio: auto; min-height: 0; border-radius: 1.5rem 0 0 1.5rem; }
   .a-shape { width: min(62%, 32rem); height: auto; aspect-ratio: 1; }
   .a-art figcaption { position: absolute; right: var(--gutter); bottom: 1rem; margin: 0; color: var(--ink); }
   .a-grid { grid-template-columns: minmax(0, 54rem) 16rem; justify-content: space-between; gap: clamp(1.5rem, 4vw, 4rem); align-items: start; }
   .a-aside { order: 0; position: sticky; top: calc(var(--header-h) + 1rem); }
 }
 @media (max-width: 899px) {
+  .a-head { display: flex; flex-direction: column; gap: 1.5rem; }
+  .a-art { flex: 1; display: flex; flex-direction: column; }
+  .a-tile { flex: 1; aspect-ratio: auto; min-height: 14rem; }
+  .a-shape { width: 10rem; height: 10rem; }
   .toc-body { max-height: 60svh; overflow-y: auto; }
 }
 
