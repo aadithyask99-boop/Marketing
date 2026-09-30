@@ -108,7 +108,7 @@
   width: min(50rem, 150%);
   height: auto;
   fill: var(--red);
-  opacity: 0.9;
+  opacity: 0.2;
 }
 .tile-logo { width: 62%; max-height: 46%; height: auto; }
 

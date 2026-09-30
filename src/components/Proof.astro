@@ -17,7 +17,7 @@ const LOGOS: Record<string, string> = {
 };
 
 // Brand-only tones: adjacent tiles (and the loop seam) never share a colour.
-const TONES = ["cream", "red", "ink"];
+const TONES = ["cream", "ink", "red", "ink"];
 const toned = (names: string[], offset: number) => {
   const list = names.map((name, j) => ({ name, tone: TONES[(j + offset) % TONES.length] }));
   const last = list[list.length - 1];
