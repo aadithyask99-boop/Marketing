@@ -1,34 +1,79 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-
-const values = [
-  { title: "Be found", body: "Visibility across search and AI answers comes first." },
-  { title: "Be clear", body: "Sharp positioning and copy that says one thing well." },
-  { title: "Be accountable", body: "Goals agreed up front and reported on plainly." },
-];
+import AboutManifesto from "../components/AboutManifesto.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import "../styles/about.css";
+import { ABOUT } from "../data/site";
 ---
 
-<BaseLayout title="About" description="About Maximus Mediascape, a marketing agency.">
+<BaseLayout title="About" description="Maximus Mediascape is a marketing agency founded in 2023 at the University of Surrey, now with offices in the UK, UAE and India.">
   <section class="section page-top page-hero">
     <p class="eyebrow">About</p>
     <h1 class="display page-title">Maximus Mediascape</h1>
-    <p class="lede">
-      We're a marketing agency that blends creative craft with search and AI know-how. Replace this
-      paragraph with your story, team size and what makes your approach different.
-    </p>
+    <p class="lede">{ABOUT.lede}</p>
   </section>
 
-  <section class="section section--cream" aria-labelledby="values-title">
-    <h2 id="values-title" class="display section-title">How we <span class="accent">work</span></h2>
-    <div class="grid grid--3">
+  <AboutManifesto />
+
+  <section class="about-numbers" aria-label="Maximus Mediascape in numbers">
+    <ul>
       {
-        values.map((v) => (
-          <div class="card card--ink">
-            <h3 class="display card-title">{v.title}</h3>
-            <p>{v.body}</p>
-          </div>
+        ABOUT.numbers.map((n) => (
+          <li>
+            <span class="num-value" data-count data-to={n.value} data-from={n.from} data-suffix={n.suffix}>{n.value}{n.suffix}</span>
+            <span class="num-label">{n.label}</span>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </section>
+
+  <section class="about-values" aria-labelledby="values-title">
+    <h2 id="values-title" class="display about-values-title">What we <span class="about-accent">stand for</span></h2>
+    <ul class="values-grid">
+      {
+        ABOUT.values.map((v, i) => (
+          <li class="value-card" data-cursor="Hi">
+            <span class="value-num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="display value-title">{v.title}</h3>
+            <p>{v.body}</p>
+            <span class="value-arrow" aria-hidden="true">→</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <ClosingCta />
 </BaseLayout>
+
+<script>
+  // Count the numbers up once when they scroll into view
+  const els = [...document.querySelectorAll<HTMLElement>("[data-count]")];
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (els.length && !reduced && "IntersectionObserver" in window) {
+    const run = (el: HTMLElement) => {
+      const to = Number(el.dataset.to);
+      const from = Number(el.dataset.from ?? 0);
+      const suffix = el.dataset.suffix ?? "";
+      const start = performance.now();
+      const dur = 1400;
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / dur);
+        const e = 1 - Math.pow(1 - t, 3);
+        el.textContent = `${Math.round(from + (to - from) * e)}${suffix}`;
+        if (t < 1) requestAnimationFrame(tick);
+        else {
+          el.textContent = `${to}${suffix}`;
+          el.classList.add("is-done");
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+    els.forEach((el) => { el.textContent = `${el.dataset.from ?? 0}${el.dataset.suffix ?? ""}`; });
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { run(e.target as HTMLElement); io.unobserve(e.target); }
+    }), { threshold: 0.6 });
+    els.forEach((el) => io.observe(el));
+  }
+</script>

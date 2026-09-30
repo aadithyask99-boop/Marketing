@@ -397,3 +397,34 @@ export const RESULTS = [
   { value: "2.3x", label: "Qualified enquiries" },
   { value: "10 wks", label: "Typical time to launch*" },
 ];
+
+// About page. Story copy is the user's; wording is a first draft to refine.
+export const ABOUT = {
+  lede: "A marketing agency that began with friends helping local businesses, and now works across three countries.",
+  story: [
+    { t: "It started in 2023 at the " },
+    { hl: "University of Surrey" },
+    { t: " in Guildford, with a few friends helping local businesses get noticed. Word spread, and so did we: offices in the " },
+    { pill: "UK", tz: "Europe/London" },
+    { t: ", the " },
+    { pill: "UAE", tz: "Asia/Dubai" },
+    { t: " and " },
+    { pill: "India", tz: "Asia/Kolkata" },
+    { t: ". Now people ask Google, TikTok and " },
+    { hl: "ChatGPT" },
+    { t: " before they ask anyone else, so our job is simple. Be " },
+    { hl: "the brand they find, trust and choose." },
+  ],
+  // "10+" projects is the client's figure. "3 time zones" follows from the three offices.
+  numbers: [
+    { value: 2023, from: 2015, suffix: "", label: "Founded" },
+    { value: 3, from: 0, suffix: "", label: "Countries" },
+    { value: 10, from: 0, suffix: "+", label: "Projects" },
+    { value: 3, from: 0, suffix: "", label: "Time zones, someone is always online" },
+  ],
+  values: [
+    { title: "Be found", body: "Visibility across search and AI answers comes first." },
+    { title: "Be clear", body: "Sharp positioning and copy that says one thing well." },
+    { title: "Be accountable", body: "Goals agreed up front and reported on plainly." },
+  ],
+};

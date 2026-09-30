@@ -1,0 +1,71 @@
+---
+import { ABOUT } from "../data/site";
+
+// Break the story into words so each can light up; highlighted phrases and office pills keep their marker.
+type Word = { text: string; hl?: boolean; pill?: string; tz?: string; glue?: boolean };
+const words: Word[] = [];
+let prevSpace = true;
+for (const seg of ABOUT.story as any[]) {
+  if (seg.pill) {
+    words.push({ text: seg.pill, pill: seg.pill, tz: seg.tz });
+    prevSpace = false;
+  }
+  else {
+    const text: string = seg.t ?? seg.hl;
+    const lead = /^\s/.test(text);
+    text.trim().split(/\s+/).forEach((w, i) => words.push({ text: w, hl: !!seg.hl, glue: i === 0 && !lead && !prevSpace && words.length > 0 }));
+    prevSpace = /\s$/.test(text);
+  }
+}
+---
+
+<section class="manifesto" data-manifesto aria-label="Our story">
+  <div class="manifesto-stick">
+    <p class="manifesto-text">
+      {
+        words.map((w) =>
+          w.pill ? (
+            <span class="mw mw--pill" data-tz={w.tz} data-cursor="Office" tabindex="0">
+              {w.text}
+              <span class="pill-time" aria-hidden="true"></span>
+            </span>
+          ) : (
+            <span class:list={["mw", w.hl && "mw--hl", w.glue && "mw--glue"]}>{w.text}</span>
+          )
+        )
+      }
+    </p>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-manifesto]");
+  if (root) {
+    const words = [...root.querySelectorAll<HTMLElement>(".mw")];
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Live local time for the office pills
+    const fmt = (tz: string) => new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: tz }).format(new Date());
+    const pills = words.filter((w) => w.dataset.tz);
+    const stamp = () => pills.forEach((p) => { p.querySelector<HTMLElement>(".pill-time")!.textContent = fmt(p.dataset.tz!); });
+    stamp();
+    window.setInterval(stamp, 30000);
+
+    if (!reduced) {
+      root.classList.add("is-enhanced");
+      let ticking = false;
+      const update = () => {
+        ticking = false;
+        const r = root.getBoundingClientRect();
+        const travel = r.height - window.innerHeight;
+        const p = Math.min(1, Math.max(0, -r.top / Math.max(1, travel)));
+        const lit = p * 1.12 * words.length; // finishes a little before the pin releases
+        words.forEach((w, i) => w.style.setProperty("--o", Math.min(1, Math.max(0, lit - i)).toFixed(3)));
+      };
+      const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", update);
+      update();
+    }
+  }
+</script>
