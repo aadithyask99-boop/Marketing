@@ -398,23 +398,46 @@ export const RESULTS = [
   { value: "10 wks", label: "Typical time to launch*" },
 ];
 
-// About page. Story copy is the user's; wording is a first draft to refine.
+// About page. The facts (2023, University of Surrey, cafes/salons/shops, UAE 2024, India 2025,
+// 10+ projects) are the client's; the wording and everything else is a first draft to review.
 export const ABOUT = {
   lede: "A marketing agency that began with friends helping local businesses, and now works across three countries.",
-  story: [
-    { t: "It started in 2023 at the " },
-    { hl: "University of Surrey" },
-    { t: " in Guildford, with a few friends helping local businesses get noticed. Word spread, and so did we: offices in the " },
-    { pill: "UK", tz: "Europe/London" },
-    { t: ", the " },
-    { pill: "UAE", tz: "Asia/Dubai" },
-    { t: " and " },
-    { pill: "India", tz: "Asia/Kolkata" },
-    { t: ". Now people ask Google, TikTok and " },
-    { hl: "ChatGPT" },
-    { t: " before they ask anyone else, so our job is simple. Be " },
-    { hl: "the brand they find, trust and choose." },
+  chapters: [
+    {
+      year: "2023",
+      place: "Guildford, UK",
+      title: "It began with a shop window.",
+      body: "At the University of Surrey, a few friends started helping cafes, salons and shops around Guildford with the basics: a website that worked, an Instagram that was not empty, and a Google listing people could actually find.",
+      office: { label: "UK", tz: "Europe/London" },
+    },
+    {
+      year: "2023",
+      place: "Guildford, UK",
+      title: "Learning by doing.",
+      body: "One shop owner told another. Every project taught the same lesson: clear messages, fast pages and being easy to find at the exact moment someone searches beat noise every time.",
+    },
+    {
+      year: "2024",
+      place: "United Arab Emirates",
+      title: "A second home.",
+      body: "Clients beyond the UK wanted the same thing, so the UAE office opened in 2024 and gave us a window into a market that moves fast and expects polish.",
+      office: { label: "UAE", tz: "Asia/Dubai" },
+    },
+    {
+      year: "2025",
+      place: "India",
+      title: "Growing the team.",
+      body: "The India office followed in 2025, adding design and build capacity and putting us across three time zones, so someone is always online.",
+      office: { label: "India", tz: "Asia/Kolkata" },
+    },
+    {
+      year: "Today",
+      place: "Wherever people ask",
+      title: "From Google to ChatGPT.",
+      body: "People now ask AI before they ask anyone. What we learned on the high street became our GEO and AEO work: be found, cited and chosen wherever the question is asked.",
+    },
   ],
+  belief: [{ t: "People ask before they buy. We make sure the answer is " }, { hl: "you." }],
   // "10+" projects is the client's figure. "3 time zones" follows from the three offices.
   numbers: [
     { value: 2023, from: 2015, suffix: "", label: "Founded" },
@@ -423,8 +446,10 @@ export const ABOUT = {
     { value: 3, from: 0, suffix: "", label: "Time zones, someone is always online" },
   ],
   values: [
-    { title: "Be found", body: "Visibility across search and AI answers comes first." },
-    { title: "Be clear", body: "Sharp positioning and copy that says one thing well." },
-    { title: "Be accountable", body: "Goals agreed up front and reported on plainly." },
+    { title: "Be found", body: "Visibility across search and AI answers comes first.", shape: "rings", tone: "white" },
+    { title: "Be clear", body: "Sharp positioning and copy that says one thing well.", shape: "grid", tone: "ink" },
+    { title: "Be accountable", body: "Goals agreed up front and reported on plainly.", shape: "stack", tone: "red" },
+    { title: "Be curious", body: "We test, read and try things before we recommend them.", shape: "spiral", tone: "white" },
+    { title: "Be human", body: "Plain language and real people, never a wall of jargon.", shape: "rings", tone: "ink" },
   ],
-};
+} as const;

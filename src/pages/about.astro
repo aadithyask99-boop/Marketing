@@ -1,18 +1,30 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AboutStory from "../components/AboutStory.astro";
 import AboutManifesto from "../components/AboutManifesto.astro";
+import ValuesMarquee from "../components/ValuesMarquee.astro";
+import Proof from "../components/Proof.astro";
+import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
+import OfferShape from "../components/OfferShape.astro";
+import "../styles/offerings.css";
 import "../styles/about.css";
 import { ABOUT } from "../data/site";
 ---
 
 <BaseLayout title="About" description="Maximus Mediascape is a marketing agency founded in 2023 at the University of Surrey, now with offices in the UK, UAE and India.">
-  <section class="section page-top page-hero">
+  <section class="about-hero section page-top page-hero" data-hero>
+    <div class="hero-floats" aria-hidden="true">
+      <span class="hf hf--a" data-depth="26"><OfferShape shape="rings" class="hf-shape" /></span>
+      <span class="hf hf--b" data-depth="-18"><OfferShape shape="spiral" class="hf-shape" /></span>
+      <span class="hf hf--c" data-depth="12"><OfferShape shape="stack" class="hf-shape" /></span>
+    </div>
     <p class="eyebrow">About</p>
     <h1 class="display page-title">Maximus Mediascape</h1>
     <p class="lede">{ABOUT.lede}</p>
   </section>
 
+  <AboutStory />
   <AboutManifesto />
 
   <section class="about-numbers" aria-label="Maximus Mediascape in numbers">
@@ -28,22 +40,9 @@ import { ABOUT } from "../data/site";
     </ul>
   </section>
 
-  <section class="about-values" aria-labelledby="values-title">
-    <h2 id="values-title" class="display about-values-title">What we <span class="about-accent">stand for</span></h2>
-    <ul class="values-grid">
-      {
-        ABOUT.values.map((v, i) => (
-          <li class="value-card" data-cursor="Hi">
-            <span class="value-num">{String(i + 1).padStart(2, "0")}</span>
-            <h3 class="display value-title">{v.title}</h3>
-            <p>{v.body}</p>
-            <span class="value-arrow" aria-hidden="true">→</span>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
+  <ValuesMarquee />
+  <Proof tone="ink" />
+  <Voices />
   <ClosingCta />
 </BaseLayout>
 
@@ -75,5 +74,26 @@ import { ABOUT } from "../data/site";
       if (e.isIntersecting) { run(e.target as HTMLElement); io.unobserve(e.target); }
     }), { threshold: 0.6 });
     els.forEach((el) => io.observe(el));
+  }
+
+  // Hero shapes drift gently with the pointer (mouse only)
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  if (hero && !reduced && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const items = [...hero.querySelectorAll<HTMLElement>(".hf")];
+    let queued = false;
+    let p = { x: 0, y: 0 };
+    const apply = () => {
+      queued = false;
+      items.forEach((el) => {
+        const d = Number(el.dataset.depth);
+        el.style.transform = `translate(${(p.x * d).toFixed(1)}px, ${(p.y * d).toFixed(1)}px)`;
+      });
+    };
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      p = { x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 };
+      if (!queued) { queued = true; requestAnimationFrame(apply); }
+    });
+    hero.addEventListener("pointerleave", () => { p = { x: 0, y: 0 }; apply(); });
   }
 </script>

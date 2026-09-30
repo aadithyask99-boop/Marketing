@@ -1,0 +1,81 @@
+---
+import OfferShape from "./OfferShape.astro";
+import { ABOUT } from "../data/site";
+---
+
+<section class="vals" data-vals aria-labelledby="vals-title">
+  <h2 id="vals-title" class="display vals-title">Our values shape <span class="vals-accent">the work we do</span></h2>
+  <div class="vals-window" data-window>
+    <div class="vals-track" data-track>
+      {
+        [0, 1].map((copy) => (
+          <ul class="vals-list" aria-hidden={copy === 1 ? "true" : undefined}>
+            {ABOUT.values.map((v) => (
+              <li class={`val val--${v.tone}`} data-cursor="Drag">
+                <div class="val-art"><OfferShape shape={v.shape} class="val-shape" /></div>
+                <h3 class="display val-title">{v.title}</h3>
+                <p>{v.body}</p>
+              </li>
+            ))}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-vals]");
+  const win = root?.querySelector<HTMLElement>("[data-window]");
+  const track = root?.querySelector<HTMLElement>("[data-track]");
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (root && win && track && !reduced) {
+    root.classList.add("is-enhanced");
+    const BASE = 55; // px per second
+    let x = 0;
+    let loop = 0;
+    let slow = 1; // eased hover factor
+    let hovered = false;
+    let boost = 0; // from scroll speed
+    let lastY = window.scrollY;
+    let drag: { id: number; x0: number; start: number; moved: boolean } | null = null;
+    let last = performance.now();
+
+    const measure = () => { loop = track.scrollWidth / 2; };
+    measure();
+    window.addEventListener("resize", measure);
+    if (document.fonts?.ready) document.fonts.ready.then(measure);
+
+    win.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hovered = true; });
+    win.addEventListener("pointerleave", () => { hovered = false; });
+
+    win.addEventListener("pointerdown", (e) => {
+      drag = { id: e.pointerId, x0: e.clientX, start: x, moved: false };
+      win.setPointerCapture(e.pointerId);
+    });
+    win.addEventListener("pointermove", (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x0;
+      if (Math.abs(dx) > 4) drag.moved = true;
+      x = drag.start + dx;
+    });
+    const end = () => { drag = null; };
+    win.addEventListener("pointerup", end);
+    win.addEventListener("pointercancel", end);
+
+    const frame = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      const dy = Math.abs(window.scrollY - lastY);
+      lastY = window.scrollY;
+      boost += (Math.min(dy, 80) * 9 - boost) * 0.08; // eases up and back down
+      slow += ((hovered ? 0.2 : 1) - slow) * 0.08;
+      if (!drag) x -= (BASE * slow + boost) * dt;
+      if (loop) { while (x <= -loop) x += loop; while (x > 0) x -= loop; }
+      track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+      requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  }
+</script>
