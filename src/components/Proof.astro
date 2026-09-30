@@ -1,98 +1,43 @@
 ---
-import "@fontsource/instrument-serif/400.css";
-import "@fontsource/instrument-serif/400-italic.css";
-import "../styles/story.css";
 import "../styles/proof.css";
-import Sticker from "./Sticker.astro";
 import { siApple, siPanasonic, siSiemens, siSony, siWorldhealthorganization } from "simple-icons";
 import { CLIENTS } from "../data/site";
 
 // Real brand marks where the open icon set has them; other clients fall back to a text wordmark.
-const LOGOS: Record<string, string> = {
-  Panasonic: siPanasonic.path,
-  Siemens: siSiemens.path,
-  WHO: siWorldhealthorganization.path,
-  Apple: siApple.path,
-  Sony: siSony.path,
+// `box` crops each icon to its artwork; `h` is the rendered height in rem (wordmarks are wide and short).
+const LOGOS: Record<string, { d: string; box: string; h: number }> = {
+  Panasonic: { d: siPanasonic.path, box: "0 10.16 24 3.68", h: 1.1 },
+  Siemens: { d: siSiemens.path, box: "0 10.02 24 3.97", h: 1.2 },
+  WHO: { d: siWorldhealthorganization.path, box: "0 1.41 24 21.18", h: 2.4 },
+  Apple: { d: siApple.path, box: "2.22 0 19.55 24", h: 2.4 },
+  Sony: { d: siSony.path, box: "0 9.89 24 4.22", h: 1.3 },
 };
-
-// Brand-only tones: adjacent tiles (and the loop seam) never share a colour.
-const TONES = ["cream", "ink", "red", "ink"];
-const toned = (names: string[], offset: number) => {
-  const list = names.map((name, j) => ({ name, tone: TONES[(j + offset) % TONES.length] }));
-  const last = list[list.length - 1];
-  if (last.tone === list[0].tone) last.tone = TONES.find((t) => t !== list[list.length - 2].tone && t !== list[0].tone)!;
-  return list;
-};
-const colA = toned(CLIENTS.filter((_, i) => i % 2 === 0), 0);
-const colB = toned(CLIENTS.filter((_, i) => i % 2 === 1), 1);
 ---
 
 <section class="proof" aria-labelledby="proof-title">
-  <div class="proof-top">
-    <div class="proof-copy">
-      <svg class="proof-blob" viewBox="0 0 400 340" aria-hidden="true">
-        <path d="M70 30c50-38 118-22 150-8 46-18 110 2 118 60 4 30-8 46-6 68 4 44-40 74-84 70-30 26-96 34-132 6C64 236 20 210 24 156c2-30 18-42 14-64C36 66 48 46 70 30z"></path>
-      </svg>
-      <h2 id="proof-title" class="display proof-heading">
-        Clients across our{" "}<span class="finale-accent proof-accent">
-          portfolio
-          <svg class="finale-underline" viewBox="0 0 400 24" aria-hidden="true">
-            <path pathLength="1" d="M4 16C60 6 110 4 160 12S250 20 300 10 370 6 396 12"></path>
-          </svg>
-        </span>
-      </h2>
-      <div class="proof-deco" aria-hidden="true">
-        <Sticker name="heart" class="proof-heart" />
-        <svg class="proof-arrow" viewBox="0 0 220 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M8 66C50 76 98 62 92 34C86 6 46 14 54 46C62 80 140 84 204 42"></path>
-          <path d="M182 30L206 42L190 64"></path>
-        </svg>
-      </div>
+  <h2 id="proof-title" class="proof-label">Clients across our portfolio</h2>
+  <div class="proof-strip" aria-hidden="true">
+    <div class="proof-track">
+      {
+        [0, 1].map(() => (
+          <ul class="proof-list">
+            {CLIENTS.map((name) => (
+              <li class="proof-item">
+                {LOGOS[name] ? (
+                  <svg class="proof-logo" viewBox={LOGOS[name].box} style={`height:${LOGOS[name].h}rem`} fill="currentColor"><path d={LOGOS[name].d} /></svg>
+                ) : (
+                  <span class="proof-word">{name}</span>
+                )}
+              </li>
+            ))}
+          </ul>
+        ))
+      }
     </div>
-
-    <div class="proof-stage">
-      <div class="proof-window" aria-hidden="true">
-        {
-          [
-            { list: colA, dir: "down" },
-            { list: colB, dir: "up" },
-          ].map((col) => (
-            <div class={`proof-col proof-col--${col.dir}`}>
-              <div class="proof-track">
-                <div class="proof-list">
-                  {col.list.map((t) => (
-                    <div class={`tile tile--${t.tone}`}>
-                      {LOGOS[t.name] ? (
-                        <svg class="tile-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={LOGOS[t.name]} /></svg>
-                      ) : (
-                        <span>{t.name}</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div class="proof-list proof-list--dup">
-                  {col.list.map((t) => (
-                    <div class={`tile tile--${t.tone}`}>
-                      {LOGOS[t.name] ? (
-                        <svg class="tile-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={LOGOS[t.name]} /></svg>
-                      ) : (
-                        <span>{t.name}</span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))
-        }
-      </div>
-      <div class="proof-veil proof-veil--top" aria-hidden="true"></div>
-      <div class="proof-veil proof-veil--bottom" aria-hidden="true"></div>
-    </div>
-    <ul class="sr-only" aria-label="Clients">
-      {CLIENTS.map((c) => <li>{c}</li>)}
-    </ul>
+    <div class="proof-veil proof-veil--left"></div>
+    <div class="proof-veil proof-veil--right"></div>
   </div>
-
+  <ul class="sr-only" aria-label="Clients">
+    {CLIENTS.map((c) => <li>{c}</li>)}
+  </ul>
 </section>
