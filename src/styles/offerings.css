@@ -43,6 +43,8 @@
 .shape.is-on { opacity: 1; transform: none; }
 .shape .ring { fill: none; stroke: var(--red); stroke-width: 56px; }
 .shape--grid .ring { r: 72px; }
+.shape--rings .ring { stroke-width: 44px; }
+.shape--rings .solid { fill: var(--red); }
 .shape--stack .ring { fill: none; stroke-width: 26px; }
 .shape .petal { fill: var(--red); stroke: none; }
 .shape--spiral .spin { animation: offer-spin 60s linear infinite; }
@@ -72,7 +74,7 @@
 .offer-panel-inner { overflow: hidden; }
 .offer-blurb { margin: 1rem 0 1.5rem; font-size: clamp(1.05rem, 1.7vw, 1.3rem); max-width: 34rem; }
 .offer-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 0 0 0.5rem; padding: 0; list-style: none; }
-.offer-pills a {
+.offer-pills span {
   display: inline-flex;
   align-items: center;
   min-height: 2.75rem;
@@ -80,9 +82,7 @@
   border: 1.5px solid var(--ink);
   border-radius: 999px;
   font-size: 0.95rem;
-  transition: background 0.2s ease, color 0.2s ease;
 }
-.offer-pills a:hover { background: var(--ink); color: var(--cream); }
 
 .offer.js .offer-panel {
   transition: grid-template-rows 0.4s ease, visibility 0s;

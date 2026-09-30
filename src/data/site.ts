@@ -50,6 +50,20 @@ export const SERVICES_INTRO = "Everything you need to grow your business online,
 
 export const SERVICES: Service[] = [
   {
+    slug: "ai-search",
+    name: "AI Search Optimisation (GEO & AEO)",
+    summary: "Get recommended by ChatGPT, Gemini, Perplexity and Google's AI answers.",
+    included: [
+      "AI Visibility Audit",
+      "Generative Engine Optimisation (GEO)",
+      "Answer Engine Optimisation (AEO)",
+      "Structured Data & Schema Markup",
+      "Entity & Brand Mentions",
+      "Content Rewritten as Quotable Answers",
+      "Citation & Share-of-Answer Tracking",
+    ],
+  },
+  {
     slug: "website-design",
     name: "Website Design & Development",
     summary: "Fast, modern websites built to turn visitors into customers.",
@@ -113,7 +127,6 @@ export const SERVICES: Service[] = [
       "Trend Analysis",
       "Content Strategy",
       "On-Page & Technical SEO",
-      "GEO & AEO (AI search) Optimisation",
       "Article & Blog Writing",
       "Sales Copywriting",
       "Video Production",
@@ -161,30 +174,69 @@ export interface Category {
   id: string;
   title: string;
   blurb: string;
-  services: string[];
-  shape: "grid" | "spiral" | "stack";
+  tags: string[];
+  shape: "rings" | "spiral" | "grid" | "stack";
 }
 
 export const CATEGORIES: Category[] = [
   {
-    id: "web",
-    title: "Websites & Automation",
-    blurb: "Fast websites and smart automation that turn visitors into customers.",
-    services: ["website-design", "website-redesign", "ai-automation"],
-    shape: "grid",
+    id: "ai-search",
+    title: "AI Search & Visibility",
+    blurb: "Be the brand AI assistants and search engines recommend.",
+    tags: [
+      "GEO",
+      "AEO",
+      "AI visibility audits",
+      "SEO",
+      "Structured data & schema",
+      "Citation & mention tracking",
+      "Content built for AI answers",
+    ],
+    shape: "rings",
   },
   {
     id: "growth",
-    title: "Growth & Marketing",
-    blurb: "Campaigns, search and email that bring in qualified leads.",
-    services: ["advertising", "seo-content", "email-sms"],
+    title: "Performance & Growth",
+    blurb: "We track, measure and optimise so results keep compounding.",
+    tags: [
+      "Google Ads",
+      "Social advertising",
+      "Retargeting",
+      "Analytics & reporting",
+      "Campaign tracking & optimisation",
+      "Conversion rate optimisation",
+      "Email & SMS marketing",
+    ],
     shape: "spiral",
   },
   {
+    id: "web",
+    title: "Websites & Automation",
+    blurb: "Fast websites and smart automation that turn visitors into customers.",
+    tags: [
+      "Web design & development",
+      "Website redesign",
+      "E-commerce",
+      "Landing pages",
+      "AI chatbots",
+      "Workflow automation",
+      "CRM & booking integrations",
+    ],
+    shape: "grid",
+  },
+  {
     id: "brand",
-    title: "Brand & Social",
+    title: "Brand & Content",
     blurb: "A brand that stands out and content that keeps you visible.",
-    services: ["brand-identity", "social-media"],
+    tags: [
+      "Brand identity",
+      "Naming & messaging",
+      "Pitch decks",
+      "Content creation",
+      "Video production",
+      "Social media management",
+      "Copywriting",
+    ],
     shape: "stack",
   },
 ];

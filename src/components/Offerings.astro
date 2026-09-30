@@ -1,9 +1,8 @@
 ---
 import "../styles/story.css";
 import "../styles/offerings.css";
-import { CATEGORIES, SERVICES, url } from "../data/site";
+import { CATEGORIES, url } from "../data/site";
 
-const bySlug = Object.fromEntries(SERVICES.map((s) => [s.slug, s]));
 const petals = Array.from({ length: 21 }, (_, i) => i * (360 / 21));
 ---
 
@@ -19,7 +18,12 @@ const petals = Array.from({ length: 21 }, (_, i) => i * (360 / 21));
 
   <div class="offer-body">
     <div class="offer-shapes" aria-hidden="true">
-      <svg class="shape shape--grid is-on" viewBox="0 0 400 400">
+      <svg class="shape shape--rings is-on" viewBox="0 0 400 400">
+        <circle cx="200" cy="200" r="176" class="ring"></circle>
+        <circle cx="200" cy="200" r="110" class="ring"></circle>
+        <circle cx="200" cy="200" r="60" class="solid"></circle>
+      </svg>
+      <svg class="shape shape--grid" viewBox="0 0 400 400">
         <circle cx="100" cy="100" r="100"></circle>
         <circle cx="300" cy="100" r="72" class="ring"></circle>
         <circle cx="100" cy="300" r="72" class="ring"></circle>
@@ -55,9 +59,7 @@ const petals = Array.from({ length: 21 }, (_, i) => i * (360 / 21));
                 <div class="offer-panel-inner">
                   <p class="offer-blurb">{c.blurb}</p>
                   <ul class="offer-pills">
-                    {c.services.map((slug) => (
-                      <li><a href={url(`/services#${slug}`)}>{bySlug[slug].name}</a></li>
-                    ))}
+                    {c.tags.map((tag) => <li><span>{tag}</span></li>)}
                   </ul>
                 </div>
               </div>
