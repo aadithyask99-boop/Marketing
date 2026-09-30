@@ -63,10 +63,7 @@
 }
 .tile--cream { background: var(--cream); color: var(--ink); }
 .tile--ink { background: #2f2425; color: var(--cream); }
-.tile--lilac { background: #c9ceff; color: var(--ink); }
-.tile--pink { background: #ffc9c2; color: var(--ink); }
-.tile--mint { background: #cdebd6; color: var(--ink); }
-.tile--yellow { background: #ffe6a3; color: var(--ink); }
+.tile--red { background: var(--red); color: var(--cream); }
 
 .proof-veil {
   position: absolute;
@@ -110,7 +107,8 @@
   left: -5rem;
   width: min(50rem, 150%);
   height: auto;
-  fill: #4653ff;
+  fill: var(--red);
+  opacity: 0.9;
 }
 .tile-logo { width: 62%; max-height: 46%; height: auto; }
 
@@ -149,3 +147,4 @@
 @media (max-width: 899px) {
   .proof { padding-block: 4rem 3.5rem; }
 }
+.proof .finale-underline path { stroke: var(--cream); }

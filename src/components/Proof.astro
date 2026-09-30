@@ -16,10 +16,16 @@ const LOGOS: Record<string, string> = {
   Sony: siSony.path,
 };
 
-const TONES = ["cream", "ink", "lilac", "cream", "pink", "mint", "ink", "yellow"];
-const tiles = CLIENTS.map((name, i) => ({ name, tone: TONES[(i * 3 + Math.floor(i / 2)) % TONES.length] }));
-const colA = tiles.filter((_, i) => i % 2 === 0);
-const colB = tiles.filter((_, i) => i % 2 === 1);
+// Brand-only tones: adjacent tiles (and the loop seam) never share a colour.
+const TONES = ["cream", "red", "ink"];
+const toned = (names: string[], offset: number) => {
+  const list = names.map((name, j) => ({ name, tone: TONES[(j + offset) % TONES.length] }));
+  const last = list[list.length - 1];
+  if (last.tone === list[0].tone) last.tone = TONES.find((t) => t !== list[list.length - 2].tone && t !== list[0].tone)!;
+  return list;
+};
+const colA = toned(CLIENTS.filter((_, i) => i % 2 === 0), 0);
+const colB = toned(CLIENTS.filter((_, i) => i % 2 === 1), 1);
 ---
 
 <section class="proof" aria-labelledby="proof-title">
