@@ -82,8 +82,8 @@
 .mw--hl { color: var(--red); }
 
 /* Office map and live clocks (light, sits just above the closing form) */
-.clocks { padding: clamp(3rem, 7vw, 6rem) var(--gutter); background: var(--cream); color: var(--ink); }
-.map { max-width: 78rem; margin: 0 auto; }
+.clocks { padding: 0 var(--gutter) clamp(3rem, 6vw, 5rem); background: var(--cream); color: var(--ink); }
+.map { max-width: 92rem; margin: 0 auto; }
 .map svg { display: block; width: 100%; height: auto; overflow: visible; }
 .map-dots { fill: none; stroke: var(--ink); stroke-width: 5.4; stroke-linecap: round; opacity: 0.22; }
 .map-arcs path { fill: none; stroke: var(--red); stroke-width: 2; stroke-dasharray: 5 7; stroke-linecap: round; opacity: 0.9; }
@@ -100,7 +100,7 @@
 .map.is-armed.is-in .map-arcs path { animation: arc-in 1.6s ease-out 0.4s both; }
 @keyframes arc-in { from { opacity: 0; } to { opacity: 0.9; } }
 
-.clocks-grid { display: grid; gap: 1rem; max-width: 78rem; margin: clamp(1.5rem, 4vw, 2.5rem) auto 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.clocks-grid { display: grid; gap: 1rem; max-width: 92rem; margin: clamp(1rem, 3vw, 2rem) auto 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
 .clock { padding: 1.5rem; border: 1px solid rgba(23, 9, 10, 0.12); border-radius: 1.5rem; background: #fff; box-shadow: 0 0.75rem 2rem rgba(23, 9, 10, 0.06); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, background 0.3s ease; outline-offset: 4px; }
 .clock-city { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85rem; }
 .clock-dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: rgba(23, 9, 10, 0.25); }
@@ -118,6 +118,8 @@
 .clock:focus-visible .clock-time { color: var(--red); }
 @media (min-width: 700px) { .clocks-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 699px) {
+  .map { overflow: hidden; margin-inline: calc(-1 * var(--gutter)); }
+  .map svg { width: 210%; max-width: none; margin-left: -80%; }
   .pin-label { font-size: 32px; stroke-width: 7px; }
   .map-pin .pin-dot { r: 11px; }
   .pin-pulse { r: 14px; }
