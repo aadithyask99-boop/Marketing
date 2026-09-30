@@ -120,12 +120,11 @@
 @media (max-width: 699px) {
   .map { overflow: hidden; margin-inline: calc(-1 * var(--gutter)); }
   .map svg { width: 210%; max-width: none; margin-left: -80%; }
-  .pin-label { font-size: 32px; stroke-width: 7px; }
-  .map-pin .pin-dot { r: 11px; }
-  .pin-pulse { r: 14px; }
-  .pin-label--left { transform: translate(-6px, 4px); }
-  .map-pin .pin-label { transform: translate(8px, 6px); }
-  .pin-label--left { transform: translate(-8px, 6px); }
+  .pin-label { font-size: 17px; stroke-width: 4px; letter-spacing: 0.08em; }
+  .map-pin .pin-dot { r: 8px; }
+  .pin-pulse { r: 11px; }
+  .map-pin .pin-label { transform: translate(2px, 2px); }
+  .pin-label--left { transform: translate(-2px, 2px); }
 }
 
 /* Values: infinite drag carousel */
