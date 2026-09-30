@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro";
 import ScrollStory from "../components/ScrollStory.astro";
 import SearchStory from "../components/SearchStory.astro";
 import Offerings from "../components/Offerings.astro";
+import Proof from "../components/Proof.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import { WORK, url } from "../data/site";
 ---
@@ -13,15 +14,16 @@ import { WORK, url } from "../data/site";
   <ScrollStory />
   <SearchStory />
   <Offerings />
+  <Proof />
 
-  <section class="section" aria-labelledby="work-title">
+  <section class="section section--cream" aria-labelledby="work-title">
     <p class="eyebrow">Selected work</p>
     <h2 id="work-title" class="display section-title">Recent projects</h2>
     <div class="grid grid--3">
       {
         WORK.slice(0, 3).map((w) => (
           <a
-            class:list={["card", w.tone === "blue" && "card--blue", w.tone === "ink" && "card--ink"]}
+            class:list={["card", w.tone === "blue" && "card--blue", w.tone === "ink" && "card--ink", w.tone === "cream" && "card--red"]}
             href={url("/work")}
             data-cursor="View"
           >

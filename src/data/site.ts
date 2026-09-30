@@ -40,6 +40,7 @@ export const ROTATING_WORDS = ["Creative", "SEO", "Branding", "Marketing", "AI",
 
 export interface Service {
   slug: string;
+  short: string;
   name: string;
   summary: string;
   included: string[];
@@ -51,6 +52,7 @@ export const SERVICES_INTRO = "Everything you need to grow your business online,
 export const SERVICES: Service[] = [
   {
     slug: "ai-search",
+    short: "AI Search",
     name: "AI Search Optimisation (GEO & AEO)",
     summary: "Get recommended by ChatGPT, Gemini, Perplexity and Google's AI answers.",
     included: [
@@ -65,6 +67,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "website-design",
+    short: "Websites",
     name: "Website Design & Development",
     summary: "Fast, modern websites built to turn visitors into customers.",
     included: [
@@ -79,6 +82,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "website-redesign",
+    short: "Redesign",
     name: "Website Redesign & Optimisation",
     summary: "Transform an outdated website into a modern experience that performs.",
     included: [
@@ -92,6 +96,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "ai-automation",
+    short: "AI & Automation",
     name: "AI, Automation & Chatbot Solutions",
     summary: "Intelligent automation that works for your business 24/7.",
     included: [
@@ -108,6 +113,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "advertising",
+    short: "Advertising",
     name: "Digital Marketing & Advertising",
     summary: "Targeted campaigns that bring in qualified leads.",
     included: [
@@ -120,6 +126,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "seo-content",
+    short: "SEO & Content",
     name: "SEO & Content Creation",
     summary: "Get found by the right people at the right time.",
     included: [
@@ -134,6 +141,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "social-media",
+    short: "Social Media",
     name: "Social Media Management",
     summary: "Consistent, engaging content across all your channels.",
     included: [
@@ -146,6 +154,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "email-sms",
+    short: "Email & SMS",
     name: "Email & SMS Marketing",
     summary: "Nurture leads and stay top of mind with automated campaigns.",
     included: [
@@ -157,6 +166,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "brand-identity",
+    short: "Brand & Identity",
     name: "Brand & Identity",
     summary: "Build a brand that stands out and stays consistent.",
     included: [
@@ -239,6 +249,59 @@ export const CATEGORIES: Category[] = [
     ],
     shape: "stack",
   },
+];
+
+export const CLIENTS = [
+  "Panasonic",
+  "Siemens",
+  "WHO",
+  "Shell Orbit",
+  "Latvian Government",
+  "Sweethawk",
+  "GEA",
+  "Apple",
+  "OpenAI",
+  "Microsoft",
+  "Sony",
+  "Flowergrid",
+  "Sitemate",
+  "Magic Personnel",
+  "Bakwa",
+];
+
+// PLACEHOLDER testimonials: replace with real quotes before launch.
+export const TESTIMONIALS = [
+  {
+    quote:
+      "Working with the team felt effortless. They understood the brief fast, moved quickly, and the results spoke for themselves.",
+    role: "Marketing Lead",
+    company: "Client name",
+    placeholder: true,
+  },
+  {
+    quote:
+      "Clear communication, sharp ideas and no fluff. Our search visibility and enquiries have both moved in the right direction.",
+    role: "Head of Growth",
+    company: "Client name",
+    placeholder: true,
+  },
+  {
+    quote:
+      "They took a complicated project and made it simple. Professional, creative and genuinely fun to work with.",
+    role: "Founder",
+    company: "Client name",
+    placeholder: true,
+  },
+];
+
+// Placeholder links: replace "#" with the real profile URLs.
+export const SOCIALS = [
+  { name: "LinkedIn", href: "#" },
+  { name: "Instagram", href: "#" },
+  { name: "X", href: "#" },
+  { name: "TikTok", href: "#" },
+  { name: "YouTube", href: "#" },
+  { name: "Facebook", href: "#" },
 ];
 
 export const WORK = [
