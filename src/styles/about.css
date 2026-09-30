@@ -81,29 +81,50 @@
 .manifesto.is-enhanced .mw { opacity: calc(0.16 + 0.84 * var(--o, 0)); }
 .mw--hl { color: var(--red); }
 
-/* Live office clocks (ink, continues the belief statement) */
-.clocks { padding: 0 var(--gutter) clamp(3.5rem, 8vw, 7rem); background: var(--ink); color: var(--cream); }
-.clocks-title { max-width: 90rem; margin: 0 auto; padding-top: 2.5rem; border-top: 1px solid rgba(245, 239, 232, 0.2); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; }
-.clocks-grid { display: grid; gap: 1rem; max-width: 90rem; margin: 1.5rem auto 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
-.clock { padding: 1.5rem; border: 1px solid rgba(245, 239, 232, 0.2); border-radius: 1.5rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, background 0.3s ease; outline-offset: 4px; }
+/* Office map and live clocks (red, sits just above the closing form) */
+.clocks { padding: clamp(3rem, 7vw, 6rem) var(--gutter); background: var(--red); color: var(--cream); }
+.map { max-width: 78rem; margin: 0 auto; }
+.map svg { display: block; width: 100%; height: auto; overflow: visible; }
+.map-dots { fill: none; stroke: var(--cream); stroke-width: 5.4; stroke-linecap: round; opacity: 0.45; }
+.map-arcs path { fill: none; stroke: var(--cream); stroke-width: 2; stroke-dasharray: 5 7; stroke-linecap: round; opacity: 0.9; }
+.map-pin { cursor: default; }
+.pin-dot { fill: var(--ink); stroke: var(--cream); stroke-width: 3; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); transform-box: fill-box; transform-origin: center; }
+.pin-pulse { fill: var(--cream); opacity: 0; transform-box: fill-box; transform-origin: center; animation: pin-pulse 2.4s ease-out infinite; }
+@keyframes pin-pulse { 0% { opacity: 0.6; transform: scale(0.6); } 100% { opacity: 0; transform: scale(3.2); } }
+.pin-label { fill: var(--cream); font: 700 15px var(--body); letter-spacing: 0.12em; text-transform: uppercase; paint-order: stroke; stroke: var(--red); stroke-width: 4px; }
+.pin-label--left { text-anchor: end; }
+.map-pin.is-on .pin-dot { transform: scale(1.5); }
+.map.is-armed .map-arcs path { stroke-dashoffset: 1; }
+.map.is-armed .map-pin { opacity: 0; transform-box: fill-box; }
+.map.is-in .map-pin { opacity: 1; transition: opacity 0.5s ease 0.6s; }
+.map.is-armed.is-in .map-arcs path { animation: arc-in 1.6s ease-out 0.4s both; }
+@keyframes arc-in { from { opacity: 0; } to { opacity: 0.9; } }
+
+.clocks-grid { display: grid; gap: 1rem; max-width: 78rem; margin: clamp(1.5rem, 4vw, 2.5rem) auto 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.clock { padding: 1.5rem; border: 1px solid rgba(245, 239, 232, 0.45); border-radius: 1.5rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, background 0.3s ease; outline-offset: 4px; }
 .clock-city { display: flex; align-items: center; gap: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85rem; }
-.clock-dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: rgba(245, 239, 232, 0.35); }
-.clock.is-open .clock-dot { background: var(--red); animation: clock-pulse 1.8s ease-in-out infinite; }
-@keyframes clock-pulse { 50% { box-shadow: 0 0 0 0.45rem rgba(225, 6, 0, 0); } 0% { box-shadow: 0 0 0 0 rgba(225, 6, 0, 0.6); } }
-.clock-status { margin-left: auto; padding: 0.15rem 0.6rem; border-radius: 999px; background: rgba(245, 239, 232, 0.1); font-size: 0.7rem; }
-.clock.is-open .clock-status { background: var(--red); }
+.clock-dot { width: 0.6rem; height: 0.6rem; border-radius: 50%; background: rgba(245, 239, 232, 0.5); }
+.clock.is-open .clock-dot { background: var(--cream); animation: clock-pulse 1.8s ease-in-out infinite; }
+@keyframes clock-pulse { 0% { box-shadow: 0 0 0 0 rgba(245, 239, 232, 0.7); } 100% { box-shadow: 0 0 0 0.5rem rgba(245, 239, 232, 0); } }
+.clock-status { margin-left: auto; padding: 0.15rem 0.6rem; border-radius: 999px; background: rgba(23, 9, 10, 0.25); font-size: 0.7rem; }
+.clock.is-open .clock-status { background: var(--ink); }
 .clock-time { display: flex; margin-top: 1rem; font-family: var(--display); font-size: clamp(3.5rem, 8vw, 6rem); line-height: 0.95; font-variant-numeric: tabular-nums; transition: color 0.3s ease; }
 .ck-d { display: inline-block; min-width: 0.5em; text-align: center; }
-.ck-sep { opacity: 0.5; padding-inline: 0.04em; }
-.clock.is-night .clock-time { opacity: 0.85; }
-.clock-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; margin-top: 0.75rem; font-size: 0.85rem; opacity: 0.75; }
+.ck-sep { opacity: 0.6; padding-inline: 0.04em; }
+.clock-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.25rem 1rem; margin-top: 0.75rem; font-size: 0.85rem; opacity: 0.85; }
 .clock-off { font-weight: 600; letter-spacing: 0.06em; }
-@media (hover: hover) and (pointer: fine) {
-  .clock:hover { transform: translateY(-6px) rotate(-1deg); border-color: var(--red); background: rgba(245, 239, 232, 0.04); }
-  .clock:hover .clock-time { color: var(--red); }
-}
-.clock:focus-visible .clock-time { color: var(--red); }
+.clock.is-linked { transform: translateY(-6px); border-color: var(--cream); background: rgba(23, 9, 10, 0.12); }
+.clock.is-linked .clock-time { color: var(--ink); }
+.clock:focus-visible .clock-time { color: var(--ink); }
 @media (min-width: 700px) { .clocks-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 699px) {
+  .pin-label { font-size: 32px; stroke-width: 7px; }
+  .map-pin .pin-dot { r: 11px; }
+  .pin-pulse { r: 14px; }
+  .pin-label--left { transform: translate(-6px, 4px); }
+  .map-pin .pin-label { transform: translate(8px, 6px); }
+  .pin-label--left { transform: translate(-8px, 6px); }
+}
 
 /* Values: infinite drag carousel */
 .vals { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
@@ -152,6 +173,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .office-pill, .pill-time, .val, .val-shape, .hf, .vals-btn, .vals-dots span, .clock { transition: none; }
-  .clock.is-open .clock-dot { animation: none; }
+  .office-pill, .pill-time, .val, .val-shape, .hf, .vals-btn, .vals-dots span, .clock, .pin-dot { transition: none; }
+  .clock.is-open .clock-dot, .pin-pulse { animation: none; }
 }

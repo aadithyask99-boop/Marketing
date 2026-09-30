@@ -1,13 +1,56 @@
 ---
+import { feature } from "topojson-client";
+import { geoContains } from "d3-geo";
+import land110 from "world-atlas/land-110m.json";
 import { ABOUT } from "../data/site";
+
+// Dot-matrix world map, generated once at build time.
+const W = 1200;
+const STEP = 10;
+const LAT_TOP = 83;
+const LAT_BOT = -57;
+const H = Math.round((W * (LAT_TOP - LAT_BOT)) / 360);
+const land = feature(land110 as any, (land110 as any).objects.land) as any;
+const dots: [number, number][] = [];
+for (let x = STEP / 2; x < W; x += STEP) {
+  for (let y = STEP / 2; y < H; y += STEP) {
+    const lon = (x / W) * 360 - 180;
+    const lat = LAT_TOP - (y / H) * (LAT_TOP - LAT_BOT);
+    if (geoContains(land, [lon, lat])) dots.push([x, y]);
+  }
+}
+const pt = (lon: number, lat: number) => ({ x: ((lon + 180) / 360) * W, y: ((LAT_TOP - lat) / (LAT_TOP - LAT_BOT)) * H });
+const pins = ABOUT.clocks.map((c, i) => ({ ...c, ...pt(c.lon, c.lat) }));
+const arc = (a: { x: number; y: number }, b: { x: number; y: number }) => {
+  const mx = (a.x + b.x) / 2, my = Math.min(a.y, b.y) - Math.abs(b.x - a.x) * 0.22;
+  return `M${a.x.toFixed(1)} ${a.y.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
+};
+const arcs = [arc(pins[0], pins[1]), arc(pins[1], pins[2])];
 ---
 
-<section class="clocks" data-clocks aria-labelledby="clocks-title">
-  <h2 id="clocks-title" class="clocks-title">Someone is always online</h2>
+
+<section class="clocks" data-clocks aria-label="Our offices around the world">
+  <div class="map" data-map>
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="World map with offices in the United Kingdom, the United Arab Emirates and India">
+      <path class="map-dots" d={dots.map(([x, y]) => `M${x} ${y}h.01`).join("")} />
+      <g class="map-arcs">
+        {arcs.map((d) => <path d={d} pathLength="1" />)}
+      </g>
+      {
+        pins.map((p, i) => (
+          <g class="map-pin" data-pin={i} transform={`translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`}>
+            <circle class="pin-pulse" r="9" />
+            <circle class="pin-dot" r="6.5" />
+            <text class={`pin-label${i === 1 ? " pin-label--left" : ""}`} x={i === 1 ? -14 : 14} y="5">{p.short}</text>
+          </g>
+        ))
+      }
+    </svg>
+  </div>
   <ul class="clocks-grid">
     {
-      ABOUT.clocks.map((c) => (
-        <li class="clock" data-tz={c.tz} tabindex="0">
+      ABOUT.clocks.map((c, i) => (
+        <li class="clock" data-tz={c.tz} data-idx={i} tabindex="0">
           <p class="clock-city">
             <span class="clock-dot" aria-hidden="true"></span>
             {c.city}
@@ -80,5 +123,29 @@ import { ABOUT } from "../data/site";
     };
     tick();
     window.setInterval(tick, 1000);
+
+    // Pins and clocks highlight each other
+    const pinsEl = [...root.querySelectorAll<SVGGElement>("[data-pin]")];
+    const link = (i: number | null) => {
+      pinsEl.forEach((p, n) => p.classList.toggle("is-on", n === i));
+      clocks.forEach((c, n) => c.el.classList.toggle("is-linked", n === i));
+    };
+    clocks.forEach((c, n) => {
+      c.el.addEventListener("pointerenter", () => link(n));
+      c.el.addEventListener("pointerleave", () => link(null));
+      c.el.addEventListener("focus", () => link(n));
+      c.el.addEventListener("blur", () => link(null));
+    });
+    pinsEl.forEach((p, n) => {
+      p.addEventListener("pointerenter", () => link(n));
+      p.addEventListener("pointerleave", () => link(null));
+    });
+
+    // Draw the route arcs and drop the pins in when the map scrolls into view
+    const map = root.querySelector<HTMLElement>("[data-map]")!;
+    if (!reduced && "IntersectionObserver" in window) {
+      map.classList.add("is-armed");
+      new IntersectionObserver((es, io) => es.forEach((e) => { if (e.isIntersecting) { map.classList.add("is-in"); io.disconnect(); } }), { threshold: 0.35 }).observe(map);
+    }
   }
 </script>
