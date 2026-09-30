@@ -11,12 +11,17 @@ const label = `Your ${ROTATING_WORDS.map((w) => w.toLowerCase()).join(", ")} age
   <p class="hero-tag">{SITE.tagline}</p>
 
   <h1 class="hero-title" aria-label={label}>
-    <span class="hero-line" aria-hidden="true">Your</span>
+    <span class="hero-line" aria-hidden="true" data-xray>Your</span>
     <span class="hero-line"><RotatingWord words={ROTATING_WORDS} /></span>
     <span class="hero-line">
-      <span aria-hidden="true">Agency</span>
+      <span aria-hidden="true" data-xray>Agency</span>
       <Asterisk />
       <Badge href={url("/contact")} label="Let's grow" cursor="Grow" />
     </span>
   </h1>
 </section>
+
+<script>
+  import { initXray } from "../scripts/xray";
+  initXray(document.querySelector(".hero-title"), 10);
+</script>

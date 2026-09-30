@@ -13,7 +13,7 @@ const { words, interval = 3000 } = Astro.props;
   data-words={JSON.stringify(words)}
   data-interval={interval}
 >
-  <span class="rotator-word">{words[0]}</span>
+  <span class="rotator-word" data-xray>{words[0]}</span>
 </span>
 
 <script>

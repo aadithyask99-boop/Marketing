@@ -71,7 +71,7 @@ const ICONS: Record<string, string> = {
       </div>
     </div>
 
-    <p class="footer-wordmark display" aria-hidden="true">{SITE.name}</p>
+    <p class="footer-wordmark display" aria-hidden="true" data-xray>{SITE.name}</p>
 
     <div class="footer-legal">
       <p>&copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
@@ -116,4 +116,9 @@ const ICONS: Record<string, string> = {
       if (result.mode === "endpoint") form.reset();
     });
   }
+</script>
+
+<script>
+  import { initXray } from "../scripts/xray";
+  initXray(document.querySelector(".footer-wordmark"), 9);
 </script>
