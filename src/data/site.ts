@@ -432,6 +432,11 @@ export const ABOUT = {
     },
   ],
   belief: [{ t: "People ask before they buy. We make sure the answer is " }, { hl: "you." }],
+  clocks: [
+    { city: "Guildford", country: "United Kingdom", tz: "Europe/London" },
+    { city: "Dubai", country: "United Arab Emirates", tz: "Asia/Dubai" },
+    { city: "India", country: "Office hours in IST", tz: "Asia/Kolkata" },
+  ],
   values: [
     { title: "Be found", body: "Visibility across search and AI answers comes first.", shape: "rings", tone: "white" },
     { title: "Be clear", body: "Sharp positioning and copy that says one thing well.", shape: "grid", tone: "ink" },

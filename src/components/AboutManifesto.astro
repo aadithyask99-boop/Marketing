@@ -11,7 +11,6 @@ for (const seg of ABOUT.belief as readonly { t?: string; hl?: string }[]) {
 
 <section class="manifesto" data-manifesto aria-label="What we believe">
   <div class="manifesto-stick">
-    <p class="manifesto-eyebrow">What we believe</p>
     <p class="manifesto-text">
       {words.map((w) => <span class:list={["mw", w.hl && "mw--hl"]}>{w.text}</span>)}
     </p>
