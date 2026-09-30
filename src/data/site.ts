@@ -38,34 +38,154 @@ export const NAV = [
 
 export const ROTATING_WORDS = ["Creative", "SEO", "Branding", "Marketing", "AI", "GEO", "AEO"];
 
-export const SERVICES = [
+export interface Service {
+  slug: string;
+  name: string;
+  summary: string;
+  included: string[];
+  note?: string;
+}
+
+export const SERVICES_INTRO = "Everything you need to grow your business online, under one roof.";
+
+export const SERVICES: Service[] = [
   {
-    name: "Creative",
-    desc: "Campaign ideas, art direction and content that stop the scroll and stay on message.",
+    slug: "website-design",
+    name: "Website Design & Development",
+    summary: "Fast, modern websites built to turn visitors into customers.",
+    included: [
+      "UI/UX Design",
+      "SEO & Accessibility",
+      "Animations & Interactions",
+      "Integrations & Migrations",
+      "Landing Page Optimisation",
+      "E-commerce Solutions",
+    ],
+    note: "Platforms: Webflow, Framer, WordPress, Squarespace, Custom Code (React, Next.js)",
   },
   {
-    name: "SEO",
-    desc: "Technical, content and authority work that earns durable visibility in search.",
+    slug: "website-redesign",
+    name: "Website Redesign & Optimisation",
+    summary: "Transform an outdated website into a modern experience that performs.",
+    included: [
+      "Full Visual Overhaul",
+      "Improved User Journeys",
+      "Speed & Performance Fixes",
+      "Conversion Rate Improvements",
+      "Mobile Optimisation",
+      "Technical SEO Fixes",
+    ],
   },
   {
-    name: "Branding",
-    desc: "Positioning, identity and voice so your business is recognised and remembered.",
+    slug: "ai-automation",
+    name: "AI, Automation & Chatbot Solutions",
+    summary: "Intelligent automation that works for your business 24/7.",
+    included: [
+      "Custom AI Chatbot Development",
+      "Lead Qualification & Capture",
+      "Automated Customer Support",
+      "CRM & Calendar Integration",
+      "Appointment Booking Systems",
+      "Workflows & Pipelines",
+      "Funnel Building",
+      "AI Automation",
+    ],
+    note: "Why it matters: capture leads whilst you sleep, answer customer questions instantly, and free up your team for higher-value work.",
   },
   {
-    name: "Marketing",
-    desc: "Full-funnel strategy and channel execution across paid, social, email and lifecycle.",
+    slug: "advertising",
+    name: "Digital Marketing & Advertising",
+    summary: "Targeted campaigns that bring in qualified leads.",
+    included: [
+      "Google Ads Management",
+      "Social Media Advertising",
+      "Audience Research & Demographics",
+      "Ad Copywriting",
+      "Retargeting Campaigns",
+    ],
   },
   {
-    name: "AI",
-    desc: "AI-assisted workflows, automation and analysis that speed up delivery without diluting quality.",
+    slug: "seo-content",
+    name: "SEO & Content Creation",
+    summary: "Get found by the right people at the right time.",
+    included: [
+      "Keyword Research",
+      "Trend Analysis",
+      "Content Strategy",
+      "On-Page & Technical SEO",
+      "GEO & AEO (AI search) Optimisation",
+      "Article & Blog Writing",
+      "Sales Copywriting",
+      "Video Production",
+    ],
   },
   {
-    name: "GEO",
-    desc: "Generative Engine Optimisation: making your brand a source that AI assistants cite and recommend.",
+    slug: "social-media",
+    name: "Social Media Management",
+    summary: "Consistent, engaging content across all your channels.",
+    included: [
+      "Graphics & Visual Assets",
+      "Content Calendar Planning",
+      "Scheduling & Publication",
+      "Copywriting",
+      "Performance Insights",
+    ],
   },
   {
-    name: "AEO",
-    desc: "Answer Engine Optimisation: structuring content to win featured answers and voice results.",
+    slug: "email-sms",
+    name: "Email & SMS Marketing",
+    summary: "Nurture leads and stay top of mind with automated campaigns.",
+    included: [
+      "List Building",
+      "Lead Nurturing Sequences",
+      "Automation & Workflows",
+      "Email & SMS Templates",
+    ],
+  },
+  {
+    slug: "brand-identity",
+    name: "Brand & Identity",
+    summary: "Build a brand that stands out and stays consistent.",
+    included: [
+      "Brand Naming",
+      "Logo & Identity Design",
+      "Brand Messaging & Positioning",
+      "Brand Guidelines",
+      "Pitch Decks",
+      "Design Assets & Custom Graphics",
+    ],
+  },
+];
+
+export interface Category {
+  id: string;
+  title: string;
+  blurb: string;
+  services: string[];
+  shape: "grid" | "spiral" | "stack";
+}
+
+export const CATEGORIES: Category[] = [
+  {
+    id: "web",
+    title: "Websites & Automation",
+    blurb: "Fast websites and smart automation that turn visitors into customers.",
+    services: ["website-design", "website-redesign", "ai-automation"],
+    shape: "grid",
+  },
+  {
+    id: "growth",
+    title: "Growth & Marketing",
+    blurb: "Campaigns, search and email that bring in qualified leads.",
+    services: ["advertising", "seo-content", "email-sms"],
+    shape: "spiral",
+  },
+  {
+    id: "brand",
+    title: "Brand & Social",
+    blurb: "A brand that stands out and content that keeps you visible.",
+    services: ["brand-identity", "social-media"],
+    shape: "stack",
   },
 ];
 

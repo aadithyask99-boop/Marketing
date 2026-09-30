@@ -16,7 +16,7 @@ import { NAV, SITE, SERVICES, url } from "../data/site";
       </ul>
     </nav>
     <ul aria-label="Services">
-      {SERVICES.map((s) => <li><a href={url("/services")}>{s.name}</a></li>)}
+      {SERVICES.map((s) => <li><a href={url(`/services#${s.slug}`)}>{s.name}</a></li>)}
     </ul>
   </div>
 

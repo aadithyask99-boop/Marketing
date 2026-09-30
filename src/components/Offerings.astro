@@ -1,0 +1,119 @@
+---
+import "../styles/story.css";
+import "../styles/offerings.css";
+import { CATEGORIES, SERVICES, url } from "../data/site";
+
+const bySlug = Object.fromEntries(SERVICES.map((s) => [s.slug, s]));
+const petals = Array.from({ length: 21 }, (_, i) => i * (360 / 21));
+---
+
+<section class="section section--cream offer" aria-labelledby="offer-title">
+  <h2 id="offer-title" class="display offer-heading">
+    Talk to us if you{" "}<span class="finale-accent offer-accent">
+      need:
+      <svg class="finale-underline" viewBox="0 0 400 24" aria-hidden="true">
+        <path pathLength="1" d="M4 16C60 6 110 4 160 12S250 20 300 10 370 6 396 12"></path>
+      </svg>
+    </span>
+  </h2>
+
+  <div class="offer-body">
+    <div class="offer-shapes" aria-hidden="true">
+      <svg class="shape shape--grid is-on" viewBox="0 0 400 400">
+        <circle cx="100" cy="100" r="100"></circle>
+        <circle cx="300" cy="100" r="72" class="ring"></circle>
+        <circle cx="100" cy="300" r="72" class="ring"></circle>
+        <circle cx="300" cy="300" r="100"></circle>
+      </svg>
+      <svg class="shape shape--spiral" viewBox="0 0 400 400">
+        <g class="spin" transform="translate(200 200)">
+          {petals.map((deg) => <path class="petal" transform={`rotate(${deg})`} d="M0 0C30 -14 76 -48 100 -122A15 15 0 0 1 128 -110C104 -54 58 -10 0 0Z"></path>)}
+        </g>
+      </svg>
+      <svg class="shape shape--stack" viewBox="0 0 400 400">
+        <ellipse cx="200" cy="102" rx="186" ry="76" class="ring"></ellipse>
+        <ellipse cx="200" cy="200" rx="188" ry="84"></ellipse>
+        <ellipse cx="200" cy="298" rx="186" ry="76" class="ring"></ellipse>
+      </svg>
+    </div>
+
+    <div class="offer-list-wrap">
+      <ul class="offer-list">
+        {
+          CATEGORIES.map((c, i) => (
+            <li class:list={["offer-item", i === 0 && "is-active"]} data-shape={c.shape}>
+              <button
+                class="offer-title display"
+                type="button"
+                id={`offer-t-${c.id}`}
+                aria-expanded={i === 0 ? "true" : "false"}
+                aria-controls={`offer-p-${c.id}`}
+              >
+                {c.title}
+              </button>
+              <div class="offer-panel" id={`offer-p-${c.id}`} role="region" aria-labelledby={`offer-t-${c.id}`}>
+                <div class="offer-panel-inner">
+                  <p class="offer-blurb">{c.blurb}</p>
+                  <ul class="offer-pills">
+                    {c.services.map((slug) => (
+                      <li><a href={url(`/services#${slug}`)}>{bySlug[slug].name}</a></li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="offer-more" href={url("/services")}>See everything we do</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".offer");
+  if (root) {
+    const items = [...root.querySelectorAll<HTMLElement>(".offer-item")];
+    const buttons = items.map((i) => i.querySelector<HTMLButtonElement>(".offer-title")!);
+    const shapes = [...root.querySelectorAll<SVGElement>(".shape")];
+    const hoverOk = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    let changedAt = 0;
+
+    root.classList.add("js");
+
+    const activate = (index: number, focus = false) => {
+      items.forEach((item, i) => {
+        const on = i === index;
+        item.classList.toggle("is-active", on);
+        buttons[i].setAttribute("aria-expanded", String(on));
+      });
+      const shape = items[index].dataset.shape;
+      shapes.forEach((s) => s.classList.toggle("is-on", s.classList.contains(`shape--${shape}`)));
+      changedAt = performance.now();
+      if (focus) buttons[index].focus();
+    };
+
+    buttons.forEach((btn, i) => {
+      btn.addEventListener("click", () => activate(i));
+      if (hoverOk) {
+        btn.addEventListener("pointermove", (e) => {
+          if (e.pointerType !== "mouse" || items[i].classList.contains("is-active")) return;
+          if (performance.now() - changedAt > 450) activate(i);
+        });
+      }
+      btn.addEventListener("keydown", (e) => {
+        const last = buttons.length - 1;
+        const to =
+          e.key === "ArrowDown" ? (i === last ? 0 : i + 1)
+          : e.key === "ArrowUp" ? (i === 0 ? last : i - 1)
+          : e.key === "Home" ? 0
+          : e.key === "End" ? last
+          : -1;
+        if (to >= 0) {
+          e.preventDefault();
+          activate(to, true);
+        }
+      });
+    });
+  }
+</script>
