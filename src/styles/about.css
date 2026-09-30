@@ -82,46 +82,52 @@
 .manifesto.is-enhanced .mw { opacity: calc(0.16 + 0.84 * var(--o, 0)); }
 .mw--hl { color: var(--red); }
 
-/* Numbers (ink, continues the belief statement) */
-.about-numbers { padding: 0 var(--gutter) clamp(3.5rem, 8vw, 7rem); background: var(--ink); color: var(--cream); }
-.about-numbers ul { display: grid; gap: 2.5rem 1.5rem; max-width: 90rem; margin: 0 auto; padding: 2.5rem 0 0; list-style: none; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid rgba(245, 239, 232, 0.2); }
-.num-value { display: block; font-family: var(--display); font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; }
-.num-value.is-done { animation: num-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
-@keyframes num-pop { 50% { transform: scale(1.08); color: var(--red); } }
-.num-label { display: block; margin-top: 0.6rem; max-width: 12rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.75; }
-@media (min-width: 900px) { .about-numbers ul { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-
-/* Values marquee */
+/* Values: infinite drag carousel */
 .vals { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
-.vals-list { max-width: none; }
-.vals-title { max-width: 90rem; margin: 0 auto clamp(2rem, 5vw, 3.5rem); padding-inline: var(--gutter); font-size: clamp(2.8rem, 7vw, 6rem); text-align: center; }
+.vals-title { max-width: 70rem; margin: 0 auto clamp(2rem, 5vw, 3.5rem); padding-inline: var(--gutter); font-size: clamp(2.4rem, 6vw, 5rem); text-align: center; line-height: 0.95; }
 .vals-accent { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; color: var(--red); }
-.vals-window { overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; cursor: grab; padding-block: 1rem; outline-offset: -4px; }
+.vals-window { overflow-x: auto; scrollbar-width: none; padding-block: 1rem; outline-offset: -4px; }
 .vals-window::-webkit-scrollbar { display: none; }
-.vals-window.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
-.vals-list { display: flex; gap: 1.25rem; width: max-content; margin: 0; padding: 0 var(--gutter); list-style: none; }
-.vals-ctrl { display: flex; align-items: center; gap: 0.75rem; max-width: 90rem; margin: 1.5rem auto 0; padding-inline: var(--gutter); }
-.vals-bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(23, 9, 10, 0.14); overflow: hidden; }
-.vals-bar span { display: block; height: 100%; background: var(--red); border-radius: 2px; }
+.vals-track { display: flex; width: max-content; }
+.vals-list { display: flex; gap: 1.25rem; margin: 0; padding: 0 0.625rem; list-style: none; }
+.vals.is-enhanced .vals-window { overflow: hidden; touch-action: pan-y; user-select: none; }
+.vals.is-enhanced .vals-track { will-change: transform; }
+.vals-list[data-clone] { display: none; }
+.vals.is-enhanced .vals-list[data-clone] { display: flex; }
+.val {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: clamp(15.5rem, 24vw, 19rem);
+  min-height: clamp(22rem, 32vw, 26rem);
+  padding: 1.5rem;
+  border: 1px solid rgba(23, 9, 10, 0.1);
+  border-radius: 1.5rem;
+  background: #ebe4d9;
+  user-select: none;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+.val-label { display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+.val-num { opacity: 0.5; }
+.val-art { display: grid; place-items: center; flex: 1; padding: 1rem 0; }
+.val .val-shape { position: static; width: min(72%, 10.5rem); height: auto; aspect-ratio: 1; opacity: 1; transform: none; fill: var(--c, var(--red)); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.val .val-shape .ring { stroke: var(--c, var(--red)); }
+.val .val-shape .solid, .val .val-shape .petal { fill: var(--c, var(--red)); }
+.val--ink { --c: var(--ink); }
+.val-text { max-width: 15rem; font-size: 0.95rem; line-height: 1.35; }
+.vals-ctrl { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; padding-inline: var(--gutter); }
+.vals-dots { display: flex; gap: 0.5rem; }
+.vals-dots span { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: rgba(23, 9, 10, 0.2); transition: background 0.2s ease, transform 0.2s ease; }
+.vals-dots span.is-on { background: var(--red); transform: scale(1.35); }
 .vals-btn { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; color: inherit; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
 .vals-btn:hover { background: var(--ink); color: var(--cream); transform: scale(1.06); }
 .vals-btn svg { width: 1.2rem; height: 1.2rem; }
-.val { flex: none; scroll-snap-align: start; user-select: none; width: clamp(16rem, 26vw, 22rem); padding: 1.5rem; border-radius: 1.5rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
-.val--white { background: #fff; box-shadow: 0 0.75rem 2rem rgba(23, 9, 10, 0.08); --c: var(--red); }
-.val--ink { background: var(--ink); color: var(--cream); --c: var(--cream); }
-.val--red { background: var(--red); color: var(--cream); --c: var(--cream); }
-.val-art { display: grid; place-items: center; height: 11rem; margin-bottom: 1rem; }
-.val .val-shape { position: static; width: 9rem; height: 9rem; opacity: 1; transform: none; fill: var(--c); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
-.val .val-shape .ring { stroke: var(--c); }
-.val .val-shape .solid, .val .val-shape .petal { fill: var(--c); }
-.val-title { font-size: 2.2rem; }
-.val p { margin-top: 0.5rem; }
 @media (hover: hover) and (pointer: fine) {
-  .val:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: 0 1.5rem 3rem rgba(23, 9, 10, 0.18); }
-  .val:hover .val-shape { transform: rotate(25deg) scale(1.08); }
+  .vals.is-enhanced .val:hover { transform: translateY(-8px) rotate(-1.5deg); box-shadow: 0 1.25rem 2.5rem rgba(23, 9, 10, 0.12); }
+  .vals.is-enhanced .val:hover .val-shape { transform: rotate(25deg) scale(1.08); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .office-pill, .pill-time, .val, .val-shape, .hf, .vals-btn { transition: none; }
-  .num-value.is-done { animation: none; }
+  .office-pill, .pill-time, .val, .val-shape, .hf, .vals-btn, .vals-dots span { transition: none; }
 }

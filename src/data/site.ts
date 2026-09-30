@@ -430,21 +430,8 @@ export const ABOUT = {
       body: "The India office followed in 2025, adding design and build capacity and putting us across three time zones, so someone is always online.",
       office: { label: "India", tz: "Asia/Kolkata" },
     },
-    {
-      year: "2026",
-      place: "Wherever people ask",
-      title: "From Google to ChatGPT.",
-      body: "People now ask AI before they ask anyone. What we learned on the high street became our GEO and AEO work: be found, cited and chosen wherever the question is asked.",
-    },
   ],
   belief: [{ t: "People ask before they buy. We make sure the answer is " }, { hl: "you." }],
-  // "10+" projects is the client's figure. "3 time zones" follows from the three offices.
-  numbers: [
-    { value: 2021, from: 2015, suffix: "", label: "Founded" },
-    { value: 3, from: 0, suffix: "", label: "Countries" },
-    { value: 10, from: 0, suffix: "+", label: "Projects" },
-    { value: 3, from: 0, suffix: "", label: "Time zones, someone is always online" },
-  ],
   values: [
     { title: "Be found", body: "Visibility across search and AI answers comes first.", shape: "rings", tone: "white" },
     { title: "Be clear", body: "Sharp positioning and copy that says one thing well.", shape: "grid", tone: "ink" },

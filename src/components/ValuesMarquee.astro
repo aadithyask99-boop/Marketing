@@ -1,28 +1,34 @@
 ---
 import OfferShape from "./OfferShape.astro";
 import { ABOUT } from "../data/site";
+const SHAPES = ["rings", "spiral", "grid", "stack", "spiral"] as const;
+const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
 <section class="vals" data-vals aria-labelledby="vals-title">
   <h2 id="vals-title" class="display vals-title">Our values shape <span class="vals-accent">the work we do</span></h2>
-  <div class="vals-window" data-window tabindex="0" aria-label="Our values, drag or scroll sideways">
-    <ul class="vals-list">
+  <div class="vals-window" data-window data-cursor="Drag" tabindex="0" aria-label="Our values, drag or use the arrow keys">
+    <div class="vals-track" data-track>
       {
-        ABOUT.values.map((v) => (
-          <li class={`val val--${v.tone}`} data-cursor="Drag">
-            <div class="val-art"><OfferShape shape={v.shape} class="val-shape" /></div>
-            <h3 class="display val-title">{v.title}</h3>
-            <p>{v.body}</p>
-          </li>
+        [0, 1, 2].map((copy) => (
+          <ul class="vals-list" data-clone={copy > 0 ? "" : undefined} aria-hidden={copy > 0 ? "true" : undefined}>
+            {ABOUT.values.map((v, i) => (
+              <li class={`val ${i % 2 ? "val--ink" : ""}`} data-card>
+                <p class="val-label"><span>{v.title}</span><span class="val-num">{pad(i + 1)}</span></p>
+                <div class="val-art"><OfferShape shape={SHAPES[i % SHAPES.length]} class="val-shape" /></div>
+                <p class="val-text">{v.body}</p>
+              </li>
+            ))}
+          </ul>
         ))
       }
-    </ul>
+    </div>
   </div>
   <div class="vals-ctrl">
-    <span class="vals-bar" aria-hidden="true"><span data-bar></span></span>
     <button class="vals-btn" type="button" data-dir="-1" aria-label="Previous value">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
     </button>
+    <span class="vals-dots" aria-hidden="true">{ABOUT.values.map(() => <span></span>)}</span>
     <button class="vals-btn" type="button" data-dir="1" aria-label="Next value">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
     </button>
@@ -32,63 +38,90 @@ import { ABOUT } from "../data/site";
 <script>
   const root = document.querySelector<HTMLElement>("[data-vals]");
   const win = root?.querySelector<HTMLElement>("[data-window]");
-  const bar = root?.querySelector<HTMLElement>("[data-bar]");
-  if (root && win && bar) {
+  const track = root?.querySelector<HTMLElement>("[data-track]");
+  const dots = [...(root?.querySelectorAll<HTMLElement>(".vals-dots span") ?? [])];
+  if (root && win && track) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const step = () => (win.querySelector<HTMLElement>(".val")?.offsetWidth ?? 300) + 20;
+    root.classList.add("is-enhanced");
 
-    const progress = () => {
-      const max = win.scrollWidth - win.clientWidth;
-      const p = max > 0 ? win.scrollLeft / max : 0;
-      const size = max > 0 ? win.clientWidth / win.scrollWidth : 1;
-      bar.style.width = `${(size * 100).toFixed(1)}%`;
-      bar.style.transform = `translateX(${(p * (1 / size - 1) * 100).toFixed(1)}%)`;
+    let setW = 0;   // width of one set of cards
+    let cardW = 0;  // card width plus gap
+    let x = 0;      // current offset, always kept in (-setW, 0]
+    let anim = 0;
+
+    const measure = () => {
+      const lists = track.querySelectorAll<HTMLElement>(".vals-list");
+      setW = lists[0].offsetWidth + 20;
+      const card = lists[0].querySelector<HTMLElement>("[data-card]")!;
+      cardW = card.offsetWidth + 20;
+      x = wrap(x);
+      draw();
     };
-    win.addEventListener("scroll", progress, { passive: true });
-    window.addEventListener("resize", progress);
-    progress();
+    const wrap = (v: number) => (setW ? -(((-v % setW) + setW) % setW) : v);
+    const draw = () => {
+      track.style.transform = `translate3d(${x.toFixed(2)}px,0,0)`;
+      const idx = cardW ? Math.round(-x / cardW) % dots.length : 0;
+      dots.forEach((d, i) => d.classList.toggle("is-on", i === ((idx % dots.length) + dots.length) % dots.length));
+    };
+    // Start with the first card a little in from the edge so both sides peek
+    const start = () => { measure(); x = wrap(-cardW * 0.45); draw(); };
+    if (document.fonts?.ready) document.fonts.ready.then(start); else start();
+    window.addEventListener("resize", measure);
 
-    root.querySelectorAll<HTMLButtonElement>(".vals-btn").forEach((b) =>
-      b.addEventListener("click", () => win.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: reduced ? "auto" : "smooth" })),
-    );
+    const glideTo = (target: number, ms = 450) => {
+      cancelAnimationFrame(anim);
+      if (reduced) { x = wrap(target); draw(); return; }
+      const from = x, t0 = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - t0) / ms);
+        const e = 1 - Math.pow(1 - t, 3);
+        x = wrap(from + (target - from) * e);
+        draw();
+        if (t < 1) anim = requestAnimationFrame(tick);
+      };
+      anim = requestAnimationFrame(tick);
+    };
+    const step = (dir: number) => glideTo(Math.round(x / cardW) * cardW - dir * cardW);
+
+    root.querySelectorAll<HTMLButtonElement>(".vals-btn").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.dir))));
     win.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") { e.preventDefault(); win.scrollBy({ left: step(), behavior: reduced ? "auto" : "smooth" }); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); win.scrollBy({ left: -step(), behavior: reduced ? "auto" : "smooth" }); }
+      if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
     });
 
-    // Mouse drag with a little momentum (touch uses native swipe)
-    let drag: { x0: number; left0: number; last: number; v: number; moved: boolean } | null = null;
+    // Drag (mouse and touch) with momentum, looping forever. Nothing moves on its own.
+    let drag: { id: number; x0: number; start: number; last: number; v: number; moved: boolean } | null = null;
     let raf = 0;
     win.addEventListener("pointerdown", (e) => {
-      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      cancelAnimationFrame(anim);
       cancelAnimationFrame(raf);
-      drag = { x0: e.clientX, left0: win.scrollLeft, last: e.clientX, v: 0, moved: false };
-      win.classList.add("is-dragging");
+      drag = { id: e.pointerId, x0: e.clientX, start: x, last: e.clientX, v: 0, moved: false };
       win.setPointerCapture(e.pointerId);
     });
     win.addEventListener("pointermove", (e) => {
-      if (!drag) return;
+      if (!drag || e.pointerId !== drag.id) return;
       const dx = e.clientX - drag.x0;
       if (Math.abs(dx) > 4) drag.moved = true;
       drag.v = e.clientX - drag.last;
       drag.last = e.clientX;
-      win.scrollLeft = drag.left0 - dx;
+      x = wrap(drag.start + dx);
+      draw();
     });
     const release = () => {
       if (!drag) return;
-      let v = -drag.v;
+      let v = drag.v;
       drag = null;
-      win.classList.remove("is-dragging");
       if (reduced) return;
       const glide = () => {
-        win.scrollLeft += v;
+        x = wrap(x + v);
+        draw();
         v *= 0.94;
-        if (Math.abs(v) > 0.4) raf = requestAnimationFrame(glide);
+        if (Math.abs(v) > 0.3) raf = requestAnimationFrame(glide);
       };
       raf = requestAnimationFrame(glide);
     };
     win.addEventListener("pointerup", release);
     win.addEventListener("pointercancel", release);
-    win.addEventListener("click", (e) => { if (drag?.moved) e.preventDefault(); }, true);
   }
 </script>
