@@ -5,8 +5,8 @@ import ScrollStory from "../components/ScrollStory.astro";
 import SearchStory from "../components/SearchStory.astro";
 import Offerings from "../components/Offerings.astro";
 import Proof from "../components/Proof.astro";
+import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
-import { WORK, url } from "../data/site";
 ---
 
 <BaseLayout>
@@ -15,26 +15,7 @@ import { WORK, url } from "../data/site";
   <SearchStory />
   <Offerings />
   <Proof />
-
-  <section class="section section--cream" aria-labelledby="work-title">
-    <p class="eyebrow">Selected work</p>
-    <h2 id="work-title" class="display section-title">Recent projects</h2>
-    <div class="grid grid--3">
-      {
-        WORK.slice(0, 3).map((w) => (
-          <a
-            class:list={["card", w.tone === "blue" && "card--blue", w.tone === "ink" && "card--ink", w.tone === "cream" && "card--red"]}
-            href={url("/work")}
-            data-cursor="View"
-          >
-            <span class="card-meta">{w.category}</span>
-            <span class="display card-title">{w.title}</span>
-          </a>
-        ))
-      }
-    </div>
-    <p style="margin-top: 2rem"><a class="btn" href={url("/work")}>See all work</a></p>
-  </section>
+  <Voices />
 
   <ClosingCta />
 </BaseLayout>

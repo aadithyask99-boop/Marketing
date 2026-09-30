@@ -5,7 +5,7 @@
   --blue: #0000e6;
   --dot: #a9b4ff;
   --gutter: clamp(1rem, 2.2vw, 2rem);
-  --header-h: clamp(4rem, 6vw, 5.75rem);
+  --header-h: 5rem;
   --display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
   --body: "Mulish", system-ui, sans-serif;
 }
@@ -98,55 +98,16 @@ h1, h2, h3, p { margin: 0; }
 .btn:hover { background: var(--cream); color: var(--red); border-color: var(--cream); }
 .section--cream .btn:hover { background: var(--red); color: var(--cream); border-color: var(--red); }
 
-/* Header and menu */
-.site-header {
-  position: fixed;
-  inset: 0 0 auto 0;
-  z-index: 40;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  height: var(--header-h);
-  padding: 0 var(--gutter);
-  border-bottom: 1px solid rgba(245, 239, 232, 0.85);
-  background: var(--red);
-}
-
-.logo {
-  font-size: clamp(1.15rem, 2.4vw, 1.75rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  white-space: nowrap;
-}
-
-.menu-btn {
-  flex: none;
-  width: 3rem;
-  height: 3rem;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: var(--cream);
-  color: var(--red);
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-.menu-btn[aria-expanded="true"] { transform: rotate(45deg); }
-
+/* Menu overlay (header lives in nav.css) */
 .menu {
   position: fixed;
-  inset: var(--header-h) 0 0 0;
-  z-index: 30;
+  inset: 0;
+  z-index: 50;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 0.25rem;
-  padding: 2rem var(--gutter);
+  padding: calc(var(--header-h) + 1rem) var(--gutter) 2rem;
   overflow-y: auto;
   background: var(--red);
 }
@@ -331,8 +292,12 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
   .hero { padding-bottom: 1rem; }
 }
 
+@media (max-height: 520px) {
+  :root { --header-h: 4.25rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .asterisk { animation: none; }
-  .badge, .menu-btn, .card, .cursor-dot, .menu a { transition: none; }
+  .badge, .card, .cursor-dot, .menu a { transition: none; }
 }

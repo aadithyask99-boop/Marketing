@@ -1,0 +1,89 @@
+.voices-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  justify-items: center;
+  gap: 2.5rem;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(5rem, 10vw, 8rem) var(--gutter);
+  background: var(--cream);
+  color: var(--ink);
+}
+.voices-eyebrow { margin: 0; }
+
+/* Testimonials */
+.voices { width: 100%; min-width: 0; max-width: 62rem; margin: 0 auto; text-align: center; }
+.voices-track {
+  min-width: 0;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+.voices-track::-webkit-scrollbar { display: none; }
+.voices-track:focus-visible { outline-offset: 6px; }
+.voice { flex: 0 0 100%; scroll-snap-align: center; padding: 0 0.5rem; }
+.voice-mark {
+  display: block;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 5rem;
+  line-height: 0.8;
+  height: 2.5rem;
+  color: var(--red);
+}
+.voice-quote {
+  margin: 1rem auto 0;
+  max-width: 50rem;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(1.75rem, 3.8vw, 3.1rem);
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.voice-by { display: grid; gap: 0.15rem; margin: 2rem 0 0; }
+.voice-by strong { font-weight: 600; }
+.voice-by span { opacity: 0.8; }
+
+.voices-nav { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 2.5rem; }
+.voices-btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.voices-btn:hover { background: var(--ink); color: var(--cream); }
+.voices-btn svg { width: 1.2rem; height: 1.2rem; }
+.voices-dots { display: flex; }
+.voices-dot {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.75rem;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.voices-dot span {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: rgba(23, 9, 10, 0.25);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.voices-dot.is-on span { background: var(--red); transform: scale(1.35); }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .voices-track { scroll-behavior: auto; }
+  .voices-btn, .voices-dot span { transition: none; }
+}

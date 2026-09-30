@@ -49,20 +49,24 @@ const ICONS: Record<string, string> = {
       </div>
 
       <div class="footer-cols">
-        <nav aria-label="Footer">
+        <nav class="footer-col" aria-label="Footer">
           <ul>
             <li><a href={url("/")}>Home</a></li>
             {pages.map((item) => <li><a href={url(item.href)}>{item.label}</a></li>)}
           </ul>
         </nav>
-        <ul aria-label="Services">
-          {FOOTER_SERVICES.map((s) => <li><a href={url(`/services#${s.slug}`)}>{s.short}</a></li>)}
-        </ul>
-        <ul aria-label="Contact">
-          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
-          <li><a href={url("/contact")}>Start a project</a></li>
-          <li><a href={url("/services")}>All services</a></li>
-        </ul>
+        <div class="footer-col">
+          <ul aria-label="Services">
+            {FOOTER_SERVICES.map((s) => <li><a href={url(`/services#${s.slug}`)}>{s.short}</a></li>)}
+          </ul>
+        </div>
+        <div class="footer-col">
+          <ul aria-label="Contact">
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li><a href={url("/contact")}>Start a project</a></li>
+            <li><a href={url("/services")}>All services</a></li>
+          </ul>
+        </div>
       </div>
     </div>
 

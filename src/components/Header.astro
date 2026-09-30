@@ -1,16 +1,129 @@
 ---
-import { SITE, url } from "../data/site";
+import "../styles/nav.css";
+import { NAV, SITE, url } from "../data/site";
+
+const base = url("");
+const path = Astro.url.pathname.slice(base.length).replace(/\/$/, "") || "/";
+const links = NAV.filter((n) => n.href !== "/");
 ---
 
-<header class="site-header">
-  <a class="logo" href={url("/")} aria-label={`${SITE.name} home`}>{SITE.name}</a>
-  <button
-    class="menu-btn"
-    type="button"
-    aria-expanded="false"
-    aria-controls="menu"
-    aria-label="Open menu"
-  >
-    <span aria-hidden="true">+</span>
-  </button>
+<header class="site-header" data-nav>
+  <div class="nav-pill">
+    <a class="logo" href={url("/")} aria-label={`${SITE.name} home`}>{SITE.name}</a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <span class="nav-hl" aria-hidden="true"></span>
+      {
+        links.map((item) => (
+          <a href={url(item.href)} aria-current={path === item.href ? "page" : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="nav-actions">
+      <a class="nav-cta" href={url("/contact")} data-cursor="Talk">
+        Talk to us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+      </a>
+      <button
+        class="menu-btn"
+        type="button"
+        aria-expanded="false"
+        aria-controls="menu"
+        aria-label="Open menu"
+      >
+        <span aria-hidden="true">+</span>
+      </button>
+    </div>
+
+    <span class="nav-progress" aria-hidden="true"></span>
+  </div>
 </header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-nav]");
+  if (header) {
+    const wrap = header.querySelector<HTMLElement>(".nav-links")!;
+    const hl = header.querySelector<HTMLElement>(".nav-hl")!;
+    const links = [...wrap.querySelectorAll<HTMLAnchorElement>("a")];
+    const progress = header.querySelector<HTMLElement>(".nav-progress")!;
+
+    // Sliding highlight
+    let placed = false;
+    const place = (a: HTMLElement, strong: boolean) => {
+      const r = a.getBoundingClientRect();
+      const w = wrap.getBoundingClientRect();
+      if (!placed) {
+        hl.style.transition = "none";
+      }
+      hl.style.width = `${r.width}px`;
+      hl.style.transform = `translate(${r.left - w.left}px, -50%)`;
+      hl.style.opacity = strong ? "1" : "0.55";
+      if (!placed) {
+        void hl.offsetWidth;
+        hl.style.transition = "";
+        placed = true;
+      }
+    };
+    const rest = () => {
+      const current = links.find((a) => a.getAttribute("aria-current") === "page");
+      if (current) place(current, false);
+      else hl.style.opacity = "0";
+    };
+    links.forEach((a) => {
+      a.addEventListener("pointerenter", () => place(a, true));
+      a.addEventListener("focus", () => place(a, true));
+      a.addEventListener("blur", rest);
+    });
+    wrap.addEventListener("pointerleave", rest);
+    window.addEventListener("resize", rest);
+    rest();
+    document.fonts?.ready.then(rest);
+
+    // Glass state, hide on scroll down / show on scroll up, progress line
+    const clamp = (v: number) => Math.min(1, Math.max(0, v));
+    let lastY = window.scrollY;
+    let anchor = lastY;
+    let dir = 0;
+    let focusInside = false;
+    let ticking = false;
+
+    const show = () => header.classList.remove("is-hidden");
+    const hide = () => header.classList.add("is-hidden");
+    const menuOpen = () => document.body.classList.contains("menu-open");
+
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      header.classList.toggle("is-glass", y > 24);
+      progress.style.setProperty("--p", String(max > 0 ? clamp(y / max) : 0));
+
+      if (y > lastY) {
+        if (dir !== 1) { dir = 1; anchor = lastY; }
+        if (y - anchor > 24 && y > 120 && !focusInside && !menuOpen()) hide();
+      } else if (y < lastY) {
+        if (dir !== -1) { dir = -1; anchor = lastY; }
+        if (anchor - y > 8) show();
+      }
+      if (y <= 120 || menuOpen()) show();
+      lastY = y;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    header.addEventListener("focusin", () => { focusInside = true; show(); });
+    header.addEventListener("focusout", () => (focusInside = false));
+    new MutationObserver(() => menuOpen() && show()).observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    update();
+  }
+</script>

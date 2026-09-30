@@ -1,0 +1,101 @@
+---
+import "@fontsource/instrument-serif/400.css";
+import "../styles/voices.css";
+import { TESTIMONIALS } from "../data/site";
+---
+
+<section class="voices-section" aria-labelledby="voices-title">
+  <h2 id="voices-title" class="eyebrow voices-eyebrow">What clients say</h2>
+  <div class="voices" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
+    <ul class="voices-track" tabindex="0" aria-label="Testimonials, scroll sideways">
+      {
+        TESTIMONIALS.map((t, i) => (
+          <li class="voice" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${TESTIMONIALS.length}`}>
+            <span class="voice-mark" aria-hidden="true">&ldquo;</span>
+            <blockquote class="voice-quote">{t.quote}</blockquote>
+            <p class="voice-by"><strong>{t.role}</strong><span>{t.company}</span></p>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="voices-nav">
+      <button class="voices-btn" type="button" data-dir="-1" aria-label="Previous testimonial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+      </button>
+      <div class="voices-dots">
+        {TESTIMONIALS.map((_, i) => <button type="button" class="voices-dot" data-index={i} aria-label={`Go to testimonial ${i + 1}`}><span></span></button>)}
+      </div>
+      <button class="voices-btn" type="button" data-dir="1" aria-label="Next testimonial">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const region = document.querySelector<HTMLElement>(".voices");
+  const track = region?.querySelector<HTMLElement>(".voices-track");
+  if (region && track) {
+    const slides = [...track.children] as HTMLElement[];
+    const dots = [...region.querySelectorAll<HTMLButtonElement>(".voices-dot")];
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const DELAY = 3000;
+    let index = 0;
+    let hovering = false;
+    let focused = false;
+    let visible = false;
+    let lastTouch = 0;
+
+    const width = () => track.clientWidth;
+    const current = () => Math.min(slides.length - 1, Math.max(0, Math.round(track.scrollLeft / (width() || 1))));
+    const paint = () => {
+      index = current();
+      dots.forEach((d, i) => {
+        d.setAttribute("aria-current", String(i === index));
+        d.classList.toggle("is-on", i === index);
+      });
+    };
+    const go = (i: number) => {
+      const n = (i + slides.length) % slides.length;
+      track.scrollTo({ left: n * width(), behavior: reduced ? "auto" : "smooth" });
+    };
+
+    track.addEventListener("scroll", () => requestAnimationFrame(paint), { passive: true });
+    region.querySelectorAll<HTMLButtonElement>(".voices-btn").forEach((b) =>
+      b.addEventListener("click", () => {
+        lastTouch = performance.now();
+        go(index + Number(b.dataset.dir));
+      }),
+    );
+    dots.forEach((d) =>
+      d.addEventListener("click", () => {
+        lastTouch = performance.now();
+        go(Number(d.dataset.index));
+      }),
+    );
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); go(index + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(index - 1); }
+    });
+
+    region.addEventListener("mouseenter", () => (hovering = true));
+    region.addEventListener("mouseleave", () => { hovering = false; lastTouch = performance.now(); });
+    region.addEventListener("focusin", () => (focused = true));
+    region.addEventListener("focusout", () => { focused = false; lastTouch = performance.now(); });
+    ["touchstart", "pointerdown", "wheel"].forEach((ev) =>
+      track.addEventListener(ev, () => (lastTouch = performance.now()), { passive: true }),
+    );
+    new IntersectionObserver((es) => (visible = es.some((e) => e.isIntersecting)), { threshold: 0.4 }).observe(region);
+    new ResizeObserver(() => track.scrollTo({ left: index * width(), behavior: "auto" })).observe(track);
+
+    paint();
+    if (!reduced) {
+      region.setAttribute("aria-live", "off");
+      setInterval(() => {
+        if (document.hidden || !visible || hovering || focused) return;
+        if (performance.now() - lastTouch < DELAY) return;
+        go(index + 1);
+      }, DELAY);
+    }
+  }
+</script>
