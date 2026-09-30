@@ -3,9 +3,8 @@
   align-items: center;
   gap: clamp(1.5rem, 4vw, 4rem);
   padding: clamp(2.5rem, 5vw, 4rem) var(--gutter);
-  background: #ece7df;
+  background: var(--cream);
   color: var(--ink);
-  border-block: 1px solid rgba(23, 9, 10, 0.1);
 }
 .proof-label {
   flex: none;
