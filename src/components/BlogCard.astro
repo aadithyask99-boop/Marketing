@@ -1,0 +1,33 @@
+---
+import OfferShape from "./OfferShape.astro";
+import { BLOG_CATEGORIES, url } from "../data/site";
+
+interface Props {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  author: string;
+  readMins: number;
+  tone: "cream" | "ink" | "red";
+  featured?: boolean;
+}
+const { slug, title, excerpt, category, author, readMins, tone, featured = false } = Astro.props;
+const cat = BLOG_CATEGORIES.find((c) => c.slug === category)!;
+const initials = author.split(" ").map((w) => w[0]).join("").slice(0, 2);
+const search = `${title} ${excerpt} ${cat.label}`.toLowerCase();
+---
+
+<li class:list={["post", featured && "post--feature"]} data-cat={category} data-search={search}>
+  <a class="post-link" href={url(`/blog/${slug}`)} data-cursor="Read">
+    <div class={`post-cover post-cover--${tone}`}>
+      <OfferShape shape={cat.shape} class="post-shape" />
+    </div>
+    <div class="post-body">
+      <span class="post-tag">{cat.label}</span>
+      <h3 class="display post-title">{title}</h3>
+      {featured && <p class="post-excerpt">{excerpt}</p>}
+      <p class="post-meta"><span class="post-avatar" aria-hidden="true">{initials}</span>{author} · {readMins} min read</p>
+    </div>
+  </a>
+</li>

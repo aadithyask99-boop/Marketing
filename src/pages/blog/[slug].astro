@@ -1,0 +1,50 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import ClosingCta from "../../components/ClosingCta.astro";
+import "@fontsource/instrument-serif/400-italic.css";
+import "../../styles/offerings.css";
+import "../../styles/blog.css";
+import { BLOG_CATEGORIES, url } from "../../data/site";
+
+export async function getStaticPaths() {
+  const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+
+const { post, posts } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const cat = BLOG_CATEGORIES.find((c) => c.slug === d.category)!;
+const related = posts.filter((p) => p.id !== post.id && p.data.category === d.category).slice(0, 3);
+const more = related.length ? related : posts.filter((p) => p.id !== post.id).slice(0, 3);
+const TONES = ["cream", "ink", "red"] as const;
+const date = d.date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<BaseLayout title={d.title} description={d.excerpt}>
+  <header class="article-head page-top">
+    <a class="article-back" href={url("/blog")}>&larr; All posts</a>
+    <p class="post-tag">{cat.label}</p>
+    <h1 class="display article-title">{d.title}</h1>
+    <p class="article-meta">{d.author} · {date} · {d.readMins} min read</p>
+  </header>
+
+  <section class="section section--cream">
+    <article class="prose"><Content /></article>
+  </section>
+
+  <section class="section section--cream related" aria-labelledby="related-title">
+    <h2 id="related-title" class="display related-title">Keep reading</h2>
+    <ul class="blog-grid blog-grid--related">
+      {
+        more.map((p, i) => (
+          <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} />
+        ))
+      }
+    </ul>
+  </section>
+
+  <ClosingCta />
+</BaseLayout>

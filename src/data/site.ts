@@ -32,6 +32,7 @@ export const NAV = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
   { href: "/work", label: "Work" },
+  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -312,3 +313,12 @@ export const WORK = [
   { title: "Project Five", category: "Marketing", tone: "blue" },
   { title: "Project Six", category: "AI Workflows", tone: "ink" },
 ];
+
+export const BLOG_CATEGORIES = [
+  { slug: "case-studies", label: "Case Studies", shape: "stack" },
+  { slug: "ai-search", label: "AI Search (GEO & AEO)", shape: "rings" },
+  { slug: "seo-content", label: "SEO & Content", shape: "spiral" },
+  { slug: "web-automation", label: "Web & Automation", shape: "grid" },
+  { slug: "brand-social", label: "Brand & Social", shape: "stack" },
+] as const;
+export type BlogCategory = (typeof BLOG_CATEGORIES)[number]["slug"];

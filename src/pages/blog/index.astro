@@ -1,0 +1,106 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import ClosingCta from "../../components/ClosingCta.astro";
+import "@fontsource/instrument-serif/400-italic.css";
+import "../../styles/offerings.css";
+import "../../styles/blog.css";
+import { BLOG_CATEGORIES } from "../../data/site";
+
+const TONES = ["cream", "ink", "red"] as const;
+const posts = (await getCollection("blog"))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.getTime() - a.data.date.getTime());
+---
+
+<BaseLayout title="Blog" description="Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.">
+  <section class="blog-hero page-top">
+    <p class="eyebrow">Blog</p>
+    <h1 class="display blog-title">Ideas worth <span class="blog-accent">ranking</span></h1>
+    <p class="lede">Notes on getting found, cited and chosen, from Google to ChatGPT.</p>
+
+    <div class="blog-chips" role="group" aria-label="Filter by category">
+      <button type="button" class="chip" data-cat="all" aria-pressed="true">All</button>
+      {BLOG_CATEGORIES.map((c) => <button type="button" class="chip" data-cat={c.slug} aria-pressed="false">{c.label}</button>)}
+    </div>
+
+    <form class="blog-search" role="search" onsubmit="return false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M16 16l5 5"></path></svg>
+      <label class="sr-only" for="blog-q">Search the blog</label>
+      <input id="blog-q" type="search" placeholder="Search the blog, e.g. GEO" autocomplete="off" maxlength="80" />
+      <button type="button" class="blog-clear" aria-label="Clear search" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </form>
+    <p class="blog-count" aria-live="polite"></p>
+  </section>
+
+  <section class="section section--cream blog-list" aria-label="Posts">
+    <ul class="blog-grid" data-grid>
+      {
+        posts.map((p, i) => (
+          <BlogCard
+            slug={p.id}
+            title={p.data.title}
+            excerpt={p.data.excerpt}
+            category={p.data.category}
+            author={p.data.author}
+            readMins={p.data.readMins}
+            tone={p.data.featured ? "ink" : TONES[i % 3]}
+            featured={p.data.featured}
+          />
+        ))
+      }
+    </ul>
+    <p class="blog-empty" hidden>
+      Nothing found. <a href="/contact">Ask us instead</a> and we'll point you to the right place.
+    </p>
+  </section>
+
+  <ClosingCta />
+</BaseLayout>
+
+<script>
+  const grid = document.querySelector<HTMLElement>("[data-grid]");
+  const items = [...document.querySelectorAll<HTMLElement>(".post")];
+  const chips = [...document.querySelectorAll<HTMLButtonElement>(".chip")];
+  const input = document.querySelector<HTMLInputElement>("#blog-q");
+  const clear = document.querySelector<HTMLButtonElement>(".blog-clear");
+  const count = document.querySelector<HTMLElement>(".blog-count");
+  const empty = document.querySelector<HTMLElement>(".blog-empty");
+  const emptyLink = empty?.querySelector("a");
+
+  if (grid && input && clear && count && empty) {
+    const base = document.querySelector<HTMLAnchorElement>(".logo")?.getAttribute("href")?.replace(/\/$/, "") ?? "";
+    if (emptyLink) emptyLink.setAttribute("href", `${base}/contact`);
+    const params = new URLSearchParams(location.search);
+    let cat = chips.some((c) => c.dataset.cat === params.get("cat")) ? params.get("cat")! : "all";
+    input.value = (params.get("q") ?? "").slice(0, 80);
+
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      items.forEach((el) => {
+        const ok = (cat === "all" || el.dataset.cat === cat) && (!q || el.dataset.search!.includes(q));
+        el.hidden = !ok;
+        if (ok) shown++;
+      });
+      chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.cat === cat)));
+      const filtered = cat !== "all" || q !== "";
+      grid.classList.toggle("is-filtered", filtered);
+      clear.hidden = !input.value;
+      empty.hidden = shown > 0;
+      count.textContent = filtered ? `${shown} ${shown === 1 ? "result" : "results"}` : `${items.length} posts`;
+      const next = new URLSearchParams();
+      if (cat !== "all") next.set("cat", cat);
+      if (q) next.set("q", input.value.trim());
+      history.replaceState(null, "", location.pathname + (next.size ? `?${next}` : ""));
+    };
+
+    chips.forEach((c) => c.addEventListener("click", () => { cat = c.dataset.cat!; apply(); }));
+    input.addEventListener("input", apply);
+    clear.addEventListener("click", () => { input.value = ""; apply(); input.focus(); });
+    apply();
+  }
+</script>
