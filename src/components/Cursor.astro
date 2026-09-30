@@ -1,5 +1,11 @@
 <div class="cursor" aria-hidden="true">
-  <div class="cursor-dot"><span class="cursor-label"></span></div>
+  <div class="cursor-arrow">
+    <svg viewBox="0 0 34 40" width="34" height="40">
+      <path class="cursor-shadow" d="M6 6L6 31L13 25L18 36L24 33.500L19 23L28.500 22.500Z" />
+      <path class="cursor-shape" d="M4 3L4 28L11 22L16 33L22 30.500L17 20L26.500 19.500Z" />
+    </svg>
+  </div>
+  <span class="cursor-label"></span>
 </div>
 
 <script>
@@ -9,7 +15,7 @@
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (cursor && label && fine) {
-    const EASE = reduced ? 1 : 0.16;
+    const EASE = reduced ? 1 : 0.32;
     let x = 0, y = 0, cx = 0, cy = 0;
     let raf = 0;
 
@@ -48,6 +54,9 @@
       cursor.classList.toggle("is-link", !tagged && !!interactive);
       label.textContent = tagged?.dataset.cursor ?? "";
     });
+
+    document.addEventListener("pointerdown", () => cursor.classList.add("is-down"));
+    document.addEventListener("pointerup", () => cursor.classList.remove("is-down"));
 
     document.documentElement.addEventListener("pointerleave", () => {
       cursor.classList.remove("is-visible");

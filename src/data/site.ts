@@ -5,6 +5,8 @@ export const SITE = {
   name: "Maximus Mediascape",
   tagline: "Search, story and strategy under one roof.",
   email: "hello@example.com",
+  // PLACEHOLDER: replace with the real WhatsApp number (international format, digits only).
+  whatsapp: "https://wa.me/15550000000",
   description:
     "Maximus Mediascape is a marketing agency for creative, SEO, branding, marketing, AI, GEO and AEO.",
 };

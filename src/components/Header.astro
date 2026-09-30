@@ -1,15 +1,18 @@
 ---
 import "../styles/nav.css";
+import QRCode from "qrcode";
+import { siWhatsapp } from "simple-icons";
 import { NAV, SITE, url } from "../data/site";
 
 const base = url("");
 const path = Astro.url.pathname.slice(base.length).replace(/\/$/, "") || "/";
 const links = NAV.filter((n) => n.href !== "/");
+const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color: { dark: "#17090a", light: "#0000" } });
 ---
 
 <header class="site-header" data-nav>
   <div class="nav-pill">
-    <a class="logo" href={url("/")} aria-label={`${SITE.name} home`}>
+    <a class="logo" href={url("/")} aria-label={`${SITE.name} home`} data-cursor="to home">
       <span class="logo-full">{SITE.name}</span>
       <span class="logo-m" aria-hidden="true">M</span>
     </a>
@@ -26,7 +29,7 @@ const links = NAV.filter((n) => n.href !== "/");
     </nav>
 
     <div class="nav-actions">
-      <a class="nav-cta" href={url("/contact")} data-cursor="Talk">
+      <a class="nav-cta" href={url("/contact")} aria-haspopup="true" aria-expanded="false" aria-controls="wa-card">
         Talk to us
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
       </a>
@@ -42,11 +45,52 @@ const links = NAV.filter((n) => n.href !== "/");
     </div>
 
   </div>
+
+  <div class="wa-card" id="wa-card" role="dialog" aria-label="Chat with us on WhatsApp" hidden>
+    <svg class="wa-logo" viewBox="0 0 24 24" aria-hidden="true"><path d={siWhatsapp.path}></path></svg>
+    <div class="wa-qr" aria-hidden="true" set:html={qr} />
+    <p class="wa-title">WhatsApp us</p>
+    <p class="wa-text">Scan the QR code to chat with us via your smartphone.</p>
+    <a class="wa-link" href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">
+      Chat via desktop
+      <svg viewBox="0 0 200 12" aria-hidden="true"><path d="M2 8C40 3 90 2 140 6S185 8 198 5"></path></svg>
+    </a>
+  </div>
 </header>
 
 <script>
   const header = document.querySelector<HTMLElement>("[data-nav]");
   if (header) {
+    // WhatsApp card: opens on hover or keyboard focus of "Talk to us" (desktop only)
+    const cta = header.querySelector<HTMLAnchorElement>(".nav-cta");
+    const card = header.querySelector<HTMLElement>(".wa-card");
+    const desk = window.matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine)");
+    if (cta && card) {
+      let timer = 0;
+      const open = () => {
+        if (!desk.matches) return;
+        window.clearTimeout(timer);
+        card.hidden = false;
+        requestAnimationFrame(() => card.classList.add("is-open"));
+        cta.setAttribute("aria-expanded", "true");
+      };
+      const close = () => {
+        window.clearTimeout(timer);
+        card.classList.remove("is-open");
+        cta.setAttribute("aria-expanded", "false");
+        timer = window.setTimeout(() => { if (!card.classList.contains("is-open")) card.hidden = true; }, 250);
+      };
+      const later = () => { window.clearTimeout(timer); timer = window.setTimeout(close, 220); };
+      cta.addEventListener("pointerenter", open);
+      cta.addEventListener("pointerleave", later);
+      card.addEventListener("pointerenter", () => window.clearTimeout(timer));
+      card.addEventListener("pointerleave", later);
+      cta.addEventListener("focus", open);
+      header.addEventListener("focusout", (e) => { if (!header.contains(e.relatedTarget as Node)) close(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+      window.addEventListener("scroll", () => { if (card.classList.contains("is-open")) close(); }, { passive: true });
+    }
+
     const wrap = header.querySelector<HTMLElement>(".nav-links")!;
     const hl = header.querySelector<HTMLElement>(".nav-hl")!;
     const links = [...wrap.querySelectorAll<HTMLAnchorElement>("a")];
