@@ -71,8 +71,6 @@
 .phase.is-hover .step { transform: translateY(-6px); box-shadow: 0 1.5rem 2.5rem rgba(23, 9, 10, 0.14); }
 .phase.is-hover .step:nth-child(2) { transition-delay: 0.05s; }
 .phase.is-hover .step:nth-child(3) { transition-delay: 0.1s; }
-.phase { transition: opacity 0.35s ease; }
-.process.has-hover .phase:not(.is-hover) { opacity: 0.55; }
 
 /* Process CTA card */
 .process-cta {
