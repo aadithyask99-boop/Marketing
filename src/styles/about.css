@@ -93,14 +93,20 @@
 
 /* Values marquee */
 .vals { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
+.vals-list { max-width: none; }
 .vals-title { max-width: 90rem; margin: 0 auto clamp(2rem, 5vw, 3.5rem); padding-inline: var(--gutter); font-size: clamp(2.8rem, 7vw, 6rem); text-align: center; }
 .vals-accent { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; color: var(--red); }
-.vals-window { overflow-x: auto; scrollbar-width: none; }
+.vals-window { overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; cursor: grab; padding-block: 1rem; outline-offset: -4px; }
 .vals-window::-webkit-scrollbar { display: none; }
-.vals.is-enhanced .vals-window { overflow: hidden; touch-action: pan-y; cursor: grab; }
-.vals-track { display: flex; width: max-content; will-change: transform; }
-.vals-list { display: flex; gap: 1.25rem; margin: 0; padding: 0 0.625rem; list-style: none; }
-.val { flex: none; width: clamp(16rem, 26vw, 22rem); padding: 1.5rem; border-radius: 1.5rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
+.vals-window.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+.vals-list { display: flex; gap: 1.25rem; width: max-content; margin: 0; padding: 0 var(--gutter); list-style: none; }
+.vals-ctrl { display: flex; align-items: center; gap: 0.75rem; max-width: 90rem; margin: 1.5rem auto 0; padding-inline: var(--gutter); }
+.vals-bar { flex: 1; height: 3px; border-radius: 2px; background: rgba(23, 9, 10, 0.14); overflow: hidden; }
+.vals-bar span { display: block; height: 100%; background: var(--red); border-radius: 2px; }
+.vals-btn { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; color: inherit; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+.vals-btn:hover { background: var(--ink); color: var(--cream); transform: scale(1.06); }
+.vals-btn svg { width: 1.2rem; height: 1.2rem; }
+.val { flex: none; scroll-snap-align: start; user-select: none; width: clamp(16rem, 26vw, 22rem); padding: 1.5rem; border-radius: 1.5rem; transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease; }
 .val--white { background: #fff; box-shadow: 0 0.75rem 2rem rgba(23, 9, 10, 0.08); --c: var(--red); }
 .val--ink { background: var(--ink); color: var(--cream); --c: var(--cream); }
 .val--red { background: var(--red); color: var(--cream); --c: var(--cream); }
@@ -116,6 +122,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .office-pill, .pill-time, .val, .val-shape, .hf { transition: none; }
+  .office-pill, .pill-time, .val, .val-shape, .hf, .vals-btn { transition: none; }
   .num-value.is-done { animation: none; }
 }

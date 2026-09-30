@@ -398,20 +398,20 @@ export const RESULTS = [
   { value: "10 wks", label: "Typical time to launch*" },
 ];
 
-// About page. The facts (2023, University of Surrey, cafes/salons/shops, UAE 2024, India 2025,
+// About page. The facts (2021, University of Surrey, cafes/salons/shops, UAE 2024, India 2025,
 // 10+ projects) are the client's; the wording and everything else is a first draft to review.
 export const ABOUT = {
   lede: "A marketing agency that began with friends helping local businesses, and now works across three countries.",
   chapters: [
     {
-      year: "2023",
+      year: "2021",
       place: "Guildford, UK",
       title: "It began with a shop window.",
       body: "At the University of Surrey, a few friends started helping cafes, salons and shops around Guildford with the basics: a website that worked, an Instagram that was not empty, and a Google listing people could actually find.",
       office: { label: "UK", tz: "Europe/London" },
     },
     {
-      year: "2023",
+      year: "2022",
       place: "Guildford, UK",
       title: "Learning by doing.",
       body: "One shop owner told another. Every project taught the same lesson: clear messages, fast pages and being easy to find at the exact moment someone searches beat noise every time.",
@@ -431,7 +431,7 @@ export const ABOUT = {
       office: { label: "India", tz: "Asia/Kolkata" },
     },
     {
-      year: "Today",
+      year: "2026",
       place: "Wherever people ask",
       title: "From Google to ChatGPT.",
       body: "People now ask AI before they ask anyone. What we learned on the high street became our GEO and AEO work: be found, cited and chosen wherever the question is asked.",
@@ -440,7 +440,7 @@ export const ABOUT = {
   belief: [{ t: "People ask before they buy. We make sure the answer is " }, { hl: "you." }],
   // "10+" projects is the client's figure. "3 time zones" follows from the three offices.
   numbers: [
-    { value: 2023, from: 2015, suffix: "", label: "Founded" },
+    { value: 2021, from: 2015, suffix: "", label: "Founded" },
     { value: 3, from: 0, suffix: "", label: "Countries" },
     { value: 10, from: 0, suffix: "+", label: "Projects" },
     { value: 3, from: 0, suffix: "", label: "Time zones, someone is always online" },
