@@ -78,11 +78,11 @@ const ld = [
 
     <figure class="a-art">
       <div class="a-tile"><OfferShape shape={cat.shape} class="a-shape" /></div>
-      <figcaption>{cat.label} · Illustration by {SITE.name}</figcaption>
     </figure>
   </header>
 
   <section class="a-body section--cream">
+    <p class="a-credit">{cat.label} · Illustration by {SITE.name}</p>
     <div class="a-grid">
       <article class="prose"><Content /></article>
       <aside class="a-aside"><ArticleToc headings={headings} /><ShareRail title={d.title} /></aside>
