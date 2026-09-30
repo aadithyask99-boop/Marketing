@@ -118,3 +118,9 @@
   .closer-step:not([hidden]) { animation: none; }
   .closer-send { transition: none; }
 }
+
+/* Phones: chips stack full width so their edges line up with the search bar */
+@media (max-width: 599px) {
+  .closer .lead-chips { flex-direction: column; align-items: stretch; gap: 0.6rem; }
+  .closer .lead-chips button { width: 100%; justify-content: flex-start; border-radius: 1.5rem; }
+}
