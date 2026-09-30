@@ -17,7 +17,14 @@
   letter-spacing: -0.01em;
 }
 
-.proof-strip { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+.proof-strip {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 18%, #000 82%, transparent 100%);
+}
 .proof-track { display: flex; width: max-content; animation: proof-scroll 40s linear infinite; }
 .proof-strip:hover .proof-track { animation-play-state: paused; }
 .proof-list { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
@@ -39,25 +46,6 @@
 }
 @keyframes proof-scroll { to { transform: translateX(-50%); } }
 
-.proof-veil {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 14%;
-  pointer-events: none;
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-}
-.proof-veil--left {
-  left: 0;
-  -webkit-mask-image: linear-gradient(to right, #000, transparent);
-  mask-image: linear-gradient(to right, #000, transparent);
-}
-.proof-veil--right {
-  right: 0;
-  -webkit-mask-image: linear-gradient(to left, #000, transparent);
-  mask-image: linear-gradient(to left, #000, transparent);
-}
 
 @media (max-width: 899px) {
   .proof { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
@@ -68,5 +56,5 @@
 @media (prefers-reduced-motion: reduce) {
   .proof-strip { overflow-x: auto; }
   .proof-track { animation: none; }
-  .proof-list + .proof-list, .proof-veil { display: none; }
+  .proof-list + .proof-list { display: none; }
 }
