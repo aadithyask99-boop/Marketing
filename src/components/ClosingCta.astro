@@ -7,8 +7,11 @@ import { LEAD, SITE } from "../data/site";
 interface Props {
   tone?: "ink" | "red";
   heading?: "h1" | "h2";
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
 }
-const { tone = "ink", heading = "h2" } = Astro.props;
+const { tone = "ink", heading = "h2", eyebrow = "Try it", title = LEAD.heading, lede = LEAD.lede } = Astro.props;
 const Heading = heading;
 const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
 const ICONS = [
@@ -27,9 +30,9 @@ const ICONS = [
   data-email={SITE.email}
   data-success={LEAD.success}
 >
-  <p class="eyebrow">Try it</p>
-  <Heading id="closer-title" class="display section-title">{LEAD.heading}</Heading>
-  <p class="lede">{LEAD.lede}</p>
+  <p class="eyebrow">{eyebrow}</p>
+  <Heading id="closer-title" class="display section-title" set:html={title} />
+  <p class="lede">{lede}</p>
 
   <form class="closer-form" novalidate>
     <div class="closer-step" data-step="1">

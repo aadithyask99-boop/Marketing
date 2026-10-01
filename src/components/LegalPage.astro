@@ -1,0 +1,20 @@
+---
+import "@fontsource/instrument-serif/400-italic.css";
+import "../styles/legal.css";
+interface Props {
+  title: string;
+  accent: string;
+  updated: string;
+}
+const { title, accent, updated } = Astro.props;
+---
+
+<header class="legal-hero page-top">
+  <h1 class="display legal-title">{title} <em>{accent}</em></h1>
+  <p class="legal-meta">Last updated {updated}</p>
+</header>
+<article class="legal">
+  <div class="legal-in">
+    <slot />
+  </div>
+</article>

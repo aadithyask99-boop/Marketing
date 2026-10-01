@@ -7,14 +7,20 @@ import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/offerings.css";
 import "../../styles/blog.css";
 import { BLOG_CATEGORIES } from "../../data/site";
+import { webPage, breadcrumbs, serviceList } from "../../lib/schema";
 
 const TONES = ["cream", "ink", "red"] as const;
 const posts = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.getTime() - a.data.date.getTime());
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/blog", "CollectionPage", "Blog", "Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.", { mainEntity: { "@type": "Blog", name: "Maximus Mediascape Blog", blogPost: posts.map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: `${o}/blog/${p.id}`, datePublished: p.data.date.toISOString() })) } }),
+  breadcrumbs(o, [{ name: "Blog", path: "/blog" }]),
+];
 ---
 
-<BaseLayout title="Blog" description="Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.">
+<BaseLayout schema={schema} title="Blog" description="Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.">
   <section class="blog-hero page-top page-hero">
     <p class="eyebrow">Blog</p>
     <h1 class="display blog-title">Ideas worth <span class="blog-accent">ranking</span></h1>

@@ -11,6 +11,7 @@ import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/offerings.css";
 import "../../styles/blog.css";
 import { BLOG_CATEGORIES, SITE, url } from "../../data/site";
+import { breadcrumbs } from "../../lib/schema";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
@@ -35,14 +36,21 @@ const AI = [
   { name: "Claude", href: `https://claude.ai/new?q=${ask}` },
   { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${ask}` },
 ];
-const ld = [
+const o = Astro.site!.origin;
+const postUrl = `${o}/blog/${post.id}`;
+const schema = [
   {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `${postUrl}#article`,
+    mainEntityOfPage: postUrl,
     headline: d.title,
     description: d.excerpt,
     datePublished: d.date.toISOString(),
-    author: { "@type": "Organization", name: SITE.name },
+    dateModified: d.date.toISOString(),
+    image: `${o}/og.png`,
+    author: { "@type": "Organization", name: SITE.name, "@id": `${o}/#organization` },
+    publisher: { "@id": `${o}/#organization` },
     keywords: d.tags.join(", "),
   },
   d.faq.length > 0 && {
@@ -50,11 +58,11 @@ const ld = [
     "@type": "FAQPage",
     mainEntity: d.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   },
-].filter(Boolean);
+  breadcrumbs(o, [{ name: "Blog", path: "/blog" }, { name: d.title, path: `/blog/${post.id}` }]),
+].filter(Boolean) as object[];
 ---
 
-<BaseLayout title={d.title} description={d.excerpt}>
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld).replace(/</g, "\\u003c")} />
+<BaseLayout title={d.title} description={d.excerpt} schema={schema}>
 
   <header class="a-head page-top">
     <div class="a-info">

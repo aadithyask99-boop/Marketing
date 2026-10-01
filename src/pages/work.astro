@@ -9,9 +9,15 @@ import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/offerings.css";
 import "../styles/process.css";
 import { RESULTS } from "../data/site";
+import { webPage, breadcrumbs, serviceList } from "../lib/schema";
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/work", "CollectionPage", "Work", "How Maximus Mediascape works, from planning and analysis to design and implementation, plus selected projects."),
+  breadcrumbs(o, [{ name: "Work", path: "/work" }]),
+];
 ---
 
-<BaseLayout title="Work" description="How Maximus Mediascape works, from planning and analysis to design and implementation, plus selected projects.">
+<BaseLayout schema={schema} title="Work" description="How Maximus Mediascape works, from planning and analysis to design and implementation, plus selected projects.">
   <section class="work-hero page-top page-hero">
     <p class="eyebrow">Work</p>
     <h1 class="display work-title">This is how we <span class="work-accent">work</span></h1>

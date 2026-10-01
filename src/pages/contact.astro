@@ -1,8 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ClosingCta from "../components/ClosingCta.astro";
+import { webPage, breadcrumbs, serviceList } from "../lib/schema";
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/contact", "ContactPage", "Contact", "Get in touch with Maximus Mediascape."),
+  breadcrumbs(o, [{ name: "Contact", path: "/contact" }]),
+];
 ---
 
-<BaseLayout title="Contact" description="Get in touch with Maximus Mediascape." footerTone="red">
+<BaseLayout schema={schema} title="Contact" description="Get in touch with Maximus Mediascape." footerTone="red">
   <ClosingCta tone="red" heading="h1" />
 </BaseLayout>

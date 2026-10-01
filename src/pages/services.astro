@@ -7,9 +7,17 @@ import ClosingCta from "../components/ClosingCta.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/services.css";
 import { SERVICES_INTRO } from "../data/site";
+import { webPage, breadcrumbs, serviceList } from "../lib/schema";
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/services", "CollectionPage", "Services", "AI search (GEO and AEO), SEO and content, websites, AI automation, advertising, email and SMS, social media and branding from Maximus Mediascape."),
+  serviceList(o),
+  breadcrumbs(o, [{ name: "Services", path: "/services" }]),
+];
 ---
 
 <BaseLayout
+  schema={schema}
   title="Services"
   description="AI search (GEO and AEO), SEO and content, websites, AI automation, advertising, email and SMS, social media and branding from Maximus Mediascape."
 >

@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import "@fontsource/instrument-serif/400-italic.css";
+---
+
+<BaseLayout title="Page not found" description="That page doesn't exist. Tell us what you were looking for." footerTone="red" noindex>
+  <ClosingCta
+    tone="red"
+    heading="h1"
+    eyebrow="404"
+    title="Lost? <em>Ask it instead.</em>"
+    lede="That page doesn't exist, but you do. Tell us what you want to be found for and we'll point you the right way."
+  />
+</BaseLayout>

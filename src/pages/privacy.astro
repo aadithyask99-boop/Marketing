@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalPage from "../components/LegalPage.astro";
+import { SITE, OFFICES } from "../data/site";
+import { webPage, breadcrumbs } from "../lib/schema";
+
+const o = Astro.site!.origin;
+const uk = OFFICES[0];
+const desc = "How Maximus Mediascape collects, uses and protects your personal information.";
+const schema = [webPage(o, "/privacy", "WebPage", "Privacy Policy", desc), breadcrumbs(o, [{ name: "Privacy Policy", path: "/privacy" }])];
+---
+
+<BaseLayout title="Privacy Policy" description={desc} schema={schema}>
+  <LegalPage title="Privacy" accent="policy" updated="1 October 2026">
+    <p>This policy explains what personal information {SITE.name} collects through this website, why we collect it and what your rights are. We keep it short because we collect very little.</p>
+
+    <h2>Who we are</h2>
+    <p>{SITE.name} is registered in England and Wales (company number {SITE.companyNumber}). Our UK address is {uk.street}, {uk.locality}, {uk.region} {uk.postcode}, United Kingdom. We also operate from the United Arab Emirates and India. For questions about your data, email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+    <h2>What we collect</h2>
+    <ul>
+      <li><strong>Enquiries.</strong> What you type into our "Now it's your turn" form, plus the name, email address and phone number you choose to give us.</li>
+      <li><strong>Newsletter.</strong> The email address you enter in the footer sign-up.</li>
+      <li><strong>WhatsApp and email.</strong> Whatever you send us when you message or write to us directly.</li>
+    </ul>
+    <p>We do not ask for payment details on this website.</p>
+
+    <h2>How we use it</h2>
+    <p>We use your details to reply to your enquiry, prepare a proposal, send the newsletter you signed up for and manage our client relationship. We do not sell your data and we do not use it for anything you wouldn't expect.</p>
+
+    <h2>Lawful basis</h2>
+    <p>Under UK GDPR we rely on your consent (newsletter), taking steps at your request before a contract (enquiries and proposals) and our legitimate interest in running and improving our business.</p>
+
+    <h2>Cookies and storage</h2>
+    <p>We do not use advertising or tracking cookies. The site may store small preferences in your browser (for example whether a contents panel is open). These never leave your device. If we add analytics in future we will update this page.</p>
+
+    <h2>Who we share it with</h2>
+    <p>Only service providers that help us run the business, such as our website host, form and email delivery tools. They process data on our instructions. Because we work across the UK, UAE and India, your information may be handled in those countries; we use appropriate safeguards when it is.</p>
+
+    <h2>How long we keep it</h2>
+    <p>Enquiries are kept for up to 24 months after our last contact, or longer if we work together and need records for tax and legal reasons. Newsletter addresses are kept until you unsubscribe.</p>
+
+    <h2>Your rights</h2>
+    <p>You can ask to see, correct, delete or export your data, object to or restrict how we use it, and withdraw consent at any time. Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we will respond within one month. If you are unhappy with our answer you can complain to the UK Information Commissioner's Office at <a href="https://ico.org.uk" target="_blank" rel="noopener noreferrer">ico.org.uk</a>.</p>
+
+    <h2>Changes</h2>
+    <p>If we change this policy we will update the date above.</p>
+  </LegalPage>
+</BaseLayout>

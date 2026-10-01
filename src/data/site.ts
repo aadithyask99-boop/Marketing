@@ -4,9 +4,11 @@ export const url = (path: string) => `${base}${path}`;
 export const SITE = {
   name: "Maximus Mediascape",
   tagline: "Search, story and strategy under one roof.",
-  email: "hello@example.com",
-  // PLACEHOLDER: replace with the real WhatsApp number (international format, digits only).
-  whatsapp: "https://wa.me/15550000000",
+  email: "hello@maximusmediascape.com",
+  whatsapp: "https://wa.me/447824678418",
+  domain: "https://maximusmediascape.com",
+  companyNumber: "15595795",
+  founded: "2021",
   description:
     "Maximus Mediascape is a marketing agency for creative, SEO, branding, marketing, AI, GEO and AEO.",
 };
@@ -333,9 +335,33 @@ export const TESTIMONIALS = [
 ];
 
 // Placeholder links: replace "#" with the real profile URLs.
+export const OFFICES = [
+  {
+    country: "United Kingdom",
+    code: "GB",
+    street: "17 Hawthorn Road",
+    locality: "Woking",
+    region: "Surrey",
+    postcode: "GU22 0BA",
+    phone: "+44 7824 678418",
+    tel: "+447824678418",
+  },
+  {
+    country: "United Arab Emirates",
+    code: "AE",
+    street: "FOB50951 Compass Building, Al Shohad",
+    locality: "Ras Al Khaimah",
+    region: "",
+    postcode: "",
+    phone: "+971 56 800 7976",
+    tel: "+971568007976",
+  },
+];
+
 export const SOCIALS = [
-  { name: "LinkedIn", href: "#" },
-  { name: "Instagram", href: "#" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/maximus-mediascape/" },
+  { name: "Instagram", href: "https://www.instagram.com/maximusmediascape/" },
+  { name: "Medium", href: "https://medium.com/@maximusmediascape" },
   { name: "X", href: "#" },
   { name: "TikTok", href: "#" },
   { name: "YouTube", href: "#" },

@@ -11,9 +11,15 @@ import OfferShape from "../components/OfferShape.astro";
 import "../styles/offerings.css";
 import "../styles/about.css";
 import { ABOUT } from "../data/site";
+import { webPage, breadcrumbs, serviceList } from "../lib/schema";
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/about", "AboutPage", "About", "Maximus Mediascape is a marketing agency founded in 2021 at the University of Surrey, now with offices in the UK, UAE and India."),
+  breadcrumbs(o, [{ name: "About", path: "/about" }]),
+];
 ---
 
-<BaseLayout title="About" description="Maximus Mediascape is a marketing agency founded in 2021 at the University of Surrey, now with offices in the UK, UAE and India.">
+<BaseLayout schema={schema} title="About" description="Maximus Mediascape is a marketing agency founded in 2021 at the University of Surrey, now with offices in the UK, UAE and India.">
   <section class="about-hero section page-top page-hero" data-hero>
     <div class="hero-floats" aria-hidden="true">
       <span class="hf hf--a" data-depth="26"><OfferShape shape="rings" class="hf-shape" /></span>

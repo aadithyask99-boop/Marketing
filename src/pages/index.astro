@@ -7,9 +7,15 @@ import Offerings from "../components/Offerings.astro";
 import Proof from "../components/Proof.astro";
 import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
+import { SITE, SERVICES } from "../data/site";
+import { webPage, breadcrumbs, serviceList } from "../lib/schema";
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/", "WebPage", "Maximus Mediascape | Marketing Agency", SITE.description, { mainEntity: { "@type": "ProfessionalService", name: SITE.name, url: o, provider: { "@id": `${o}/#organization` }, serviceType: SERVICES.map((s) => s.name) } }),
+];
 ---
 
-<BaseLayout>
+<BaseLayout schema={schema}>
   <Hero />
   <ScrollStory />
   <SearchStory />

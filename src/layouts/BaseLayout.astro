@@ -8,15 +8,22 @@ import MenuOverlay from "../components/MenuOverlay.astro";
 import Cursor from "../components/Cursor.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, url } from "../data/site";
+import { siteGraph } from "../lib/schema";
 
 interface Props {
   title?: string;
   description?: string;
   footerTone?: "ink" | "red";
+  schema?: object[];
+  noindex?: boolean;
 }
 
-const { title, description = SITE.description, footerTone = "ink" } = Astro.props;
+const { title, description = SITE.description, footerTone = "ink", schema = [], noindex = false } = Astro.props;
 const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Marketing Agency`;
+const origin = (Astro.site ?? new URL(SITE.domain)).origin;
+const canonical = `${origin}${Astro.url.pathname.replace(/(.)\/$/, "$1")}`;
+const ogImage = `${origin}/og.png`;
+const ld = [siteGraph(origin), ...schema];
 ---
 
 <!doctype html>
@@ -30,6 +37,19 @@ const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Marketing 
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${SITE.name}: ${SITE.tagline}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o).replace(/</g, "\\u003c")} />)}
     <slot name="head" />
     <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
   </head>

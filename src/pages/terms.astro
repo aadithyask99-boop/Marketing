@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LegalPage from "../components/LegalPage.astro";
+import { SITE, OFFICES, url } from "../data/site";
+import { webPage, breadcrumbs } from "../lib/schema";
+
+const o = Astro.site!.origin;
+const uk = OFFICES[0];
+const desc = "The terms that apply to using the Maximus Mediascape website and working with us.";
+const schema = [webPage(o, "/terms", "WebPage", "Terms & Conditions", desc), breadcrumbs(o, [{ name: "Terms & Conditions", path: "/terms" }])];
+---
+
+<BaseLayout title="Terms & Conditions" description={desc} schema={schema}>
+  <LegalPage title="Terms &" accent="conditions" updated="1 October 2026">
+    <p>These terms cover use of this website and the general basis on which {SITE.name} works. Each project also has its own written proposal or agreement, which takes priority if the two differ.</p>
+
+    <h2>About us</h2>
+    <p>{SITE.name} is registered in England and Wales (company number {SITE.companyNumber}), {uk.street}, {uk.locality}, {uk.region} {uk.postcode}, United Kingdom. Contact: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+    <h2>Using this website</h2>
+    <p>You may browse and share this site for lawful purposes. Please don't copy it wholesale, scrape it, try to break it or use it to send spam. We try to keep information accurate and up to date but provide it as general information, not as advice for your particular situation.</p>
+
+    <h2>Our services</h2>
+    <p>We provide marketing services including AI search (GEO and AEO), SEO and content, websites, AI automation, advertising, email and SMS, social media and branding. The scope, timeline and price of each project are set out in a written proposal that you approve before work begins.</p>
+
+    <h2>No guarantees on results</h2>
+    <p>Search engines, social platforms and AI tools change constantly and are outside our control. We work carefully and transparently, but we cannot promise specific rankings, citations, traffic or sales.</p>
+
+    <h2>Payment</h2>
+    <p>Fees, deposits and payment dates are stated in your proposal. Unless agreed otherwise, invoices are payable within 14 days. Third-party costs such as ad spend, software and stock assets are charged separately and agreed in advance.</p>
+
+    <h2>Ownership of work</h2>
+    <p>Once an invoice is paid in full, you own the final deliverables made for you. We keep ownership of our tools, templates and know-how, and the right to show finished work in our portfolio unless you ask us not to. You confirm that material you give us is yours to use.</p>
+
+    <h2>Confidentiality</h2>
+    <p>We keep your non-public business information confidential and expect the same of you for ours.</p>
+
+    <h2>Liability</h2>
+    <p>Nothing in these terms limits liability that cannot legally be limited, such as for fraud or death or personal injury caused by negligence. Otherwise, our total liability for any project is limited to the fees you paid us for it, and we are not liable for indirect or lost profits.</p>
+
+    <h2>Privacy</h2>
+    <p>How we handle personal information is described in our <a href={url("/privacy")}>Privacy Policy</a>.</p>
+
+    <h2>Governing law</h2>
+    <p>These terms are governed by the laws of England and Wales, and the courts of England and Wales have jurisdiction over any dispute.</p>
+
+    <h2>Changes</h2>
+    <p>We may update these terms from time to time. The date above shows the latest version.</p>
+  </LegalPage>
+</BaseLayout>
