@@ -11,7 +11,7 @@ interface Props {
   title?: string;
   lede?: string;
 }
-const { tone = "ink", heading = "h2", eyebrow = "Try it", title = LEAD.heading, lede = LEAD.lede } = Astro.props;
+const { tone = "ink", heading = "h2", eyebrow = "", title = LEAD.heading, lede = LEAD.lede } = Astro.props;
 const Heading = heading;
 const endpoint = FORM_ENDPOINT;
 const ICONS = [
@@ -30,7 +30,7 @@ const ICONS = [
   data-email={SITE.email}
   data-success={LEAD.success}
 >
-  <p class="eyebrow">{eyebrow}</p>
+  {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   <Heading id="closer-title" class="display section-title" set:html={title} />
   <p class="lede">{lede}</p>
 
