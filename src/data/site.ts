@@ -362,10 +362,6 @@ export const SOCIALS = [
   { name: "LinkedIn", href: "https://www.linkedin.com/company/maximus-mediascape/" },
   { name: "Instagram", href: "https://www.instagram.com/maximusmediascape/" },
   { name: "Medium", href: "https://medium.com/@maximusmediascape" },
-  { name: "X", href: "#" },
-  { name: "TikTok", href: "#" },
-  { name: "YouTube", href: "#" },
-  { name: "Facebook", href: "#" },
 ];
 
 export const WORK = [
