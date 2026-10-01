@@ -104,12 +104,11 @@
   height: 3.15rem;
   padding: 0 0.4rem 0 1.1rem;
   color: var(--ink);
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: transparent;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(245, 239, 232, 0.36));
   -webkit-backdrop-filter: blur(18px) saturate(1.8);
   backdrop-filter: blur(18px) saturate(1.8);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(255, 255, 255, 0.25),
-    0 12px 32px rgba(23, 9, 10, 0.22);
+  box-shadow: 0 12px 32px rgba(23, 9, 10, 0.22);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .is-glass .nav-pill { background: rgba(245, 239, 232, 0.92); }
@@ -120,21 +119,23 @@
 .is-glass .nav-cta { height: 2.4rem; }
 .is-glass .menu-btn { width: 2.4rem; height: 2.4rem; background: var(--ink); color: var(--cream); }
 
-/* Full-screen menu open: pill melts back into the red overlay */
+/* Menu open: the pill melts into the glass panel and acts as its header row */
 body.menu-open .nav-pill {
   height: 3.75rem;
-  padding: 0;
-  color: var(--cream);
+  padding: 0 1.1rem;
+  color: var(--ink);
   border-color: transparent;
   background: transparent;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
 }
-body.menu-open .menu-btn { width: 2.75rem; height: 2.75rem; background: var(--cream); color: var(--red); }
+body.menu-open .menu-btn { width: 2.75rem; height: 2.75rem; background: var(--ink); color: var(--cream); }
 
 @media (max-width: 899px) {
   .logo-full { display: none; }
+  body.menu-open .logo-full { display: block; font-size: 1.3rem; }
+  body.menu-open .logo-m { display: none; }
   .logo-m {
     display: inline-grid;
     place-items: center;
