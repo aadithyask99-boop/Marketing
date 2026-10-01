@@ -1,0 +1,34 @@
+---
+import "../styles/scrolltop.css";
+---
+
+<button class="scroll-top" type="button" aria-label="Back to top" data-cursor="Back to top" hidden>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"></path></svg>
+</button>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>(".scroll-top");
+  if (btn) {
+    let on = false;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const show = window.scrollY > window.innerHeight * 0.8;
+      if (show === on) return;
+      on = show;
+      if (show) {
+        btn.hidden = false;
+        requestAnimationFrame(() => btn.classList.add("is-on"));
+      } else {
+        btn.classList.remove("is-on");
+        window.setTimeout(() => { if (!on) btn.hidden = true; }, 300);
+      }
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    btn.addEventListener("click", () => {
+      const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" });
+    });
+    update();
+  }
+</script>

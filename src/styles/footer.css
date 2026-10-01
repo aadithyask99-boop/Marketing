@@ -61,13 +61,13 @@
 .footer-msg { margin: 0.6rem 0 0; min-height: 1.5rem; font-size: 0.95rem; }
 .footer-msg[data-state="error"] { color: #b3000a; }
 
-.footer-social { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.footer-social { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
 .footer-social a {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   min-height: 2.75rem;
-  padding: 0 0.85rem;
+  padding: 0 0.7rem;
   border-radius: 999px;
   background: var(--ink);
   color: var(--cream);
@@ -77,9 +77,6 @@
 .footer-social svg { width: 1.1rem; height: 1.1rem; }
 .footer-social .arrow { width: 0.85rem; height: 0.85rem; opacity: 0.7; }
 
-.footer-mail { display: inline-flex; align-items: center; min-height: 2.75rem; margin-top: 0.5rem; font-weight: 600; text-decoration: none; overflow-wrap: anywhere; }
-.footer-mail:hover { color: var(--red); }
-.footer-mail-alt { display: none; }
 .footer-cols { display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
 .footer-col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; align-content: start; }
 .footer-col a {
@@ -149,3 +146,6 @@
   .footer-legal { flex-direction: column; align-items: flex-start; }
   .footer-legal ul { flex-wrap: wrap; gap: 0 1.25rem; }
 }
+
+/* keep the legal row clear of the floating back-to-top button */
+.footer-legal { padding-right: 3.75rem; }
