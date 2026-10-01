@@ -438,10 +438,10 @@ export const ABOUT = {
     { city: "India", short: "India", tz: "Asia/Kolkata", lat: 20.6, lon: 78.9 },
   ],
   values: [
-    { title: "Be found", body: "Visibility across search and AI answers comes first.", shape: "rings", tone: "white" },
-    { title: "Be clear", body: "Sharp positioning and copy that says one thing well.", shape: "grid", tone: "ink" },
-    { title: "Be accountable", body: "Goals agreed up front and reported on plainly.", shape: "stack", tone: "red" },
-    { title: "Be curious", body: "We test, read and try things before we recommend them.", shape: "spiral", tone: "white" },
-    { title: "Be human", body: "Plain language and real people, never a wall of jargon.", shape: "rings", tone: "ink" },
+    { title: "Be found", body: "Visibility across search and AI answers comes first.", image: "found" },
+    { title: "Be clear", body: "Sharp positioning and copy that says one thing well.", image: "clear" },
+    { title: "Be accountable", body: "Goals agreed up front and reported on plainly.", image: "accountable" },
+    { title: "Be curious", body: "We test, read and try things before we recommend them.", image: "curious" },
+    { title: "Be human", body: "Plain language and real people, never a wall of jargon.", image: "human" },
   ],
 } as const;

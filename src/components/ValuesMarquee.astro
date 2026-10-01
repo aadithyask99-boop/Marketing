@@ -1,7 +1,12 @@
 ---
-import OfferShape from "./OfferShape.astro";
+import { Image } from "astro:assets";
 import { ABOUT } from "../data/site";
-const SHAPES = ["rings", "spiral", "grid", "stack", "spiral"] as const;
+import found from "../assets/values/found.webp";
+import clear from "../assets/values/clear.webp";
+import accountable from "../assets/values/accountable.webp";
+import curious from "../assets/values/curious.webp";
+import human from "../assets/values/human.webp";
+const ART = { found, clear, accountable, curious, human } as const;
 const pad = (n: number) => String(n).padStart(2, "0");
 ---
 
@@ -13,9 +18,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
         [0, 1, 2].map((copy) => (
           <ul class="vals-list" data-clone={copy > 0 ? "" : undefined} aria-hidden={copy > 0 ? "true" : undefined}>
             {ABOUT.values.map((v, i) => (
-              <li class={`val ${i % 2 ? "val--ink" : ""}`} data-card>
+              <li class="val" data-card>
                 <p class="val-label"><span>{v.title}</span><span class="val-num">{pad(i + 1)}</span></p>
-                <div class="val-art"><OfferShape shape={SHAPES[i % SHAPES.length]} class="val-shape" /></div>
+                <div class="val-art"><Image src={ART[v.image]} alt="" width={640} height={640} loading="lazy" decoding="async" draggable="false" class="val-img" /></div>
                 <p class="val-text">{v.body}</p>
               </li>
             ))}
