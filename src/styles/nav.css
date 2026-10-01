@@ -138,10 +138,11 @@ body.menu-open .menu-btn { width: 2.75rem; height: 2.75rem; background: var(--in
     display: block;
     width: 2.35rem;
     height: 2.25rem;
-    background: currentColor;
-    -webkit-mask: var(--logo) center / contain no-repeat;
-    mask: var(--logo) center / contain no-repeat;
+    background: var(--logo) center / contain no-repeat;
   }
+  .nav-pill .logo-m { margin-left: 0.75rem; }
+  .is-glass .nav-pill .logo-m { margin-left: 0; }
+  .is-glass .logo-m, body.menu-open .logo-m { background-image: var(--logo-ink); }
 }
 
 @media (min-width: 900px) {

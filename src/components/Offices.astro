@@ -1,9 +1,13 @@
 ---
 import "../styles/offices.css";
 import { OFFICES, SITE } from "../data/site";
+interface Props {
+  tone?: "cream" | "red";
+}
+const { tone = "cream" } = Astro.props;
 ---
 
-<section class="offices" aria-labelledby="offices-title">
+<section class:list={["offices", `offices--${tone}`]} aria-labelledby="offices-title">
   <h2 id="offices-title" class="display offices-title">Find <em>us</em></h2>
   <ul class="offices-list">
     {
@@ -23,5 +27,4 @@ import { OFFICES, SITE } from "../data/site";
       ))
     }
   </ul>
-  <p class="offices-note">Registered in England and Wales, company no. {SITE.companyNumber}. We also work with clients in India.</p>
 </section>
