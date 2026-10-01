@@ -15,7 +15,7 @@
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 1rem;
-  height: 3.75rem;
+  height: 4rem;
   padding: 0;
   overflow: hidden;
   border: 1px solid transparent;
@@ -101,7 +101,7 @@
 
 /* Liquid glass */
 .is-glass .nav-pill {
-  height: 3.15rem;
+  height: 3.4rem;
   padding: 0 0.4rem 0 1.1rem;
   color: var(--ink);
   border-color: transparent;
@@ -115,13 +115,13 @@
 }
 .is-glass .logo { font-size: clamp(1.05rem, 2vw, 1.4rem); }
 .is-glass .nav-hl { background: rgba(23, 9, 10, 0.1); }
-.is-glass .nav-cta, .is-glass .nav-links a { height: 2.4rem; }
-.is-glass .nav-cta { height: 2.4rem; }
-.is-glass .menu-btn { width: 2.4rem; height: 2.4rem; background: var(--ink); color: var(--cream); }
+.is-glass .nav-cta, .is-glass .nav-links a { height: 2.6rem; }
+.is-glass .nav-cta { height: 2.6rem; }
+.is-glass .menu-btn { width: 2.6rem; height: 2.6rem; background: var(--ink); color: var(--cream); }
 
 /* Menu open: the pill melts into the glass panel and acts as its header row */
 body.menu-open .nav-pill {
-  height: 3.75rem;
+  height: 4rem;
   padding: 0 1.1rem;
   color: var(--ink);
   border-color: transparent;
