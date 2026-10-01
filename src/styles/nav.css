@@ -47,7 +47,7 @@
 .nav-pill .logo-m { margin-left: 0.75rem; }
 .is-glass .nav-pill .logo-m { margin-left: 0; }
 /* Light mark on dark or red backgrounds, dark mark once the header turns to cream glass or the menu opens */
-.is-glass .logo-m, body.menu-open .logo-m { background-image: var(--logo-ink); }
+[data-bg="light"] .logo-m, .is-glass .logo-m, body.menu-open .logo-m { background-image: var(--logo-ink); }
 @media (min-width: 900px) {
   .logo-m { width: 2.8rem; height: 2.7rem; }
   .is-glass .logo-m { width: 2.35rem; height: 2.25rem; }
@@ -115,6 +115,7 @@
 .menu-btn[aria-expanded="true"] { transform: rotate(45deg); }
 
 /* Liquid glass */
+[data-bg="light"] .nav-pill { color: var(--ink); }
 .is-glass .nav-pill {
   height: 3.4rem;
   padding: 0 0.4rem 0 1.1rem;
