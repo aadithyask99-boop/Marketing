@@ -1,9 +1,9 @@
 ---
 import "../styles/footer.css";
-import { NAV, SITE, SERVICES, SOCIALS, url } from "../data/site";
+import { FORM_ENDPOINT, NAV, SITE, SERVICES, SOCIALS, url } from "../data/site";
 
 const { tone = "ink" } = Astro.props;
-const endpoint = import.meta.env.PUBLIC_NEWSLETTER_ENDPOINT ?? "";
+const endpoint = FORM_ENDPOINT;
 const pages = NAV.filter((n) => n.href !== "/");
 const FOOTER_SERVICES = ["ai-search", "website-design", "ai-automation", "advertising", "seo-content", "brand-identity"]
   .map((slug) => SERVICES.find((s) => s.slug === slug)!);

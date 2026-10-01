@@ -13,8 +13,11 @@ export const SITE = {
     "Maximus Mediascape is a marketing agency for creative, SEO, branding, marketing, AI, GEO and AEO.",
 };
 
-// TODO: set PUBLIC_LEAD_ENDPOINT (e.g. a Formspree URL) in Vercel env vars to
-// deliver leads server-side. Until then the form opens the visitor's email app.
+// Enquiries and newsletter sign-ups post to this Formspree form, which emails them to the team.
+// The address is public by design, so it lives in code and needs no hosting settings.
+// Set PUBLIC_LEAD_ENDPOINT at build time to override it.
+export const FORM_ENDPOINT: string = import.meta.env.PUBLIC_LEAD_ENDPOINT || "https://formspree.io/f/mkjgapej";
+
 export const LEAD = {
   heading: "Now it's your turn.",
   question: "What do you want to be found for?",

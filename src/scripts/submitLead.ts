@@ -31,7 +31,11 @@ export async function submitLead(
       const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(lead),
+        body: JSON.stringify({
+          ...lead,
+          _subject: lead.message === "Newsletter signup" ? "New newsletter signup" : "New enquiry from the website",
+          source: location.pathname,
+        }),
       });
       return { ok: res.ok, mode: "endpoint" };
     } catch {

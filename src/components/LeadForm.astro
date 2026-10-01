@@ -1,14 +1,14 @@
 ---
 import "../styles/lead.css";
 import { CHIPS } from "../data/search";
-import { LEAD, SERVICES, SITE } from "../data/site";
+import { FORM_ENDPOINT, LEAD, SERVICES, SITE } from "../data/site";
 
 interface Props {
   id?: string;
 }
 
 const { id = "lead" } = Astro.props;
-const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
+const endpoint = FORM_ENDPOINT;
 ---
 
 <div class="lead" data-endpoint={endpoint} data-email={SITE.email} data-success={LEAD.success}>

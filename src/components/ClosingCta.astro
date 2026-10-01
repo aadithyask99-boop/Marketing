@@ -3,7 +3,7 @@ import "../styles/lead.css";
 import "../styles/closer.css";
 import { CHIPS } from "../data/search";
 import { DIAL_CODES } from "../data/countries";
-import { LEAD, SITE } from "../data/site";
+import { FORM_ENDPOINT, LEAD, SITE } from "../data/site";
 interface Props {
   tone?: "ink" | "red";
   heading?: "h1" | "h2";
@@ -13,7 +13,7 @@ interface Props {
 }
 const { tone = "ink", heading = "h2", eyebrow = "Try it", title = LEAD.heading, lede = LEAD.lede } = Astro.props;
 const Heading = heading;
-const endpoint = import.meta.env.PUBLIC_LEAD_ENDPOINT ?? "";
+const endpoint = FORM_ENDPOINT;
 const ICONS = [
   '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
   '<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
