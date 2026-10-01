@@ -8,6 +8,8 @@ readMins: 14
 featured: true
 tldr: "In twelve months we took a Croydon wellness brand from 7.4% to 31.0% visibility across 200 monitored AI prompts, grew organic impressions by 184% and lifted qualified enquiries from 46 to 82 a month by answering real customer questions across its website, Reddit, Medium and Substack."
 tags: ["Case study", "AI search", "GEO", "AEO", "Local SEO", "Wellness"]
+image: ../../assets/blog/croydon-wellness-ai-search.jpg
+imageAlt: "A client relaxing during a head massage in a calm wellness treatment room"
 faq:
   - q: "What did this campaign cover?"
     a: "SEO, AEO, GEO, content strategy, local search and digital authority for a wellness brand in Croydon, delivered over 12 months."
@@ -43,6 +45,8 @@ Those questions represent a much larger opportunity. The customer hasn't necessa
 At the same time, the way people consume search results was changing. Google's AI-powered search experiences increasingly combine information from multiple sources and link to supporting pages, and Google's guidance confirms that established SEO principles continue to underpin visibility in AI Overviews and AI Mode.
 
 That meant the client needed more than a collection of optimised service pages. It needed a stronger information footprint around the brand.
+
+![A calm wellness treatment space with a towel, candle and fresh flowers](../../assets/blog/cs-calm.jpg)
 
 ## The objective
 
@@ -113,6 +117,8 @@ We monitored relevant conversations to identify recurring themes around treatmen
 
 The strategy was deliberately different from conventional link building. **We answered first. We promoted second.** A contribution needed to be useful even if the reader never visited the client's website. Where a website resource added genuine context, we could reference it. Where it didn't, we didn't force a link into the conversation. The result was a more authentic presence around the questions customers were already asking.
 
+![A team researching and writing together on laptops](../../assets/blog/cs-team.jpg)
+
 ### 4. We developed deeper authority through Medium
 
 Reddit gave us participation. Medium gave us depth. We used it for longer-form educational and analytical content that needed more explanation than a standard social post could provide: customer education, treatment questions, common misconceptions, decision-making, wellness trends, practical guidance and deeper analysis.
@@ -166,6 +172,8 @@ The same prompt set was monitored throughout the campaign. For each query we rec
 <figure class="fig fig-track"><ol><li style="--i:0"><span>Absent</span></li><li style="--i:1"><span>Mentioned</span></li><li style="--i:2"><span>Referenced</span></li><li style="--i:3"><span>Cited</span></li></ol><figcaption>Each of the 200 prompts was scored on this scale, with the source, page, owned or external status and competitor presence recorded alongside.</figcaption></figure>
 
 This gave us a repeatable AI-search measurement framework instead of isolated screenshots. Google now also provides a Generative AI performance report in Search Console to help site owners understand how their content is discovered through its generative AI features.
+
+![A laptop showing an analytics dashboard](../../assets/blog/cs-analytics.jpg)
 
 ## The results
 
@@ -250,5 +258,7 @@ Over twelve months, the Croydon wellness brand moved from a predominantly servic
 But the most important change was the way customers could discover the business. The brand no longer had to wait for someone to search for its service. It could be encountered while customers were asking questions, researching options, comparing approaches, looking for local providers and using AI-assisted search to decide what to do next.
 
 > Search visibility creates discovery. Useful information creates authority. Distribution creates presence. Consistency creates recognition.
+
+*Photos from Unsplash.*
 
 **Be found before the customer knows your name.** We build SEO, AEO, GEO, content and digital growth strategies that help businesses become more visible wherever their customers are asking questions.

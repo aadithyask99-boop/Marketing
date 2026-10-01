@@ -8,6 +8,8 @@ readMins: 4
 featured: false
 tldr: "AI models lean on brands they recognise. A distinct identity and consistent mentions make you the safe answer."
 tags: ["Brand", "GEO", "Identity"]
+image: ../../assets/blog/brand-still-wins.jpg
+imageAlt: "Colour swatches and brand design sheets laid out on a desk"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

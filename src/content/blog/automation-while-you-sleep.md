@@ -8,6 +8,8 @@ readMins: 6
 featured: false
 tldr: "Chatbots and workflows can qualify leads, book calls and answer FAQs around the clock. Start with one repetitive task."
 tags: ["Automation", "Chatbots", "CRM"]
+image: ../../assets/blog/automation-while-you-sleep.jpg
+imageAlt: "A laptop glowing in a dark room"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

@@ -7,6 +7,7 @@ import ArticleToc from "../../components/ArticleToc.astro";
 import ShareRail from "../../components/ShareRail.astro";
 import Faq from "../../components/Faq.astro";
 import OfferShape from "../../components/OfferShape.astro";
+import { Image, getImage } from "astro:assets";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/offerings.css";
 import "../../styles/blog.css";
@@ -37,6 +38,7 @@ const AI = [
   { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${ask}` },
 ];
 const o = Astro.site!.origin;
+const postImage = d.image ? await getImage({ src: d.image, width: 1200 }) : null;
 const postUrl = `${o}/blog/${post.id}`;
 const schema = [
   {
@@ -48,7 +50,7 @@ const schema = [
     description: d.excerpt,
     datePublished: d.date.toISOString(),
     dateModified: d.date.toISOString(),
-    image: `${o}/og.png`,
+    image: d.image ? new URL(postImage!.src, o).href : `${o}/og.png`,
     author: { "@type": "Organization", name: SITE.name, "@id": `${o}/#organization` },
     publisher: { "@id": `${o}/#organization` },
     keywords: d.tags.join(", "),
@@ -62,7 +64,7 @@ const schema = [
 ].filter(Boolean) as object[];
 ---
 
-<BaseLayout title={d.title} description={d.excerpt} schema={schema}>
+<BaseLayout title={d.title} description={d.excerpt} schema={schema} image={postImage?.src}>
 
   <header class="a-head page-top">
     <div class="a-info">
@@ -85,7 +87,15 @@ const schema = [
     </div>
 
     <figure class="a-art">
-      <div class="a-tile"><OfferShape shape={cat.shape} class="a-shape" /></div>
+      <div class:list={["a-tile", d.image && "has-photo"]}>
+        {
+          d.image ? (
+            <Image class="a-photo" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" />
+          ) : (
+            <OfferShape shape={cat.shape} class="a-shape" />
+          )
+        }
+      </div>
     </figure>
   </header>
 
@@ -109,7 +119,7 @@ const schema = [
     <ul class="blog-grid blog-grid--related">
       {
         more.map((p, i) => (
-          <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} />
+          <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} image={p.data.image} imageAlt={p.data.imageAlt} />
         ))
       }
     </ul>

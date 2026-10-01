@@ -8,6 +8,8 @@ readMins: 4
 featured: false
 tldr: "AEO means shaping content so answer engines can lift it as the answer. Start with clear questions, short answers and schema."
 tags: ["AEO", "Schema", "Content"]
+image: ../../assets/blog/what-is-aeo.jpg
+imageAlt: "Three-dimensional AI lettering on a blue abstract background"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

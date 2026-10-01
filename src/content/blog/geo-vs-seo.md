@@ -8,6 +8,8 @@ readMins: 5
 featured: false
 tldr: "SEO earns rankings; GEO earns citations inside AI answers. You need both, and they share more foundations than you think."
 tags: ["GEO", "SEO", "Strategy"]
+image: ../../assets/blog/geo-vs-seo.jpg
+imageAlt: "A dark analytics dashboard with search performance charts"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

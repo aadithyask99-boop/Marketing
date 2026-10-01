@@ -8,6 +8,8 @@ readMins: 7
 featured: false
 tldr: "Write for people first, then structure it so search engines and AI can quote it. Clear headings, direct answers and proof."
 tags: ["SEO", "Content", "Writing"]
+image: ../../assets/blog/content-that-ranks.jpg
+imageAlt: "A notebook, pen and coffee beside a laptop on a wooden desk"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

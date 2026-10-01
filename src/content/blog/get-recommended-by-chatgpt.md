@@ -8,6 +8,8 @@ readMins: 6
 featured: true
 tldr: "AI assistants recommend brands they can verify, quote and recognise. Fix your structure, publish clear answers and build mentions to be the one they name."
 tags: ["GEO", "AEO", "ChatGPT"]
+image: ../../assets/blog/get-recommended-by-chatgpt.jpg
+imageAlt: "A friendly white robot assistant looking at the camera"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

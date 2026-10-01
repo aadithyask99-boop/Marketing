@@ -8,6 +8,8 @@ readMins: 5
 featured: false
 tldr: "A converting site is fast, clear about one action, and easy to trust. Fix speed, message and friction before adding features."
 tags: ["Websites", "CRO", "UX"]
+image: ../../assets/blog/website-that-converts.jpg
+imageAlt: "Hands on a laptop keyboard showing a website dashboard"
 faq:
   - q: "What should I do first?"
     a: "Audit where you appear today across Google and AI assistants, then fix the biggest gaps in structure and content."

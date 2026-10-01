@@ -4,7 +4,7 @@ import { z } from "astro/zod";
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     excerpt: z.string(),
     category: z.enum(["case-studies", "ai-search", "seo-content", "web-automation", "brand-social"]),
@@ -16,6 +16,8 @@ const blog = defineCollection({
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),
     featured: z.boolean().default(false),
     draft: z.boolean().default(false),
+    image: image().optional(),
+    imageAlt: z.string().optional(),
   }),
 });
 

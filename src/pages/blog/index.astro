@@ -58,6 +58,8 @@ const schema = [
             readMins={p.data.readMins}
             tone={p === lead ? "ink" : TONES[i % 3]}
             featured={p === lead}
+            image={p.data.image}
+            imageAlt={p.data.imageAlt}
           />
         ))
       }
