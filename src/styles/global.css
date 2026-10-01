@@ -3,7 +3,7 @@
   --cream: #f5efe8;
   --ink: #17090a;
   --butter: #f6d98f;
-  --royal: #0a6b3d;
+  --royal: #064a2a;
   --dot: #a9b4ff;
   --gutter: clamp(1rem, 2.2vw, 2rem);
   --header-h: 5rem;
@@ -366,7 +366,8 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
     font-size: min(20vw, calc((100vh - var(--header-h) - 8rem) / 2.6));
     font-size: min(20vw, calc((100svh - var(--header-h) - 8rem) / 2.6));
   }
-  .badge span { font-size: 0.17em; }
+  .asterisk, .badge { width: 0.92em; height: 0.92em; }
+  .badge span { font-size: 0.2em; }
   .hero { padding-bottom: 1rem; }
 }
 
