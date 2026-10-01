@@ -8,7 +8,7 @@ const { tone = "cream" } = Astro.props;
 ---
 
 <section class:list={["offices", `offices--${tone}`]} aria-labelledby="offices-title">
-  <h2 id="offices-title" class="display offices-title">Find <em>us</em></h2>
+  <h2 id="offices-title" class="sr-only">Our offices</h2>
   <ul class="offices-list">
     {
       OFFICES.map((o) => (

@@ -1,7 +1,5 @@
 .offices { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 6.5rem) var(--gutter); }
-.offices-title { font-size: clamp(3rem, 9vw, 7rem); }
-.offices-title em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; color: var(--red); }
-.offices-list { display: grid; gap: 1rem; margin: clamp(1.75rem, 4vw, 3rem) 0 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.offices-list { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
 .office {
   padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid rgba(23, 9, 10, 0.2);
@@ -15,8 +13,7 @@
 .office-links a { width: fit-content; max-width: 100%; overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: rgba(23, 9, 10, 0.35); transition: color 0.2s ease, text-decoration-color 0.2s ease; }
 .office-links a:hover { color: var(--red); text-decoration-color: var(--red); }
 .offices--cream { padding-top: clamp(1rem, 3vw, 2rem); }
-.offices--red { background: var(--red); color: var(--cream); padding-top: 0; }
-.offices--red .offices-title em { color: var(--cream); }
+.offices--red { background: var(--red); color: var(--cream); padding-top: clamp(1rem, 3vw, 2rem); }
 .offices--red .office { border-color: rgba(245, 239, 232, 0.35); }
 .offices--red .office:hover { background: rgba(23, 9, 10, 0.12); border-color: var(--cream); }
 .offices--red .office-links a { text-decoration-color: rgba(245, 239, 232, 0.5); }
