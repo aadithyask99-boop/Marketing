@@ -36,7 +36,7 @@ const search = `${title} ${excerpt} ${cat.label}`.toLowerCase();
     <div class="post-body">
       <span class="post-tag">{cat.label}</span>
       <h3 class="display post-title">{title}</h3>
-      {featured && <p class="post-excerpt">{excerpt}</p>}
+      <p class="post-excerpt">{excerpt}</p>
       <p class="post-meta"><span class="post-avatar" aria-hidden="true">{initials}</span>{author} · {readMins} min read</p>
     </div>
   </a>
