@@ -433,8 +433,8 @@ export const ABOUT = {
   ],
   belief: [{ t: "People ask before they buy. We make sure the answer is " }, { hl: "you." }],
   clocks: [
-    { city: "Guildford", short: "UK", tz: "Europe/London", lat: 51.24, lon: -0.57 },
-    { city: "Dubai", short: "UAE", tz: "Asia/Dubai", lat: 25.2, lon: 55.27 },
+    { city: "United Kingdom", short: "UK", tz: "Europe/London", lat: 51.24, lon: -0.57 },
+    { city: "United Arab Emirates", short: "UAE", tz: "Asia/Dubai", lat: 25.2, lon: 55.27 },
     { city: "India", short: "India", tz: "Asia/Kolkata", lat: 20.6, lon: 78.9 },
   ],
   values: [
