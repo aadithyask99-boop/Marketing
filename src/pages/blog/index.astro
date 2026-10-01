@@ -10,9 +10,12 @@ import { BLOG_CATEGORIES } from "../../data/site";
 import { webPage, breadcrumbs, serviceList } from "../../lib/schema";
 
 const TONES = ["cream", "ink", "red"] as const;
-const posts = (await getCollection("blog"))
+const all = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
-  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.date.getTime() - a.data.date.getTime());
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+// Only the newest featured post takes the big top slot; everything else flows into the grid by date.
+const lead = all.find((p) => p.data.featured);
+const posts = lead ? [lead, ...all.filter((p) => p !== lead)] : all;
 const o = Astro.site!.origin;
 const schema = [
   webPage(o, "/blog", "CollectionPage", "Blog", "Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.", { mainEntity: { "@type": "Blog", name: "Maximus Mediascape Blog", blogPost: posts.map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: `${o}/blog/${p.id}`, datePublished: p.data.date.toISOString() })) } }),
@@ -53,8 +56,8 @@ const schema = [
             category={p.data.category}
             author={p.data.author}
             readMins={p.data.readMins}
-            tone={p.data.featured ? "ink" : TONES[i % 3]}
-            featured={p.data.featured}
+            tone={p === lead ? "ink" : TONES[i % 3]}
+            featured={p === lead}
           />
         ))
       }
