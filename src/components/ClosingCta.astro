@@ -10,8 +10,9 @@ interface Props {
   eyebrow?: string;
   title?: string;
   lede?: string;
+  service?: string;
 }
-const { tone = "ink", heading = "h2", eyebrow = "", title = LEAD.heading, lede = LEAD.lede } = Astro.props;
+const { tone = "ink", heading = "h2", eyebrow = "", title = LEAD.heading, lede = LEAD.lede, service = "" } = Astro.props;
 const Heading = heading;
 const endpoint = FORM_ENDPOINT;
 const ICONS = [
@@ -28,6 +29,7 @@ const ICONS = [
   aria-labelledby="closer-title"
   data-endpoint={endpoint}
   data-email={SITE.email}
+  data-service={service}
   data-success={LEAD.success}
 >
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
@@ -145,6 +147,16 @@ const ICONS = [
     };
     form.addEventListener("input", clearErrors);
 
+    // Buttons elsewhere on the page can start the form with a preset message
+    document.querySelectorAll<HTMLElement>("[data-preset]").forEach((el) =>
+      el.addEventListener("click", () => {
+        msg.value = el.dataset.preset ?? "";
+        clearErrors();
+        show(1);
+        window.setTimeout(() => msg.focus({ preventScroll: true }), 600);
+      }),
+    );
+
     form.querySelectorAll<HTMLButtonElement>("[data-example]").forEach((b) =>
       b.addEventListener("click", () => {
         msg.value = b.textContent?.trim() ?? "";
@@ -186,7 +198,7 @@ const ICONS = [
       go.disabled = true;
       go.textContent = "Sending...";
       const result = await submitLead(
-        { message, email: mail, phone: `+${cc.value}${digits}` },
+        { message, email: mail, phone: `+${cc.value}${digits}`, ...(root.dataset.service ? { service: root.dataset.service } : {}) },
         { endpoint: root.dataset.endpoint ?? "", toEmail: root.dataset.email ?? "" },
       );
       go.disabled = false;

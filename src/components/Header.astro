@@ -4,13 +4,14 @@ import QRCode from "qrcode";
 import { siWhatsapp } from "simple-icons";
 import { NAV, SITE, url } from "../data/site";
 
+const { minimal = false } = Astro.props;
 const base = url("");
 const path = Astro.url.pathname.slice(base.length).replace(/\/$/, "") || "/";
 const links = NAV.filter((n) => n.href !== "/");
 const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color: { dark: "#17090a", light: "#0000" } });
 ---
 
-<header class="site-header" data-nav>
+<header class:list={["site-header", minimal && "site-header--minimal"]} data-nav>
   <div class="nav-pill">
     <a class="logo" href={url("/")} aria-label={`${SITE.name} home`} data-cursor="to home">
       <span class="logo-m" aria-hidden="true" style={`--logo:url(${url("/logo-m.png")});--logo-ink:url(${url("/logo-m-ink.png")})`}></span>
@@ -28,11 +29,11 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
     </nav>
 
     <div class="nav-actions">
-      <a class="nav-cta" href={url("/contact")} aria-haspopup="true" aria-expanded="false" aria-controls="wa-card">
-        Talk to us
+      <a class="nav-cta" href={minimal ? "#start" : url("/contact")} {...(minimal ? { "data-preset": "I'd like the Starter website package (from £999)" } : { "aria-haspopup": "true", "aria-expanded": "false", "aria-controls": "wa-card" })}>
+        {minimal ? "Get started" : "Talk to us"}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
       </a>
-      <button
+      {!minimal && <button
         class="menu-btn"
         type="button"
         aria-expanded="false"
@@ -40,12 +41,12 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
         aria-label="Open menu"
       >
         <span aria-hidden="true">+</span>
-      </button>
+      </button>}
     </div>
 
   </div>
 
-  <div class="wa-card" id="wa-card" role="dialog" aria-label="Chat with us on WhatsApp" hidden>
+  {!minimal && <div class="wa-card" id="wa-card" role="dialog" aria-label="Chat with us on WhatsApp" hidden>
     <svg class="wa-logo" viewBox="0 0 24 24" aria-hidden="true"><path d={siWhatsapp.path}></path></svg>
     <div class="wa-qr" aria-hidden="true" set:html={qr} />
     <p class="wa-title">WhatsApp us</p>
@@ -54,7 +55,7 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
       Chat via desktop
       <svg viewBox="0 0 200 12" aria-hidden="true"><path d="M2 8C40 3 90 2 140 6S185 8 198 5"></path></svg>
     </a>
-  </div>
+  </div>}
 </header>
 
 <script>

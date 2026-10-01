@@ -194,3 +194,9 @@ body.menu-open .menu-btn { width: 2.75rem; height: 2.75rem; background: var(--in
 .wa-link:hover { color: var(--red); }
 @media (max-width: 899px) { .wa-card { display: none !important; } }
 @media (prefers-reduced-motion: reduce) { .wa-card { transition: none; } }
+
+/* Landing pages: logo and one button only */
+.site-header--minimal .nav-links { display: none; }
+.site-header--minimal .nav-cta { display: inline-flex; }
+.site-header--minimal .nav-pill { grid-template-columns: 1fr auto; }
+@media (min-width: 900px) { .site-header--minimal .nav-pill { grid-template-columns: 1fr auto; } }

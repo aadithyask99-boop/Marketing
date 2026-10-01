@@ -1,0 +1,26 @@
+---
+interface Props { label: string; preset: string }
+const { label, preset } = Astro.props;
+---
+
+<div class="sticky-cta" hidden>
+  <a href="#start" data-preset={preset} data-cursor="Go">{label}<span aria-hidden="true">↗</span></a>
+</div>
+
+<script>
+  // Mobile bar appears after the hero and hides again once the form is on screen
+  const bar = document.querySelector<HTMLElement>(".sticky-cta");
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  const form = document.getElementById("start");
+  if (bar && hero) {
+    let past = false;
+    let atForm = false;
+    const sync = () => {
+      const on = past && !atForm;
+      if (on) { bar.hidden = false; requestAnimationFrame(() => bar.classList.add("is-on")); }
+      else { bar.classList.remove("is-on"); window.setTimeout(() => { if (!bar.classList.contains("is-on")) bar.hidden = true; }, 300); }
+    };
+    new IntersectionObserver(([e]) => { past = !e.isIntersecting; sync(); }).observe(hero);
+    if (form) new IntersectionObserver(([e]) => { atForm = e.isIntersecting; sync(); }, { threshold: 0.15 }).observe(form);
+  }
+</script>

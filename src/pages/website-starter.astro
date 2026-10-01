@@ -1,0 +1,216 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import StickyCta from "../components/StickyCta.astro";
+import "@fontsource/instrument-serif/400-italic.css";
+import "../styles/starter.css";
+import { url } from "../data/site";
+import { webPage, breadcrumbs } from "../lib/schema";
+
+const START = "I'd like the Starter website package (from £999)";
+const CHECK = "I'd like a free 15-minute website check";
+
+const core = [
+  ["Market and competitor analysis", "See who you're up against and where the gaps are."],
+  ["Website strategy and design", "A plan and a look built around your customers."],
+  ["Bespoke website development", "Built for you, not squeezed into a template."],
+  ["Mobile-optimised and local-SEO-ready", "Fast on phones and set up to be found nearby."],
+  ["90-day implementation plan", "A clear step-by-step plan for the first three months."],
+  ["Basic training and handover", "A recorded walkthrough so you can manage it yourself."],
+];
+const extra = [
+  ["Google Business Profile set-up", "Set up and optimised so you show up on maps and local search."],
+  ["AI-search ready", "FAQ content and structured data so assistants like ChatGPT can quote you."],
+  ["Analytics and Search Console", "Tracking set up, with a simple monthly view of what's working."],
+  ["Conversion basics", "Click-to-call, WhatsApp button and a contact form that works."],
+  ["Speed and launch checks", "Mobile and speed checks plus a launch checklist before going live."],
+  ["30 days post-launch support", "Questions and small fixes after launch."],
+  ["Keyword and competitor snapshot", "A one-page report: the searches to target and who ranks today."],
+  ["Reviews kit", "QR code, short link and message templates to collect Google reviews."],
+  ["Business email set-up*", "An address on your own domain, such as hello@yourbusiness.co.uk."],
+  ["Legal pages and cookie notice", "Privacy, Terms and a cookie notice done for you."],
+];
+const pains = [
+  ["Customers can't find you", "You're not showing up when people nearby search for what you do."],
+  ["Your site is slow on phones", "Most local searches happen on mobile, and slow sites lose them."],
+  ["You're not sure where to start", "Too many opinions, no clear plan, and no one to hand it all over to."],
+];
+const steps = [
+  ["Weeks 1 to 2", "Analysis and strategy", "We study your market and competitors and agree the plan."],
+  ["Weeks 3 to 4", "Design", "You see the look and layout and tell us what to change."],
+  ["Weeks 5 to 7", "Build", "We develop, connect your local SEO set-up and test everything."],
+  ["Week 8", "Launch and training", "Go live, then a handover call with a recorded walkthrough."],
+  ["Next 90 days", "Your growth plan", "You follow the 90-day plan, with 30 days of support from us."],
+];
+const faq = [
+  { q: "How much does it cost?", a: "The Starter package is £999 as a one-time fee, with 50% to start and 50% on launch. Domain, hosting and business email have separate running costs charged by the provider." },
+  { q: "How long does it take?", a: "About two months from kick-off to launch. Timelines depend on how quickly we can get your content and feedback, and can extend for bigger requirements." },
+  { q: "What do I need to provide?", a: "Your business details, any logos or photos you already have, and a few hours across the project for feedback. We guide you through the rest." },
+  { q: "How many pages and revisions are included?", a: "The package covers up to 5 pages and 2 rounds of revisions. Anything beyond that is quoted before we start so there are no surprises." },
+  { q: "Who owns the website?", a: "You do. Once the final payment is made, the website and its content are yours." },
+  { q: "Do you guarantee rankings?", a: "No one can honestly guarantee rankings. We build the site and set-up properly for local search and AI search, give you a clear plan and show you what to do next." },
+  { q: "What isn't included?", a: "Paid advertising, extensive copywriting or photography, e-commerce or booking systems, and the running costs of domain, hosting and email. We can quote any of these separately." },
+  { q: "What happens after launch?", a: "You get 30 days of support and a 90-day plan to follow. If you'd like us to keep going, we offer monthly SEO, content and care plans." },
+];
+
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/website-starter", "WebPage", "Starter website package from £999", "A fast, mobile-friendly, local-SEO-ready website for £999, with market analysis, strategy, design, development, a 90-day plan and training."),
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Starter website package",
+    serviceType: "Website design and local SEO",
+    description: "Market and competitor analysis, website strategy and design, bespoke development, mobile-optimised and local-SEO-ready build, 90-day implementation plan, and training and handover.",
+    provider: { "@id": `${o}/#organization` },
+    areaServed: ["United Kingdom"],
+    offers: { "@type": "Offer", price: "999", priceCurrency: "GBP", url: `${o}/website-starter`, availability: "https://schema.org/InStock" },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
+  breadcrumbs(o, [{ name: "Starter website", path: "/website-starter" }]),
+];
+---
+
+<BaseLayout
+  title="Starter website from £999"
+  description="A fast, mobile-friendly, local-SEO-ready website from £999. Market analysis, strategy, bespoke build, a 90-day plan and training, delivered in about 2 months."
+  schema={schema}
+  landing
+>
+  <section class="st-hero page-top page-hero" data-hero>
+    <p class="eyebrow">Starter website · one-time</p>
+    <h1 class="display st-title"><span data-xray>A fast, local-SEO-ready</span> <span class="st-accent" data-xray>website.</span></h1>
+    <p class="lede">Launch your online presence on a solid foundation. We analyse your market, then design and build a fast, mobile-friendly website made to be found locally.</p>
+    <ul class="st-chips" aria-label="Highlights">
+      <li>Delivered in about 2 months</li>
+      <li>One-time fee</li>
+      <li>You own it</li>
+    </ul>
+    <div class="st-actions">
+      <a class="st-btn st-btn--solid" href="#start" data-preset={START} data-cursor="Go">Get started <span aria-hidden="true">↗</span></a>
+      <a class="st-btn st-btn--ghost" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
+    </div>
+    <a class="st-badge" href="#price" aria-label="From £999, see the price">
+      <span class="st-badge-from">From</span>
+      <span class="st-badge-price">£999</span>
+      <span class="st-badge-note">one-time</span>
+    </a>
+  </section>
+
+  <section class="st-section st-section--cream" aria-labelledby="pain-title">
+    <h2 id="pain-title" class="display st-h2">Sound <em>familiar?</em></h2>
+    <ul class="st-pains">
+      {pains.map(([t, d], i) => <li style={`--i:${i}`}><h3>{t}</h3><p>{d}</p></li>)}
+    </ul>
+  </section>
+
+  <section class="st-section st-section--ink" id="included" aria-labelledby="inc-title">
+    <h2 id="inc-title" class="display st-h2">What's <em>included</em></h2>
+    <p class="st-sub">The foundation every business needs, then the extras that make it work harder.</p>
+    <h3 class="st-group">The core build</h3>
+    <ul class="st-cards">
+      {core.map(([t, d], i) => <li style={`--i:${i}`}><span class="st-tick" aria-hidden="true">✓</span><h4>{t}</h4><p>{d}</p></li>)}
+    </ul>
+    <h3 class="st-group">Added value</h3>
+    <ul class="st-cards st-cards--extra">
+      {extra.map(([t, d], i) => <li style={`--i:${i}`}><span class="st-tick" aria-hidden="true">+</span><h4>{t}</h4><p>{d}</p></li>)}
+    </ul>
+    <p class="st-foot">* Some items, such as business email, domain and hosting, have separate running costs charged by the provider.</p>
+  </section>
+
+  <section class="st-section st-section--cream" aria-labelledby="how-title">
+    <h2 id="how-title" class="display st-h2">How it <em>works</em></h2>
+    <ol class="st-steps" data-steps>
+      {steps.map(([when, t, d], i) => <li style={`--i:${i}`}><span class="st-dot" aria-hidden="true">{i + 1}</span><p class="st-when">{when}</p><h3>{t}</h3><p>{d}</p></li>)}
+    </ol>
+    <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
+  </section>
+
+  <section class="st-section st-section--red" id="price" aria-labelledby="price-title">
+    <div class="st-price">
+      <div class="st-price-main">
+        <p class="eyebrow">Starter package</p>
+        <h2 id="price-title" class="sr-only">Price</h2>
+        <p class="st-amount"><span>From</span> £999</p>
+        <p class="st-terms">One-time fee · about 2 months to launch</p>
+        <p class="st-plan"><strong>Easy payment:</strong> 50% to start, 50% on launch.</p>
+        <div class="st-actions">
+          <a class="st-btn st-btn--cream" href="#start" data-preset={START} data-cursor="Go">Get started <span aria-hidden="true">↗</span></a>
+          <a class="st-btn st-btn--line" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
+        </div>
+      </div>
+      <div class="st-price-side">
+        <h3>Includes</h3>
+        <ul>
+          <li>Everything listed above</li>
+          <li>Up to 5 pages</li>
+          <li>2 rounds of revisions</li>
+          <li>You own the site and content</li>
+        </ul>
+        <h3>Not included</h3>
+        <ul class="st-not">
+          <li>Domain, hosting and email running costs</li>
+          <li>Paid advertising</li>
+          <li>Extensive copywriting or photography</li>
+          <li>E-commerce or booking systems (quoted separately)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="st-section st-section--cream" aria-labelledby="proof-title">
+    <h2 id="proof-title" class="display st-h2">The kind of <em>results</em> we build towards</h2>
+    <a class="st-proof" href={url("/blog/croydon-wellness-ai-search")} data-cursor="Read">
+      <div class="st-proof-stats">
+        <p><strong>+184%</strong><span>Organic impressions</span></p>
+        <p><strong>4.2×</strong><span>AI-search visibility</span></p>
+        <p><strong>+78%</strong><span>Qualified enquiries</span></p>
+      </div>
+      <p class="st-proof-text">How we built search and AI visibility for a Croydon wellness brand over 12 months. <span class="st-link">Read the case study <span aria-hidden="true">↗</span></span></p>
+    </a>
+  </section>
+
+  <section class="st-section st-section--ink st-after" aria-labelledby="after-title">
+    <h2 id="after-title" class="display st-h2">Want us to keep <em>going?</em></h2>
+    <p class="st-sub">After launch you can run it yourself with the 90-day plan, or have us help with monthly SEO, content and care so it keeps growing.</p>
+    <a class="st-btn st-btn--cream" href="#start" data-preset="I'd like to hear about monthly SEO, content and care plans" data-cursor="Go">Ask about monthly plans <span aria-hidden="true">↗</span></a>
+  </section>
+
+  <section class="st-section st-section--cream" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="display st-h2">Questions, <em>answered</em></h2>
+    <div class="st-faq">
+      {faq.map((f) => (
+        <details>
+          <summary><span>{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <ClosingCta tone="red" title="Let's build <em>yours.</em>" lede="Tell us about your business and we'll come back with a clear plan and a start date." service="Starter website (£999)" />
+  <StickyCta label="Get started · £999" preset={START} />
+</BaseLayout>
+
+<script>
+  // Timeline: dots and the dotted line fill in as each step scrolls into view
+  const steps = document.querySelector<HTMLElement>("[data-steps]");
+  if (steps && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("js-st");
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }),
+      { threshold: 0.6 },
+    );
+    steps.querySelectorAll("li").forEach((li) => io.observe(li));
+  }
+  document.querySelectorAll<HTMLElement>(".st-pains li, .st-cards li").forEach((el) => el.classList.add("st-rise"));
+  const rise = new IntersectionObserver(
+    (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); rise.unobserve(e.target); } }),
+    { threshold: 0.15 },
+  );
+  document.querySelectorAll(".st-rise").forEach((el) => rise.observe(el));
+</script>
