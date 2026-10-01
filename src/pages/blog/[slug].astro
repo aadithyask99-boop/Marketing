@@ -119,6 +119,19 @@ const schema = [
 </BaseLayout>
 
 <script>
+  // Case study figures: bars, columns and dots animate in once as they scroll into view.
+  const figs = document.querySelectorAll<HTMLElement>(".prose .fig");
+  if (figs.length && "IntersectionObserver" in window) {
+    document.documentElement.classList.add("js-fig");
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }),
+      { threshold: 0.25 },
+    );
+    figs.forEach((f) => io.observe(f));
+  }
+</script>
+
+<script>
   // Point the AI links at the live address (the build may not know the site URL).
   const links = document.querySelectorAll<HTMLAnchorElement>("[data-ask] a");
   const q = encodeURIComponent(`Summarise this article and tell me the key takeaways: ${location.origin}${location.pathname}`);
