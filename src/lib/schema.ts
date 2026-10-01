@@ -15,7 +15,7 @@ export function siteGraph(origin: string) {
         name: SITE.name,
         legalName: SITE.name,
         url: origin,
-        logo: `${origin}/favicon.svg`,
+        logo: `${origin}/favicon.png`,
         image: `${origin}/og.png`,
         description: SITE.description,
         email: SITE.email,

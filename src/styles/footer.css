@@ -77,6 +77,7 @@
 .footer-social svg { width: 1.1rem; height: 1.1rem; }
 .footer-social .arrow { width: 0.85rem; height: 0.85rem; opacity: 0.7; }
 
+.footer-mail { display: none; }
 .footer-cols { display: grid; gap: 0.5rem; grid-template-columns: minmax(0, 1fr); align-items: stretch; }
 .footer-col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; align-content: start; }
 .footer-col a {
@@ -125,6 +126,9 @@
 }
 
 @media (min-width: 900px) {
+  .footer-mail { display: block; width: fit-content; margin-top: 1.25rem; font-weight: 600; text-decoration: underline; text-underline-offset: 0.2em; overflow-wrap: anywhere; }
+  .footer-mail:hover { color: var(--red); }
+  .footer-mail-alt { display: none; }
   .footer-top { grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 4rem; }
   .footer-news-title { margin-bottom: 0.75rem; line-height: 2.75rem; white-space: nowrap; }
   .footer-cols { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }

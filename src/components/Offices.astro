@@ -1,0 +1,27 @@
+---
+import "../styles/offices.css";
+import { OFFICES, SITE } from "../data/site";
+---
+
+<section class="offices" aria-labelledby="offices-title">
+  <h2 id="offices-title" class="display offices-title">Find <em>us</em></h2>
+  <ul class="offices-list">
+    {
+      OFFICES.map((o) => (
+        <li class="office">
+          <h3 class="office-country">{o.country}</h3>
+          <address class="office-addr">
+            {o.street}<br />
+            {[o.locality, o.region, o.postcode].filter(Boolean).join(", ")}<br />
+            {o.country}
+          </address>
+          <p class="office-links">
+            <a href={`tel:${o.tel}`}>{o.phone}</a>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="offices-note">Registered in England and Wales, company no. {SITE.companyNumber}. We also work with clients in India.</p>
+</section>

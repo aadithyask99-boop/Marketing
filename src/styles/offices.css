@@ -1,0 +1,19 @@
+.offices { background: var(--ink); color: var(--cream); padding: clamp(3.5rem, 8vw, 6.5rem) var(--gutter); }
+.offices-title { font-size: clamp(3rem, 9vw, 7rem); }
+.offices-title em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; color: var(--red); }
+.offices-list { display: grid; gap: 1rem; margin: clamp(1.75rem, 4vw, 3rem) 0 0; padding: 0; list-style: none; grid-template-columns: minmax(0, 1fr); }
+.office {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid rgba(245, 239, 232, 0.2);
+  border-radius: 1.5rem;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.office:hover { background: rgba(245, 239, 232, 0.06); border-color: var(--red); transform: translateY(-0.25rem); }
+.office-country { margin: 0 0 1rem; font-family: var(--display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+.office-addr { font-style: normal; font-size: 1.05rem; line-height: 1.6; }
+.office-links { display: grid; gap: 0.25rem; margin-top: 1rem; }
+.office-links a { width: fit-content; max-width: 100%; overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 0.2em; text-decoration-color: rgba(245, 239, 232, 0.35); transition: color 0.2s ease, text-decoration-color 0.2s ease; }
+.office-links a:hover { color: var(--red); text-decoration-color: var(--red); }
+.offices-note { margin-top: 1.5rem; font-size: 0.9rem; opacity: 0.65; }
+@media (min-width: 700px) { .offices-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+@media (prefers-reduced-motion: reduce) { .office { transition: none; } .office:hover { transform: none; } }

@@ -14,7 +14,7 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
   <div class="nav-pill">
     <a class="logo" href={url("/")} aria-label={`${SITE.name} home`} data-cursor="to home">
       <span class="logo-full">{SITE.name}</span>
-      <span class="logo-m" aria-hidden="true">M</span>
+      <span class="logo-m" aria-hidden="true" style={`--logo:url(${url("/logo-m.png")})`}></span>
     </a>
 
     <nav class="nav-links" aria-label="Primary">

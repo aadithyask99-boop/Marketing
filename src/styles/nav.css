@@ -134,18 +134,13 @@ body.menu-open .menu-btn { width: 2.75rem; height: 2.75rem; background: var(--in
 
 @media (max-width: 899px) {
   .logo-full { display: none; }
-  body.menu-open .logo-full { display: block; font-size: 1.3rem; }
-  body.menu-open .logo-m { display: none; }
   .logo-m {
-    display: inline-grid;
-    place-items: center;
-    width: 2.75rem;
-    height: 2.75rem;
-    font-family: var(--display);
-    font-size: 2.1rem;
-    line-height: 1;
-    letter-spacing: 0;
-    transform: translateY(0.05em);
+    display: block;
+    width: 2.35rem;
+    height: 2.25rem;
+    background: currentColor;
+    -webkit-mask: var(--logo) center / contain no-repeat;
+    mask: var(--logo) center / contain no-repeat;
   }
 }
 
