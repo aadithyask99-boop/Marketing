@@ -104,7 +104,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 <script>
   // Pinned scene: the section holds the screen while the book rises and grows until it fills the viewport.
   // It is scrubbed by normal scrolling (never hijacked) and runs whenever motion is allowed.
-  // On a portrait phone the book is turned 90deg ("rot") so the spread can fill the screen.
+  // On a portrait phone the book shows one page at a time ("single") so it can fill the screen.
   const sec = document.querySelector<HTMLElement>("[data-dz-pin]");
   if (sec) {
     const stage = sec.querySelector<HTMLElement>(".dz-intro-in")!;
@@ -119,26 +119,24 @@ const pad = (n: number) => String(n).padStart(2, "0");
       const p = clamp(-sec.getBoundingClientRect().top / dist);
       stage.style.setProperty("--g", ease(clamp((p - 0.04) / 0.46)).toFixed(4)); // book growth
       stage.style.setProperty("--c", clamp(p / 0.2).toFixed(4)); // copy fade
-      document.body.classList.toggle("dz-holding", sec.classList.contains("is-rot") && p > 0.04 && p < 0.98); // the back-to-top button would sit on the book controls
-      sec.classList.toggle("is-ready", p >= 0.7); // fully grown and open: the book can take over touches
+      document.body.classList.toggle("dz-holding", sec.classList.contains("is-single") && p > 0.04 && p < 0.98); // the back-to-top button would sit on the book controls
       window.dispatchEvent(new CustomEvent("dz:scrub", { detail: { p } })); // the cover opens with the scroll
     };
     const setup = () => {
       const want = !calm.matches;
       const turn = want && portraitPhone.matches;
-      const changed = want !== on || turn !== sec.classList.contains("is-rot");
+      const changed = want !== on || turn !== sec.classList.contains("is-single");
       if (want !== on) {
         on = want;
         sec.classList.toggle("is-pinned", on);
         if (!on) {
-          sec.classList.remove("is-ready");
           document.body.classList.remove("dz-holding");
           stage.style.removeProperty("--g");
           stage.style.removeProperty("--c");
           window.dispatchEvent(new CustomEvent("dz:scrub", { detail: { p: null } }));
         }
       }
-      sec.classList.toggle("is-rot", turn);
+      sec.classList.toggle("is-single", turn);
       update();
       if (changed) window.dispatchEvent(new CustomEvent("dz:mode"));
     };

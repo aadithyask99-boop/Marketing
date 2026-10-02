@@ -80,9 +80,9 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     const prevBtn = root.querySelector<HTMLButtonElement>(".dz-bb-prev")!;
     const nextBtn = root.querySelector<HTMLButtonElement>(".dz-bb-next")!;
     const sec = root.closest<HTMLElement>(".dz-intro");
-    // On a portrait phone the pinned book is turned 90deg so the spread fills the screen: the book's long axis is then vertical
-    const rot = () => !!sec?.classList.contains("is-rot");
-    const ready = () => !rot() || !!sec?.classList.contains("is-ready");
+    const turn = root.querySelector<HTMLElement>(".dz-book-turn")!;
+    // On a portrait phone the book shows one page at a time: a window one page wide slides over the spread
+    const single = () => !!sec?.classList.contains("is-single");
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
@@ -93,6 +93,9 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     type Tween = { from: number; to: number; t0: number; dur: number };
     const tw: (Tween | null)[] = new Array(N).fill(null);
     let turned = 0;
+    let side: "L" | "R" = "R"; // single-page view: which page of the spread is on show (the cover counts as R)
+    let pan = 1; // single-page view: 0 = left page in the window, 1 = right page
+    let panTw: Tween | null = null;
     let dragLeaf = -1;
     let raf = 0;
 
@@ -123,7 +126,8 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       stage.style.setProperty("--nl", (nl / N).toFixed(3));
       stage.style.setProperty("--nr", (nr / N).toFixed(3));
       // The book sits centred on its cover, then slides to the middle as the cover opens
-      stage.style.setProperty("--shift", `${(-25 + 25 * Math.min(1, ang[0] / 90)).toFixed(2)}%`);
+      stage.style.setProperty("--shift", single() ? "0%" : `${(-25 + 25 * Math.min(1, ang[0] / 90)).toFixed(2)}%`);
+      stage.style.setProperty("--pan", pan.toFixed(4));
     };
     const tick = (now: number) => {
       let any = false;
@@ -134,11 +138,22 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
         if (k < 0) { any = true; continue; }
         if (k >= 1) { ang[i] = t.to; tw[i] = null; } else { ang[i] = t.from + (t.to - t.from) * ease(k); any = true; }
       }
+      if (panTw) {
+        const k = (now - panTw.t0) / panTw.dur;
+        if (k < 0) any = true;
+        else if (k >= 1) { pan = panTw.to; panTw = null; }
+        else { pan = panTw.from + (panTw.to - panTw.from) * ease(k); any = true; }
+      }
       paint();
       raf = any ? requestAnimationFrame(tick) : 0;
     };
     const run = () => { if (!raf) raf = requestAnimationFrame(tick); };
-    const settle = () => { for (let i = 0; i < N; i++) if (tw[i]) { ang[i] = tw[i]!.to; tw[i] = null; } paint(); };
+    const settle = () => { for (let i = 0; i < N; i++) if (tw[i]) { ang[i] = tw[i]!.to; tw[i] = null; } if (panTw) { pan = panTw.to; panTw = null; } paint(); };
+    const panTo = (to: number, dur = 800, delay = 0) => {
+      if (calm) { pan = to; panTw = null; paint(); return; }
+      panTw = { from: pan, to, t0: performance.now() + delay, dur };
+      run();
+    };
     const flip = (i: number, to: number, dur = 800, delay = 0) => {
       tgt[i] = to;
       if (calm) { ang[i] = to; tw[i] = null; paint(); return; }
@@ -151,30 +166,45 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       turned = tgt.filter((t) => t === 180).length;
       root.dataset.turned = String(turned);
       root.toggleAttribute("data-last", turned === N);
-      status.textContent = turned === 0 ? (rot() ? "Swipe up to open. Tilt your phone to read." : "Closed. Drag the cover to open.") : `Spread ${turned} of ${N}: ${titles[turned - 1]}`;
+      const atEnd = turned === N && (!single() || side === "R");
+      status.textContent = turned === 0 ? (single() ? "Swipe to open the book." : "Closed. Drag the cover to open.") : single() ? `${titles[turned - 1]}, page ${side === "L" ? 2 * turned - 1 : 2 * turned} of ${2 * N}` : `Spread ${turned} of ${N}: ${titles[turned - 1]}`;
       hint.textContent = turned === 0 ? "Drag the cover to open" : "Drag a page to turn it";
       prevBtn.disabled = turned === 0;
-      nextBtn.disabled = turned === N;
+      nextBtn.disabled = atEnd;
       // Light up every contents entry for the section on show
       let best = 0;
       for (const l of links) { const v = Number(l.dataset.spread); if (v <= turned && v > best) best = v; }
       links.forEach((l) => (turned > 0 && Number(l.dataset.spread) === best ? l.setAttribute("aria-current", "true") : l.removeAttribute("aria-current")));
     };
-    const setTurned = (k: number) => {
+    const setTurned = (k: number, to: "L" | "R" = "L") => {
       k = clamp(k, 0, N);
       const forward = k > turned;
       const changing: number[] = [];
       for (let i = 0; i < N; i++) if (tgt[i] !== (i < k ? 180 : 0)) changing.push(i);
       if (!forward) changing.reverse();
       changing.forEach((i, n) => flip(i, i < k ? 180 : 0, changing.length > 1 ? 650 : 850, n * 85));
+      side = k === 0 ? "R" : to; // the single-page view lands on the left page of a spread unless told otherwise
+      panTo(side === "L" ? 0 : 1, changing.length > 1 ? 650 + (changing.length - 1) * 85 : 850);
       sync();
+    };
+    // Single-page view: move one page forwards or back
+    const step = (d: number) => {
+      if (!single()) return setTurned(turned + d);
+      if (d > 0) {
+        if (turned === 0) setTurned(1, "L");
+        else if (side === "R") setTurned(turned + 1, "L");
+        else setTurned(turned, "R");
+      } else if (turned > 0) {
+        if (side === "L") setTurned(turned - 1, "R");
+        else setTurned(turned, "L");
+      }
     };
     // While the section is pinned, scrolling opens the cover (and closes it again on the way back).
     // As soon as the visitor touches the book, it is theirs.
     let touched = false;
     window.addEventListener("dz:scrub", (e) => {
       const p = (e as CustomEvent<{ p: number | null }>).detail.p;
-      if (touched || p === null || down) return;
+      if (touched || p === null || down || single()) return;
       const a = 180 * ease(clamp((p - 0.38) / 0.3));
       ang[0] = a; tw[0] = null; tgt[0] = a >= 179 ? 180 : 0;
       paint(); sync();
@@ -183,50 +213,59 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     const tick1 = () => { if (!calm && "vibrate" in navigator) navigator.vibrate(6); };
 
     // Drag a page: the page follows the pointer; release decides by angle and flick speed
-    let down = false, onControl = false, moved = false, scrolling = false, lastP = 0, startX = 0, dir = 1, leaf = -1, pw = 1, t0 = 0, touch = false;
+    let down = false, onControl = false, moved = false, panDrag = false, startX = 0, dir = 1, leaf = -1, pw = 1, t0 = 0, touch = false;
     const samples: { x: number; t: number }[] = [];
     const shiftNow = () => parseFloat(stage.style.getPropertyValue("--shift") || "-25");
-    const pos = (e: PointerEvent) => (rot() ? e.clientY : e.clientX);
     stage.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
-      if (!ready()) return; // the pinned scene is still building: let the page scroll
       claim();
       // Links and buttons on the live pages work on a tap; a drag that starts on one still turns the page
       onControl = !!(e.target as Element).closest("a, button, input");
       settle();
       const r = stage.getBoundingClientRect();
-      const spineX = rot() ? r.top + r.height * (0.5 + shiftNow() / 100) : r.left + r.width * (0.5 + shiftNow() / 100);
-      dir = pos(e) >= spineX ? 1 : -1;
-      leaf = dir === 1 ? turned : turned - 1;
-      if (leaf < 0 || leaf >= N) leaf = -1;
-      pw = (rot() ? r.height : r.width) / 2;
-      startX = pos(e);
+      if (single()) {
+        pw = turn.getBoundingClientRect().width; // one page wide; the direction is decided by the first move
+        leaf = -1;
+      } else {
+        const spineX = r.left + r.width * (0.5 + shiftNow() / 100);
+        dir = e.clientX >= spineX ? 1 : -1;
+        leaf = dir === 1 ? turned : turned - 1;
+        if (leaf < 0 || leaf >= N) leaf = -1;
+        pw = r.width / 2;
+      }
+      startX = e.clientX;
       touch = e.pointerType !== "mouse";
-      down = true; moved = false; scrolling = false; t0 = performance.now();
-      samples.length = 0; samples.push({ x: startX, t: t0 });
+      down = true; moved = false; panDrag = false; t0 = performance.now();
+      samples.length = 0; samples.push({ x: e.clientX, t: t0 });
     });
     stage.addEventListener("pointermove", (e) => {
       if (!down) return;
-      const x = pos(e);
-      const dx = x - startX;
+      const dx = e.clientX - startX;
       if (!moved && Math.abs(dx) > 6) {
         moved = true;
-        // A rotated book turns by vertical swipes, so a swipe that cannot turn a page scrolls the page instead
-        const against = dir === 1 ? dx > 0 : dx < 0;
-        if (rot() && touch && (leaf < 0 || against)) { scrolling = true; lastP = x; }
-        else if (leaf >= 0) {
+        if (single()) {
+          // Forward from a right page turns its leaf; forward from a left page slides to the right page; and the reverse
+          dir = dx < 0 ? 1 : -1;
+          if (dir === 1) { if (side === "R") leaf = turned < N ? turned : -1; else panDrag = true; }
+          else if (side === "L") leaf = turned - 1;
+          else panDrag = turned > 0;
+          panTw = null;
+        }
+        if (leaf >= 0 || panDrag) {
           stage.setPointerCapture(e.pointerId);
           stage.classList.add("is-dragging");
-          dragLeaf = leaf;
-          tw[leaf] = null;
+          if (leaf >= 0) { dragLeaf = leaf; tw[leaf] = null; }
         }
       }
-      if (scrolling) { window.scrollBy(0, lastP - x); lastP = x; return; }
-      samples.push({ x, t: performance.now() });
+      samples.push({ x: e.clientX, t: performance.now() });
       if (samples.length > 6) samples.shift();
       if (moved && leaf >= 0) {
         const p = clamp((dir === 1 ? -dx : dx) / (pw * 1.2));
         ang[leaf] = dir === 1 ? 180 * p : 180 - 180 * p;
+        if (single()) pan = 1 - ang[leaf] / 180;
+        paint();
+      } else if (moved && panDrag) {
+        pan = side === "L" ? clamp(-dx / pw) : 1 - clamp(dx / pw);
         paint();
       }
     });
@@ -234,27 +273,37 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       if (!down) return;
       down = false;
       stage.classList.remove("is-dragging");
-      if (scrolling) {
-        scrolling = false;
-      } else if (moved && leaf >= 0) {
+      if (moved && (leaf >= 0 || panDrag)) {
         const a = samples[0], b = samples[samples.length - 1];
         const v = b.t > a.t ? (b.x - a.x) / (b.t - a.t) : 0; // px per ms, positive = rightwards
         const fwd = dir === 1;
         const flick = fwd ? v < -0.45 : v > 0.45;
         const against = fwd ? v > 0.45 : v < -0.45;
-        const past = fwd ? ang[leaf] > 90 : ang[leaf] < 90;
-        const complete = cancel ? false : flick || (!against && past);
-        const to = fwd ? (complete ? 180 : 0) : (complete ? 0 : 180);
-        const dur = 350 + 450 * (Math.abs(to - ang[leaf]) / 180);
-        dragLeaf = -1;
-        flip(leaf, to, dur);
-        sync();
-        if (complete && touch) window.setTimeout(tick1, dur);
+        if (leaf >= 0) {
+          const past = fwd ? ang[leaf] > 90 : ang[leaf] < 90;
+          const complete = cancel ? false : flick || (!against && past);
+          const to = fwd ? (complete ? 180 : 0) : (complete ? 0 : 180);
+          const dur = 350 + 450 * (Math.abs(to - ang[leaf]) / 180);
+          dragLeaf = -1;
+          flip(leaf, to, dur);
+          if (single()) { side = fwd ? (complete ? "L" : "R") : complete ? "R" : "L"; panTo(side === "L" ? 0 : 1, dur); }
+          sync();
+          if (complete && touch) window.setTimeout(tick1, dur);
+        } else {
+          // Sliding between the two pages of one spread
+          const past = fwd ? pan > 0.5 : pan < 0.5;
+          const complete = cancel ? false : flick || (!against && past);
+          if (complete) side = side === "L" ? "R" : "L";
+          const goal = side === "L" ? 0 : 1;
+          panTo(goal, 300 + 350 * Math.abs(goal - pan));
+          sync();
+        }
       } else if (!moved && !cancel && !onControl) {
-        setTurned(turned + (dir === 1 ? 1 : -1));
+        if (single()) step(startX >= turn.getBoundingClientRect().left + pw / 2 ? 1 : -1);
+        else setTurned(turned + (dir === 1 ? 1 : -1));
         if (touch) tick1();
       }
-      leaf = -1;
+      leaf = -1; panDrag = false;
     };
     stage.addEventListener("pointerup", () => release());
     stage.addEventListener("pointercancel", () => release(true));
@@ -282,13 +331,13 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     // Keyboard, buttons and contents entries
     stage.addEventListener("keydown", (e) => {
       claim();
-      if (e.key === "ArrowRight") { e.preventDefault(); setTurned(turned + 1); }
-      if (e.key === "ArrowLeft") { e.preventDefault(); setTurned(turned - 1); }
+      if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
       if (e.key === "Home") { e.preventDefault(); setTurned(0); }
-      if (e.key === "End") { e.preventDefault(); setTurned(N); }
+      if (e.key === "End") { e.preventDefault(); setTurned(N, "R"); }
     });
-    prevBtn.addEventListener("click", () => { claim(); setTurned(turned - 1); });
-    nextBtn.addEventListener("click", () => { claim(); setTurned(turned + 1); });
+    prevBtn.addEventListener("click", () => { claim(); step(-1); });
+    nextBtn.addEventListener("click", () => { claim(); step(1); });
     root.querySelectorAll<HTMLElement>("[data-action='cover']").forEach((b) => b.addEventListener("click", () => { claim(); setTurned(0); }));
     links.forEach((el) =>
       el.addEventListener("click", () => {
@@ -315,7 +364,10 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       io.observe(stage);
     }
 
-    window.addEventListener("dz:mode", sync);
+    window.addEventListener("dz:mode", () => {
+      if (single()) { pan = side === "L" ? 0 : 1; panTw = null; }
+      paint(); sync();
+    });
     paint();
     sync();
   }

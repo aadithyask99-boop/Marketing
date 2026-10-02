@@ -172,16 +172,16 @@
 .is-pinned .dz-spreads { position: absolute; left: 50%; top: calc(var(--header-h) + 0.5rem); width: min(calc(100vw - 2 * var(--gutter) - 2rem), calc((100svh - var(--header-h) - 5.25rem) * 1.7778)); max-width: none; margin: 0; padding: 0; transform-origin: 50% 0; transform: translate(-50%, calc((1 - var(--g, 0)) * 58svh)) scale(calc(0.5 + var(--g, 0) * 0.5)); }
 .is-pinned .dz-book-shadow { opacity: calc(0.4 + var(--g, 0) * 0.6); }
 
-/* Portrait phones: the pinned book is turned 90deg so the spread fills the screen (swipe up/down along it to turn pages) */
-.dz-intro.is-pinned.is-rot { height: 220svh; }
-.is-rot { --bw: min(calc(100svh - 10.6rem), calc((100vw - 1.5rem) * 1.7778)); }
-.is-pinned.is-rot .dz-spreads { width: calc(100vw - 2 * var(--gutter)); top: 3.25rem; }
-.is-rot .dz-book-wrap { gap: 0.6rem; }
-.is-rot .dz-book-turn { display: block; position: relative; width: calc(var(--bw) * 0.5625); height: var(--bw); margin-inline: auto; }
-.is-rot .dz-book { position: absolute; left: 50%; top: 50%; width: var(--bw); height: calc(var(--bw) * 0.5625); aspect-ratio: auto; transform: translate(-50%, -50%) rotate(90deg); cursor: auto; }
-.is-rot.is-ready .dz-book { touch-action: none; }
+/* Portrait phones: one page at a time. A window one page wide (.dz-book-turn) slides over the full spread (.dz-book), so the page fills the screen */
+.is-single { --pw: min(calc(100vw - 1.5rem), calc((100svh - 10.6rem) / 1.125)); --ph: calc(var(--pw) * 1.125); }
+.dz-intro.is-pinned.is-single { height: 220svh; }
+.is-pinned.is-single .dz-spreads { width: calc(100vw - 2 * var(--gutter)); top: max(3.25rem, calc(50svh - (var(--ph) + 7.4rem) / 2)); }
+.is-single .dz-book-wrap { gap: 0.6rem; }
+.is-single .dz-book-turn { display: block; position: relative; overflow: hidden; width: var(--pw); height: var(--ph); margin-inline: auto; border-radius: 0.5rem; box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.45); }
+.is-single .dz-book { position: absolute; top: 0; left: calc(var(--pan, 1) * var(--pw) * -1); width: calc(var(--pw) * 2); height: 100%; aspect-ratio: auto; cursor: auto; }
+.is-single .dz-book-shadow { display: none; }
+.is-pinned.is-single .dz-chapters { display: flex; margin-top: 0; }
 body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
-.is-pinned.is-rot .dz-chapters { display: flex; margin-top: 0; }
 
 /* The lightbox sits above the custom cursor, so give it the real one back */
 .dz-lb, .dz-lb * { cursor: auto !important; }
