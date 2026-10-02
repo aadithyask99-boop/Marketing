@@ -123,22 +123,6 @@ const schema = [
       </a>
     </div>
     <p class="lede">We analyse your market, then design and build a fast, mobile-friendly website made to be found locally. One-time fee, about two months, and you own it.</p>
-    <div class="st-bar">
-      <a class="st-bar-half" href="#start" data-preset={START} data-cursor="Go">
-        <span class="st-bar-text">
-          <span class="st-bar-title">Starter website</span>
-          <span class="st-bar-sub">A fast, mobile-friendly, local-SEO-ready site. From £999, one-time.</span>
-        </span>
-        <span class="st-pill">Get started <i aria-hidden="true">↗</i></span>
-      </a>
-      <a class="st-bar-half" href="#start" data-preset={CHECK} data-cursor="Go">
-        <span class="st-bar-text">
-          <span class="st-bar-title">Free 15-minute website check</span>
-          <span class="st-bar-sub">We look at your site and tell you what is holding it back. No obligation.</span>
-        </span>
-        <span class="st-pill">Book a check <i aria-hidden="true">↗</i></span>
-      </a>
-    </div>
   </section>
 
   <!-- 2. Why it matters: pinned, words light up as you scroll -->
@@ -390,12 +374,7 @@ const schema = [
     p.classList.add("is-live");
     onScroll(() => {
       let prog: number;
-      if (wide()) prog = clamp(pinProgress(sec) / 0.85);
-      else {
-        const r = p.getBoundingClientRect();
-        const vh = window.innerHeight;
-        prog = clamp((vh * 0.8 - r.top) / (r.height + vh * 0.2));
-      }
+      prog = clamp(pinProgress(sec) / 0.85);
       const lit = prog * 1.15 * words.length;
       words.forEach((w, i) => w.style.setProperty("--o", clamp(lit - i).toFixed(3)));
     });
@@ -509,7 +488,6 @@ const schema = [
       badge.style.setProperty("--ty", `${(dy * 14).toFixed(1)}px`);
       badge.style.setProperty("--rot", `${(-8 + dx * 10).toFixed(1)}deg`);
     });
-    hero.querySelector<HTMLElement>(".st-path")?.addEventListener("pointerenter", () => { badge.classList.remove("is-wiggle"); void badge.offsetWidth; badge.classList.add("is-wiggle"); });
   }
 
   // FAQ: one open at a time, smooth height
