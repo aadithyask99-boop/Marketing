@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from "astro:assets";
 import DesignRail from "./DesignRail.astro";
-import { DESIGN_WALL, WALL_KINDS, type WallKind } from "../data/design";
+import { DESIGN_WALL, WALL_KINDS, WALL_GROUPS, type WallKind } from "../data/design";
 
 // PLACEHOLDER: first-draft copy. Websites and Instagram grids are shown by type and sector, not under a client.
 const tiles = await Promise.all(
@@ -13,9 +13,9 @@ const tiles = await Promise.all(
     label: `${WALL_KINDS[t.kind]} · ${t.sector}`,
   })),
 );
-const kinds: WallKind[] = ["web", "social"];
+const kinds: WallKind[] = ["web", "app", "social"];
 const groups = kinds.map((k) => ({
-  label: k === "web" ? "Websites" : "Instagram grids",
+  label: WALL_GROUPS[k],
   items: tiles.filter((t) => t.kind === k).map((t) => ({ slug: t.id, name: t.sector, small: WALL_KINDS[t.kind], thumb: t.thumb })),
 }));
 const cols = [0, 1].map((c) => tiles.filter((t) => t.col === c));
@@ -24,26 +24,36 @@ const cols = [0, 1].map((c) => tiles.filter((t) => t.col === c));
 <section class="dz-body dz-body--wall" id="more-work" aria-labelledby="wall-title" data-dz-wall>
   <header class="dz-wallhead">
     <p class="dz-kicker">On screens and in feeds</p>
-    <h2 id="wall-title" class="display dz-h2">Websites and <span class="dz-accent">Instagram grids</span></h2>
-    <p class="dz-wall-lede">Web design and Instagram grid design for small businesses, shown the way people meet it: on a screen and in a feed. Not sorted by client, just a look at what we have made.</p>
+    <h2 id="wall-title" class="display dz-h2">Websites, apps and <span class="dz-accent">Instagram grids</span></h2>
+    <p class="dz-wall-lede">Web design, software and Instagram grid design for small businesses, shown the way people meet it: on a screen and in a feed. Not sorted by client, just a look at what we have made. Some of it you can try live.</p>
   </header>
 
   <div class="dz-layout" data-dz-layout>
-    <DesignRail groups={groups} title="Websites & social" noun="pieces" label="Websites and Instagram grids on this page" contact={false} class="dz-rail--wall" />
+    <DesignRail groups={groups} title="Digital & social" noun="pieces" label="Websites, apps and Instagram grids on this page" contact={false} class="dz-rail--wall" />
 
     <div class="dz-wt-grid">
       {
         cols.map((col, c) => (
           <ul class="dz-wt-col" style={c === 1 ? `--col-top:5rem` : undefined}>
             {col.map((t) => (
-              <li id={t.id} class={`dz-wt dz-wt--${t.kind}`} data-spy-target data-kind={t.kind} data-depth={t.depth} data-side={t.side} style={`--rot:${t.rot}deg;--mo:${t.mo}`}>
+              <li id={t.id} class={`dz-wt dz-wt--${t.kind === "social" ? "social" : "web"}`} data-spy-target data-kind={t.kind} data-depth={t.depth} data-side={t.side} style={`--rot:${t.rot}deg;--mo:${t.mo}`}>
                 <button class="dz-wt-open" type="button" data-full={t.full} data-alt={t.alt} data-caption={t.label} data-tall={t.ratio < 0.5 ? "1" : undefined} data-cursor="View" aria-label={`View larger: ${t.label}`}>
                   <span class={`dz-wt-frame ${t.kind === "social" ? "is-profile" : ""}`}>
-                    {t.kind === "web" && <span class="dz-wt-bar" aria-hidden="true"><i></i><i></i><i></i></span>}
+                    {t.kind !== "social" && <span class="dz-wt-bar" aria-hidden="true"><i></i><i></i><i></i></span>}
                     <Image src={t.src} alt={t.alt} widths={[400, 700, 1000]} sizes="(min-width: 900px) 30vw, 70vw" loading="lazy" decoding="async" />
                   </span>
                   <span class="dz-wt-cap">{t.label}</span>
                 </button>
+                {t.live && (
+                  <button class="dz-wt-pill" type="button" data-live={t.live.url} data-live-title={t.live.title} data-live-mic={t.live.mic ? "1" : undefined} data-cursor="Open">
+                    <i aria-hidden="true"></i>Try it live
+                  </button>
+                )}
+                {t.href && (
+                  <a class="dz-wt-pill" href={t.href} target="_blank" rel="noopener noreferrer" data-cursor="Visit">
+                    Visit site <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+                  </a>
+                )}
               </li>
             ))}
           </ul>
