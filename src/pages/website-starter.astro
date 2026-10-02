@@ -4,33 +4,60 @@ import ClosingCta from "../components/ClosingCta.astro";
 import StickyCta from "../components/StickyCta.astro";
 import "../styles/starter.css";
 import { Image } from "astro:assets";
-import photo from "../assets/blog/croydon-wellness-ai-search.jpg";
-import { url } from "../data/site";
+import casePhoto from "../assets/blog/croydon-wellness-ai-search.jpg";
+import sitePhoto from "../assets/blog/website-that-converts.jpg";
+import checkPhoto from "../assets/blog/cs-analytics.jpg";
+import { SITE, url } from "../data/site";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const START = "I'd like the Starter website package (from £999)";
 const CHECK = "I'd like a free 15-minute website check";
 
-const core = [
-  ["Market and competitor analysis", "See who you're up against and where the gaps are."],
-  ["Website strategy and design", "A plan and a look built around your customers."],
-  ["Bespoke website development", "Built for you, not squeezed into a template."],
-  ["Mobile-optimised and local-SEO-ready", "Fast on phones and set up to be found nearby."],
-  ["90-day implementation plan", "A clear step-by-step plan for the first three months."],
-  ["Basic training and handover", "A recorded walkthrough so you can manage it yourself."],
+// 16 items, grouped by stage
+const stages = [
+  {
+    name: "Understand",
+    line: "Know the market before we build.",
+    items: [
+      ["Market and competitor analysis", "See who you're up against and where the gaps are."],
+      ["Keyword and competitor snapshot", "A one-page report: the searches to target and who ranks today."],
+      ["Website strategy and design plan", "A plan and a look built around your customers."],
+    ],
+  },
+  {
+    name: "Build",
+    line: "A fast, mobile-ready site made for you.",
+    items: [
+      ["Bespoke website development", "Built for you, not squeezed into a template."],
+      ["Mobile-optimised and local-SEO-ready", "Fast on phones and set up to be found nearby."],
+      ["Conversion basics", "Click-to-call, WhatsApp button and a contact form that works."],
+      ["Speed and launch checks", "Mobile and speed checks plus a launch checklist before going live."],
+      ["Legal pages and cookie notice", "Privacy, Terms and a cookie notice done for you."],
+    ],
+  },
+  {
+    name: "Get found",
+    line: "Set up to be found nearby.",
+    items: [
+      ["Google Business Profile set-up", "Set up and optimised so you show up on maps and local search."],
+      ["AI-search ready", "FAQ content and structured data so assistants like ChatGPT can quote you."],
+      ["Analytics and Search Console", "Tracking set up, with a simple monthly view of what's working."],
+      ["Reviews kit", "QR code, short link and message templates to collect Google reviews."],
+    ],
+  },
+  {
+    name: "Hand over",
+    line: "You're ready to run it.",
+    items: [
+      ["Basic training and handover", "A recorded walkthrough so you can manage it yourself."],
+      ["90-day implementation plan", "A clear step-by-step plan for the first three months."],
+      ["30 days post-launch support", "Questions and small fixes after launch."],
+      ["Business email set-up*", "An address on your own domain, such as hello@yourbusiness.co.uk."],
+    ],
+  },
 ];
-const extra = [
-  ["Google Business Profile set-up", "Set up and optimised so you show up on maps and local search."],
-  ["AI-search ready", "FAQ content and structured data so assistants like ChatGPT can quote you."],
-  ["Analytics and Search Console", "Tracking set up, with a simple monthly view of what's working."],
-  ["Conversion basics", "Click-to-call, WhatsApp button and a contact form that works."],
-  ["Speed and launch checks", "Mobile and speed checks plus a launch checklist before going live."],
-  ["30 days post-launch support", "Questions and small fixes after launch."],
-  ["Keyword and competitor snapshot", "A one-page report: the searches to target and who ranks today."],
-  ["Reviews kit", "QR code, short link and message templates to collect Google reviews."],
-  ["Business email set-up*", "An address on your own domain, such as hello@yourbusiness.co.uk."],
-  ["Legal pages and cookie notice", "Privacy, Terms and a cookie notice done for you."],
-];
+const total = stages.reduce((n, s) => n + s.items.length, 0);
+
 const steps = [
   ["Weeks 1 to 2", "Analysis and strategy", "We study your market and competitors and agree the plan.", "A one-page market and competitor snapshot"],
   ["Weeks 3 to 4", "Design", "You see the look and layout and tell us what to change.", "Design mock-ups to review"],
@@ -38,7 +65,16 @@ const steps = [
   ["Week 8", "Launch and training", "Go live, then a handover call.", "Your live site and a recorded walkthrough"],
   ["Next 90 days", "Your growth plan", "You follow the plan, with 30 days of support from us.", "Your 90-day plan and support"],
 ];
-const statement = "Most local customers search on their phone. If your website is slow, hard to find or doesn't say clearly what you do, they move on to someone who does. We fix that in two months, with a site built to be found nearby and a plan for what comes next.".split(" ");
+const statement: [string, boolean][] = [
+  ...("Most local customers search on their phone.".split(" ").map((w) => [w, true] as [string, boolean])),
+  ...("If your website is slow, hard to find or doesn't say clearly what you do, they move on to someone who does. We fix that in two months, with a site built to be found nearby and a plan for what comes next.".split(" ").map((w) => [w, false] as [string, boolean])),
+];
+const included = ["Everything listed above", "Up to 5 pages", "2 rounds of revisions", "You own the site and content"];
+const notIncluded = ["Domain, hosting and email running costs", "Paid advertising", "Extensive copywriting or photography", "E-commerce or booking systems, quoted separately"];
+const plans = [
+  { name: "Care plan", text: "Hosting, security and updates handled for you, so the site stays fast and safe.", points: ["Updates and backups", "Uptime and security checks", "Small changes each month"], ask: "I'd like to hear about the care plan" },
+  { name: "Growth plan", text: "Monthly SEO and content that builds on your 90-day plan.", points: ["Local and AI-search content", "Monthly report and review", "Ongoing improvements"], ask: "I'd like to hear about the monthly growth plan" },
+];
 const faq = [
   { q: "How much does it cost?", a: "The Starter package is £999 as a one-time fee, with 50% to start and 50% on launch. Domain, hosting and business email have separate running costs charged by the provider." },
   { q: "How long does it take?", a: "About two months from kick-off to launch. Timelines depend on how quickly we can get your content and feedback, and can extend for bigger requirements." },
@@ -79,145 +115,234 @@ const schema = [
   footerTone="red"
   landing
 >
+  <!-- 1. Hero -->
   <section class="st-hero page-top page-hero" data-hero>
-    <h1 class="display st-title" data-xray>A fast, local-SEO-ready website.</h1>
-    <p class="lede">Launch your online presence on a solid foundation. We analyse your market, then design and build a fast, mobile-friendly website made to be found locally. One-time fee, about two months, and you own it.</p>
-    <div class="st-actions">
-      <a class="st-btn st-btn--solid" href="#start" data-preset={START} data-cursor="Go" data-magnet>Get started <span aria-hidden="true">↗</span></a>
-      <a class="st-btn st-btn--ghost" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
+    <div class="st-h1wrap">
+      <h1 class="display st-title" data-xray>A fast, local-SEO-ready website.</h1>
+      <a class="st-badge" href="#price" aria-label="From £999, see the price" data-badge>
+        <span class="st-badge-from">From</span>
+        <span class="st-badge-price">£999</span>
+        <span class="st-badge-note">one-time</span>
+      </a>
     </div>
-    <a class="st-badge" href="#price" aria-label="From £999, see the price" data-badge>
-      <span class="st-badge-from">From</span>
-      <span class="st-badge-price">£999</span>
-      <span class="st-badge-note">one-time</span>
-    </a>
-  </section>
-
-  <section class="st-split-sec st-cream" aria-label="Why it matters">
-    <p class="st-label">Why it matters</p>
-    <p class="st-statement" data-statement>
-      {statement.map((w) => <><span class="sw">{w}</span>{" "}</>)}
-    </p>
-  </section>
-
-  <section class="st-ink st-included" id="included" aria-labelledby="inc-title">
-    <h2 id="inc-title" class="display st-h2">What's included</h2>
-    <div class="st-group" data-group>
-      <h3 class="st-group-title">The core build <span class="st-count" data-count={core.length}>{core.length}</span></h3>
-      <div class="st-listwrap" data-list>
-      <span class="st-hl" aria-hidden="true"></span>
-      <ul class="st-list">
-        {core.map(([t, d], i) => (
-          <li style={`--i:${i}`} data-row>
-            <span class="st-n">{String(i + 1).padStart(2, "0")}</span>
-            <span class="st-name">{t}</span>
-            <span class="st-desc">{d}</span>
-            <svg class="st-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
-          </li>
-        ))}
-      </ul>
-      </div>
-    </div>
-    <div class="st-group" data-group>
-      <h3 class="st-group-title">Added value <span class="st-count" data-count={extra.length}>{extra.length}</span></h3>
-      <div class="st-listwrap" data-list>
-      <span class="st-hl" aria-hidden="true"></span>
-      <ul class="st-list">
-        {extra.map(([t, d], i) => (
-          <li style={`--i:${i}`} data-row>
-            <span class="st-n">{String(i + core.length + 1).padStart(2, "0")}</span>
-            <span class="st-name">{t}</span>
-            <span class="st-desc">{d}</span>
-            <svg class="st-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
-          </li>
-        ))}
-      </ul>
-      </div>
-    </div>
-    <p class="st-foot">* Some items, such as business email, domain and hosting, have separate running costs charged by the provider.</p>
-  </section>
-
-  <section class="st-cream st-how" aria-labelledby="how-title">
-    <h2 id="how-title" class="display st-h2">How it works</h2>
-    <ol class="st-steps" data-steps>
-      {steps.map(([when, t, d, get], i) => (
-        <li style={`--i:${i}`} tabindex="0">
-          <span class="st-dot" aria-hidden="true"></span>
-          <p class="st-when">{when}</p>
-          <h3>{t}</h3>
-          <p>{d}</p>
-          <p class="st-get"><span>You get</span> {get}</p>
-        </li>
-      ))}
-    </ol>
-    <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
-  </section>
-
-  <section class="st-red st-price" id="price" aria-labelledby="price-title">
-    <h2 id="price-title" class="sr-only">Price</h2>
-    <div class="st-price-main">
-      <p class="st-amount" data-odo aria-label="From £999">
-        <span class="st-from" aria-hidden="true">From</span>
-        <span class="st-pound" aria-hidden="true">£</span>
-        <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
-        <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
-        <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
-      </p>
-      <p class="st-terms">One-time fee. About two months to launch.</p>
-      <div class="st-pay" role="group" aria-label="Payment plan">
-        <span class="st-pay-a" tabindex="0"><b>50%</b> to start</span>
-        <span class="st-pay-b" tabindex="0"><b>50%</b> on launch</span>
-      </div>
-      <div class="st-actions">
-        <a class="st-btn st-btn--cream" href="#start" data-preset={START} data-cursor="Go">Get started <span aria-hidden="true">↗</span></a>
-        <a class="st-btn st-btn--line" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
-      </div>
-    </div>
-    <div class="st-price-side">
-      <h3>Includes</h3>
-      <ul class="st-rules">
-        <li>Everything listed above</li>
-        <li>Up to 5 pages</li>
-        <li>2 rounds of revisions</li>
-        <li>You own the site and content</li>
-      </ul>
-      <h3>Not included</h3>
-      <ul class="st-rules st-not">
-        <li><span>Domain, hosting and email running costs</span></li>
-        <li><span>Paid advertising</span></li>
-        <li><span>Extensive copywriting or photography</span></li>
-        <li><span>E-commerce or booking systems, quoted separately</span></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="st-split-sec st-cream st-proof-sec" aria-label="Proof">
-    <p class="st-label">Proof</p>
-    <div class="st-proof-body">
-      <p class="st-statement st-statement--plain">
-        A Croydon wellness brand went from 7.4% to <b data-from="7.4" data-to="31" data-dec="1">31.0</b>% visibility across 200 AI-search prompts in twelve months, and qualified enquiries rose by <b data-from="0" data-to="78" data-dec="0">78</b>%.
-      </p>
-      <a class="st-arrowlink" href={url("/blog/croydon-wellness-ai-search")} data-cursor="Read">Read the case study <span aria-hidden="true">→</span></a>
-      <a class="st-photo" href={url("/blog/croydon-wellness-ai-search")} tabindex="-1" aria-hidden="true">
-        <Image src={photo} alt="" widths={[640, 1000, 1400]} sizes="(min-width: 900px) 70vw, 100vw" loading="lazy" />
+    <p class="lede">We analyse your market, then design and build a fast, mobile-friendly website made to be found locally. One-time fee, about two months, and you own it.</p>
+    <div class="st-paths">
+      <a class="st-path" href="#start" data-preset={START} data-cursor="Go">
+        <span class="st-thumb"><Image src={sitePhoto} alt="" widths={[240, 480]} sizes="160px" loading="eager" /></span>
+        <span class="st-path-body">
+          <span class="st-path-title">Starter website</span>
+          <span class="st-path-text">A fast, mobile-friendly, local-SEO-ready site. From £999, one-time.</span>
+          <span class="st-pill">Get started <i aria-hidden="true">↗</i></span>
+        </span>
+      </a>
+      <a class="st-path" href="#start" data-preset={CHECK} data-cursor="Go">
+        <span class="st-thumb"><Image src={checkPhoto} alt="" widths={[240, 480]} sizes="160px" loading="eager" /></span>
+        <span class="st-path-body">
+          <span class="st-path-title">Free 15-minute website check</span>
+          <span class="st-path-text">We look at your site and tell you what is holding it back. No obligation.</span>
+          <span class="st-pill">Book a check <i aria-hidden="true">↗</i></span>
+        </span>
       </a>
     </div>
   </section>
 
-  <section class="st-ink st-keep" aria-labelledby="keep-title">
-    <h2 id="keep-title" class="display st-big">Want us to keep going?</h2>
-    <a class="st-arrowlink st-arrowlink--light" href="#start" data-preset="I'd like to hear about monthly SEO, content and care plans" data-cursor="Go">Ask about monthly plans <span aria-hidden="true">→</span></a>
+  <!-- 2. Why it matters -->
+  <section class="st-sec st-cream st-why" aria-label="Why it matters">
+    <svg class="st-deco" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="60" y="120" width="220" height="220" rx="56" transform="rotate(45 170 230)"/><rect x="300" y="120" width="220" height="220" rx="56" transform="rotate(45 410 230)"/><rect x="540" y="120" width="220" height="220" rx="56" transform="rotate(45 650 230)"/><rect x="780" y="120" width="220" height="220" rx="56" transform="rotate(45 890 230)"/></g></svg>
+    <div class="st-wrap st-grid">
+      <p class="st-label">Why it matters</p>
+      <p class="st-statement" data-statement>
+        {statement.map(([w, dim]) => <><span class:list={["sw", dim && "sw--dim"]}>{w}</span>{" "}</>)}
+      </p>
+    </div>
+    <p class="st-cue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6 6-6M6 13l6 6 6-6"></path></svg></p>
   </section>
 
-  <section class="st-cream st-faq-sec" aria-labelledby="faq-title">
-    <h2 id="faq-title" class="display st-h2">Questions</h2>
-    <div class="st-faq" data-faq>
-      {faq.map((f) => (
-        <details>
-          <summary><span>{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
-          <div class="st-faq-a"><p>{f.a}</p></div>
-        </details>
-      ))}
+  <!-- 3. What's included, by stage -->
+  <section class="st-sec st-ink st-inc" id="included" aria-labelledby="inc-title">
+    <div class="st-wrap">
+      <h2 id="inc-title" class="display st-h2">What's included</h2>
+      <div class="st-stagebox" data-stages>
+        <div class="st-tabs" role="tablist" aria-label="Stages">
+          <span class="st-marker" aria-hidden="true"></span>
+          {stages.map((s, i) => (
+            <button class="st-tab" type="button" role="tab" id={`tab-${i}`} aria-controls={`pane-${i}`} aria-selected={i === 0 ? "true" : "false"} data-i={i}>
+              <span class="st-tab-n">0{i + 1}</span>
+              <span class="st-tab-name">{s.name}</span>
+              <span class="st-tab-count">{s.items.length} items</span>
+            </button>
+          ))}
+        </div>
+        <div class="st-panes">
+          <p class="st-total"><b data-total={total}>{total}</b><span>included</span></p>
+          {stages.map((s, i) => (
+            <div class:list={["st-pane", i === 0 && "is-on"]} role="tabpanel" id={`pane-${i}`} aria-labelledby={`tab-${i}`} data-pane={i}>
+              <p class="st-pane-line">{s.line}</p>
+              <ul>
+                {s.items.map(([t, d], k) => (
+                  <li style={`--k:${k}`}>
+                    <svg class="st-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+                    <span class="st-item"><b>{t}</b><span>{d}</span></span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+      <p class="st-foot">* Some items, such as business email, domain and hosting, have separate running costs charged by the provider.</p>
+    </div>
+  </section>
+
+  <!-- 4. How it works -->
+  <section class="st-sec st-cream st-how" aria-labelledby="how-title">
+    <svg class="st-deco" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="60" y="120" width="220" height="220" rx="56" transform="rotate(45 170 230)"/><rect x="300" y="120" width="220" height="220" rx="56" transform="rotate(45 410 230)"/><rect x="540" y="120" width="220" height="220" rx="56" transform="rotate(45 650 230)"/><rect x="780" y="120" width="220" height="220" rx="56" transform="rotate(45 890 230)"/></g></svg>
+    <div class="st-wrap">
+      <h2 id="how-title" class="display st-h2">How it works</h2>
+      <ol class="st-flow" data-flow>
+        <span class="st-flow-line" aria-hidden="true"><span></span></span>
+        {steps.map(([when, t, d, get], i) => (
+          <li style={`--i:${i}`}>
+            <p class="st-when"><span>{when}</span></p>
+            <span class="st-node" aria-hidden="true">{i + 1}</span>
+            <h3>{t}</h3>
+            <p class="st-flow-text">{d}</p>
+            <p class="st-get"><span>You get</span>{get}</p>
+          </li>
+        ))}
+      </ol>
+      <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
+    </div>
+  </section>
+
+  <!-- 5. Price -->
+  <section class="st-sec st-red st-price" id="price" aria-labelledby="price-title">
+    <svg class="st-rings" viewBox="0 0 800 800" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="400" cy="400" r="120"/><circle cx="400" cy="400" r="210"/><circle cx="400" cy="400" r="300"/><circle cx="400" cy="400" r="390"/></g></svg>
+    <div class="st-wrap">
+      <h2 id="price-title" class="sr-only">Price</h2>
+      <div class="st-amountrow">
+        <p class="st-amount" data-odo aria-label="From £999">
+          <span class="st-from" aria-hidden="true">From</span>
+          <span class="st-pound" aria-hidden="true">£</span>
+          <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+          <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+          <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+        </p>
+        <p class="st-seal" aria-hidden="true"><span>Fixed price</span><span>no surprises</span></p>
+      </div>
+      <div class="st-pricegrid">
+        <div class="st-payblock">
+          <p class="st-terms">One-time fee. About two months to launch.</p>
+          <div class="st-pay" data-pay role="group" aria-label="Payment plan">
+            <span class="st-pay-line" aria-hidden="true"><span></span></span>
+            <p class="st-pay-node" tabindex="0"><i aria-hidden="true"></i><b>Start</b><span>50% · £499.50</span></p>
+            <p class="st-pay-node" tabindex="0"><i aria-hidden="true"></i><b>Launch</b><span>50% · £499.50</span></p>
+          </div>
+          <div class="st-actions">
+            <a class="st-pill st-pill--cream" href="#start" data-preset={START} data-cursor="Go">Get started <i aria-hidden="true">↗</i></a>
+            <a class="st-pill st-pill--line" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check <i aria-hidden="true">↗</i></a>
+          </div>
+        </div>
+        <div class="st-yesno">
+          <div>
+            <h3>Included</h3>
+            <ul>{included.map((t) => <li><i class="st-yes" aria-hidden="true">✓</i>{t}</li>)}</ul>
+          </div>
+          <div class="st-no">
+            <h3>Not included</h3>
+            <ul>{notIncluded.map((t) => <li><i class="st-x" aria-hidden="true">✕</i><span>{t}</span></li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Proof: impact carousel -->
+  <section class="st-sec st-ink st-impact" aria-labelledby="impact-title">
+    <div class="st-wrap">
+      <div class="st-impact-head">
+        <div>
+          <h2 id="impact-title" class="display st-h2">Our impact</h2>
+          <p class="st-sub">What twelve months of local SEO and AI-search work did for a Croydon wellness brand.</p>
+        </div>
+        <div class="st-arrows">
+          <button type="button" class="st-arrow" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <button type="button" class="st-arrow" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="st-track" data-track data-cursor="Drag" tabindex="0" aria-label="Results, scroll sideways">
+      <article class="st-card st-card--photo">
+        <a href={url("/blog/croydon-wellness-ai-search")} data-cursor="Read">
+          <Image src={casePhoto} alt="" widths={[480, 800]} sizes="26rem" loading="lazy" />
+          <span class="st-card-cap"><b>Croydon wellness brand</b><span>SEO, AEO and GEO over 12 months</span><i>Read the case study →</i></span>
+        </a>
+      </article>
+      <article class="st-card">
+        <p class="st-card-label">AI-search visibility</p>
+        <p class="st-big-n"><b data-from="7.4" data-to="31" data-dec="1">31.0</b>%</p>
+        <p class="st-card-text">of 200 monitored AI prompts now mention the brand, up from 7.4%.</p>
+        <svg class="st-spark" viewBox="0 0 200 70" aria-hidden="true"><polyline points="8,62 58,54 108,40 158,22 192,8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1"></polyline><circle cx="192" cy="8" r="5"/></svg>
+      </article>
+      <article class="st-card st-card--red">
+        <p class="st-card-label">Organic impressions</p>
+        <p class="st-big-n">+<b data-from="0" data-to="184" data-dec="0">184</b>%</p>
+        <p class="st-card-text">from 21,400 to 60,700 a month.</p>
+        <div class="st-pair" aria-hidden="true"><span style="--w:35%"></span><span style="--w:100%"></span></div>
+      </article>
+      <article class="st-card">
+        <p class="st-card-label">Qualified enquiries</p>
+        <p class="st-big-n">+<b data-from="0" data-to="78" data-dec="0">78</b>%</p>
+        <p class="st-card-text">from 46 to 82 a month.</p>
+        <div class="st-pair" aria-hidden="true"><span style="--w:56%"></span><span style="--w:100%"></span></div>
+      </article>
+      <article class="st-card st-card--red">
+        <p class="st-card-label">Prompts citing their own content</p>
+        <p class="st-big-n"><b data-from="5" data-to="62" data-dec="0">62</b></p>
+        <p class="st-card-text">up from 5 at the start of the campaign.</p>
+        <div class="st-pair" aria-hidden="true"><span style="--w:8%"></span><span style="--w:100%"></span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- 7. After launch -->
+  <section class="st-sec st-cream st-after" aria-labelledby="after-title">
+    <div class="st-wrap">
+      <h2 id="after-title" class="display st-h2">Want us to keep going?</h2>
+      <p class="st-sub">Optional, after launch, and quoted separately.</p>
+      <div class="st-plans">
+        {plans.map((p) => (
+          <article class="st-plan">
+            <h3>{p.name}</h3>
+            <p>{p.text}</p>
+            <ul>{p.points.map((t) => <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>{t}</li>)}</ul>
+            <a class="st-pill st-pill--cream" href="#start" data-preset={p.ask} data-cursor="Go">Ask about it <i aria-hidden="true">↗</i></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Questions -->
+  <section class="st-sec st-ink st-faq-sec" aria-labelledby="faq-title">
+    <div class="st-wrap st-faqgrid">
+      <div class="st-faqside">
+        <h2 id="faq-title" class="display st-h2">Questions</h2>
+        <p>Still unsure? Ask us anything. We reply within one working day.</p>
+        <ul class="st-ask">
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a></li>
+        </ul>
+        <a class="st-pill st-pill--cream" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check <i aria-hidden="true">↗</i></a>
+      </div>
+      <div class="st-faq" data-faq>
+        {faq.map((f, i) => (
+          <details>
+            <summary><span class="st-q-n">{String(i + 1).padStart(2, "0")}</span><span class="st-q">{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
+            <div class="st-faq-a"><p>{f.a}</p></div>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -226,14 +351,27 @@ const schema = [
 </BaseLayout>
 
 <script>
+
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+  document.documentElement.classList.add("js-st");
   const seen = (els: Iterable<Element>, cb: (el: Element) => void, threshold = 0.4) => {
     const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { cb(e.target); io.unobserve(e.target); } }), { threshold });
     for (const el of els) io.observe(el);
   };
+  const countUp = (el: HTMLElement, from: number, to: number, dec: number, ms = 1100) => {
+    if (calm) { el.textContent = to.toFixed(dec); return; }
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - t0) / ms);
+      el.textContent = (from + (to - from) * (1 - Math.pow(1 - k, 3))).toFixed(dec);
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
 
-  // Statement: words brighten as you read down the paragraph
+  // Statement: words brighten as you read; the first sentence stays dimmer
   document.querySelectorAll<HTMLElement>("[data-statement]").forEach((p) => {
     if (calm) return;
     const words = [...p.querySelectorAll<HTMLElement>(".sw")];
@@ -243,52 +381,50 @@ const schema = [
       ticking = false;
       const r = p.getBoundingClientRect();
       const vh = window.innerHeight;
-      const prog = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.35)));
-      const lit = prog * 1.2 * words.length;
-      words.forEach((w, i) => w.style.setProperty("--o", Math.min(1, Math.max(0, lit - i)).toFixed(3)));
+      const prog = clamp((vh * 0.8 - r.top) / (r.height + vh * 0.2));
+      const lit = prog * 1.25 * words.length;
+      words.forEach((w, i) => w.style.setProperty("--o", clamp(lit - i).toFixed(3)));
     };
     window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     window.addEventListener("resize", update);
     update();
   });
 
-  // Included lists: sliding highlight, ticks draw in turn, counters count up
-  document.querySelectorAll<HTMLElement>("[data-list]").forEach((list) => {
-    const hl = list.querySelector<HTMLElement>(".st-hl")!;
-    const rows = [...list.querySelectorAll<HTMLElement>("[data-row]")];
-    const move = (row: HTMLElement) => {
-      hl.style.transform = `translateY(${row.offsetTop}px)`;
-      hl.style.height = `${row.offsetHeight}px`;
-      hl.style.opacity = "1";
+  // What's included: switch stage on hover, tap or arrow keys
+  document.querySelectorAll<HTMLElement>("[data-stages]").forEach((box) => {
+    const tabs = [...box.querySelectorAll<HTMLButtonElement>(".st-tab")];
+    const panes = [...box.querySelectorAll<HTMLElement>("[data-pane]")];
+    const marker = box.querySelector<HTMLElement>(".st-marker")!;
+    const place = (t: HTMLElement) => {
+      marker.style.transform = `translate(${t.offsetLeft}px, ${t.offsetTop}px)`;
+      marker.style.width = `${t.offsetWidth}px`;
+      marker.style.height = `${t.offsetHeight}px`;
     };
-    if (fine) {
-      rows.forEach((r) => r.addEventListener("pointerenter", () => move(r)));
-      list.addEventListener("pointerleave", () => (hl.style.opacity = "0"));
-    }
-    rows.forEach((r) => {
-      r.setAttribute("tabindex", "0");
-      r.addEventListener("focus", () => move(r));
-      r.addEventListener("blur", () => (hl.style.opacity = "0"));
+    const pick = (i: number) => {
+      tabs.forEach((t, k) => { t.setAttribute("aria-selected", String(k === i)); t.tabIndex = k === i ? 0 : -1; });
+      panes.forEach((p, k) => p.classList.toggle("is-on", k === i));
+      place(tabs[i]);
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => pick(i));
+      if (fine) t.addEventListener("pointerenter", () => pick(i));
+      t.addEventListener("keydown", (e) => {
+        const d = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        const n = (i + d + tabs.length) % tabs.length;
+        pick(n);
+        tabs[n].focus();
+      });
     });
-    document.documentElement.classList.add("js-st");
-    seen(rows, (el) => el.classList.add("is-in"), 0.6);
+    window.addEventListener("resize", () => place(tabs.find((t) => t.getAttribute("aria-selected") === "true")!));
+    pick(0);
+    document.fonts?.ready.then(() => place(tabs[0]));
   });
-  const countUp = (el: HTMLElement, from: number, to: number, dec: number, ms = 1100) => {
-    if (calm) { el.textContent = to.toFixed(dec); return; }
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const k = Math.min(1, (t - t0) / ms);
-      const e = 1 - Math.pow(1 - k, 3);
-      el.textContent = (from + (to - from) * e).toFixed(dec);
-      if (k < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-  document.querySelectorAll<HTMLElement>("[data-group]").forEach((g) => {
-    const c = g.querySelector<HTMLElement>("[data-count]")!;
-    const to = Number(c.dataset.count);
-    c.textContent = "0";
-    seen([g], () => countUp(c, 0, to, 0, 900), 0.2);
+  document.querySelectorAll<HTMLElement>("[data-total]").forEach((b) => {
+    const to = Number(b.dataset.total);
+    b.textContent = "0";
+    seen([b], () => countUp(b, 0, to, 0, 1000), 0.6);
   });
   document.querySelectorAll<HTMLElement>("[data-to]").forEach((b) => {
     const from = Number(b.dataset.from), to = Number(b.dataset.to), dec = Number(b.dataset.dec ?? 0);
@@ -296,21 +432,61 @@ const schema = [
     seen([b], () => countUp(b, from, to, dec), 0.8);
   });
 
-  // Timeline: dots fill as each step is reached
-  const steps = document.querySelector<HTMLElement>("[data-steps]");
-  if (steps) {
-    document.documentElement.classList.add("js-st");
-    seen(steps.querySelectorAll("li"), (el) => el.classList.add("is-in"), 0.7);
+  // How it works: the line fills as you scroll and each node lights when reached
+  const flow = document.querySelector<HTMLElement>("[data-flow]");
+  if (flow) {
+    const items = [...flow.querySelectorAll<HTMLElement>("li")];
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = flow.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const wide = window.matchMedia("(min-width: 900px)").matches;
+      const prog = calm ? 1 : wide ? clamp((vh * 0.85 - r.top) / (vh * 0.55)) : clamp((vh * 0.7 - r.top) / r.height);
+      flow.style.setProperty("--p", prog.toFixed(3));
+      items.forEach((li, i) => li.classList.toggle("is-lit", prog >= i / (items.length - 1) - 0.001));
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
   }
 
-  // Price: digits roll once like an odometer
+  // Price: digits roll once; payment path fills
   const odo = document.querySelector<HTMLElement>("[data-odo]");
   if (odo && !calm) {
     odo.classList.add("is-armed");
     seen([odo], () => requestAnimationFrame(() => odo.classList.add("is-rolled")), 0.5);
   }
+  document.querySelectorAll<HTMLElement>("[data-pay]").forEach((el) => seen([el], () => el.classList.add("is-in"), 0.6));
 
-  // Hero: sticker leans toward the cursor; wiggles when you reach for the button
+  // Impact carousel: arrows, drag, and cards animate in
+  const track = document.querySelector<HTMLElement>("[data-track]");
+  if (track) {
+    const step = () => (track.querySelector<HTMLElement>(".st-card")?.offsetWidth ?? 320) + 16;
+    document.querySelectorAll<HTMLButtonElement>(".st-arrow").forEach((b) =>
+      b.addEventListener("click", () => track.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: calm ? "auto" : "smooth" })),
+    );
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") track.scrollBy({ left: step(), behavior: "smooth" });
+      if (e.key === "ArrowLeft") track.scrollBy({ left: -step(), behavior: "smooth" });
+    });
+    let down = false, x0 = 0, s0 = 0, moved = false;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse") return;
+      down = true; moved = false; x0 = e.clientX; s0 = track.scrollLeft;
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 4) { moved = true; track.classList.add("is-drag"); }
+      track.scrollLeft = s0 - dx;
+    });
+    window.addEventListener("pointerup", () => { down = false; track.classList.remove("is-drag"); });
+    track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    seen(track.querySelectorAll(".st-card"), (el) => el.classList.add("is-in"), 0.5);
+  }
+
+  // Hero: sticker leans toward the cursor and wiggles when you reach for the Starter panel
   const badge = document.querySelector<HTMLElement>("[data-badge]");
   const hero = document.querySelector<HTMLElement>("[data-hero]");
   if (badge && hero && fine && !calm) {
@@ -322,14 +498,7 @@ const schema = [
       badge.style.setProperty("--ty", `${(dy * 14).toFixed(1)}px`);
       badge.style.setProperty("--rot", `${(-8 + dx * 10).toFixed(1)}deg`);
     });
-    document.querySelectorAll<HTMLElement>("[data-magnet]").forEach((b) => {
-      b.addEventListener("pointerenter", () => { badge.classList.remove("is-wiggle"); void badge.offsetWidth; badge.classList.add("is-wiggle"); });
-      b.addEventListener("pointermove", (e) => {
-        const r = b.getBoundingClientRect();
-        b.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.12).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.2).toFixed(1)}px)`;
-      });
-      b.addEventListener("pointerleave", () => (b.style.transform = ""));
-    });
+    hero.querySelector<HTMLElement>(".st-path")?.addEventListener("pointerenter", () => { badge.classList.remove("is-wiggle"); void badge.offsetWidth; badge.classList.add("is-wiggle"); });
   }
 
   // FAQ: one open at a time, smooth height
@@ -339,12 +508,11 @@ const schema = [
     const animate = (d: HTMLDetailsElement, open: boolean) => {
       const body = d.querySelector<HTMLElement>(".st-faq-a")!;
       if (calm) { d.open = open; return; }
+      const h = body.scrollHeight;
       if (open) {
         d.open = true;
-        const h = body.scrollHeight;
         body.animate({ height: ["0px", `${h}px`], opacity: [0, 1] }, { duration: 280, easing: "ease-out" });
       } else {
-        const h = body.scrollHeight;
         const a = body.animate({ height: [`${h}px`, "0px"], opacity: [1, 0] }, { duration: 220, easing: "ease-in" });
         a.onfinish = () => (d.open = false);
       }
@@ -358,4 +526,5 @@ const schema = [
       });
     });
   }
+
 </script>
