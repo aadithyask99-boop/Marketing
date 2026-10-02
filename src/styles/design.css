@@ -53,30 +53,33 @@
 
 /* What's a brand book? */
 .dz-intro { position: relative; overflow: hidden; scroll-margin-top: 0; }
-.dz-intro-grid { display: grid; gap: 2.5rem; grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 900px) { .dz-intro-grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); grid-template-areas: "copy spreads" "inside spreads"; column-gap: clamp(2rem, 6vw, 6rem); } .dz-intro-copy { grid-area: copy; } .dz-inside { grid-area: inside; } .dz-spreads { grid-area: spreads; } }
+.dz-intro-stack { display: grid; gap: clamp(2rem, 4vw, 3.25rem); justify-items: center; }
+.dz-intro-copy { max-width: 46rem; text-align: center; }
+.dz-intro-copy .dz-big, .dz-intro-copy .dz-text { margin-inline: auto; }
 .dz-big { margin: 1.5rem 0 0; max-width: 34rem; font-size: clamp(1.4rem, 2.6vw, 2.2rem); font-weight: 600; line-height: 1.2; }
 .dz-text { margin: 1.1rem 0 0; max-width: 36rem; font-size: 1.05rem; opacity: 0.85; }
 .dz-text--dim { opacity: 0.6; }
-.dz-inside .dz-label { color: var(--cream); }
-.dz-inside-list { margin: 0; padding: 0; list-style: none; }
-.dz-inside-list li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 0.5rem; padding: 0.9rem 0; border-top: 1px solid rgba(245, 239, 232, 0.2); }
-.dz-inside-list li:last-child { border-bottom: 1px solid rgba(245, 239, 232, 0.2); }
-.dz-inside-n { font-family: var(--display); font-size: 1.3rem; color: var(--butter); }
-.dz-inside-t b { display: block; font-size: 1.1rem; }
-.dz-inside-t span span { display: block; margin-top: 0.15rem; opacity: 0.7; }
-.dz-inside-btn { display: grid; grid-template-columns: 3rem minmax(0, 1fr) 1.4rem; align-items: start; gap: 0.5rem; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
-.dz-inside-list li:has(.dz-inside-btn) { display: block; padding: 0; }
-.dz-inside-btn { padding: 0.9rem 0; transition: color 0.25s ease, padding 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
-.dz-inside-btn svg { width: 1.2rem; height: 1.2rem; margin-top: 0.2rem; opacity: 0.4; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease, color 0.25s ease; }
-.dz-inside-btn:hover { padding-left: 0.35rem; }
-.dz-inside-btn:hover svg, .dz-inside-btn[aria-current] svg { opacity: 1; transform: rotate(45deg); color: var(--red); }
-.dz-inside-btn[aria-current] .dz-inside-t b { color: var(--butter); }
-.dz-inside-btn[aria-current] .dz-inside-n { color: var(--red); }
+.dz-inside { width: 100%; max-width: 72rem; }
+.dz-inside .dz-label { margin-bottom: 1rem; text-align: center; color: var(--cream); }
+.dz-inside .dz-label span { font-weight: 400; letter-spacing: 0.04em; text-transform: none; opacity: 0.7; }
+.dz-inside-list { display: grid; gap: 0.75rem; grid-template-columns: minmax(0, 1fr); margin: 0; padding: 0; list-style: none; }
+@media (min-width: 600px) { .dz-inside-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .dz-inside-list { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.dz-inside-list li { display: block; padding: 0; border: 0; }
+.dz-inside-list li:last-child { border: 0; }
+.dz-inside-btn { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "n a" "t t"; align-content: start; gap: 0.6rem; width: 100%; height: 100%; padding: 1rem 1.1rem 1.1rem; border: 1px solid rgba(245, 239, 232, 0.25); border-radius: 1.1rem; background: transparent; color: inherit; font: inherit; text-align: left; cursor: pointer; transition: background 0.3s ease, border-color 0.3s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.dz-inside-btn:hover { background: rgba(245, 239, 232, 0.08); transform: translateY(-3px); }
+.dz-inside-btn[aria-current] { background: var(--red); border-color: var(--red); }
+.dz-inside-btn .dz-inside-n { grid-area: n; font-family: var(--display); font-size: 1.3rem; line-height: 1; color: var(--butter); }
+.dz-inside-btn svg { grid-area: a; width: 1.2rem; height: 1.2rem; opacity: 0.5; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease; }
+.dz-inside-btn:hover svg, .dz-inside-btn[aria-current] svg { opacity: 1; transform: rotate(45deg); }
+.dz-inside-btn[aria-current] .dz-inside-n { color: var(--cream); }
+.dz-inside-btn .dz-inside-t { grid-area: t; }
+.dz-inside-t b { display: block; font-size: 1.05rem; line-height: 1.2; }
+.dz-inside-t span span { display: block; margin-top: 0.3rem; font-size: 0.88rem; opacity: 0.75; }
 
 /* The interactive brand book */
-.dz-spreads { align-self: start; }
-@media (min-width: 900px) { .dz-spreads { position: sticky; top: calc(var(--header-h) + 1.5rem); } .dz-intro-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+.dz-spreads { width: 100%; max-width: 74rem; margin-inline: auto; padding-top: clamp(0.5rem, 2vw, 1.5rem); }
 .dz-book-wrap { display: grid; gap: 1rem; }
 .dz-book { --shift: -25%; position: relative; aspect-ratio: 16 / 9; perspective: 2600px; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; border-radius: 0.5rem; }
 .dz-book.is-dragging { cursor: grabbing; }
@@ -92,14 +95,14 @@
 .dz-pg--left img { left: 0; }
 .dz-pg--right img { left: -100%; }
 .dz-shade { position: absolute; inset: 0; pointer-events: none; }
-.dz-shade--f { background: linear-gradient(to right, rgba(23, 9, 10, calc(0.22 + var(--sf, 0) * 0.5)), rgba(23, 9, 10, 0) 9%), linear-gradient(to right, rgba(23, 9, 10, var(--sf, 0)), rgba(23, 9, 10, 0) 70%); }
-.dz-shade--b { background: linear-gradient(to left, rgba(23, 9, 10, 0.22), rgba(23, 9, 10, 0) 9%), linear-gradient(to left, rgba(23, 9, 10, var(--sb, 0)), rgba(23, 9, 10, 0) 70%); }
+.dz-shade--f { background: linear-gradient(to right, rgba(23, 9, 10, calc(0.1 + var(--sf, 0) * 0.5)), rgba(23, 9, 10, 0) 4.5%), linear-gradient(to right, rgba(23, 9, 10, var(--sf, 0)), rgba(23, 9, 10, 0) 70%); }
+.dz-shade--b { background: linear-gradient(to left, rgba(23, 9, 10, 0.1), rgba(23, 9, 10, 0) 4.5%), linear-gradient(to left, rgba(23, 9, 10, var(--sb, 0)), rgba(23, 9, 10, 0) 70%); }
 
 .dz-cover { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; padding: 9% 8% 8%; background: #fffcec; color: var(--ink); text-align: center; }
 .dz-cover::before { content: ""; position: absolute; inset: 4%; border: 1px solid rgba(23, 9, 10, 0.18); border-radius: 0.3rem; pointer-events: none; }
 .dz-cover-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 7%; background: linear-gradient(to right, rgba(23, 9, 10, 0.2), rgba(23, 9, 10, 0.04) 70%, transparent); }
 .dz-cover-kicker { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.9rem); }
-.dz-cover-logo { width: 78%; height: auto; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.dz-cover-logo { width: 78%; height: auto; max-height: 100%; object-fit: contain; }
 .dz-cover-place { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
 
 .dz-book-bar { display: flex; align-items: center; gap: 0.6rem; }

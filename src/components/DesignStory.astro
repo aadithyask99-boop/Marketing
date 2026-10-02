@@ -14,7 +14,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
 {
   part === "intro" && (
     <section class="dz-intro" id="brand-book" aria-labelledby="bb-title">
-      <div class="dz-wrap dz-intro-grid">
+      <div class="dz-wrap dz-intro-stack">
         <div class="dz-intro-copy">
           <p class="dz-kicker">{BRAND_BOOK.kicker}</p>
           <h2 id="bb-title" class="display dz-h2">
@@ -26,14 +26,14 @@ const pad = (n: number) => String(n).padStart(2, "0");
         </div>
 
         <div class="dz-inside">
-          <h3 class="dz-label">What's inside</h3>
+          <h3 class="dz-label">What's inside <span>(tap one to open the book there)</span></h3>
           <ol class="dz-inside-list">
             {BRAND_BOOK.inside.map((it, i) => (
               <li style={`--i:${i}`}>
                 <button class="dz-inside-btn" type="button" data-spread={it.spread} data-cursor="Open">
                   <span class="dz-inside-n">{pad(i + 1)}</span>
-                  <span class="dz-inside-t"><b>{it.t}</b><span>{it.d}</span></span>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+                  <span class="dz-inside-t"><b>{it.t}</b><span>{it.d}</span></span>
                 </button>
               </li>
             ))}

@@ -159,3 +159,6 @@ Interactive brand book (`DesignBook.astro`, in "What's a brand book?"):
 - Drag a page edge to turn it; release decides by angle and flick speed. Also: click a page, Previous / Next, arrow keys, Home / End, and an Enlarge button that reuses the lightbox via the `dz:lightbox` event.
 - The "What's inside" list is linked: each item turns the book to its spread (`spread` index in `BRAND_BOOK.inside`), and turning pages highlights the matching item.
 - `touch-action: pan-y` keeps vertical scrolling working on phones. Reduced motion: no peek, instant turns. Tested in Chromium (desktop and mobile emulation); Safari / iOS not tested.
+
+Layout of "What's a brand book?" (updated): centred copy, then the "What's inside" items as a row of cards that act as the book's chapter buttons, then the book large and centred below (up to about 1180px wide). Spreads are re-composed so the spine falls in whitespace on each slide (split points were found by scanning each slide for empty columns near the centre; the slide is padded with its own cream so both pages stay equal): mission 58%, logo 56%, logo concept 54%, palette 44.7%, "in the world" 56.5%; values, typography and the second mockup spread keep a 50% split. The crease shading is deliberately light so nothing near the spine is washed out.
+
