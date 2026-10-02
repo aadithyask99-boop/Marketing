@@ -5,8 +5,6 @@ import StickyCta from "../components/StickyCta.astro";
 import "../styles/starter.css";
 import { Image } from "astro:assets";
 import casePhoto from "../assets/blog/croydon-wellness-ai-search.jpg";
-import sitePhoto from "../assets/blog/website-that-converts.jpg";
-import checkPhoto from "../assets/blog/cs-analytics.jpg";
 import { SITE, url } from "../data/site";
 import { webPage, breadcrumbs } from "../lib/schema";
 
@@ -56,7 +54,6 @@ const stages = [
     ],
   },
 ];
-const total = stages.reduce((n, s) => n + s.items.length, 0);
 
 const steps = [
   ["Weeks 1 to 2", "Analysis and strategy", "We study your market and competitors and agree the plan.", "A one-page market and competitor snapshot"],
@@ -126,36 +123,35 @@ const schema = [
       </a>
     </div>
     <p class="lede">We analyse your market, then design and build a fast, mobile-friendly website made to be found locally. One-time fee, about two months, and you own it.</p>
-    <div class="st-paths">
-      <a class="st-path" href="#start" data-preset={START} data-cursor="Go">
-        <span class="st-thumb"><Image src={sitePhoto} alt="" widths={[240, 480]} sizes="160px" loading="eager" /></span>
-        <span class="st-path-body">
-          <span class="st-path-title">Starter website</span>
-          <span class="st-path-text">A fast, mobile-friendly, local-SEO-ready site. From £999, one-time.</span>
-          <span class="st-pill">Get started <i aria-hidden="true">↗</i></span>
+    <div class="st-bar">
+      <a class="st-bar-half" href="#start" data-preset={START} data-cursor="Go">
+        <span class="st-bar-text">
+          <span class="st-bar-title">Starter website</span>
+          <span class="st-bar-sub">A fast, mobile-friendly, local-SEO-ready site. From £999, one-time.</span>
         </span>
+        <span class="st-pill">Get started <i aria-hidden="true">↗</i></span>
       </a>
-      <a class="st-path" href="#start" data-preset={CHECK} data-cursor="Go">
-        <span class="st-thumb"><Image src={checkPhoto} alt="" widths={[240, 480]} sizes="160px" loading="eager" /></span>
-        <span class="st-path-body">
-          <span class="st-path-title">Free 15-minute website check</span>
-          <span class="st-path-text">We look at your site and tell you what is holding it back. No obligation.</span>
-          <span class="st-pill">Book a check <i aria-hidden="true">↗</i></span>
+      <a class="st-bar-half" href="#start" data-preset={CHECK} data-cursor="Go">
+        <span class="st-bar-text">
+          <span class="st-bar-title">Free 15-minute website check</span>
+          <span class="st-bar-sub">We look at your site and tell you what is holding it back. No obligation.</span>
         </span>
+        <span class="st-pill">Book a check <i aria-hidden="true">↗</i></span>
       </a>
     </div>
   </section>
 
-  <!-- 2. Why it matters -->
-  <section class="st-sec st-cream st-why" aria-label="Why it matters">
-    <svg class="st-deco" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="60" y="120" width="220" height="220" rx="56" transform="rotate(45 170 230)"/><rect x="300" y="120" width="220" height="220" rx="56" transform="rotate(45 410 230)"/><rect x="540" y="120" width="220" height="220" rx="56" transform="rotate(45 650 230)"/><rect x="780" y="120" width="220" height="220" rx="56" transform="rotate(45 890 230)"/></g></svg>
-    <div class="st-wrap st-grid">
-      <p class="st-label">Why it matters</p>
-      <p class="st-statement" data-statement>
-        {statement.map(([w, dim]) => <><span class:list={["sw", dim && "sw--dim"]}>{w}</span>{" "}</>)}
-      </p>
+  <!-- 2. Why it matters: pinned, words light up as you scroll -->
+  <section class="st-pin st-pin--why st-cream" data-pin="why" aria-label="Why it matters">
+    <div class="st-pin-in">
+      <svg class="st-deco" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="60" y="120" width="220" height="220" rx="56" transform="rotate(45 170 230)"/><rect x="300" y="120" width="220" height="220" rx="56" transform="rotate(45 410 230)"/><rect x="540" y="120" width="220" height="220" rx="56" transform="rotate(45 650 230)"/><rect x="780" y="120" width="220" height="220" rx="56" transform="rotate(45 890 230)"/></g></svg>
+      <div class="st-wrap">
+        <p class="st-statement" data-statement>
+          {statement.map(([w, dim]) => <><span class:list={["sw", dim && "sw--dim"]}>{w}</span>{" "}</>)}
+        </p>
+      </div>
+      <p class="st-cue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6 6-6M6 13l6 6 6-6"></path></svg></p>
     </div>
-    <p class="st-cue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l6 6 6-6M6 13l6 6 6-6"></path></svg></p>
   </section>
 
   <!-- 3. What's included, by stage -->
@@ -174,7 +170,6 @@ const schema = [
           ))}
         </div>
         <div class="st-panes">
-          <p class="st-total"><b data-total={total}>{total}</b><span>included</span></p>
           {stages.map((s, i) => (
             <div class:list={["st-pane", i === 0 && "is-on"]} role="tabpanel" id={`pane-${i}`} aria-labelledby={`tab-${i}`} data-pane={i}>
               <p class="st-pane-line">{s.line}</p>
@@ -195,8 +190,9 @@ const schema = [
   </section>
 
   <!-- 4. How it works -->
-  <section class="st-sec st-cream st-how" aria-labelledby="how-title">
-    <svg class="st-deco" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="60" y="120" width="220" height="220" rx="56" transform="rotate(45 170 230)"/><rect x="300" y="120" width="220" height="220" rx="56" transform="rotate(45 410 230)"/><rect x="540" y="120" width="220" height="220" rx="56" transform="rotate(45 650 230)"/><rect x="780" y="120" width="220" height="220" rx="56" transform="rotate(45 890 230)"/></g></svg>
+  <section class="st-pin st-pin--how st-cream st-how" data-pin="how" aria-labelledby="how-title">
+    <div class="st-pin-in">
+      <svg class="st-deco" viewBox="0 0 1200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="60" y="120" width="220" height="220" rx="56" transform="rotate(45 170 230)"/><rect x="300" y="120" width="220" height="220" rx="56" transform="rotate(45 410 230)"/><rect x="540" y="120" width="220" height="220" rx="56" transform="rotate(45 650 230)"/><rect x="780" y="120" width="220" height="220" rx="56" transform="rotate(45 890 230)"/></g></svg>
     <div class="st-wrap">
       <h2 id="how-title" class="display st-h2">How it works</h2>
       <ol class="st-flow" data-flow>
@@ -212,6 +208,7 @@ const schema = [
         ))}
       </ol>
       <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
+    </div>
     </div>
   </section>
 
@@ -371,23 +368,37 @@ const schema = [
     requestAnimationFrame(tick);
   };
 
-  // Statement: words brighten as you read; the first sentence stays dimmer
+  // Pinned scenes: how far the tall outer section has scrolled (0 to 1) while its inner scene is held on screen
+  const wide = () => window.matchMedia("(min-width: 900px)").matches && !calm;
+  const pinProgress = (sec: HTMLElement) => {
+    const dist = sec.offsetHeight - window.innerHeight;
+    return clamp(-sec.getBoundingClientRect().top / Math.max(1, dist));
+  };
+  const onScroll = (fn: () => void) => {
+    let ticking = false;
+    const run = () => { ticking = false; fn(); };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } }, { passive: true });
+    window.addEventListener("resize", run);
+    run();
+  };
+
+  // Statement: held on screen while words light up with your scroll; the first sentence stays dimmer
   document.querySelectorAll<HTMLElement>("[data-statement]").forEach((p) => {
     if (calm) return;
+    const sec = p.closest<HTMLElement>("[data-pin]")!;
     const words = [...p.querySelectorAll<HTMLElement>(".sw")];
     p.classList.add("is-live");
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const r = p.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const prog = clamp((vh * 0.8 - r.top) / (r.height + vh * 0.2));
-      const lit = prog * 1.25 * words.length;
+    onScroll(() => {
+      let prog: number;
+      if (wide()) prog = clamp(pinProgress(sec) / 0.85);
+      else {
+        const r = p.getBoundingClientRect();
+        const vh = window.innerHeight;
+        prog = clamp((vh * 0.8 - r.top) / (r.height + vh * 0.2));
+      }
+      const lit = prog * 1.15 * words.length;
       words.forEach((w, i) => w.style.setProperty("--o", clamp(lit - i).toFixed(3)));
-    };
-    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    window.addEventListener("resize", update);
-    update();
+    });
   });
 
   // What's included: switch stage on hover, tap or arrow keys
@@ -421,34 +432,34 @@ const schema = [
     pick(0);
     document.fonts?.ready.then(() => place(tabs[0]));
   });
-  document.querySelectorAll<HTMLElement>("[data-total]").forEach((b) => {
-    const to = Number(b.dataset.total);
-    b.textContent = "0";
-    seen([b], () => countUp(b, 0, to, 0, 1000), 0.6);
-  });
   document.querySelectorAll<HTMLElement>("[data-to]").forEach((b) => {
     const from = Number(b.dataset.from), to = Number(b.dataset.to), dec = Number(b.dataset.dec ?? 0);
     b.textContent = from.toFixed(dec);
     seen([b], () => countUp(b, from, to, dec), 0.8);
   });
 
-  // How it works: the line fills as you scroll and each node lights when reached
+  // How it works: held on screen; the line fills and each step lights in turn as you scroll
   const flow = document.querySelector<HTMLElement>("[data-flow]");
   if (flow) {
+    const sec = flow.closest<HTMLElement>("[data-pin]")!;
     const items = [...flow.querySelectorAll<HTMLElement>("li")];
-    let ticking = false;
-    const update = () => {
-      ticking = false;
-      const r = flow.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const wide = window.matchMedia("(min-width: 900px)").matches;
-      const prog = calm ? 1 : wide ? clamp((vh * 0.85 - r.top) / (vh * 0.55)) : clamp((vh * 0.7 - r.top) / r.height);
+    onScroll(() => {
+      let prog: number;
+      if (calm) prog = 1;
+      else if (wide()) prog = clamp((pinProgress(sec) - 0.04) / 0.86);
+      else {
+        const r = flow.getBoundingClientRect();
+        prog = clamp((window.innerHeight * 0.7 - r.top) / r.height);
+      }
       flow.style.setProperty("--p", prog.toFixed(3));
-      items.forEach((li, i) => li.classList.toggle("is-lit", prog >= i / (items.length - 1) - 0.001));
-    };
-    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    window.addEventListener("resize", update);
-    update();
+      let current = 0;
+      items.forEach((li, i) => {
+        const lit = prog >= i / (items.length - 1) - 0.001;
+        li.classList.toggle("is-lit", lit);
+        if (lit) current = i;
+      });
+      items.forEach((li, i) => li.classList.toggle("is-current", !calm && i === current));
+    });
   }
 
   // Price: digits roll once; payment path fills
