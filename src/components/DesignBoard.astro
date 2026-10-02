@@ -52,6 +52,13 @@ const tiles = await Promise.all(
     </div>
   </header>
 
+  <div class="dz-idea">
+    <p class="dz-idea-title"><span class="dz-label">The idea</span>{p.idea.title}</p>
+    <ul class="dz-idea-list">
+      {p.idea.items.map((it, i) => <li style={`--i:${i}`}><b>{it.k}</b><span>{it.v}</span></li>)}
+    </ul>
+  </div>
+
   <ul class="dz-grid">
     {
       tiles.map((t, i) => (

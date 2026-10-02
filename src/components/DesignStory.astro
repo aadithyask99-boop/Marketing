@@ -1,0 +1,92 @@
+---
+import { Image } from "astro:assets";
+import { BRAND_BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_PROJECTS } from "../data/design";
+
+interface Props {
+  part: "intro" | "process";
+}
+
+const { part } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+const find = (slug: string, i: number) => DESIGN_PROJECTS.find((p) => p.slug === slug)!.tiles[i];
+// Two real brand-book spreads as illustration: Magic Personnel's palette page and UltraSeal's typography page
+const spreadA = find("magic-personnel", 7);
+const spreadB = find("ultraseal", 6);
+---
+
+{
+  part === "intro" && (
+    <section class="dz-intro" id="brand-book" aria-labelledby="bb-title">
+      <div class="dz-wrap dz-intro-grid">
+        <div class="dz-intro-copy">
+          <p class="dz-kicker">{BRAND_BOOK.kicker}</p>
+          <h2 id="bb-title" class="display dz-h2">
+            What's a <span class="dz-accent">brand book?</span>
+          </h2>
+          <p class="dz-big">{BRAND_BOOK.lead}</p>
+          <p class="dz-text">{BRAND_BOOK.body}</p>
+          <p class="dz-text dz-text--dim">{BRAND_BOOK.why}</p>
+        </div>
+
+        <div class="dz-inside">
+          <h3 class="dz-label">What's inside</h3>
+          <ol class="dz-inside-list">
+            {BRAND_BOOK.inside.map((it, i) => (
+              <li style={`--i:${i}`}>
+                <span class="dz-inside-n">{pad(i + 1)}</span>
+                <span class="dz-inside-t"><b>{it.t}</b><span>{it.d}</span></span>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div class="dz-spreads" aria-hidden="true">
+          <figure class="dz-spread dz-spread--a"><Image src={spreadA.src} alt="" widths={[480, 800]} sizes="(min-width: 900px) 34vw, 80vw" loading="lazy" /></figure>
+          <figure class="dz-spread dz-spread--b"><Image src={spreadB.src} alt="" widths={[480, 800]} sizes="(min-width: 900px) 34vw, 80vw" loading="lazy" /></figure>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  part === "process" && (
+    <>
+      <section class="dz-process" aria-labelledby="how-title">
+        <div class="dz-wrap">
+          <p class="dz-kicker">Our process</p>
+          <h2 id="how-title" class="display dz-h2">
+            How we <span class="dz-accent">design</span> a brand
+          </h2>
+          <ol class="dz-flow" data-dz-flow>
+            {DESIGN_STEPS.map((s, i) => (
+              <li style={`--i:${i}`}>
+                <span class="dz-node" aria-hidden="true">{i + 1}</span>
+                <h3>{s.t}</h3>
+                <p>{s.d}</p>
+                <p class="dz-get"><span>You get</span>{s.get}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="dz-why" aria-labelledby="why-title">
+        <div class="dz-wrap">
+          <h2 id="why-title" class="display dz-h2">
+            Why work <span class="dz-accent">with us?</span>
+          </h2>
+          <ul class="dz-why-grid">
+            {DESIGN_WHY.map((w) => (
+              <li class={`dz-why-card dz-why-card--${w.tone}`}>
+                <span class="dz-why-n" aria-hidden="true">{w.n}</span>
+                <h3 class="display">{w.t}</h3>
+                <p>{w.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  )
+}

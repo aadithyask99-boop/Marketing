@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+import Badge from "./Badge.astro";
+import Asterisk from "./Asterisk.astro";
+import { DESIGN_PROJECTS, HERO_CARDS, HERO_STRIP } from "../data/design";
+---
+
+<section class="dz-hero section page-top page-hero" data-dz-hero>
+  <div class="dz-hero-grid">
+    <div class="dz-hero-copy">
+      <p class="eyebrow">Work</p>
+      <h1 class="display dz-title">
+        <span data-xray>Brands &amp; design</span> <span class="dz-accent" data-xray>we've made</span>
+      </h1>
+      <p class="lede">A brand is more than a logo. We design the mark, the look and the rules that keep it consistent, then show it working on a cap, a bucket and a brochure.</p>
+      <ul class="dz-jump" aria-label="Jump to a project">
+        {DESIGN_PROJECTS.map((p) => <li><a href={`#${p.slug}`} data-cursor="Go">{p.name} <span aria-hidden="true">↓</span></a></li>)}
+      </ul>
+    </div>
+
+    <div class="dz-panel">
+      <svg class="dz-panel-rings" viewBox="0 0 400 400" aria-hidden="true">
+        <g fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="200" cy="200" r="176"></circle>
+          <circle cx="200" cy="200" r="130"></circle>
+          <circle cx="200" cy="200" r="84"></circle>
+          <circle cx="200" cy="200" r="38"></circle>
+        </g>
+      </svg>
+      <div class="dz-cards" aria-hidden="true">
+        {
+          HERO_CARDS.map((c) => (
+            <span class="dz-hc" data-depth={c.depth} style={`--x:${c.x}%;--y:${c.y}%;--w:${c.w}%;--rot:${c.rot}deg;--d:${c.delay}s`}>
+              <span class="dz-hc-in">
+                <Image src={c.src} alt="" widths={[360, 640]} sizes="(min-width: 1100px) 30vw, 60vw" loading="eager" decoding="async" />
+              </span>
+            </span>
+          ))
+        }
+      </div>
+      <div class="dz-sticker">
+        <Badge href="#brand-book" label="Brand books" cursor="Read" />
+      </div>
+    </div>
+  </div>
+
+  <div class="dz-strip" aria-hidden="true">
+    <div class="dz-strip-track">
+      {
+        [0, 1].map(() => (
+          <ul class="dz-strip-list">
+            {HERO_STRIP.map((w) => <li><span>{w}</span><Asterisk /></li>)}
+          </ul>
+        ))
+      }
+    </div>
+  </div>
+
+  <a class="dz-scroll" href="#brand-book" data-cursor="Go">
+    Please scroll down
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg>
+  </a>
+</section>

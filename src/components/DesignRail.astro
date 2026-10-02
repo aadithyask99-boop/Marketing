@@ -1,6 +1,8 @@
 ---
+import { getImage } from "astro:assets";
+import Sticker from "./Sticker.astro";
 import { DESIGN_KINDS, type DesignProject, type DesignKind } from "../data/design";
-import { url } from "../data/site";
+import { SITE, url } from "../data/site";
 
 interface Props {
   projects: DesignProject[];
@@ -10,24 +12,46 @@ const { projects } = Astro.props;
 const pad = (n: number) => String(n).padStart(2, "0");
 const kinds = (Object.keys(DESIGN_KINDS) as DesignKind[]).filter((k) => projects.some((p) => p.kind === k));
 let n = 0;
-const groups = kinds.map((k) => ({ k, label: DESIGN_KINDS[k], items: projects.filter((p) => p.kind === k).map((p) => ({ p, n: n++ })) }));
+const groups = await Promise.all(
+  kinds.map(async (k) => ({
+    label: DESIGN_KINDS[k],
+    items: await Promise.all(
+      projects
+        .filter((p) => p.kind === k)
+        .map(async (p) => ({ p, n: n++, thumb: (await getImage({ src: p.tiles[0].src, width: 160, height: 160, fit: "cover", format: "webp" })).src })),
+    ),
+  })),
+);
+const total = projects.length;
 ---
 
 <aside class="dz-rail" data-rail>
   <div class="dz-rail-in">
-    <p class="dz-rail-title">Design work</p>
+    <header class="dz-rail-head">
+      <img class="dz-rail-logo" src={url("/logo-m-ink.png")} alt="" width="40" height="38" />
+      <div>
+        <p class="dz-rail-title">Design work</p>
+        <p class="dz-rail-count"><span data-of>01</span> / {pad(total)} projects</p>
+      </div>
+    </header>
+
     <nav class="dz-nav" aria-label="Projects on this page">
-      <span class="dz-marker" aria-hidden="true"></span>
+      <span class="dz-prog" aria-hidden="true"><span></span></span>
+      <span class="dz-hl" aria-hidden="true"></span>
       <ol class="dz-index">
         {
           groups.map((g) => (
             <>
               <li class="dz-kind" aria-hidden="true">{g.label}</li>
-              {g.items.map(({ p, n }) => (
+              {g.items.map(({ p, n, thumb }) => (
                 <li>
                   <a href={`#${p.slug}`} data-spy={p.slug}>
-                    <span class="dz-i-n">{pad(n + 1)}</span>
-                    <span class="dz-i-name">{p.name}</span>
+                    <img class="dz-thumb" src={thumb} alt="" width="48" height="48" loading="lazy" decoding="async" />
+                    <span class="dz-i-text">
+                      <span class="dz-i-n">{pad(n + 1)}</span>
+                      <b class="dz-i-name">{p.name}</b>
+                      <small>{p.tags.slice(0, 2).join(" · ")}</small>
+                    </span>
                   </a>
                 </li>
               ))}
@@ -36,9 +60,17 @@ const groups = kinds.map((k) => ({ k, label: DESIGN_KINDS[k], items: projects.fi
         }
       </ol>
     </nav>
-    <a class="dz-cta" href={`${url("/contact")}?service=${encodeURIComponent("Brand & Identity")}`} data-cursor="Talk">
-      Start your brand <i aria-hidden="true">↗</i>
-    </a>
-    <p class="dz-hint">Tap any tile to see it larger.</p>
+
+    <div class="dz-contact">
+      <Sticker name="chat" class="dz-contact-sticker" />
+      <p class="dz-contact-q">Got a <em>brand</em> in mind?</p>
+      <a class="dz-cta" href={`${url("/contact")}?service=${encodeURIComponent("Brand & Identity")}`} data-cursor="Talk">
+        Start your brand <i aria-hidden="true">↗</i>
+      </a>
+      <ul class="dz-contact-links">
+        <li><a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        <li><a href={`mailto:${SITE.email}`}>Email</a></li>
+      </ul>
+    </div>
   </div>
 </aside>

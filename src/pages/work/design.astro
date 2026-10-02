@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ClosingCta from "../../components/ClosingCta.astro";
+import DesignHero from "../../components/DesignHero.astro";
+import DesignStory from "../../components/DesignStory.astro";
 import DesignRail from "../../components/DesignRail.astro";
 import DesignBoard from "../../components/DesignBoard.astro";
 import "@fontsource/instrument-serif/400-italic.css";
@@ -33,16 +35,8 @@ const schema = [
 ---
 
 <BaseLayout schema={schema} title="Design work" description={desc}>
-  <section class="dz-hero section page-top page-hero">
-    <p class="eyebrow">Work</p>
-    <h1 class="display dz-title">
-      <span data-xray>Brands &amp; design</span> <span class="dz-accent" data-xray>we've made</span>
-    </h1>
-    <p class="lede">Logos, identities, mascots and the brand books behind them. Social grids and websites join as we go.</p>
-    <ul class="dz-jump" aria-label="Jump to a project">
-      {DESIGN_PROJECTS.map((p) => <li><a href={`#${p.slug}`} data-cursor="Go">{p.name} <span aria-hidden="true">↓</span></a></li>)}
-    </ul>
-  </section>
+  <DesignHero />
+  <DesignStory part="intro" />
 
   <div class="dz-body">
     <div class="dz-layout">
@@ -52,6 +46,8 @@ const schema = [
       </div>
     </div>
   </div>
+
+  <DesignStory part="process" />
 
   <dialog class="dz-lb" aria-label="Image viewer">
     <button class="dz-lb-x" type="button" aria-label="Close">
@@ -91,44 +87,80 @@ const schema = [
     tiles.forEach((t) => io.observe(t));
   }
 
-  // Rail: highlight the project in view and slide the marker to it (desktop), or scroll the strip (mobile)
+  // Hero: the work cards drift with the pointer (mouse only)
+  const hero = document.querySelector<HTMLElement>("[data-dz-hero]");
+  if (hero && !calm && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const cards = [...hero.querySelectorAll<HTMLElement>(".dz-hc")];
+    let queued = false;
+    let pt = { x: 0, y: 0 };
+    const apply = () => {
+      queued = false;
+      cards.forEach((el) => {
+        const d = Number(el.dataset.depth);
+        el.style.setProperty("--px", `${(pt.x * d).toFixed(1)}px`);
+        el.style.setProperty("--py", `${(pt.y * d).toFixed(1)}px`);
+      });
+    };
+    hero.addEventListener("pointermove", (e) => {
+      const r = hero.getBoundingClientRect();
+      pt = { x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 };
+      if (!queued) { queued = true; requestAnimationFrame(apply); }
+    });
+    hero.addEventListener("pointerleave", () => { pt = { x: 0, y: 0 }; apply(); });
+  }
+
+  // Process steps light up as they arrive
+  const steps = [...document.querySelectorAll<HTMLElement>("[data-dz-flow] li")];
+  if (calm) steps.forEach((t) => t.classList.add("is-in"));
+  else {
+    const so = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); so.unobserve(e.target); } }),
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.2 },
+    );
+    steps.forEach((t) => so.observe(t));
+  }
+
+  // Rail: highlight the project in view and slide the ink pill to it (desktop), or scroll the strip (mobile)
   const rail = document.querySelector<HTMLElement>("[data-rail]");
   const boards = [...document.querySelectorAll<HTMLElement>("[data-board]")];
   if (rail && boards.length) {
     const links = [...rail.querySelectorAll<HTMLAnchorElement>("a[data-spy]")];
-    const marker = rail.querySelector<HTMLElement>(".dz-marker")!;
+    const hl = rail.querySelector<HTMLElement>(".dz-hl")!;
     const nav = rail.querySelector<HTMLElement>(".dz-nav")!;
     const list = rail.querySelector<HTMLElement>(".dz-index")!;
+    const of = rail.querySelector<HTMLElement>("[data-of]");
     const strip = () => window.matchMedia("(max-width: 899px)").matches;
     let current = "";
     const mark = (slug: string) => {
       const a = links.find((l) => l.dataset.spy === slug);
       if (!a) return;
       links.forEach((l) => (l === a ? l.setAttribute("aria-current", "location") : l.removeAttribute("aria-current")));
+      if (of) of.textContent = String(links.indexOf(a) + 1).padStart(2, "0");
       if (strip()) {
         list.scrollTo({ left: a.offsetLeft - (list.clientWidth - a.offsetWidth) / 2, behavior: calm ? "auto" : "smooth" });
       } else {
         const li = a.parentElement as HTMLElement;
-        marker.style.height = `${li.offsetHeight}px`;
-        marker.style.transform = `translateY(${li.offsetTop}px)`;
-        marker.style.opacity = "1";
+        hl.style.height = `${li.offsetHeight}px`;
+        hl.style.transform = `translateY(${li.offsetTop}px)`;
+        hl.style.opacity = "1";
       }
     };
     const pick = () => {
       // The board whose top has passed 40% of the viewport is the current one
       const line = window.innerHeight * 0.4;
+      const first = boards[0].getBoundingClientRect().top;
+      const last = boards[boards.length - 1].getBoundingClientRect().bottom;
+      nav.style.setProperty("--p", Math.min(1, Math.max(0, (line - first) / Math.max(1, last - first))).toFixed(3));
       let slug = boards[0].id;
       for (const b of boards) if (b.getBoundingClientRect().top <= line) slug = b.id;
-      const first = boards[0].getBoundingClientRect().top;
-      if (first > line) { current = ""; links.forEach((l) => l.removeAttribute("aria-current")); marker.style.opacity = "0"; return; }
+      if (first > line) { current = ""; links.forEach((l) => l.removeAttribute("aria-current")); hl.style.opacity = "0"; return; }
       if (slug !== current) { current = slug; mark(slug); }
     };
     let ticking = false;
     window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; pick(); }); } }, { passive: true });
-    window.addEventListener("resize", () => { const c = current; current = ""; pick(); if (!current && c) current = ""; });
+    window.addEventListener("resize", () => { current = ""; pick(); });
     document.fonts?.ready.then(() => { current = ""; pick(); });
     pick();
-    void nav;
   }
 
   // Lightbox: previous and next stay within the project that was opened

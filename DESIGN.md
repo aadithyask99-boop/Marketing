@@ -136,3 +136,11 @@ For showcasing client work (brand boards, Instagram grids, web designs) on one p
 - Each board: number, Bebas name, Instrument Serif tagline, tags, brief, "what we made", palette (hex only when the client's brand book states it) and type, then a **scattered gallery**: 12-column grid, per-tile widths (`w`), uneven tops, hover tilt, "View" cursor label. Tiles open a native `<dialog>` lightbox (prev/next, Esc, swipe, focus return).
 - Content lives in `src/data/design.ts`; images in `src/assets/design/<slug>/*.webp` (about 1600px wide, under 100KB). Add a project (or `kind: "social"` / `"web"`) and it appears in the rail automatically.
 - Do not publish contact details printed in client brand books.
+
+Hero, story and rail details (added with the second pass):
+
+- **Hero** (`DesignHero`): giant Bebas headline with one Instrument Serif word, a cream **showcase panel** holding a floating collage of real work (`HERO_CARDS` in `design.ts`, pointer parallax), a green scalloped `Badge` sticker, and a Bebas **marquee strip** with the green asterisk. "Please scroll down" cue at the bottom.
+- **Story sections** (`DesignStory`): "What's a brand book?" (ink, right after the hero), then the rail and boards, then "How we design a brand" (ink, 5-step timeline) and "Why work with us" (3 colour-blocked cards). Copy lives in `BRAND_BOOK`, `DESIGN_STEPS`, `DESIGN_WHY`. Surfaces alternate red / ink / cream / ink / cream / ink.
+- **Rail** (`DesignRail`): "M" mark and project count, thumbnail cards for each project with a sliding ink highlight and a red scroll-progress line, and a red "Got a brand in mind?" contact card (CTA, WhatsApp, email, sticker). Under 900px it becomes a sticky strip of pills with small round thumbnails.
+- **The idea strip** under each board header: 3 to 4 concept chips (`idea` in `design.ts`), taken from the client's own brand book.
+
