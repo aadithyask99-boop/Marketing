@@ -65,13 +65,54 @@
 .dz-inside-n { font-family: var(--display); font-size: 1.3rem; color: var(--butter); }
 .dz-inside-t b { display: block; font-size: 1.1rem; }
 .dz-inside-t span span { display: block; margin-top: 0.15rem; opacity: 0.7; }
-.dz-spreads { position: relative; align-self: start; min-height: clamp(19rem, 40vw, 31rem); }
-.dz-spread { position: absolute; width: 74%; margin: 0; overflow: hidden; border-radius: 1.25rem; background: #fff; box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.5); transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-.dz-spread img { display: block; width: 100%; height: auto; }
-.dz-spread--a { left: 0; top: 0; transform: rotate(-4deg); }
-.dz-spread--b { right: 0; bottom: 0; transform: rotate(3deg); }
-.dz-spreads:hover .dz-spread--a { transform: rotate(-6deg) translate(-0.5rem, -0.5rem); }
-.dz-spreads:hover .dz-spread--b { transform: rotate(5deg) translate(0.5rem, 0.5rem); }
+.dz-inside-btn { display: grid; grid-template-columns: 3rem minmax(0, 1fr) 1.4rem; align-items: start; gap: 0.5rem; width: 100%; padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.dz-inside-list li:has(.dz-inside-btn) { display: block; padding: 0; }
+.dz-inside-btn { padding: 0.9rem 0; transition: color 0.25s ease, padding 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.dz-inside-btn svg { width: 1.2rem; height: 1.2rem; margin-top: 0.2rem; opacity: 0.4; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease, color 0.25s ease; }
+.dz-inside-btn:hover { padding-left: 0.35rem; }
+.dz-inside-btn:hover svg, .dz-inside-btn[aria-current] svg { opacity: 1; transform: rotate(45deg); color: var(--red); }
+.dz-inside-btn[aria-current] .dz-inside-t b { color: var(--butter); }
+.dz-inside-btn[aria-current] .dz-inside-n { color: var(--red); }
+
+/* The interactive brand book */
+.dz-spreads { align-self: start; }
+@media (min-width: 900px) { .dz-spreads { position: sticky; top: calc(var(--header-h) + 1.5rem); } .dz-intro-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); } }
+.dz-book-wrap { display: grid; gap: 1rem; }
+.dz-book { --shift: -25%; position: relative; aspect-ratio: 16 / 9; perspective: 2600px; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; border-radius: 0.5rem; }
+.dz-book.is-dragging { cursor: grabbing; }
+.dz-book:focus-visible { outline: 3px solid var(--cream); outline-offset: 10px; }
+.dz-book-in { position: absolute; inset: 0; transform-style: preserve-3d; transform: translateX(var(--shift)); }
+.dz-book-shadow { position: absolute; left: 6%; right: 6%; bottom: -3%; height: 9%; transform: translateX(var(--shift)); background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6), transparent 70%); filter: blur(12px); pointer-events: none; }
+.dz-leaf { position: absolute; left: 50%; top: 0; width: 50%; height: 100%; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
+.dz-face { position: absolute; inset: 0; overflow: hidden; background: #fffcec; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.dz-front { border-radius: 0 0.45rem 0.45rem 0; box-shadow: 1px 0 0 #e9e3c9, 2px 0 0 #fffcec, 3px 0 0 #e1dbc0; }
+.dz-back { transform: rotateY(180deg); border-radius: 0.45rem 0 0 0.45rem; }
+.dz-pg { position: absolute; inset: 0; overflow: hidden; }
+.dz-pg img { position: absolute; top: 0; width: 200%; max-width: none; height: 100%; object-fit: cover; -webkit-user-drag: none; pointer-events: none; }
+.dz-pg--left img { left: 0; }
+.dz-pg--right img { left: -100%; }
+.dz-shade { position: absolute; inset: 0; pointer-events: none; }
+.dz-shade--f { background: linear-gradient(to right, rgba(23, 9, 10, calc(0.22 + var(--sf, 0) * 0.5)), rgba(23, 9, 10, 0) 9%), linear-gradient(to right, rgba(23, 9, 10, var(--sf, 0)), rgba(23, 9, 10, 0) 70%); }
+.dz-shade--b { background: linear-gradient(to left, rgba(23, 9, 10, 0.22), rgba(23, 9, 10, 0) 9%), linear-gradient(to left, rgba(23, 9, 10, var(--sb, 0)), rgba(23, 9, 10, 0) 70%); }
+
+.dz-cover { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; padding: 9% 8% 8%; background: #fffcec; color: var(--ink); text-align: center; }
+.dz-cover::before { content: ""; position: absolute; inset: 4%; border: 1px solid rgba(23, 9, 10, 0.18); border-radius: 0.3rem; pointer-events: none; }
+.dz-cover-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 7%; background: linear-gradient(to right, rgba(23, 9, 10, 0.2), rgba(23, 9, 10, 0.04) 70%, transparent); }
+.dz-cover-kicker { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.9rem); }
+.dz-cover-logo { width: 78%; height: auto; max-height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.dz-cover-place { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+
+.dz-book-bar { display: flex; align-items: center; gap: 0.6rem; }
+.dz-bb { flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1.5px solid rgba(245, 239, 232, 0.6); border-radius: 50%; background: transparent; color: var(--cream); cursor: pointer; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, opacity 0.25s ease; }
+.dz-bb svg { width: 1.15rem; height: 1.15rem; }
+.dz-bb:hover:not(:disabled) { background: var(--cream); color: var(--ink); border-color: var(--cream); }
+.dz-bb:disabled { opacity: 0.3; cursor: default; }
+.dz-book-status { flex: 1; margin: 0; min-width: 0; font-size: 0.92rem; font-weight: 600; text-align: center; }
+.dz-book-zoom { flex: none; min-height: 2.75rem; padding: 0.4rem 1.2rem; border: 1.5px solid var(--cream); border-radius: 999px; background: transparent; color: var(--cream); font: 600 0.92rem/1 var(--body); cursor: pointer; transition: background 0.25s ease, color 0.25s ease; }
+.dz-book-zoom:hover { background: var(--cream); color: var(--ink); }
+.dz-book-hint { margin: 0; text-align: center; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.15rem; opacity: 0.7; }
+.dz-book-wrap :focus-visible { outline-color: var(--cream); }
+@media (max-width: 599px) { .dz-book-status { font-size: 0.82rem; } .dz-book-zoom { padding-inline: 0.9rem; } }
 
 /* How we design a brand */
 .dz-flow { position: relative; display: grid; gap: 2rem; margin: clamp(2rem, 5vw, 4rem) 0 0; padding: 0; list-style: none; }
@@ -301,7 +342,7 @@ html.dz-lock { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .dz-hc, .dz-hc-in, .dz-panel-rings, .dz-strip-track, .dz-scroll svg { animation: none; }
-  .dz-hc, .dz-spread, .dz-why-card, .dz-node, .dz-hl, .dz-thumb, .dz-index a, .dz-prog span { transition: none; }
+  .dz-hc, .dz-why-card, .dz-node, .dz-hl, .dz-thumb, .dz-index a, .dz-prog span { transition: none; }
   .js-dz .dz-flow li > :not(.dz-node) { transition: none; }
   .js-dz .dz-tile, .dz-open, .dz-open img, .dz-cap, .dz-marker, .dz-index a, .dz-cta i, .dz-jump a span, .dz-faq-list summary svg { transition: none; }
   .dz-open:hover, .dz-tile:nth-child(even) .dz-open:hover { transform: none; }

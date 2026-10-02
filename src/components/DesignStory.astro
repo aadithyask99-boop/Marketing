@@ -1,6 +1,6 @@
 ---
-import { Image } from "astro:assets";
-import { BRAND_BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_PROJECTS, DESIGN_FAQ } from "../data/design";
+import DesignBook from "./DesignBook.astro";
+import { BRAND_BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_FAQ } from "../data/design";
 import { url } from "../data/site";
 
 interface Props {
@@ -9,10 +9,6 @@ interface Props {
 
 const { part } = Astro.props;
 const pad = (n: number) => String(n).padStart(2, "0");
-const find = (slug: string, i: number) => DESIGN_PROJECTS.find((p) => p.slug === slug)!.tiles[i];
-// Two real brand-book spreads as illustration: Magic Personnel's palette page and UltraSeal's typography page
-const spreadA = find("magic-personnel", 7);
-const spreadB = find("ultraseal", 6);
 ---
 
 {
@@ -34,16 +30,18 @@ const spreadB = find("ultraseal", 6);
           <ol class="dz-inside-list">
             {BRAND_BOOK.inside.map((it, i) => (
               <li style={`--i:${i}`}>
-                <span class="dz-inside-n">{pad(i + 1)}</span>
-                <span class="dz-inside-t"><b>{it.t}</b><span>{it.d}</span></span>
+                <button class="dz-inside-btn" type="button" data-spread={it.spread} data-cursor="Open">
+                  <span class="dz-inside-n">{pad(i + 1)}</span>
+                  <span class="dz-inside-t"><b>{it.t}</b><span>{it.d}</span></span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+                </button>
               </li>
             ))}
           </ol>
         </div>
 
-        <div class="dz-spreads" aria-hidden="true">
-          <figure class="dz-spread dz-spread--a"><Image src={spreadA.src} alt="" widths={[480, 800]} sizes="(min-width: 900px) 34vw, 80vw" loading="lazy" /></figure>
-          <figure class="dz-spread dz-spread--b"><Image src={spreadB.src} alt="" widths={[480, 800]} sizes="(min-width: 900px) 34vw, 80vw" loading="lazy" /></figure>
+        <div class="dz-spreads">
+          <DesignBook />
         </div>
       </div>
     </section>

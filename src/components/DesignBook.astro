@@ -1,0 +1,252 @@
+---
+import { Image, getImage } from "astro:assets";
+import { BOOK } from "../data/design";
+
+// A simulated brand book: drag the cover or a page edge to turn it. Pure CSS 3D plus pointer events.
+// Leaf 0 is the cover; leaf i shows the right half of spread i on its front and the left half of spread i+1 on its back.
+// The last leaf is a static base page. Each spread is one brand-book slide split down the middle.
+const spreads = await Promise.all(
+  BOOK.spreads.map(async (s) => ({ ...s, full: (await getImage({ src: s.src, width: 1600, format: "webp" })).src })),
+);
+const N = spreads.length;
+const leaves = Array.from({ length: N + 1 }, (_, i) => i);
+const items = JSON.stringify(spreads.map((s) => ({ full: s.full, alt: s.alt, caption: s.title })));
+const titles = JSON.stringify(spreads.map((s) => s.title));
+---
+
+<div class="dz-book-wrap" data-book data-count={N} data-items={items} data-titles={titles} data-name={`${BOOK.name} brand book`}>
+  <div class="dz-book" role="group" aria-roledescription="book" aria-label={`Interactive ${BOOK.name} brand book. Drag a page to turn it, or use the buttons.`} tabindex="0" data-cursor="Drag">
+    <span class="dz-book-shadow" aria-hidden="true"></span>
+    <div class="dz-book-in">
+      {
+        leaves.map((i) => (
+          <div class="dz-leaf" data-leaf={i}>
+            <div class="dz-face dz-front">
+              {
+                i === 0 ? (
+                  <div class="dz-cover">
+                    <span class="dz-cover-spine" aria-hidden="true"></span>
+                    <span class="dz-cover-kicker">{BOOK.kicker}</span>
+                    <Image src={BOOK.logo} alt={BOOK.logoAlt} widths={[320, 480]} sizes="(min-width: 900px) 20vw, 40vw" class="dz-cover-logo" loading="eager" decoding="async" />
+                    <span class="dz-cover-place">{BOOK.place}</span>
+                  </div>
+                ) : (
+                  <span class="dz-pg dz-pg--right">
+                    <Image src={spreads[i - 1].src} alt={i === 1 ? spreads[0].alt : ""} widths={[800, 1200]} sizes="(min-width: 900px) 56vw, 92vw" loading="lazy" decoding="async" draggable="false" />
+                  </span>
+                )
+              }
+              <span class="dz-shade dz-shade--f" aria-hidden="true"></span>
+            </div>
+            {
+              i < N && (
+                <div class="dz-face dz-back">
+                  <span class="dz-pg dz-pg--left">
+                    <Image src={spreads[i].src} alt="" widths={[800, 1200]} sizes="(min-width: 900px) 56vw, 92vw" loading="lazy" decoding="async" draggable="false" />
+                  </span>
+                  <span class="dz-shade dz-shade--b" aria-hidden="true"></span>
+                </div>
+              )
+            }
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="dz-book-bar">
+    <button class="dz-bb dz-bb-prev" type="button" aria-label="Previous spread" disabled>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <p class="dz-book-status" role="status" aria-live="polite" data-status>Closed. Drag the cover to open.</p>
+    <button class="dz-bb dz-bb-next" type="button" aria-label="Next spread">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </button>
+    <button class="dz-book-zoom" type="button" data-cursor="View">Enlarge</button>
+  </div>
+  <p class="dz-book-hint" data-hint>Drag the cover to open</p>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-book]");
+  if (root) {
+    const stage = root.querySelector<HTMLElement>(".dz-book")!;
+    const leaves = [...root.querySelectorAll<HTMLElement>(".dz-leaf")];
+    const N = leaves.length - 1; // the last leaf is a static base page
+    const titles: string[] = JSON.parse(root.dataset.titles ?? "[]");
+    const items: { full: string; alt: string; caption: string }[] = JSON.parse(root.dataset.items ?? "[]");
+    const status = root.querySelector<HTMLElement>("[data-status]")!;
+    const hint = root.querySelector<HTMLElement>("[data-hint]")!;
+    const prevBtn = root.querySelector<HTMLButtonElement>(".dz-bb-prev")!;
+    const nextBtn = root.querySelector<HTMLButtonElement>(".dz-bb-next")!;
+    const zoomBtn = root.querySelector<HTMLButtonElement>(".dz-book-zoom")!;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const ang: number[] = new Array(N).fill(0); // current angle of each turning leaf, 0 (right) to 180 (left)
+    const tgt: number[] = new Array(N).fill(0); // where each leaf is heading
+    type Tween = { from: number; to: number; t0: number; dur: number };
+    const tw: (Tween | null)[] = new Array(N).fill(null);
+    let turned = 0;
+    let dragLeaf = -1;
+    let raf = 0;
+
+    const paint = () => {
+      for (let i = 0; i < N; i++) {
+        const a = ang[i];
+        const z = (a < 90 ? N - i : i) + (tw[i] || i === dragLeaf ? 60 : 0);
+        leaves[i].style.transform = `translateZ(${(z * 0.35).toFixed(2)}px) rotateY(${(-a).toFixed(2)}deg)`;
+        leaves[i].style.setProperty("--sf", ((a / 180) * 0.5).toFixed(3));
+        leaves[i].style.setProperty("--sb", ((1 - a / 180) * 0.5).toFixed(3));
+      }
+      // The book sits centred on its cover, then slides to the middle as the cover opens
+      stage.style.setProperty("--shift", `${(-25 + 25 * Math.min(1, ang[0] / 90)).toFixed(2)}%`);
+    };
+    const tick = (now: number) => {
+      let any = false;
+      for (let i = 0; i < N; i++) {
+        const t = tw[i];
+        if (!t) continue;
+        const k = (now - t.t0) / t.dur;
+        if (k < 0) { any = true; continue; }
+        if (k >= 1) { ang[i] = t.to; tw[i] = null; } else { ang[i] = t.from + (t.to - t.from) * ease(k); any = true; }
+      }
+      paint();
+      raf = any ? requestAnimationFrame(tick) : 0;
+    };
+    const run = () => { if (!raf) raf = requestAnimationFrame(tick); };
+    const settle = () => { for (let i = 0; i < N; i++) if (tw[i]) { ang[i] = tw[i]!.to; tw[i] = null; } paint(); };
+    const flip = (i: number, to: number, dur = 800, delay = 0) => {
+      tgt[i] = to;
+      if (calm) { ang[i] = to; tw[i] = null; paint(); return; }
+      tw[i] = { from: ang[i], to, t0: performance.now() + delay, dur };
+      run();
+    };
+
+    const sync = () => {
+      turned = tgt.filter((t) => t === 180).length;
+      root.dataset.turned = String(turned);
+      status.textContent = turned === 0 ? "Closed. Drag the cover to open." : `Spread ${turned} of ${N}: ${titles[turned - 1]}`;
+      hint.textContent = turned === 0 ? "Drag the cover to open" : "Drag a page to turn it";
+      prevBtn.disabled = turned === 0;
+      nextBtn.disabled = turned === N;
+      // Light up the "What's inside" item for the spread on show
+      const links = [...document.querySelectorAll<HTMLElement>("[data-spread]")];
+      let cur: HTMLElement | null = null;
+      for (const l of links) if (turned >= Number(l.dataset.spread)) cur = l;
+      links.forEach((l) => (l === cur && turned > 0 ? l.setAttribute("aria-current", "true") : l.removeAttribute("aria-current")));
+    };
+    const setTurned = (k: number) => {
+      k = clamp(k, 0, N);
+      const forward = k > turned;
+      const changing: number[] = [];
+      for (let i = 0; i < N; i++) if (tgt[i] !== (i < k ? 180 : 0)) changing.push(i);
+      if (!forward) changing.reverse();
+      changing.forEach((i, n) => flip(i, i < k ? 180 : 0, changing.length > 1 ? 650 : 850, n * 85));
+      sync();
+    };
+
+    // Drag a page: the page follows the pointer; release decides by angle and flick speed
+    let down = false, moved = false, startX = 0, dir = 1, leaf = -1, pw = 1, t0 = 0;
+    const samples: { x: number; t: number }[] = [];
+    const shiftNow = () => parseFloat(stage.style.getPropertyValue("--shift") || "-25");
+    stage.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      settle();
+      const r = stage.getBoundingClientRect();
+      const spineX = r.left + r.width * (0.5 + shiftNow() / 100);
+      dir = e.clientX >= spineX ? 1 : -1;
+      leaf = dir === 1 ? turned : turned - 1;
+      if (leaf < 0 || leaf >= N) leaf = -1;
+      pw = r.width / 2;
+      startX = e.clientX;
+      down = true; moved = false; t0 = performance.now();
+      samples.length = 0; samples.push({ x: e.clientX, t: t0 });
+    });
+    stage.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 6) {
+        moved = true;
+        if (leaf >= 0) {
+          stage.setPointerCapture(e.pointerId);
+          stage.classList.add("is-dragging");
+          dragLeaf = leaf;
+          tw[leaf] = null;
+        }
+      }
+      samples.push({ x: e.clientX, t: performance.now() });
+      if (samples.length > 6) samples.shift();
+      if (moved && leaf >= 0) {
+        const p = clamp((dir === 1 ? -dx : dx) / (pw * 1.2));
+        ang[leaf] = dir === 1 ? 180 * p : 180 - 180 * p;
+        paint();
+      }
+    });
+    const release = (cancel = false) => {
+      if (!down) return;
+      down = false;
+      stage.classList.remove("is-dragging");
+      if (moved && leaf >= 0) {
+        const a = samples[0], b = samples[samples.length - 1];
+        const v = b.t > a.t ? (b.x - a.x) / (b.t - a.t) : 0; // px per ms, positive = rightwards
+        const fwd = dir === 1;
+        const flick = fwd ? v < -0.45 : v > 0.45;
+        const against = fwd ? v > 0.45 : v < -0.45;
+        const past = fwd ? ang[leaf] > 90 : ang[leaf] < 90;
+        const complete = cancel ? false : flick || (!against && past);
+        const to = fwd ? (complete ? 180 : 0) : (complete ? 0 : 180);
+        const dur = 350 + 450 * (Math.abs(to - ang[leaf]) / 180);
+        dragLeaf = -1;
+        flip(leaf, to, dur);
+        sync();
+      } else if (!moved && !cancel) {
+        setTurned(turned + (dir === 1 ? 1 : -1));
+      }
+      leaf = -1;
+    };
+    stage.addEventListener("pointerup", () => release());
+    stage.addEventListener("pointercancel", () => release(true));
+    stage.addEventListener("dragstart", (e) => e.preventDefault());
+
+    // Keyboard, buttons, the "What's inside" list and Enlarge
+    stage.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { e.preventDefault(); setTurned(turned + 1); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); setTurned(turned - 1); }
+      if (e.key === "Home") { e.preventDefault(); setTurned(0); }
+      if (e.key === "End") { e.preventDefault(); setTurned(N); }
+    });
+    prevBtn.addEventListener("click", () => setTurned(turned - 1));
+    nextBtn.addEventListener("click", () => setTurned(turned + 1));
+    document.querySelectorAll<HTMLElement>("[data-spread]").forEach((el) =>
+      el.addEventListener("click", () => {
+        setTurned(Number(el.dataset.spread));
+        const r = stage.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) stage.scrollIntoView({ block: "center", behavior: calm ? "auto" : "smooth" });
+      }),
+    );
+    zoomBtn.addEventListener("click", () => {
+      window.dispatchEvent(new CustomEvent("dz:lightbox", { detail: { items, index: Math.max(turned, 1) - 1, title: root.dataset.name ?? "", opener: zoomBtn } }));
+    });
+
+    // First time it comes into view, the cover lifts a little to show it opens
+    if (!calm) {
+      const io = new IntersectionObserver(
+        (es) => es.forEach((e) => {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          if (turned === 0 && !down) {
+            flip(0, 16, 520, 250);
+            window.setTimeout(() => { if (turned === 0 && !down && tgt[0] === 16) flip(0, 0, 700); }, 1100);
+          }
+        }),
+        { threshold: 0.6 },
+      );
+      io.observe(stage);
+    }
+
+    paint();
+    sync();
+  }
+</script>

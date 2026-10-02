@@ -179,27 +179,35 @@ const schema = [
   const lbProj = dlg.querySelector<HTMLElement>(".dz-lb-proj")!;
   const lbCap = dlg.querySelector<HTMLElement>(".dz-lb-cap")!;
   const lbCount = dlg.querySelector<HTMLElement>(".dz-lb-count")!;
-  let set: HTMLButtonElement[] = [];
+  type Item = { full: string; alt: string; caption: string };
+  let set: Item[] = [];
   let at = 0;
   let opener: HTMLElement | null = null;
   const show = (i: number) => {
     at = (i + set.length) % set.length;
     const b = set[at];
-    lbImg.src = b.dataset.full ?? "";
-    lbImg.alt = b.dataset.alt ?? "";
-    lbCap.textContent = b.dataset.caption ?? "";
+    lbImg.src = b.full;
+    lbImg.alt = b.alt;
+    lbCap.textContent = b.caption;
     lbCount.textContent = `${at + 1} / ${set.length}`;
-    for (const j of [at + 1, at - 1]) { const n = set[(j + set.length) % set.length]; const pre = new Image(); pre.src = n.dataset.full ?? ""; }
+    for (const j of [at + 1, at - 1]) { const pre = new Image(); pre.src = set[(j + set.length) % set.length].full; }
+  };
+  const openBox = (items: Item[], i: number, title: string, from: HTMLElement | null) => {
+    set = items; opener = from;
+    lbProj.textContent = title;
+    show(i);
+    root.classList.add("dz-lock");
+    dlg.showModal();
   };
   document.querySelectorAll<HTMLElement>("[data-board]").forEach((board) => {
     const btns = [...board.querySelectorAll<HTMLButtonElement>(".dz-open")];
-    btns.forEach((b, i) => b.addEventListener("click", () => {
-      set = btns; opener = b;
-      lbProj.textContent = board.querySelector(".dz-name")?.textContent ?? "";
-      show(i);
-      root.classList.add("dz-lock");
-      dlg.showModal();
-    }));
+    const list: Item[] = btns.map((b) => ({ full: b.dataset.full ?? "", alt: b.dataset.alt ?? "", caption: b.dataset.caption ?? "" }));
+    btns.forEach((b, i) => b.addEventListener("click", () => openBox(list, i, board.querySelector(".dz-name")?.textContent ?? "", b)));
+  });
+  // The interactive brand book's Enlarge button reuses the same viewer
+  window.addEventListener("dz:lightbox", (e) => {
+    const d = (e as CustomEvent<{ items: Item[]; index: number; title: string; opener: HTMLElement }>).detail;
+    openBox(d.items, d.index, d.title, d.opener);
   });
   dlg.addEventListener("close", () => { root.classList.remove("dz-lock"); opener?.focus({ preventScroll: true }); });
   dlg.querySelector(".dz-lb-x")!.addEventListener("click", () => dlg.close());

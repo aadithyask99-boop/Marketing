@@ -151,3 +151,11 @@ Story and SEO pattern (per project board and page):
 - Search terms are used naturally in headings and body ("branding for small businesses", "housekeeping brand in London", "waterproofing company branding"), never stuffed.
 - Page `<title>` and description are set around the target terms; the H1 stays the brand headline. JSON-LD: `CollectionPage`, `ItemList` of `CreativeWork` (with `description`, `keywords`, `genre`, `contentLocation` where public), `FAQPage` (`DESIGN_FAQ`) and breadcrumbs.
 - Each story links to `/services#brand-identity` and to the contact form with the service pre-filled.
+
+Interactive brand book (`DesignBook.astro`, in "What's a brand book?"):
+
+- A simulated hardcover that opens by dragging: pure CSS 3D (`perspective`, leaves hinged at the spine with `transform-origin: left`) plus pointer events and a small requestAnimationFrame tween. No library.
+- Content: Magic Personnel's real brand book, one slide per spread, split down the middle across two pages (`BOOK` in `src/data/design.ts`, images in `src/assets/design/book-magic-personnel/`). The cover is a designed approximation.
+- Drag a page edge to turn it; release decides by angle and flick speed. Also: click a page, Previous / Next, arrow keys, Home / End, and an Enlarge button that reuses the lightbox via the `dz:lightbox` event.
+- The "What's inside" list is linked: each item turns the book to its spread (`spread` index in `BRAND_BOOK.inside`), and turning pages highlights the matching item.
+- `touch-action: pan-y` keeps vertical scrolling working on phones. Reduced motion: no peek, instant turns. Tested in Chromium (desktop and mobile emulation); Safari / iOS not tested.
