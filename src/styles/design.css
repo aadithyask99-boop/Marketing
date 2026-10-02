@@ -173,9 +173,9 @@
 .is-pinned .dz-book-shadow { opacity: calc(0.4 + var(--g, 0) * 0.6); }
 
 /* Portrait phones: one page at a time. A window one page wide (.dz-book-turn) slides over the full spread (.dz-book), so the page fills the screen */
-.is-single { --pw: min(calc(100vw - 1.5rem), calc((100svh - 17.3rem) / 1.125)); --ph: calc(var(--pw) * 1.125); }
+.is-single { --pw: min(calc(100vw - 1.5rem), calc((100svh - 20.6rem) / 1.125)); --ph: calc(var(--pw) * 1.125); }
 .dz-intro.is-pinned.is-single { height: 220svh; }
-.is-pinned.is-single .dz-spreads { width: calc(100vw - 2 * var(--gutter)); top: max(3.25rem, calc(50svh - (var(--ph) + 13.9rem) / 2)); }
+.is-pinned.is-single .dz-spreads { width: calc(100vw - 2 * var(--gutter)); top: max(3.25rem, calc(50svh - (var(--ph) + 16.4rem) / 2)); }
 .is-single .dz-book-turn { display: block; position: relative; overflow: hidden; isolation: isolate; transform: translateZ(0); width: var(--pw); height: var(--ph); margin-inline: auto; border-radius: 0.5rem; box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.45); }
 .is-single .dz-book { position: absolute; top: 0; left: calc(var(--pan, 1) * var(--pw) * -1); width: calc(var(--pw) * 2); height: 100%; aspect-ratio: auto; cursor: auto; }
 .is-single .dz-book-shadow { display: none; }
@@ -184,6 +184,13 @@
 .is-single .dz-chapters button { min-height: 0; padding: 0.2rem 0.6rem; font-size: 0.82rem; line-height: 1.1; white-space: normal; text-align: center; text-wrap: balance; }
 .is-single .dz-book-bar { width: var(--pw); margin-inline: auto; }
 body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
+/* A small scroll wheel under the phone book: there is more page below */
+.dz-wheel { display: none; }
+.is-pinned.is-single .dz-wheel { display: block; position: relative; width: 1.4rem; height: 2.15rem; margin: 0.85rem auto 0; border: 1.5px solid rgba(245, 239, 232, 0.65); border-radius: 0.8rem; pointer-events: none; opacity: calc((var(--g, 0) - 0.6) * 2.5); transition: filter 0.3s ease; }
+.is-single .dz-wheel i { position: absolute; left: 50%; top: 0.4rem; width: 0.22rem; height: 0.4rem; margin-left: -0.11rem; border-radius: 999px; background: var(--cream); animation: dz-wheel 1.8s cubic-bezier(0.45, 0, 0.25, 1) infinite; }
+.dz-spreads:has(.is-dragging) .dz-wheel { filter: opacity(0.25); }
+@keyframes dz-wheel { 0% { transform: translateY(0); opacity: 0; } 20% { opacity: 1; } 70% { transform: translateY(0.85rem); opacity: 0; } 100% { transform: translateY(0.85rem); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .is-single .dz-wheel i { animation: none; } }
 
 /* The lightbox sits above the custom cursor, so give it the real one back */
 .dz-lb, .dz-lb * { cursor: auto !important; }
