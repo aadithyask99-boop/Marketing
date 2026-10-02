@@ -1,0 +1,85 @@
+---
+import { DESIGN_PROJECTS, DESIGN_WALL, DESIGN_FAQ, CONTENTS_CTA } from "../data/design";
+import { SITE, url } from "../data/site";
+
+// The page-level map: counts and names come from the data, so adding a project or a piece updates it.
+const pad = (n: number) => String(n).padStart(2, "0");
+const of = (k: "web" | "app" | "social") => DESIGN_WALL.filter((t) => t.kind === k);
+const web = of("web"), app = of("app"), social = of("social");
+const live = app.filter((t) => t.live).length;
+const words = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+const num = (n: number) => words[n] || String(n);
+const rows = [
+  { t: "Brand identity", href: "#brand-identity", s: `${DESIGN_PROJECTS.length} brands: ${DESIGN_PROJECTS.map((p) => p.name).join(", ")}` },
+  { t: "Websites", href: `#${web[0].id}`, s: `${web.length} sites, from wellness to engineering` },
+  { t: "Apps & software", href: `#${app[0].id}`, s: `${app.length} apps${live ? `, ${num(live)} you can try live` : ""}` },
+  { t: "Instagram grids", href: `#${social[0].id}`, s: `${social.length} complete profiles, nothing cropped` },
+  { t: "Questions answered", href: "#faq", s: `${DESIGN_FAQ.length} quick answers` },
+].filter((r) => !r.href.includes("undefined"));
+const contact = `${url("/contact")}?service=${encodeURIComponent("Brand & Identity")}`;
+---
+
+<section class="dz-ct" id="contents" aria-labelledby="ct-title">
+  <div class="dz-ct-in">
+    <header class="dz-ct-head">
+      <p class="dz-kicker">In this portfolio</p>
+      <h2 id="ct-title" class="display dz-h2">What's in the <span class="dz-accent">portfolio</span></h2>
+      <p class="dz-ct-lede">It is a long page, so here is the map. Tap a line to jump to it.</p>
+    </header>
+
+    <div>
+      <ol class="dz-ct-list">
+        {
+          rows.map((r, i) => (
+            <li>
+              <a href={r.href} data-cursor="Go">
+                <span class="dz-ct-n">{pad(i + 1)}</span>
+                <span class="dz-ct-t"><b>{r.t}</b><span class="dz-ct-dots" aria-hidden="true"></span></span>
+                <span class="dz-ct-go" aria-hidden="true">↓</span>
+                <span class="dz-ct-s">{r.s}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="dz-ct-cta">
+        <span class="dz-ct-n" aria-hidden="true">{pad(rows.length + 1)}</span>
+        <div class="dz-ct-cta-body">
+          <p class="dz-ct-cta-q">{CONTENTS_CTA.title}</p>
+          <p class="dz-ct-cta-t">{CONTENTS_CTA.text}</p>
+          <div class="dz-ct-cta-row">
+            <a class="dz-ct-btn" href={contact} data-cursor="Talk">{CONTENTS_CTA.button} <i aria-hidden="true">↗</i></a>
+            <ul class="dz-ct-links">
+              <li><a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+              <li><a href={`mailto:${SITE.email}`}>Email</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Long page, lazy images: after the smooth scroll lands, nudge it if the layout above moved while it travelled
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll<HTMLAnchorElement>(".dz-ct-list a[href^='#']").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const target = document.getElementById(a.getAttribute("href")!.slice(1));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", a.getAttribute("href"));
+      const settle = (n: number) => {
+        const want = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+        const off = target.getBoundingClientRect().top - want;
+        if (Math.abs(off) > 12 && n > 0) {
+          window.scrollTo({ top: window.scrollY + off, behavior: calm ? "auto" : "smooth" });
+          window.setTimeout(() => settle(n - 1), 700);
+        }
+      };
+      window.setTimeout(() => settle(2), calm ? 50 : 1100);
+    });
+  });
+</script>

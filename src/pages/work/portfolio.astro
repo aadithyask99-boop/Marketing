@@ -6,6 +6,7 @@ import DesignStory from "../../components/DesignStory.astro";
 import DesignRail from "../../components/DesignRail.astro";
 import DesignBoard from "../../components/DesignBoard.astro";
 import DesignWall from "../../components/DesignWall.astro";
+import DesignContents from "../../components/DesignContents.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/design.css";
 import { getImage } from "astro:assets";
@@ -62,9 +63,12 @@ const schema = [
   <DesignHero />
   <DesignStory part="intro" />
 
+  <DesignContents />
+
   <div class="dz-body dz-body--brand" id="brand-identity">
     <header class="dz-wallhead">
       <p class="dz-kicker">Logos, identities and brand books</p>
+      <a class="dz-toplink" href="#contents">↑ Contents</a>
       <h2 class="display dz-h2">Brand <span class="dz-accent">identity</span></h2>
       <p class="dz-wall-lede">Four brands, each with the idea behind it, the colours and type, and the mockups.</p>
     </header>
@@ -77,7 +81,6 @@ const schema = [
   </div>
 
   <DesignWall />
-  <DesignStory part="process" />
   <DesignStory part="faq" />
 
   <dialog class="dz-lb" aria-label="Image viewer">
@@ -135,17 +138,6 @@ const schema = [
       { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
     );
     tiles.forEach((t) => io.observe(t));
-  }
-
-  // Process steps light up as they arrive
-  const steps = [...document.querySelectorAll<HTMLElement>("[data-dz-flow] li")];
-  if (calm) steps.forEach((t) => t.classList.add("is-in"));
-  else {
-    const so = new IntersectionObserver(
-      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); so.unobserve(e.target); } }),
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.2 },
-    );
-    steps.forEach((t) => so.observe(t));
   }
 
   // Rails: highlight the item in view and slide the ink pill to it (desktop), or scroll the strip (mobile).

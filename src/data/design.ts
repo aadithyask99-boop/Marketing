@@ -329,14 +329,6 @@ export const BRAND_BOOK = {
   note: "* For illustration only. A full brand book is far more extensive.",
 };
 
-export const DESIGN_STEPS = [
-  { t: "Listen", d: "We learn what you do, who you serve and what you want to be known for.", get: "A short brief" },
-  { t: "Explore", d: "Sketches, symbols and directions, with the thinking behind each one.", get: "Logo routes to react to" },
-  { t: "Shape", d: "One route is refined: mark, colour and type, tested on light, dark and small sizes.", get: "The final logo set" },
-  { t: "Test in the world", d: "We put it on caps, boxes, signs, screens and stationery to see it work for real.", get: "Mockups" },
-  { t: "Hand over", d: "Everything goes into a brand book, so the brand stays consistent after we step away.", get: "Your brand book" },
-];
-
 // PLACEHOLDER: first-draft answers written only from facts on this page. Review before launch.
 export const DESIGN_FAQ = [
   {
@@ -364,6 +356,10 @@ export const DESIGN_FAQ = [
     a: "Yes. We also work on SEO, AI search and websites, so your name, logo and messaging are built to be found as well as remembered.",
   },
 ];
+
+// The page-level contents block before "Brand identity". Counts and names are filled in from the data.
+// PLACEHOLDER: first-draft copy.
+export const CONTENTS_CTA = { title: "Something bespoke?", text: "Tell us what you're after and we'll make it yours.", button: "Start yours" };
 
 // The interactive brand book in "What's a brand book?": Magic Personnel's real brand book.
 // Image spreads are the brand-book slides re-composed onto a two-page grid (the spine sits in whitespace).

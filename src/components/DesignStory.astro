@@ -1,10 +1,10 @@
 ---
 import DesignBook from "./DesignBook.astro";
-import { BRAND_BOOK, BOOK, DESIGN_STEPS, DESIGN_FAQ } from "../data/design";
+import { BRAND_BOOK, BOOK, DESIGN_FAQ } from "../data/design";
 import { url } from "../data/site";
 
 interface Props {
-  part: "intro" | "process" | "faq";
+  part: "intro" | "faq";
 }
 
 const { part } = Astro.props;
@@ -43,36 +43,12 @@ const pad = (n: number) => String(n).padStart(2, "0");
 }
 
 {
-  part === "process" && (
-    <>
-      <section class="dz-process" aria-labelledby="how-title">
-        <div class="dz-wrap">
-          <p class="dz-kicker">Our process</p>
-          <h2 id="how-title" class="display dz-h2">
-            How we <span class="dz-accent">design</span> a brand
-          </h2>
-          <ol class="dz-flow" data-dz-flow>
-            {DESIGN_STEPS.map((s, i) => (
-              <li style={`--i:${i}`}>
-                <span class="dz-node" aria-hidden="true">{i + 1}</span>
-                <h3>{s.t}</h3>
-                <p>{s.d}</p>
-                <p class="dz-get"><span>You get</span>{s.get}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-    </>
-  )
-}
-
-{
   part === "faq" && (
-    <section class="dz-faq" aria-labelledby="dz-faq-title">
+    <section class="dz-faq" id="faq" aria-labelledby="dz-faq-title">
       <div class="dz-wrap dz-faq-grid">
         <div class="dz-faq-side">
           <p class="dz-kicker">Good to know</p>
+          <a class="dz-toplink" href="#contents">↑ Contents</a>
           <h2 id="dz-faq-title" class="display dz-h2">
             Questions <span class="dz-accent">answered</span>
           </h2>
