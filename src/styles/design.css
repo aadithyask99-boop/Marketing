@@ -91,11 +91,10 @@
 .dz-bb:hover:not(:disabled) { background: var(--cream); color: var(--ink); border-color: var(--cream); }
 .dz-bb:disabled { opacity: 0.3; cursor: default; }
 .dz-book-status { flex: 1; margin: 0; min-width: 0; font-size: 0.92rem; font-weight: 600; text-align: center; }
-.dz-book-zoom { flex: none; min-height: 2.75rem; padding: 0.4rem 1.2rem; border: 1.5px solid var(--cream); border-radius: 999px; background: transparent; color: var(--cream); font: 600 0.92rem/1 var(--body); cursor: pointer; transition: background 0.25s ease, color 0.25s ease; }
-.dz-book-zoom:hover { background: var(--cream); color: var(--ink); }
 .dz-book-hint { margin: 0; text-align: center; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.15rem; opacity: 0.7; }
 .dz-book-wrap :focus-visible { outline-color: var(--cream); }
-@media (max-width: 599px) { .dz-book-status { font-size: 0.82rem; } .dz-book-zoom { padding-inline: 0.9rem; } }
+@media (max-width: 599px) { .dz-book-status { font-size: 0.82rem; } }
+.dz-book-turn { display: contents; }
 
 /* Page furniture: page numbers, running footer, paper grain */
 .dz-face::before { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
@@ -172,6 +171,17 @@
 .is-pinned .dz-text--dim, .is-pinned .dz-book-hint, .is-pinned .dz-chapters { display: none; }
 .is-pinned .dz-spreads { position: absolute; left: 50%; top: calc(var(--header-h) + 0.5rem); width: min(calc(100vw - 2 * var(--gutter) - 2rem), calc((100svh - var(--header-h) - 5.25rem) * 1.7778)); max-width: none; margin: 0; padding: 0; transform-origin: 50% 0; transform: translate(-50%, calc((1 - var(--g, 0)) * 58svh)) scale(calc(0.5 + var(--g, 0) * 0.5)); }
 .is-pinned .dz-book-shadow { opacity: calc(0.4 + var(--g, 0) * 0.6); }
+
+/* Portrait phones: the pinned book is turned 90deg so the spread fills the screen (swipe up/down along it to turn pages) */
+.dz-intro.is-pinned.is-rot { height: 220svh; }
+.is-rot { --bw: min(calc(100svh - 10.6rem), calc((100vw - 1.5rem) * 1.7778)); }
+.is-pinned.is-rot .dz-spreads { width: calc(100vw - 2 * var(--gutter)); top: 3.25rem; }
+.is-rot .dz-book-wrap { gap: 0.6rem; }
+.is-rot .dz-book-turn { display: block; position: relative; width: calc(var(--bw) * 0.5625); height: var(--bw); margin-inline: auto; }
+.is-rot .dz-book { position: absolute; left: 50%; top: 50%; width: var(--bw); height: calc(var(--bw) * 0.5625); aspect-ratio: auto; transform: translate(-50%, -50%) rotate(90deg); cursor: auto; }
+.is-rot.is-ready .dz-book { touch-action: none; }
+body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
+.is-pinned.is-rot .dz-chapters { display: flex; margin-top: 0; }
 
 /* The lightbox sits above the custom cursor, so give it the real one back */
 .dz-lb, .dz-lb * { cursor: auto !important; }

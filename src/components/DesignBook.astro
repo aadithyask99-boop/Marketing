@@ -1,25 +1,20 @@
 ---
-import { Image, getImage } from "astro:assets";
+import { Image } from "astro:assets";
 import DesignBookPage from "./DesignBookPage.astro";
 import { BOOK } from "../data/design";
 
 // A simulated brand book: drag the cover or a page edge to turn it. Pure CSS 3D plus pointer events.
 // Leaf 0 is the cover; leaf i shows the right page of spread i on its front and the left page of spread i+1 on its back.
 // The last leaf is a static base page. Image spreads are re-composed brand-book slides; contents and cta spreads are live HTML.
-const spreads = await Promise.all(
-  BOOK.spreads.map(async (s) => ({
-    ...s,
-    full: s.type === "image" ? (await getImage({ src: (s as any).src, width: 2000, format: "webp" })).src : "",
-  })),
-);
+const spreads = BOOK.spreads;
 const N = spreads.length;
 const leaves = Array.from({ length: N + 1 }, (_, i) => i);
-const items = JSON.stringify(spreads.map((s) => (s.type === "image" ? { full: s.full, alt: (s as any).alt, caption: s.title } : null)));
 const titles = JSON.stringify(spreads.map((s) => s.title));
 const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
 ---
 
-<div class="dz-book-wrap" data-book data-count={N} data-items={items} data-titles={titles} data-name={`${BOOK.name} brand book`}>
+<div class="dz-book-wrap" data-book data-count={N} data-titles={titles} data-name={`${BOOK.name} brand book`}>
+  <div class="dz-book-turn">
   <div class="dz-book" role="group" aria-roledescription="book" aria-label={`Interactive ${BOOK.name} brand book. Drag a page to turn it, or use the buttons.`} tabindex="0" data-cursor="Drag">
     <span class="dz-book-shadow" aria-hidden="true"></span>
     <div class="dz-book-in">
@@ -57,6 +52,7 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       <span class="dz-ear" aria-hidden="true"></span>
     </div>
   </div>
+  </div>
 
   <div class="dz-book-bar">
     <button class="dz-bb dz-bb-prev" type="button" aria-label="Previous spread" disabled>
@@ -66,7 +62,6 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     <button class="dz-bb dz-bb-next" type="button" aria-label="Next spread">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
     </button>
-    <button class="dz-book-zoom" type="button" data-cursor="View">Enlarge</button>
   </div>
   <p class="dz-book-hint" data-hint>Drag the cover to open</p>
 </div>
@@ -80,12 +75,14 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     const leaves = [...root.querySelectorAll<HTMLElement>(".dz-leaf")];
     const N = leaves.length - 1; // the last leaf is a static base page
     const titles: string[] = JSON.parse(root.dataset.titles ?? "[]");
-    const items: ({ full: string; alt: string; caption: string } | null)[] = JSON.parse(root.dataset.items ?? "[]");
     const status = root.querySelector<HTMLElement>("[data-status]")!;
     const hint = root.querySelector<HTMLElement>("[data-hint]")!;
     const prevBtn = root.querySelector<HTMLButtonElement>(".dz-bb-prev")!;
     const nextBtn = root.querySelector<HTMLButtonElement>(".dz-bb-next")!;
-    const zoomBtn = root.querySelector<HTMLButtonElement>(".dz-book-zoom")!;
+    const sec = root.closest<HTMLElement>(".dz-intro");
+    // On a portrait phone the pinned book is turned 90deg so the spread fills the screen: the book's long axis is then vertical
+    const rot = () => !!sec?.classList.contains("is-rot");
+    const ready = () => !rot() || !!sec?.classList.contains("is-ready");
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
@@ -154,12 +151,10 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       turned = tgt.filter((t) => t === 180).length;
       root.dataset.turned = String(turned);
       root.toggleAttribute("data-last", turned === N);
-      status.textContent = turned === 0 ? "Closed. Drag the cover to open." : `Spread ${turned} of ${N}: ${titles[turned - 1]}`;
+      status.textContent = turned === 0 ? (rot() ? "Swipe up to open. Tilt your phone to read." : "Closed. Drag the cover to open.") : `Spread ${turned} of ${N}: ${titles[turned - 1]}`;
       hint.textContent = turned === 0 ? "Drag the cover to open" : "Drag a page to turn it";
       prevBtn.disabled = turned === 0;
       nextBtn.disabled = turned === N;
-      // Enlarge only for image spreads; the live pages are already crisp at any size
-      zoomBtn.hidden = turned > 0 && !items[turned - 1];
       // Light up every contents entry for the section on show
       let best = 0;
       for (const l of links) { const v = Number(l.dataset.spread); if (v <= turned && v > best) best = v; }
@@ -188,39 +183,46 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     const tick1 = () => { if (!calm && "vibrate" in navigator) navigator.vibrate(6); };
 
     // Drag a page: the page follows the pointer; release decides by angle and flick speed
-    let down = false, onControl = false, moved = false, startX = 0, dir = 1, leaf = -1, pw = 1, t0 = 0, touch = false;
+    let down = false, onControl = false, moved = false, scrolling = false, lastP = 0, startX = 0, dir = 1, leaf = -1, pw = 1, t0 = 0, touch = false;
     const samples: { x: number; t: number }[] = [];
     const shiftNow = () => parseFloat(stage.style.getPropertyValue("--shift") || "-25");
+    const pos = (e: PointerEvent) => (rot() ? e.clientY : e.clientX);
     stage.addEventListener("pointerdown", (e) => {
       if (e.pointerType === "mouse" && e.button !== 0) return;
+      if (!ready()) return; // the pinned scene is still building: let the page scroll
       claim();
       // Links and buttons on the live pages work on a tap; a drag that starts on one still turns the page
       onControl = !!(e.target as Element).closest("a, button, input");
       settle();
       const r = stage.getBoundingClientRect();
-      const spineX = r.left + r.width * (0.5 + shiftNow() / 100);
-      dir = e.clientX >= spineX ? 1 : -1;
+      const spineX = rot() ? r.top + r.height * (0.5 + shiftNow() / 100) : r.left + r.width * (0.5 + shiftNow() / 100);
+      dir = pos(e) >= spineX ? 1 : -1;
       leaf = dir === 1 ? turned : turned - 1;
       if (leaf < 0 || leaf >= N) leaf = -1;
-      pw = r.width / 2;
-      startX = e.clientX;
+      pw = (rot() ? r.height : r.width) / 2;
+      startX = pos(e);
       touch = e.pointerType !== "mouse";
-      down = true; moved = false; t0 = performance.now();
-      samples.length = 0; samples.push({ x: e.clientX, t: t0 });
+      down = true; moved = false; scrolling = false; t0 = performance.now();
+      samples.length = 0; samples.push({ x: startX, t: t0 });
     });
     stage.addEventListener("pointermove", (e) => {
       if (!down) return;
-      const dx = e.clientX - startX;
+      const x = pos(e);
+      const dx = x - startX;
       if (!moved && Math.abs(dx) > 6) {
         moved = true;
-        if (leaf >= 0) {
+        // A rotated book turns by vertical swipes, so a swipe that cannot turn a page scrolls the page instead
+        const against = dir === 1 ? dx > 0 : dx < 0;
+        if (rot() && touch && (leaf < 0 || against)) { scrolling = true; lastP = x; }
+        else if (leaf >= 0) {
           stage.setPointerCapture(e.pointerId);
           stage.classList.add("is-dragging");
           dragLeaf = leaf;
           tw[leaf] = null;
         }
       }
-      samples.push({ x: e.clientX, t: performance.now() });
+      if (scrolling) { window.scrollBy(0, lastP - x); lastP = x; return; }
+      samples.push({ x, t: performance.now() });
       if (samples.length > 6) samples.shift();
       if (moved && leaf >= 0) {
         const p = clamp((dir === 1 ? -dx : dx) / (pw * 1.2));
@@ -232,7 +234,9 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       if (!down) return;
       down = false;
       stage.classList.remove("is-dragging");
-      if (moved && leaf >= 0) {
+      if (scrolling) {
+        scrolling = false;
+      } else if (moved && leaf >= 0) {
         const a = samples[0], b = samples[samples.length - 1];
         const v = b.t > a.t ? (b.x - a.x) / (b.t - a.t) : 0; // px per ms, positive = rightwards
         const fwd = dir === 1;
@@ -275,7 +279,7 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       stage.addEventListener("pointerleave", () => { tx = 0; ty = 0; if (!tilting) tilting = requestAnimationFrame(lean); });
     }
 
-    // Keyboard, buttons, contents entries and Enlarge
+    // Keyboard, buttons and contents entries
     stage.addEventListener("keydown", (e) => {
       claim();
       if (e.key === "ArrowRight") { e.preventDefault(); setTurned(turned + 1); }
@@ -294,11 +298,6 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
         if (r.bottom < 0 || r.top > window.innerHeight) stage.scrollIntoView({ block: "center", behavior: calm ? "auto" : "smooth" });
       }),
     );
-    zoomBtn.addEventListener("click", () => {
-      const list = items.map((it, i) => ({ it, i })).filter((o) => o.it);
-      const at = Math.max(list.findIndex((o) => o.i === Math.max(turned, 1) - 1), 0);
-      window.dispatchEvent(new CustomEvent("dz:lightbox", { detail: { items: list.map((o) => o.it), index: at, title: root.dataset.name ?? "", opener: zoomBtn } }));
-    });
 
     // First time it comes into view, the cover lifts a little to show it opens
     if (!calm && !document.querySelector(".is-pinned")) {
@@ -316,6 +315,7 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
       io.observe(stage);
     }
 
+    window.addEventListener("dz:mode", sync);
     paint();
     sync();
   }
