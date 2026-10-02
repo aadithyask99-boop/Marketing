@@ -62,9 +62,14 @@ const schema = [
   <DesignHero />
   <DesignStory part="intro" />
 
-  <div class="dz-body">
+  <div class="dz-body dz-body--brand" id="brand-identity">
+    <header class="dz-wallhead">
+      <p class="dz-kicker">Logos, identities and brand books</p>
+      <h2 class="display dz-h2">Brand <span class="dz-accent">identity</span></h2>
+      <p class="dz-wall-lede">Four brands, each with the idea behind it, the colours and type, and the mockups.</p>
+    </header>
     <div class="dz-layout">
-      <DesignRail projects={DESIGN_PROJECTS} />
+      <DesignRail projects={DESIGN_PROJECTS} title="Brand identity" />
       <div class="dz-boards">
         {DESIGN_PROJECTS.map((p, i) => <DesignBoard project={p} index={i} />)}
       </div>

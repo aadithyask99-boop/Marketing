@@ -346,7 +346,7 @@ export const DESIGN_FAQ = [
   },
   {
     q: "Do you design websites and Instagram grids as well?",
-    a: "Yes. The wall further down shows websites and Instagram grids we have designed for small businesses, from wellness and spirits to packaging and consultancy. If you already have a brand we can design the site and the feed to match it; if you don't, we can start with the brand.",
+    a: "Yes. The websites and Instagram grids further down are ones we have designed for small businesses, from wellness and spirits to packaging and consultancy. If you already have a brand we can design the site and the feed to match it; if you don't, we can start with the brand.",
   },
   {
     q: "Can you help people find the brand online too?",

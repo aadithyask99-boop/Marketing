@@ -181,9 +181,11 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 .dz-lb button { cursor: pointer !important; }
 
 /* Websites and Instagram grids: the same rail, with scattered tiles beside it */
+.dz-body--brand { padding-top: clamp(3rem, 7vw, 6rem); }
 .dz-body--wall { padding-top: clamp(2.5rem, 6vw, 5rem); overflow-x: clip; }
 .dz-body--wall::before { content: ""; display: block; max-width: 96rem; height: 1px; margin: 0 auto clamp(2.5rem, 6vw, 5rem); background: rgba(23, 9, 10, 0.14); }
-.dz-wallhead { display: grid; gap: 1rem; max-width: 96rem; margin: 0 auto; }
+.dz-wallhead { display: grid; gap: 1rem; max-width: 96rem; margin: 0 auto 1.5rem; }
+@media (min-width: 900px) { .dz-wallhead { margin-bottom: 0; } }
 .dz-wallhead .dz-kicker, .dz-wallhead .dz-h2 { margin: 0; }
 .dz-wall-lede { margin: 0; max-width: 40rem; font-size: 1.05rem; opacity: 0.85; }
 .dz-rail--wall .dz-i-text small { display: none; }
