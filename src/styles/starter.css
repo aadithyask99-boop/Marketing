@@ -256,6 +256,3 @@
   .st-badge, .st-path, .st-thumb img, .st-pill i, .st-marker, .st-pane, .st-node, .st-pay-line span, .st-pay-node i, .odo-col span, .st-card--photo img, .st-pair span, .st-plan::before, .st-plan::after, .st-q, .st-faq summary svg, .sticky-cta { transition: none; }
   .st-badge.is-wiggle, .st-cue { animation: none; }
 }
-
-/* Colour test: #C8102E for the hero, the closing form and the footer on this page */
-.st-hero, .closer.closer--red, .site-footer.site-footer--red { background: #c8102e; }
