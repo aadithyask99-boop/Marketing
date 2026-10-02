@@ -40,14 +40,8 @@
 .st-badge-price { font-family: var(--display); font-size: clamp(2.1rem, 5vw, 4.25rem); line-height: 0.95; }
 
 /* Hero call to action */
-.st-bar { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: clamp(1.5rem, 3vw, 2.5rem); border-top: 1px solid rgba(245, 239, 232, 0.5); border-bottom: 1px solid rgba(245, 239, 232, 0.5); }
-.st-bar-half { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 1.25rem; padding: 1.5rem 1.25rem; color: var(--cream); transition: background 0.3s ease; }
-.st-bar-half:hover { background: rgba(23, 9, 10, 0.3); }
-.st-bar-text { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
-.st-bar-title { font-size: clamp(1.3rem, 2vw, 1.8rem); font-weight: 600; line-height: 1.15; }
-.st-bar-sub { max-width: 28rem; font-size: 0.95rem; line-height: 1.4; opacity: 0.8; }
-.st-bar-half:hover .st-pill i { background: var(--red); transform: rotate(45deg); }
-@media (max-width: 599px) { .st-bar-half { grid-template-columns: minmax(0, 1fr); padding: 1.1rem 0.25rem; } .st-bar-half .st-pill { justify-self: start; } }
+.st-hero-cta { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
+.st-hero-cta .st-pill:hover i { background: var(--red); transform: rotate(45deg); }
 
 /* 2 and 4. Pinned scenes: a tall outer section holds a sticky full-screen scene while you scroll */
 .st-pin { position: relative; --st-pad: clamp(3.5rem, 7vw, 6.5rem); }
