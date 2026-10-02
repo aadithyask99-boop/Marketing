@@ -257,5 +257,5 @@
   .st-badge.is-wiggle, .st-cue { animation: none; }
 }
 
-/* Colour test: #B32624 for the hero, the closing form and the footer on this page */
-.st-hero, .closer.closer--red, .site-footer.site-footer--red { background: #b32624; }
+/* Colour test: #C41E3A for the hero, the closing form and the footer on this page */
+.st-hero, .closer.closer--red, .site-footer.site-footer--red { background: #c41e3a; }
