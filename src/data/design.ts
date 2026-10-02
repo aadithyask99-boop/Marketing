@@ -284,8 +284,7 @@ export interface WallTile {
   /** Short, anonymous sector label shown under the tile and in the rail. */
   sector: string;
   alt: string;
-  /** Desktop column (0 or 1) and the extra space above the tile in rem, so the wall looks scattered. */
-  col: 0 | 1;
+  /** Extra space above the tile in rem on desktop, so the wall looks scattered. The order is fixed: websites, apps, Instagram grids. */
   top: number;
   /** Tilt in degrees (kept small). */
   rot: number;
@@ -293,8 +292,6 @@ export interface WallTile {
   depth: number;
   /** Instagram profile screens sit to one side of their column. */
   side?: "l" | "r";
-  /** Order in the single-column phone layout, so websites and grids alternate. */
-  mo: number;
   /** A live view that opens only when asked: nothing is loaded until the visitor clicks. */
   live?: { url: string; title: string; mic?: boolean };
   /** A plain link out (opens in a new tab) for work that cannot be shown live. */
@@ -305,17 +302,17 @@ export const WALL_KINDS: Record<WallKind, string> = { web: "Website", app: "App"
 export const WALL_GROUPS: Record<WallKind, string> = { web: "Websites", app: "Apps & software", social: "Instagram grids" };
 
 export const DESIGN_WALL: WallTile[] = [
-  { id: "ig-magic", src: img("wall", "ig-magic"), kind: "social", sector: "Housekeeping", alt: "Complete Instagram profile and grid design for a housekeeping brand, in black, gold and photography", col: 0, top: 0, rot: 1.4, depth: -16, side: "r", mo: 2 },
-  { id: "web-workplace", src: img("wall", "web-workplace"), kind: "web", sector: "Workplace software", alt: "Website homepage design for workplace software: a white serif headline on a glowing orange gradient", col: 0, top: 0, rot: -1.2, depth: 12, mo: 1 },
-  { id: "ig-bakwa", src: img("wall", "ig-bakwa"), kind: "social", sector: "Sustainable packaging", alt: "Complete Instagram profile and grid design for a plastic-free water brand, with green branding and nature imagery", col: 0, top: 0, rot: -1.2, depth: 10, side: "l", mo: 4 },
-  { id: "web-flowergrid", src: img("wall", "web-flowergrid"), kind: "web", sector: "Wellness", alt: "Website homepage design for a wellness centre: a calm portrait in warm light with a wave-shaped cream panel", col: 0, top: 0, rot: 1.1, depth: -10, mo: 7 },
-  { id: "app-luna", src: img("wall", "app-luna"), kind: "app", sector: "Wellness", alt: "Luna, an AI wellness companion chatbot: a friendly flame mascot above a chat box and a few suggested topics, beside a brown side menu", col: 0, top: 0, rot: 1, depth: -8, mo: 5, live: { url: "https://luna.flowergrid.co.uk/", title: "Luna, an AI wellness companion", mic: true } },
-  { id: "web-diagramx", src: img("wall", "web-diagramx"), kind: "web", sector: "Architecture and engineering", alt: "Website homepage design for an architecture and engineering consultancy: three large words over a timber house", col: 0, top: 0, rot: -1, depth: 8, mo: 9 },
-  { id: "web-manavatty", src: img("wall", "web-manavatty"), kind: "web", sector: "Spirits", alt: "Website homepage design for a spirits brand: a bottle in an arched rainforest frame between two serif headlines", col: 1, top: 5, rot: 1.2, depth: -12, mo: 3 },
-  { id: "ig-manavatty", src: img("wall", "ig-manavatty"), kind: "social", sector: "Spirits", alt: "Complete Instagram profile and grid design for a spirits brand: bottles shot in rainforest and studio settings", col: 1, top: 0, rot: 1.3, depth: 14, side: "l", mo: 6 },
-  { id: "app-iaudit", src: img("wall", "app-iaudit"), kind: "app", sector: "ISO audit software", alt: "ISO audit software dashboard: findings and audit status charts, self-assessment and gap analysis scores, and a side menu of audit tools", col: 1, top: 0, rot: -1.1, depth: 10, mo: 10, href: "https://www.iaudit.global/" },
-  { id: "web-bakwa", src: img("wall", "web-bakwa"), kind: "web", sector: "Sustainable packaging", alt: "Website homepage design for a plant-based bottle brand: a tilted green-labelled bottle beside a large headline", col: 1, top: 0, rot: -1, depth: 9, mo: 11 },
-  { id: "ig-flowergrid", src: img("wall", "ig-flowergrid"), kind: "social", sector: "Wellness", alt: "Complete Instagram profile and grid design for a wellness brand mixing warm photography with gold and brown quote posts", col: 1, top: 0, rot: -1.2, depth: -14, side: "r", mo: 8 },
+  { id: "web-workplace", src: img("wall", "web-workplace"), kind: "web", sector: "Workplace software", alt: "Website homepage design for workplace software: a white serif headline on a glowing orange gradient", top: 0, rot: -1.2, depth: 12 },
+  { id: "web-manavatty", src: img("wall", "web-manavatty"), kind: "web", sector: "Spirits", alt: "Website homepage design for a spirits brand: a bottle in an arched rainforest frame between two serif headlines", top: 4, rot: 1.2, depth: -12 },
+  { id: "web-flowergrid", src: img("wall", "web-flowergrid"), kind: "web", sector: "Wellness", alt: "Website homepage design for a wellness centre: a calm portrait in warm light with a wave-shaped cream panel", top: 0, rot: 1.1, depth: -10 },
+  { id: "web-diagramx", src: img("wall", "web-diagramx"), kind: "web", sector: "Architecture and engineering", alt: "Website homepage design for an architecture and engineering consultancy: three large words over a timber house", top: 3, rot: -1, depth: 8 },
+  { id: "web-bakwa", src: img("wall", "web-bakwa"), kind: "web", sector: "Sustainable packaging", alt: "Website homepage design for a plant-based bottle brand: a tilted green-labelled bottle beside a large headline", top: 0, rot: -1, depth: 9 },
+  { id: "app-luna", src: img("wall", "app-luna"), kind: "app", sector: "Wellness", alt: "Luna, an AI wellness companion chatbot: a friendly flame mascot above a chat box and a few suggested topics, beside a brown side menu", top: 0, rot: 1, depth: -8, live: { url: "https://luna.flowergrid.co.uk/", title: "Luna, an AI wellness companion", mic: true } },
+  { id: "app-iaudit", src: img("wall", "app-iaudit"), kind: "app", sector: "ISO audit software", alt: "ISO audit software dashboard: findings and audit status charts, self-assessment and gap analysis scores, and a side menu of audit tools", top: 4, rot: -1.1, depth: 10, href: "https://www.iaudit.global/" },
+  { id: "ig-magic", src: img("wall", "ig-magic"), kind: "social", sector: "Housekeeping", alt: "Complete Instagram profile and grid design for a housekeeping brand, in black, gold and photography", top: 0, rot: 1.4, depth: -16, side: "l" },
+  { id: "ig-manavatty", src: img("wall", "ig-manavatty"), kind: "social", sector: "Spirits", alt: "Complete Instagram profile and grid design for a spirits brand: bottles shot in rainforest and studio settings", top: 4, rot: 1.3, depth: 14, side: "r" },
+  { id: "ig-flowergrid", src: img("wall", "ig-flowergrid"), kind: "social", sector: "Wellness", alt: "Complete Instagram profile and grid design for a wellness brand mixing warm photography with gold and brown quote posts", top: 0, rot: -1.2, depth: -14, side: "l" },
+  { id: "ig-bakwa", src: img("wall", "ig-bakwa"), kind: "social", sector: "Sustainable packaging", alt: "Complete Instagram profile and grid design for a plastic-free water brand, with green branding and nature imagery", top: 3, rot: -1.2, depth: 10, side: "r" },
 ];
 
 export const HERO_STRIP = ["Logos", "Identities", "Brand books", "Mascots", "Packaging", "Websites", "Apps", "Instagram grids", "Mockups"];

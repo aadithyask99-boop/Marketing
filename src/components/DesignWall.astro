@@ -18,7 +18,7 @@ const groups = kinds.map((k) => ({
   label: WALL_GROUPS[k],
   items: tiles.filter((t) => t.kind === k).map((t) => ({ slug: t.id, name: t.sector, small: WALL_KINDS[t.kind], thumb: t.thumb })),
 }));
-const cols = [0, 1].map((c) => tiles.filter((t) => t.col === c));
+const ordered = kinds.flatMap((k) => tiles.filter((t) => t.kind === k));
 ---
 
 <section class="dz-body dz-body--wall" id="more-work" aria-labelledby="wall-title" data-dz-wall>
@@ -31,12 +31,12 @@ const cols = [0, 1].map((c) => tiles.filter((t) => t.col === c));
   <div class="dz-layout" data-dz-layout>
     <DesignRail groups={groups} title="Digital & social" noun="pieces" label="Websites, apps and Instagram grids on this page" contact={false} class="dz-rail--wall" />
 
-    <div class="dz-wt-grid">
+    <ul class="dz-wt-grid">
       {
-        cols.map((col, c) => (
-          <ul class="dz-wt-col" style={c === 1 ? `--col-top:5rem` : undefined}>
-            {col.map((t) => (
-              <li id={t.id} class={`dz-wt dz-wt--${t.kind === "social" ? "social" : "web"}`} data-spy-target data-kind={t.kind} data-depth={t.depth} data-side={t.side} style={`--rot:${t.rot}deg;--mo:${t.mo}`}>
+        ordered.map((t, i) => (
+          <>
+            {i > 0 && t.kind !== ordered[i - 1].kind && <li class="dz-wt-gap" aria-hidden="true"></li>}
+            <li id={t.id} class={`dz-wt dz-wt--${t.kind === "social" ? "social" : "web"} ${i === 0 || t.kind !== ordered[i - 1].kind ? "is-first" : ""}`} data-spy-target data-kind={t.kind} data-depth={t.depth} data-side={t.side} style={`--rot:${t.rot}deg;--top:${t.top}rem`}>
                 <button class="dz-wt-open" type="button" data-full={t.full} data-alt={t.alt} data-caption={t.label} data-tall={t.ratio < 0.5 ? "1" : undefined} data-cursor="View" aria-label={`View larger: ${t.label}`}>
                   <span class={`dz-wt-frame ${t.kind === "social" ? "is-profile" : ""}`}>
                     {t.kind !== "social" && <span class="dz-wt-bar" aria-hidden="true"><i></i><i></i><i></i></span>}
@@ -55,10 +55,9 @@ const cols = [0, 1].map((c) => tiles.filter((t) => t.col === c));
                   </a>
                 )}
               </li>
-            ))}
-          </ul>
+          </>
         ))
       }
-    </div>
+    </ul>
   </div>
 </section>
