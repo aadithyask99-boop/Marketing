@@ -1,0 +1,44 @@
+---
+import { DESIGN_KINDS, type DesignProject, type DesignKind } from "../data/design";
+import { url } from "../data/site";
+
+interface Props {
+  projects: DesignProject[];
+}
+
+const { projects } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+const kinds = (Object.keys(DESIGN_KINDS) as DesignKind[]).filter((k) => projects.some((p) => p.kind === k));
+let n = 0;
+const groups = kinds.map((k) => ({ k, label: DESIGN_KINDS[k], items: projects.filter((p) => p.kind === k).map((p) => ({ p, n: n++ })) }));
+---
+
+<aside class="dz-rail" data-rail>
+  <div class="dz-rail-in">
+    <p class="dz-rail-title">Design work</p>
+    <nav class="dz-nav" aria-label="Projects on this page">
+      <span class="dz-marker" aria-hidden="true"></span>
+      <ol class="dz-index">
+        {
+          groups.map((g) => (
+            <>
+              <li class="dz-kind" aria-hidden="true">{g.label}</li>
+              {g.items.map(({ p, n }) => (
+                <li>
+                  <a href={`#${p.slug}`} data-spy={p.slug}>
+                    <span class="dz-i-n">{pad(n + 1)}</span>
+                    <span class="dz-i-name">{p.name}</span>
+                  </a>
+                </li>
+              ))}
+            </>
+          ))
+        }
+      </ol>
+    </nav>
+    <a class="dz-cta" href={`${url("/contact")}?service=${encodeURIComponent("Brand & Identity")}`} data-cursor="Talk">
+      Start your brand <i aria-hidden="true">↗</i>
+    </a>
+    <p class="dz-hint">Tap any tile to see it larger.</p>
+  </div>
+</aside>

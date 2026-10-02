@@ -21,7 +21,7 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
       <span class="nav-hl" aria-hidden="true"></span>
       {
         links.map((item) => (
-          <a href={url(item.href)} aria-current={path === item.href ? "page" : undefined}>
+          <a href={url(item.href)} aria-current={path === item.href || path.startsWith(`${item.href}/`) ? "page" : undefined}>
             {item.label}
           </a>
         ))

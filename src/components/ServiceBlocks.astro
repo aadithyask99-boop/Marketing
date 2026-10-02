@@ -59,6 +59,11 @@ const blocks = CATEGORIES.map((c, i) => ({ c, i, list: SERVICES.filter((s) => s.
                       <a class="svc-cta" href={`${url("/contact")}?service=${encodeURIComponent(s.name)}`} data-cursor="Talk">
                         Talk to us about this <span aria-hidden="true">↗</span>
                       </a>
+                      {s.slug === "brand-identity" && (
+                        <a class="svc-cta svc-cta--alt" href={url("/work/design")} data-cursor="View">
+                          See our design work <span aria-hidden="true">↗</span>
+                        </a>
+                      )}
                     </div>
                   </div>
                 </li>

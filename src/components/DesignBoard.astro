@@ -1,0 +1,75 @@
+---
+import { Image, getImage } from "astro:assets";
+import type { DesignProject } from "../data/design";
+import { DESIGN_KINDS } from "../data/design";
+
+interface Props {
+  project: DesignProject;
+  index: number;
+}
+
+const { project: p, index } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+const tiles = await Promise.all(
+  p.tiles.map(async (t) => ({ ...t, full: (await getImage({ src: t.src, width: 1600, format: "webp" })).src, ratio: t.src.width / t.src.height })),
+);
+---
+
+<section class="dz-board" id={p.slug} data-board aria-labelledby={`${p.slug}-title`} style={`--tint:${p.tint}`}>
+  <header class="dz-bhead">
+    <div class="dz-bmain">
+      <p class="dz-num" aria-hidden="true">{pad(index + 1)}</p>
+      <h2 id={`${p.slug}-title`} class="display dz-name">{p.name}</h2>
+      <p class="dz-tagline">{p.tagline}</p>
+      <ul class="dz-tags" aria-label="Disciplines">
+        <li>{DESIGN_KINDS[p.kind]}</li>
+        {p.tags.map((t) => <li>{t}</li>)}
+      </ul>
+      <p class="dz-brief">{p.brief}</p>
+    </div>
+
+    <div class="dz-meta">
+      <div>
+        <h3 class="dz-label">What we made</h3>
+        <ul class="dz-made">{p.made.map((m) => <li>{m}</li>)}</ul>
+      </div>
+      <div>
+        <h3 class="dz-label">Palette</h3>
+        <ul class="dz-pal">
+          {
+            p.palette.map((s) => (
+              <li>
+                <span class="dz-sw" style={`--c:${s.color}`} aria-hidden="true"></span>
+                <span class="dz-pal-name">{s.name}</span>
+                {s.hex && <code>{s.hex}</code>}
+              </li>
+            ))
+          }
+        </ul>
+        <h3 class="dz-label dz-label--gap">Type</h3>
+        <p class="dz-type">{p.type.join(" · ")}</p>
+      </div>
+    </div>
+  </header>
+
+  <ul class="dz-grid">
+    {
+      tiles.map((t, i) => (
+        <li class={`dz-tile ${t.ratio < 1 ? "is-tall" : ""}`} style={`--w:${t.w};--r:${t.ratio.toFixed(3)}`}>
+          <button
+            class="dz-open"
+            type="button"
+            data-full={t.full}
+            data-alt={t.alt}
+            data-caption={t.caption}
+            data-cursor="View"
+            aria-label={`View larger: ${p.name}, ${t.caption}`}
+          >
+            <Image src={t.src} alt={t.alt} widths={[480, 800, 1200]} sizes="(min-width: 900px) 60vw, 92vw" loading={index === 0 && i < 2 ? "eager" : "lazy"} decoding="async" />
+            <span class="dz-cap" aria-hidden="true">{t.caption}</span>
+          </button>
+        </li>
+      ))
+    }
+  </ul>
+</section>

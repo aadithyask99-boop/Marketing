@@ -10,6 +10,7 @@ const items = WORK.slice(0, 3);
   <svg class="featured-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z"></path></svg>
   <h2 id="featured-title" class="display featured-title">Featured work</h2>
   <p class="featured-note">Placeholder projects. Replace with real case studies.</p>
+  <a class="featured-more" href={url("/work/design")} data-cursor="View">See our design work <span aria-hidden="true">↗</span></a>
   <ul class="featured-grid">
     {
       items.map((w, i) => (

@@ -126,3 +126,13 @@ A campaign landing page built on the same system with a few deliberate differenc
 - `.card--blue` is not blue (it is ink). Legacy class name.
 - Text over red needs cream, not ink, for contrast on small sizes.
 - The 900px breakpoint drives pinning, sticky sidebars and the nav. Test just below and above it.
+
+## 11. Portfolio pattern: `/work/design`
+
+For showcasing client work (brand boards, Instagram grids, web designs) on one page, without a page per project:
+
+- Red `.page-hero`, then a **cream body** with a **sticky left rail** (`DesignRail`) and one **board per project** (`DesignBoard`). Styles in `src/styles/design.css` (`dz-` prefix).
+- Rail sticks at `top: calc(var(--header-h) + 1rem)` from 900px up, with a scroll-spy marker. Under 900px it becomes a sticky pill strip at the top.
+- Each board: number, Bebas name, Instrument Serif tagline, tags, brief, "what we made", palette (hex only when the client's brand book states it) and type, then a **scattered gallery**: 12-column grid, per-tile widths (`w`), uneven tops, hover tilt, "View" cursor label. Tiles open a native `<dialog>` lightbox (prev/next, Esc, swipe, focus return).
+- Content lives in `src/data/design.ts`; images in `src/assets/design/<slug>/*.webp` (about 1600px wide, under 100KB). Add a project (or `kind: "social"` / `"web"`) and it appears in the rail automatically.
+- Do not publish contact details printed in client brand books.

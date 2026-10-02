@@ -1,0 +1,180 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ClosingCta from "../../components/ClosingCta.astro";
+import DesignRail from "../../components/DesignRail.astro";
+import DesignBoard from "../../components/DesignBoard.astro";
+import "@fontsource/instrument-serif/400-italic.css";
+import "../../styles/design.css";
+import { getImage } from "astro:assets";
+import { DESIGN_PROJECTS } from "../../data/design";
+import { webPage, breadcrumbs } from "../../lib/schema";
+
+const o = Astro.site!.origin;
+const desc = "Logos, brand identities, mascots and brand books designed by Maximus Mediascape for Magic Personnel, UltraSeal Waterproofing and Flower Grid.";
+const items = await Promise.all(
+  DESIGN_PROJECTS.map(async (p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "CreativeWork",
+      name: p.name,
+      description: p.brief,
+      url: `${o}/work/design#${p.slug}`,
+      image: new URL((await getImage({ src: p.tiles[0].src, width: 1200, format: "webp" })).src, o).href,
+      creator: { "@id": `${o}/#organization` },
+    },
+  })),
+);
+const schema = [
+  webPage(o, "/work/design", "CollectionPage", "Design work", desc),
+  { "@context": "https://schema.org", "@type": "ItemList", name: "Design work", itemListElement: items },
+  breadcrumbs(o, [{ name: "Work", path: "/work" }, { name: "Design", path: "/work/design" }]),
+];
+---
+
+<BaseLayout schema={schema} title="Design work" description={desc}>
+  <section class="dz-hero section page-top page-hero">
+    <p class="eyebrow">Work</p>
+    <h1 class="display dz-title">
+      <span data-xray>Brands &amp; design</span> <span class="dz-accent" data-xray>we've made</span>
+    </h1>
+    <p class="lede">Logos, identities, mascots and the brand books behind them. Social grids and websites join as we go.</p>
+    <ul class="dz-jump" aria-label="Jump to a project">
+      {DESIGN_PROJECTS.map((p) => <li><a href={`#${p.slug}`} data-cursor="Go">{p.name} <span aria-hidden="true">↓</span></a></li>)}
+    </ul>
+  </section>
+
+  <div class="dz-body">
+    <div class="dz-layout">
+      <DesignRail projects={DESIGN_PROJECTS} />
+      <div class="dz-boards">
+        {DESIGN_PROJECTS.map((p, i) => <DesignBoard project={p} index={i} />)}
+      </div>
+    </div>
+  </div>
+
+  <dialog class="dz-lb" aria-label="Image viewer">
+    <button class="dz-lb-x" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+    <button class="dz-lb-nav dz-lb-prev" type="button" aria-label="Previous image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <button class="dz-lb-nav dz-lb-next" type="button" aria-label="Next image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </button>
+    <figure class="dz-lb-fig">
+      <img class="dz-lb-img" alt="" />
+      <figcaption><b class="dz-lb-proj"></b><span class="dz-lb-cap"></span><span class="dz-lb-count"></span></figcaption>
+    </figure>
+  </dialog>
+
+  <ClosingCta service="Brand & Identity" />
+</BaseLayout>
+
+<script>
+  import { initXray } from "../../scripts/xray";
+  initXray(document.querySelector(".dz-title"), 12);
+
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const root = document.documentElement;
+  root.classList.add("js-dz");
+
+  // Tiles fade up as they arrive
+  const tiles = [...document.querySelectorAll<HTMLElement>(".dz-tile")];
+  if (calm) tiles.forEach((t) => t.classList.add("is-in"));
+  else {
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }),
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+    );
+    tiles.forEach((t) => io.observe(t));
+  }
+
+  // Rail: highlight the project in view and slide the marker to it (desktop), or scroll the strip (mobile)
+  const rail = document.querySelector<HTMLElement>("[data-rail]");
+  const boards = [...document.querySelectorAll<HTMLElement>("[data-board]")];
+  if (rail && boards.length) {
+    const links = [...rail.querySelectorAll<HTMLAnchorElement>("a[data-spy]")];
+    const marker = rail.querySelector<HTMLElement>(".dz-marker")!;
+    const nav = rail.querySelector<HTMLElement>(".dz-nav")!;
+    const list = rail.querySelector<HTMLElement>(".dz-index")!;
+    const strip = () => window.matchMedia("(max-width: 899px)").matches;
+    let current = "";
+    const mark = (slug: string) => {
+      const a = links.find((l) => l.dataset.spy === slug);
+      if (!a) return;
+      links.forEach((l) => (l === a ? l.setAttribute("aria-current", "location") : l.removeAttribute("aria-current")));
+      if (strip()) {
+        list.scrollTo({ left: a.offsetLeft - (list.clientWidth - a.offsetWidth) / 2, behavior: calm ? "auto" : "smooth" });
+      } else {
+        const li = a.parentElement as HTMLElement;
+        marker.style.height = `${li.offsetHeight}px`;
+        marker.style.transform = `translateY(${li.offsetTop}px)`;
+        marker.style.opacity = "1";
+      }
+    };
+    const pick = () => {
+      // The board whose top has passed 40% of the viewport is the current one
+      const line = window.innerHeight * 0.4;
+      let slug = boards[0].id;
+      for (const b of boards) if (b.getBoundingClientRect().top <= line) slug = b.id;
+      const first = boards[0].getBoundingClientRect().top;
+      if (first > line) { current = ""; links.forEach((l) => l.removeAttribute("aria-current")); marker.style.opacity = "0"; return; }
+      if (slug !== current) { current = slug; mark(slug); }
+    };
+    let ticking = false;
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; pick(); }); } }, { passive: true });
+    window.addEventListener("resize", () => { const c = current; current = ""; pick(); if (!current && c) current = ""; });
+    document.fonts?.ready.then(() => { current = ""; pick(); });
+    pick();
+    void nav;
+  }
+
+  // Lightbox: previous and next stay within the project that was opened
+  const dlg = document.querySelector<HTMLDialogElement>(".dz-lb")!;
+  const lbImg = dlg.querySelector<HTMLImageElement>(".dz-lb-img")!;
+  const lbProj = dlg.querySelector<HTMLElement>(".dz-lb-proj")!;
+  const lbCap = dlg.querySelector<HTMLElement>(".dz-lb-cap")!;
+  const lbCount = dlg.querySelector<HTMLElement>(".dz-lb-count")!;
+  let set: HTMLButtonElement[] = [];
+  let at = 0;
+  let opener: HTMLElement | null = null;
+  const show = (i: number) => {
+    at = (i + set.length) % set.length;
+    const b = set[at];
+    lbImg.src = b.dataset.full ?? "";
+    lbImg.alt = b.dataset.alt ?? "";
+    lbCap.textContent = b.dataset.caption ?? "";
+    lbCount.textContent = `${at + 1} / ${set.length}`;
+    for (const j of [at + 1, at - 1]) { const n = set[(j + set.length) % set.length]; const pre = new Image(); pre.src = n.dataset.full ?? ""; }
+  };
+  document.querySelectorAll<HTMLElement>("[data-board]").forEach((board) => {
+    const btns = [...board.querySelectorAll<HTMLButtonElement>(".dz-open")];
+    btns.forEach((b, i) => b.addEventListener("click", () => {
+      set = btns; opener = b;
+      lbProj.textContent = board.querySelector(".dz-name")?.textContent ?? "";
+      show(i);
+      root.classList.add("dz-lock");
+      dlg.showModal();
+    }));
+  });
+  dlg.addEventListener("close", () => { root.classList.remove("dz-lock"); opener?.focus({ preventScroll: true }); });
+  dlg.querySelector(".dz-lb-x")!.addEventListener("click", () => dlg.close());
+  dlg.querySelector(".dz-lb-prev")!.addEventListener("click", () => show(at - 1));
+  dlg.querySelector(".dz-lb-next")!.addEventListener("click", () => show(at + 1));
+  // A click on the dark backdrop closes it
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
+  });
+  // Swipe on touch screens
+  let sx = 0, sy = 0;
+  dlg.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; });
+  dlg.addEventListener("pointerup", (e) => {
+    if (e.pointerType === "mouse") return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) show(at + (dx < 0 ? 1 : -1));
+  });
+</script>

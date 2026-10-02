@@ -11,7 +11,7 @@ const path = Astro.url.pathname.slice(basePath.length).replace(/\/$/, "") || "/"
       {
         NAV.map((item, i) => (
           <li style={`--i:${i}`}>
-            <a href={url(item.href)} aria-current={path === item.href ? "page" : undefined}>
+            <a href={url(item.href)} aria-current={path === item.href || (item.href !== "/" && path.startsWith(`${item.href}/`)) ? "page" : undefined}>
               <span>{item.label}</span>
               <span class="menu-go" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg>
