@@ -6,7 +6,7 @@ import DesignStory from "../../components/DesignStory.astro";
 import DesignRail from "../../components/DesignRail.astro";
 import DesignBoard from "../../components/DesignBoard.astro";
 import DesignWall from "../../components/DesignWall.astro";
-import DesignContents from "../../components/DesignContents.astro";
+import DesignPageNav from "../../components/DesignPageNav.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/design.css";
 import { getImage } from "astro:assets";
@@ -63,12 +63,9 @@ const schema = [
   <DesignHero />
   <DesignStory part="intro" />
 
-  <DesignContents />
-
   <div class="dz-body dz-body--brand" id="brand-identity">
     <header class="dz-wallhead">
       <p class="dz-kicker">Logos, identities and brand books</p>
-      <a class="dz-toplink" href="#contents">↑ Contents</a>
       <h2 class="display dz-h2">Brand <span class="dz-accent">identity</span></h2>
       <p class="dz-wall-lede">Four brands, each with the idea behind it, the colours and type, and the mockups.</p>
     </header>
@@ -117,6 +114,8 @@ const schema = [
       <p class="dz-live-note">This is the live product. Please don't enter personal information.</p>
     </div>
   </dialog>
+
+  <DesignPageNav />
 
   <ClosingCta service="Brand & Identity" />
 </BaseLayout>

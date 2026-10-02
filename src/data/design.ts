@@ -357,10 +357,6 @@ export const DESIGN_FAQ = [
   },
 ];
 
-// The page-level contents block before "Brand identity". Counts and names are filled in from the data.
-// PLACEHOLDER: first-draft copy.
-export const CONTENTS_CTA = { title: "Something bespoke?", text: "Tell us what you're after and we'll make it yours.", button: "Start yours" };
-
 // The interactive brand book in "What's a brand book?": Magic Personnel's real brand book.
 // Image spreads are the brand-book slides re-composed onto a two-page grid (the spine sits in whitespace).
 // "contents" and "cta" spreads are live HTML. Page numbers run 2 per spread (spread 1 = pages 01-02).

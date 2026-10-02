@@ -1,0 +1,118 @@
+---
+import { DESIGN_WALL } from "../data/design";
+import { SITE, url } from "../data/site";
+
+// Desktop only. In the portfolio this bar takes over from the site header when the header slides away on scroll down,
+// and hands back the moment the header returns on scroll up. It is built from the header's own classes so it looks the same.
+const first = (k: "web" | "app" | "social") => DESIGN_WALL.find((t) => t.kind === k)?.id;
+const links = [
+  { label: "Brand identity", id: "brand-identity", kind: "brand" },
+  { label: "Websites", id: first("web"), kind: "web" },
+  { label: "Apps & software", id: first("app"), kind: "app" },
+  { label: "Instagram grids", id: first("social"), kind: "social" },
+  { label: "Questions", id: "faq", kind: "faq" },
+].filter((l) => l.id);
+---
+
+<header class="site-header page-nav is-glass is-hidden" data-page-nav aria-hidden="true" inert>
+  <div class="nav-pill">
+    <a class="logo" href={url("/")} aria-label={`${SITE.name} home`} data-cursor="to home">
+      <span class="logo-m" aria-hidden="true" style={`--logo:url(${url("/logo-m.png")});--logo-ink:url(${url("/logo-m-ink.png")})`}></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Portfolio sections">
+      <span class="nav-hl" aria-hidden="true"></span>
+      {links.map((l) => <a href={`#${l.id}`} data-kind={l.kind}>{l.label}</a>)}
+    </nav>
+
+    <div class="nav-actions">
+      <a class="nav-cta" href={url("/contact")}>
+        Talk to us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const bar = document.querySelector<HTMLElement>("[data-page-nav]");
+  const real = document.querySelector<HTMLElement>("header.site-header:not(.page-nav)");
+  const brand = document.getElementById("brand-identity");
+  const wall = document.getElementById("more-work");
+  const faq = document.getElementById("faq");
+  if (bar && real && brand && wall && faq) {
+    const desktop = window.matchMedia("(min-width: 900px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const anchors = [...bar.querySelectorAll<HTMLAnchorElement>(".nav-links a")];
+    const hl = bar.querySelector<HTMLElement>(".nav-hl")!;
+    const wrap = bar.querySelector<HTMLElement>(".nav-links")!;
+    let shown = false;
+    let current: HTMLAnchorElement | null = null;
+    let lock: { kind: string; until: number } | null = null; // after a click, keep the clicked link lit while the page travels there
+
+    const place = (a: HTMLAnchorElement | null) => {
+      if (!a) { hl.style.opacity = "0"; return; }
+      const r = a.getBoundingClientRect(), w = wrap.getBoundingClientRect();
+      hl.style.width = `${r.width}px`;
+      hl.style.transform = `translate(${r.left - w.left}px, -50%)`;
+      hl.style.opacity = "1";
+    };
+    const pick = () => {
+      const line = window.innerHeight * 0.4;
+      let kind = "brand";
+      if (faq.getBoundingClientRect().top <= line) kind = "faq";
+      else if (wall.getBoundingClientRect().top <= line) {
+        const slug = document.querySelector<HTMLElement>(".dz-rail--wall a[aria-current]")?.dataset.spy;
+        kind = (slug && document.getElementById(slug)?.dataset.kind) || "web";
+      }
+      if (lock && Date.now() < lock.until) kind = lock.kind;
+      const a = anchors.find((x) => x.dataset.kind === kind) ?? null;
+      if (a !== current) {
+        current = a;
+        anchors.forEach((x) => (x === a ? x.setAttribute("aria-current", "location") : x.removeAttribute("aria-current")));
+        place(a);
+      }
+    };
+    const sync = () => {
+      const inRegion = brand.getBoundingClientRect().top < 120 && faq.getBoundingClientRect().bottom > 160;
+      const on = desktop.matches && inRegion && real.classList.contains("is-hidden");
+      if (on !== shown) {
+        shown = on;
+        bar.classList.toggle("is-hidden", !on);
+        bar.toggleAttribute("inert", !on);
+        bar.setAttribute("aria-hidden", String(!on));
+        if (on) { current = null; pick(); }
+      }
+      if (on) pick();
+    };
+    let ticking = false;
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; sync(); }); } }, { passive: true });
+    window.addEventListener("resize", () => { current = null; sync(); });
+    new MutationObserver(sync).observe(real, { attributes: true, attributeFilter: ["class"] });
+    document.fonts?.ready.then(() => { current = null; sync(); });
+
+    // Jump to a section; if lazy images shift the layout on the way, nudge it onto the mark
+    anchors.forEach((a) =>
+      a.addEventListener("click", (e) => {
+        const target = document.getElementById(a.getAttribute("href")!.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        lock = { kind: a.dataset.kind!, until: Date.now() + 2600 };
+        current = null;
+        pick();
+        target.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+        history.replaceState(null, "", a.getAttribute("href"));
+        const settle = (n: number) => {
+          const want = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+          const off = target.getBoundingClientRect().top - want;
+          if (Math.abs(off) > 12 && n > 0) {
+            window.scrollTo({ top: window.scrollY + off, behavior: calm ? "auto" : "smooth" });
+            window.setTimeout(() => settle(n - 1), 700);
+          }
+        };
+        window.setTimeout(() => settle(2), calm ? 50 : 1100);
+      }),
+    );
+    sync();
+  }
+</script>
