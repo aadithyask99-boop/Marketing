@@ -2,8 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import StickyCta from "../components/StickyCta.astro";
-import "@fontsource/instrument-serif/400-italic.css";
 import "../styles/starter.css";
+import { Image } from "astro:assets";
+import photo from "../assets/blog/croydon-wellness-ai-search.jpg";
 import { url } from "../data/site";
 import { webPage, breadcrumbs } from "../lib/schema";
 
@@ -30,18 +31,14 @@ const extra = [
   ["Business email set-up*", "An address on your own domain, such as hello@yourbusiness.co.uk."],
   ["Legal pages and cookie notice", "Privacy, Terms and a cookie notice done for you."],
 ];
-const pains = [
-  ["Customers can't find you", "You're not showing up when people nearby search for what you do."],
-  ["Your site is slow on phones", "Most local searches happen on mobile, and slow sites lose them."],
-  ["You're not sure where to start", "Too many opinions, no clear plan, and no one to hand it all over to."],
-];
 const steps = [
-  ["Weeks 1 to 2", "Analysis and strategy", "We study your market and competitors and agree the plan."],
-  ["Weeks 3 to 4", "Design", "You see the look and layout and tell us what to change."],
-  ["Weeks 5 to 7", "Build", "We develop, connect your local SEO set-up and test everything."],
-  ["Week 8", "Launch and training", "Go live, then a handover call with a recorded walkthrough."],
-  ["Next 90 days", "Your growth plan", "You follow the 90-day plan, with 30 days of support from us."],
+  ["Weeks 1 to 2", "Analysis and strategy", "We study your market and competitors and agree the plan.", "A one-page market and competitor snapshot"],
+  ["Weeks 3 to 4", "Design", "You see the look and layout and tell us what to change.", "Design mock-ups to review"],
+  ["Weeks 5 to 7", "Build", "We develop, connect your local SEO set-up and test everything.", "A tested, mobile-ready site"],
+  ["Week 8", "Launch and training", "Go live, then a handover call.", "Your live site and a recorded walkthrough"],
+  ["Next 90 days", "Your growth plan", "You follow the plan, with 30 days of support from us.", "Your 90-day plan and support"],
 ];
+const statement = "Most local customers search on their phone. If your website is slow, hard to find or doesn't say clearly what you do, they move on to someone who does. We fix that in two months, with a site built to be found nearby and a plan for what comes next.".split(" ");
 const faq = [
   { q: "How much does it cost?", a: "The Starter package is £999 as a one-time fee, with 50% to start and 50% on launch. Domain, hosting and business email have separate running costs charged by the provider." },
   { q: "How long does it take?", a: "About two months from kick-off to launch. Timelines depend on how quickly we can get your content and feedback, and can extend for bigger requirements." },
@@ -79,138 +76,286 @@ const schema = [
   title="Starter website from £999"
   description="A fast, mobile-friendly, local-SEO-ready website from £999. Market analysis, strategy, bespoke build, a 90-day plan and training, delivered in about 2 months."
   schema={schema}
+  footerTone="red"
   landing
 >
   <section class="st-hero page-top page-hero" data-hero>
-    <p class="eyebrow">Starter website · one-time</p>
-    <h1 class="display st-title"><span data-xray>A fast, local-SEO-ready</span> <span class="st-accent" data-xray>website.</span></h1>
-    <p class="lede">Launch your online presence on a solid foundation. We analyse your market, then design and build a fast, mobile-friendly website made to be found locally.</p>
-    <ul class="st-chips" aria-label="Highlights">
-      <li>Delivered in about 2 months</li>
-      <li>One-time fee</li>
-      <li>You own it</li>
-    </ul>
+    <h1 class="display st-title" data-xray>A fast, local-SEO-ready website.</h1>
+    <p class="lede">Launch your online presence on a solid foundation. We analyse your market, then design and build a fast, mobile-friendly website made to be found locally. One-time fee, about two months, and you own it.</p>
     <div class="st-actions">
-      <a class="st-btn st-btn--solid" href="#start" data-preset={START} data-cursor="Go">Get started <span aria-hidden="true">↗</span></a>
+      <a class="st-btn st-btn--solid" href="#start" data-preset={START} data-cursor="Go" data-magnet>Get started <span aria-hidden="true">↗</span></a>
       <a class="st-btn st-btn--ghost" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
     </div>
-    <a class="st-badge" href="#price" aria-label="From £999, see the price">
+    <a class="st-badge" href="#price" aria-label="From £999, see the price" data-badge>
       <span class="st-badge-from">From</span>
       <span class="st-badge-price">£999</span>
       <span class="st-badge-note">one-time</span>
     </a>
   </section>
 
-  <section class="st-section st-section--cream" aria-labelledby="pain-title">
-    <h2 id="pain-title" class="display st-h2">Sound <em>familiar?</em></h2>
-    <ul class="st-pains">
-      {pains.map(([t, d], i) => <li style={`--i:${i}`}><h3>{t}</h3><p>{d}</p></li>)}
-    </ul>
+  <section class="st-split-sec st-cream" aria-label="Why it matters">
+    <p class="st-label">Why it matters</p>
+    <p class="st-statement" data-statement>
+      {statement.map((w) => <><span class="sw">{w}</span>{" "}</>)}
+    </p>
   </section>
 
-  <section class="st-section st-section--ink" id="included" aria-labelledby="inc-title">
-    <h2 id="inc-title" class="display st-h2">What's <em>included</em></h2>
-    <p class="st-sub">The foundation every business needs, then the extras that make it work harder.</p>
-    <h3 class="st-group">The core build</h3>
-    <ul class="st-cards">
-      {core.map(([t, d], i) => <li style={`--i:${i}`}><span class="st-tick" aria-hidden="true">✓</span><h4>{t}</h4><p>{d}</p></li>)}
-    </ul>
-    <h3 class="st-group">Added value</h3>
-    <ul class="st-cards st-cards--extra">
-      {extra.map(([t, d], i) => <li style={`--i:${i}`}><span class="st-tick" aria-hidden="true">+</span><h4>{t}</h4><p>{d}</p></li>)}
-    </ul>
+  <section class="st-ink st-included" id="included" aria-labelledby="inc-title">
+    <h2 id="inc-title" class="display st-h2">What's included</h2>
+    <div class="st-group" data-group>
+      <h3 class="st-group-title">The core build <span class="st-count" data-count={core.length}>{core.length}</span></h3>
+      <div class="st-listwrap" data-list>
+      <span class="st-hl" aria-hidden="true"></span>
+      <ul class="st-list">
+        {core.map(([t, d], i) => (
+          <li style={`--i:${i}`} data-row>
+            <span class="st-n">{String(i + 1).padStart(2, "0")}</span>
+            <span class="st-name">{t}</span>
+            <span class="st-desc">{d}</span>
+            <svg class="st-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+          </li>
+        ))}
+      </ul>
+      </div>
+    </div>
+    <div class="st-group" data-group>
+      <h3 class="st-group-title">Added value <span class="st-count" data-count={extra.length}>{extra.length}</span></h3>
+      <div class="st-listwrap" data-list>
+      <span class="st-hl" aria-hidden="true"></span>
+      <ul class="st-list">
+        {extra.map(([t, d], i) => (
+          <li style={`--i:${i}`} data-row>
+            <span class="st-n">{String(i + core.length + 1).padStart(2, "0")}</span>
+            <span class="st-name">{t}</span>
+            <span class="st-desc">{d}</span>
+            <svg class="st-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+          </li>
+        ))}
+      </ul>
+      </div>
+    </div>
     <p class="st-foot">* Some items, such as business email, domain and hosting, have separate running costs charged by the provider.</p>
   </section>
 
-  <section class="st-section st-section--cream" aria-labelledby="how-title">
-    <h2 id="how-title" class="display st-h2">How it <em>works</em></h2>
+  <section class="st-cream st-how" aria-labelledby="how-title">
+    <h2 id="how-title" class="display st-h2">How it works</h2>
     <ol class="st-steps" data-steps>
-      {steps.map(([when, t, d], i) => <li style={`--i:${i}`}><span class="st-dot" aria-hidden="true">{i + 1}</span><p class="st-when">{when}</p><h3>{t}</h3><p>{d}</p></li>)}
+      {steps.map(([when, t, d, get], i) => (
+        <li style={`--i:${i}`} tabindex="0">
+          <span class="st-dot" aria-hidden="true"></span>
+          <p class="st-when">{when}</p>
+          <h3>{t}</h3>
+          <p>{d}</p>
+          <p class="st-get"><span>You get</span> {get}</p>
+        </li>
+      ))}
     </ol>
     <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
   </section>
 
-  <section class="st-section st-section--red" id="price" aria-labelledby="price-title">
-    <div class="st-price">
-      <div class="st-price-main">
-        <p class="eyebrow">Starter package</p>
-        <h2 id="price-title" class="sr-only">Price</h2>
-        <p class="st-amount"><span>From</span> £999</p>
-        <p class="st-terms">One-time fee · about 2 months to launch</p>
-        <p class="st-plan"><strong>Easy payment:</strong> 50% to start, 50% on launch.</p>
-        <div class="st-actions">
-          <a class="st-btn st-btn--cream" href="#start" data-preset={START} data-cursor="Go">Get started <span aria-hidden="true">↗</span></a>
-          <a class="st-btn st-btn--line" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
-        </div>
+  <section class="st-red st-price" id="price" aria-labelledby="price-title">
+    <h2 id="price-title" class="sr-only">Price</h2>
+    <div class="st-price-main">
+      <p class="st-amount" data-odo aria-label="From £999">
+        <span class="st-from" aria-hidden="true">From</span>
+        <span class="st-pound" aria-hidden="true">£</span>
+        <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+        <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+        <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+      </p>
+      <p class="st-terms">One-time fee. About two months to launch.</p>
+      <div class="st-pay" role="group" aria-label="Payment plan">
+        <span class="st-pay-a" tabindex="0"><b>50%</b> to start</span>
+        <span class="st-pay-b" tabindex="0"><b>50%</b> on launch</span>
       </div>
-      <div class="st-price-side">
-        <h3>Includes</h3>
-        <ul>
-          <li>Everything listed above</li>
-          <li>Up to 5 pages</li>
-          <li>2 rounds of revisions</li>
-          <li>You own the site and content</li>
-        </ul>
-        <h3>Not included</h3>
-        <ul class="st-not">
-          <li>Domain, hosting and email running costs</li>
-          <li>Paid advertising</li>
-          <li>Extensive copywriting or photography</li>
-          <li>E-commerce or booking systems (quoted separately)</li>
-        </ul>
+      <div class="st-actions">
+        <a class="st-btn st-btn--cream" href="#start" data-preset={START} data-cursor="Go">Get started <span aria-hidden="true">↗</span></a>
+        <a class="st-btn st-btn--line" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check</a>
       </div>
+    </div>
+    <div class="st-price-side">
+      <h3>Includes</h3>
+      <ul class="st-rules">
+        <li>Everything listed above</li>
+        <li>Up to 5 pages</li>
+        <li>2 rounds of revisions</li>
+        <li>You own the site and content</li>
+      </ul>
+      <h3>Not included</h3>
+      <ul class="st-rules st-not">
+        <li><span>Domain, hosting and email running costs</span></li>
+        <li><span>Paid advertising</span></li>
+        <li><span>Extensive copywriting or photography</span></li>
+        <li><span>E-commerce or booking systems, quoted separately</span></li>
+      </ul>
     </div>
   </section>
 
-  <section class="st-section st-section--cream" aria-labelledby="proof-title">
-    <h2 id="proof-title" class="display st-h2">The kind of <em>results</em> we build towards</h2>
-    <a class="st-proof" href={url("/blog/croydon-wellness-ai-search")} data-cursor="Read">
-      <div class="st-proof-stats">
-        <p><strong>+184%</strong><span>Organic impressions</span></p>
-        <p><strong>4.2×</strong><span>AI-search visibility</span></p>
-        <p><strong>+78%</strong><span>Qualified enquiries</span></p>
-      </div>
-      <p class="st-proof-text">How we built search and AI visibility for a Croydon wellness brand over 12 months. <span class="st-link">Read the case study <span aria-hidden="true">↗</span></span></p>
-    </a>
+  <section class="st-split-sec st-cream st-proof-sec" aria-label="Proof">
+    <p class="st-label">Proof</p>
+    <div class="st-proof-body">
+      <p class="st-statement st-statement--plain">
+        A Croydon wellness brand went from 7.4% to <b data-from="7.4" data-to="31" data-dec="1">31.0</b>% visibility across 200 AI-search prompts in twelve months, and qualified enquiries rose by <b data-from="0" data-to="78" data-dec="0">78</b>%.
+      </p>
+      <a class="st-arrowlink" href={url("/blog/croydon-wellness-ai-search")} data-cursor="Read">Read the case study <span aria-hidden="true">→</span></a>
+      <a class="st-photo" href={url("/blog/croydon-wellness-ai-search")} tabindex="-1" aria-hidden="true">
+        <Image src={photo} alt="" widths={[640, 1000, 1400]} sizes="(min-width: 900px) 70vw, 100vw" loading="lazy" />
+      </a>
+    </div>
   </section>
 
-  <section class="st-section st-section--ink st-after" aria-labelledby="after-title">
-    <h2 id="after-title" class="display st-h2">Want us to keep <em>going?</em></h2>
-    <p class="st-sub">After launch you can run it yourself with the 90-day plan, or have us help with monthly SEO, content and care so it keeps growing.</p>
-    <a class="st-btn st-btn--cream" href="#start" data-preset="I'd like to hear about monthly SEO, content and care plans" data-cursor="Go">Ask about monthly plans <span aria-hidden="true">↗</span></a>
+  <section class="st-ink st-keep" aria-labelledby="keep-title">
+    <h2 id="keep-title" class="display st-big">Want us to keep going?</h2>
+    <a class="st-arrowlink st-arrowlink--light" href="#start" data-preset="I'd like to hear about monthly SEO, content and care plans" data-cursor="Go">Ask about monthly plans <span aria-hidden="true">→</span></a>
   </section>
 
-  <section class="st-section st-section--cream" aria-labelledby="faq-title">
-    <h2 id="faq-title" class="display st-h2">Questions, <em>answered</em></h2>
-    <div class="st-faq">
+  <section class="st-cream st-faq-sec" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="display st-h2">Questions</h2>
+    <div class="st-faq" data-faq>
       {faq.map((f) => (
         <details>
           <summary><span>{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
-          <p>{f.a}</p>
+          <div class="st-faq-a"><p>{f.a}</p></div>
         </details>
       ))}
     </div>
   </section>
 
-  <ClosingCta tone="red" title="Let's build <em>yours.</em>" lede="Tell us about your business and we'll come back with a clear plan and a start date." service="Starter website (£999)" />
+  <ClosingCta tone="red" title="Let's build yours." lede="Tell us about your business and we'll come back with a clear plan and a start date." service="Starter website (£999)" />
   <StickyCta label="Get started · £999" preset={START} />
 </BaseLayout>
 
 <script>
-  // Timeline: dots and the dotted line fill in as each step scrolls into view
-  const steps = document.querySelector<HTMLElement>("[data-steps]");
-  if (steps && "IntersectionObserver" in window) {
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const seen = (els: Iterable<Element>, cb: (el: Element) => void, threshold = 0.4) => {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { cb(e.target); io.unobserve(e.target); } }), { threshold });
+    for (const el of els) io.observe(el);
+  };
+
+  // Statement: words brighten as you read down the paragraph
+  document.querySelectorAll<HTMLElement>("[data-statement]").forEach((p) => {
+    if (calm) return;
+    const words = [...p.querySelectorAll<HTMLElement>(".sw")];
+    p.classList.add("is-live");
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = p.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const prog = Math.min(1, Math.max(0, (vh * 0.85 - r.top) / (r.height + vh * 0.35)));
+      const lit = prog * 1.2 * words.length;
+      words.forEach((w, i) => w.style.setProperty("--o", Math.min(1, Math.max(0, lit - i)).toFixed(3)));
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  });
+
+  // Included lists: sliding highlight, ticks draw in turn, counters count up
+  document.querySelectorAll<HTMLElement>("[data-list]").forEach((list) => {
+    const hl = list.querySelector<HTMLElement>(".st-hl")!;
+    const rows = [...list.querySelectorAll<HTMLElement>("[data-row]")];
+    const move = (row: HTMLElement) => {
+      hl.style.transform = `translateY(${row.offsetTop}px)`;
+      hl.style.height = `${row.offsetHeight}px`;
+      hl.style.opacity = "1";
+    };
+    if (fine) {
+      rows.forEach((r) => r.addEventListener("pointerenter", () => move(r)));
+      list.addEventListener("pointerleave", () => (hl.style.opacity = "0"));
+    }
+    rows.forEach((r) => {
+      r.setAttribute("tabindex", "0");
+      r.addEventListener("focus", () => move(r));
+      r.addEventListener("blur", () => (hl.style.opacity = "0"));
+    });
     document.documentElement.classList.add("js-st");
-    const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }),
-      { threshold: 0.6 },
-    );
-    steps.querySelectorAll("li").forEach((li) => io.observe(li));
+    seen(rows, (el) => el.classList.add("is-in"), 0.6);
+  });
+  const countUp = (el: HTMLElement, from: number, to: number, dec: number, ms = 1100) => {
+    if (calm) { el.textContent = to.toFixed(dec); return; }
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const k = Math.min(1, (t - t0) / ms);
+      const e = 1 - Math.pow(1 - k, 3);
+      el.textContent = (from + (to - from) * e).toFixed(dec);
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  document.querySelectorAll<HTMLElement>("[data-group]").forEach((g) => {
+    const c = g.querySelector<HTMLElement>("[data-count]")!;
+    const to = Number(c.dataset.count);
+    c.textContent = "0";
+    seen([g], () => countUp(c, 0, to, 0, 900), 0.2);
+  });
+  document.querySelectorAll<HTMLElement>("[data-to]").forEach((b) => {
+    const from = Number(b.dataset.from), to = Number(b.dataset.to), dec = Number(b.dataset.dec ?? 0);
+    b.textContent = from.toFixed(dec);
+    seen([b], () => countUp(b, from, to, dec), 0.8);
+  });
+
+  // Timeline: dots fill as each step is reached
+  const steps = document.querySelector<HTMLElement>("[data-steps]");
+  if (steps) {
+    document.documentElement.classList.add("js-st");
+    seen(steps.querySelectorAll("li"), (el) => el.classList.add("is-in"), 0.7);
   }
-  document.querySelectorAll<HTMLElement>(".st-pains li, .st-cards li").forEach((el) => el.classList.add("st-rise"));
-  const rise = new IntersectionObserver(
-    (entries) => entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); rise.unobserve(e.target); } }),
-    { threshold: 0.15 },
-  );
-  document.querySelectorAll(".st-rise").forEach((el) => rise.observe(el));
+
+  // Price: digits roll once like an odometer
+  const odo = document.querySelector<HTMLElement>("[data-odo]");
+  if (odo && !calm) {
+    odo.classList.add("is-armed");
+    seen([odo], () => requestAnimationFrame(() => odo.classList.add("is-rolled")), 0.5);
+  }
+
+  // Hero: sticker leans toward the cursor; wiggles when you reach for the button
+  const badge = document.querySelector<HTMLElement>("[data-badge]");
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  if (badge && hero && fine && !calm) {
+    hero.addEventListener("pointermove", (e) => {
+      const r = badge.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      badge.style.setProperty("--tx", `${(dx * 14).toFixed(1)}px`);
+      badge.style.setProperty("--ty", `${(dy * 14).toFixed(1)}px`);
+      badge.style.setProperty("--rot", `${(-8 + dx * 10).toFixed(1)}deg`);
+    });
+    document.querySelectorAll<HTMLElement>("[data-magnet]").forEach((b) => {
+      b.addEventListener("pointerenter", () => { badge.classList.remove("is-wiggle"); void badge.offsetWidth; badge.classList.add("is-wiggle"); });
+      b.addEventListener("pointermove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${((e.clientX - r.left - r.width / 2) * 0.12).toFixed(1)}px, ${((e.clientY - r.top - r.height / 2) * 0.2).toFixed(1)}px)`;
+      });
+      b.addEventListener("pointerleave", () => (b.style.transform = ""));
+    });
+  }
+
+  // FAQ: one open at a time, smooth height
+  const faq = document.querySelector<HTMLElement>("[data-faq]");
+  if (faq) {
+    const items = [...faq.querySelectorAll<HTMLDetailsElement>("details")];
+    const animate = (d: HTMLDetailsElement, open: boolean) => {
+      const body = d.querySelector<HTMLElement>(".st-faq-a")!;
+      if (calm) { d.open = open; return; }
+      if (open) {
+        d.open = true;
+        const h = body.scrollHeight;
+        body.animate({ height: ["0px", `${h}px`], opacity: [0, 1] }, { duration: 280, easing: "ease-out" });
+      } else {
+        const h = body.scrollHeight;
+        const a = body.animate({ height: [`${h}px`, "0px"], opacity: [1, 0] }, { duration: 220, easing: "ease-in" });
+        a.onfinish = () => (d.open = false);
+      }
+    };
+    items.forEach((d) => {
+      d.querySelector("summary")!.addEventListener("click", (e) => {
+        e.preventDefault();
+        const willOpen = !d.open;
+        items.forEach((o) => { if (o !== d && o.open) animate(o, false); });
+        animate(d, willOpen);
+      });
+    });
+  }
 </script>

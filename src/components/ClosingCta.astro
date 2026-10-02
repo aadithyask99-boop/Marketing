@@ -148,12 +148,26 @@ const ICONS = [
     form.addEventListener("input", clearErrors);
 
     // Buttons elsewhere on the page can start the form with a preset message
+    // The request is typed in once the page has glided to the form, so you can see what was chosen
+    let typing = 0;
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    msg.addEventListener("input", () => window.clearInterval(typing));
     document.querySelectorAll<HTMLElement>("[data-preset]").forEach((el) =>
       el.addEventListener("click", () => {
-        msg.value = el.dataset.preset ?? "";
+        const text = el.dataset.preset ?? "";
+        window.clearInterval(typing);
         clearErrors();
         show(1);
-        window.setTimeout(() => msg.focus({ preventScroll: true }), 600);
+        if (calm) { msg.value = text; return; }
+        msg.value = "";
+        window.setTimeout(() => {
+          msg.focus({ preventScroll: true });
+          let i = 0;
+          typing = window.setInterval(() => {
+            msg.value = text.slice(0, ++i);
+            if (i >= text.length) window.clearInterval(typing);
+          }, 22);
+        }, 650);
       }),
     );
 
