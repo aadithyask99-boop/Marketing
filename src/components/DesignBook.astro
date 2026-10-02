@@ -74,6 +74,9 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
     const cover = root.querySelector<HTMLElement>(".dz-cover")!;
     const leaves = [...root.querySelectorAll<HTMLElement>(".dz-leaf")];
     const N = leaves.length - 1; // the last leaf is a static base page
+    // Safari ignores backface-visibility for faces holding positioned or blended children, so the wrong face is switched off by hand
+    const fronts = leaves.map((l) => l.querySelector<HTMLElement>(":scope > .dz-front"));
+    const backs = leaves.map((l) => l.querySelector<HTMLElement>(":scope > .dz-back"));
     const titles: string[] = JSON.parse(root.dataset.titles ?? "[]");
     const status = root.querySelector<HTMLElement>("[data-status]")!;
     const hint = root.querySelector<HTMLElement>("[data-hint]")!;
@@ -119,6 +122,9 @@ const page = { name: BOOK.name, contents: BOOK.contents, cta: BOOK.cta };
         const v = ang[i];
         const moving = (v > 0.5 && v < 179.5) || !!tw[i] || i === dragLeaf;
         l.style.transform = `${moving ? "translateZ(2px) " : ""}rotateY(${(-v).toFixed(2)}deg)`;
+        const f = fronts[i], bk = backs[i];
+        if (f) f.style.visibility = v >= 90 ? "hidden" : "";
+        if (bk) bk.style.visibility = v < 90 ? "hidden" : "";
         l.style.setProperty("--sf", ((v / 180) * 0.5).toFixed(3));
         l.style.setProperty("--sb", ((1 - v / 180) * 0.5).toFixed(3));
       });

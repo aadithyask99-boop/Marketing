@@ -97,7 +97,7 @@
 .dz-book-turn { display: contents; }
 
 /* Page furniture: page numbers, running footer, paper grain */
-.dz-face::before { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.045; mix-blend-mode: multiply; background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+.dz-face::before { content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0.05; background-image: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .dz-shade { z-index: 4; }
 .dz-folio { position: absolute; bottom: 2.3cqw; z-index: 2; font-family: var(--display); font-size: 1.5cqw; letter-spacing: 0.08em; line-height: 1; color: var(--ink); opacity: 0.55; pointer-events: none; }
 .dz-folio--left { left: 4.5cqw; }
@@ -114,7 +114,7 @@
 .dz-book-wrap[data-last] .dz-ear { opacity: 0; }
 
 /* Cover: foil sheen follows the pointer */
-.dz-cover::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s ease; mix-blend-mode: soft-light; background: radial-gradient(circle at var(--mx, 70%) var(--my, 30%), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 42%); }
+.dz-cover::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity 0.5s ease; background: radial-gradient(circle at var(--mx, 70%) var(--my, 30%), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 42%); }
 .dz-book:hover .dz-cover::after { opacity: 0.75; }
 
 /* Live pages (contents and call to action) are sized in container units so they scale with the book */
@@ -176,7 +176,7 @@
 .is-single { --pw: min(calc(100vw - 1.5rem), calc((100svh - 17.3rem) / 1.125)); --ph: calc(var(--pw) * 1.125); }
 .dz-intro.is-pinned.is-single { height: 220svh; }
 .is-pinned.is-single .dz-spreads { width: calc(100vw - 2 * var(--gutter)); top: max(3.25rem, calc(50svh - (var(--ph) + 13.9rem) / 2)); }
-.is-single .dz-book-turn { display: block; position: relative; overflow: hidden; width: var(--pw); height: var(--ph); margin-inline: auto; border-radius: 0.5rem; box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.45); }
+.is-single .dz-book-turn { display: block; position: relative; overflow: hidden; isolation: isolate; transform: translateZ(0); width: var(--pw); height: var(--ph); margin-inline: auto; border-radius: 0.5rem; box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.45); }
 .is-single .dz-book { position: absolute; top: 0; left: calc(var(--pan, 1) * var(--pw) * -1); width: calc(var(--pw) * 2); height: 100%; aspect-ratio: auto; cursor: auto; }
 .is-single .dz-book-shadow { display: none; }
 .is-single .dz-book-wrap { gap: 0.85rem; }
