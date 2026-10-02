@@ -1,0 +1,50 @@
+---
+import { Image, getImage } from "astro:assets";
+import { DESIGN_WALL, WALL_KINDS } from "../data/design";
+
+// PLACEHOLDER: first-draft copy. Websites and Instagram grids are shown by type and sector, not under a client.
+const tiles = await Promise.all(
+  DESIGN_WALL.map(async (t) => ({
+    ...t,
+    full: (await getImage({ src: t.src, width: 1600, format: "webp" })).src,
+    ratio: t.src.width / t.src.height,
+    label: `${WALL_KINDS[t.kind]} · ${t.sector}`,
+  })),
+);
+const nWeb = tiles.filter((t) => t.kind === "web").length;
+const nSocial = tiles.length - nWeb;
+---
+
+<section class="dz-wall" id="more-work" aria-labelledby="wall-title" data-dz-wall>
+  <div class="dz-wall-in">
+    <header class="dz-wall-head">
+      <p class="dz-kicker">On screens and in feeds</p>
+      <h2 id="wall-title" class="display dz-h2">Websites and <span class="dz-accent">Instagram grids</span></h2>
+      <p class="dz-wall-lede">Web design and Instagram grid design for small businesses, shown the way people meet it: on a screen and in a feed. Not sorted by client, just a look at what we have made.</p>
+      <div class="dz-wall-ctrl">
+        <div class="dz-chips" role="group" aria-label="Filter the wall">
+          <button type="button" data-filter="all" aria-pressed="true">All <span>{tiles.length}</span></button>
+          <button type="button" data-filter="web" aria-pressed="false">Websites <span>{nWeb}</span></button>
+          <button type="button" data-filter="social" aria-pressed="false">Instagram grids <span>{nSocial}</span></button>
+        </div>
+        <p class="dz-wall-count" aria-live="polite" data-wall-count>{tiles.length} pieces</p>
+      </div>
+    </header>
+
+    <ul class="dz-wt-grid">
+      {
+        tiles.map((t, i) => (
+          <li class={`dz-wt dz-wt--${t.kind}`} data-kind={t.kind} data-depth={t.depth} style={`--w:${t.w};--rot:${t.rot}deg;--top:${t.top}rem;--r:${t.ratio.toFixed(3)}`}>
+            <button class="dz-wt-open" type="button" data-full={t.full} data-alt={t.alt} data-caption={t.label} data-cursor="View" aria-label={`View larger: ${t.label}`}>
+              <span class={`dz-wt-frame ${t.profile ? "is-profile" : ""}`}>
+                {t.kind === "web" && <span class="dz-wt-bar" aria-hidden="true"><i></i><i></i><i></i></span>}
+                <Image src={t.src} alt={t.alt} widths={[480, 800, 1200]} sizes="(min-width: 900px) 40vw, 92vw" loading="lazy" decoding="async" />
+              </span>
+              <span class="dz-wt-cap">{t.label}</span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

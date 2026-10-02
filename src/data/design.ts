@@ -274,16 +274,53 @@ export const DESIGN_PROJECTS: DesignProject[] = [
   },
 ];
 
+// The scattered wall: websites and Instagram grids, shown by type and sector rather than under a client.
+// PLACEHOLDER: sector labels are drawn from what each design shows. Confirm them before launch.
+export type WallKind = "web" | "social";
+export interface WallTile {
+  src: ImageMetadata;
+  kind: WallKind;
+  /** Short, anonymous sector label shown under the tile. */
+  sector: string;
+  alt: string;
+  /** Width in a 12-column grid on desktop. */
+  w: number;
+  /** Tilt in degrees (kept small). */
+  rot: number;
+  /** Extra space above the tile on desktop, in rem, so the wall looks scattered. */
+  top: number;
+  /** Scroll drift in px; the sign sets the direction. */
+  depth: number;
+  /** Instagram crops of a whole profile get a phone bezel. */
+  profile?: boolean;
+}
+
+export const WALL_KINDS: Record<WallKind, string> = { web: "Website", social: "Instagram grid" };
+
+export const DESIGN_WALL: WallTile[] = [
+  { src: img("wall", "web-workplace"), kind: "web", sector: "Workplace software", alt: "Website homepage design for workplace software: a white serif headline on a glowing orange gradient", w: 6, rot: -1.2, top: 0, depth: 14 },
+  { src: img("wall", "ig-magic-profile"), kind: "social", sector: "Housekeeping", alt: "Instagram profile and grid design for a housekeeping brand, in black, gold and photography", w: 3, rot: 1.6, top: 3.5, depth: -16, profile: true },
+  { src: img("wall", "ig-flowergrid-grid"), kind: "social", sector: "Wellness", alt: "Instagram grid for a wellness brand mixing warm photography with gold and brown quote posts", w: 3, rot: -1.4, top: 1, depth: 10 },
+  { src: img("wall", "ig-bakwa-profile"), kind: "social", sector: "Sustainable packaging", alt: "Instagram profile and grid design for a plastic-free water brand, with green branding and nature imagery", w: 3, rot: 1, top: 0, depth: -12, profile: true },
+  { src: img("wall", "web-manavatty"), kind: "web", sector: "Spirits", alt: "Website homepage design for a spirits brand: a bottle in an arched rainforest frame between two serif headlines", w: 5, rot: 1.2, top: 3, depth: 8 },
+  { src: img("wall", "web-diagramx"), kind: "web", sector: "Architecture and engineering", alt: "Website homepage design for an architecture and engineering consultancy: three large words over a timber house", w: 4, rot: -1, top: 0, depth: -10 },
+  { src: img("wall", "ig-manavatty-grid"), kind: "social", sector: "Spirits", alt: "Instagram grid for a spirits brand: bottles shot in rainforest and studio settings", w: 5, rot: -1.3, top: 2, depth: 12 },
+  { src: img("wall", "web-bakwa"), kind: "web", sector: "Sustainable packaging", alt: "Website homepage design for a plant-based bottle brand: a tilted green-labelled bottle beside a large headline", w: 4, rot: 1, top: 0, depth: -8 },
+  { src: img("wall", "ig-manavatty-profile"), kind: "social", sector: "Spirits", alt: "Instagram profile design for a spirits brand with product highlight icons", w: 3, rot: -1, top: 2.5, depth: 14, profile: true },
+  { src: img("wall", "web-flowergrid"), kind: "web", sector: "Wellness", alt: "Website homepage design for a wellness centre: a calm portrait in warm light with a wave-shaped cream panel", w: 6, rot: 1.2, top: 0, depth: -10 },
+  { src: img("wall", "ig-magic-grid"), kind: "social", sector: "Housekeeping", alt: "Instagram grid for a housekeeping brand: services, lifestyle photography and a client review", w: 4, rot: -1.5, top: 3, depth: 12 },
+];
+
 // Hero collage: real work floating in the showcase panel. x / y / w are percentages of the panel.
 export const HERO_CARDS = [
   { src: img("magic-personnel", "02-logo-concept"), alt: "Magic Personnel logo concept", x: 3, y: 7, w: 52, rot: -4, depth: 14, delay: 0 },
   { src: img("magic-personnel", "09-cap"), alt: "Cap printed with the Magic Personnel logo", x: 62, y: 3, w: 24, rot: 5, depth: -18, delay: -2 },
   { src: img("ultraseal", "06-bucket"), alt: "UltraSeal product bucket", x: 31, y: 47, w: 46, rot: 3, depth: 22, delay: -4 },
   { src: img("flower-grid", "01-badge"), alt: "Flower Grid gold badge logo", x: 2, y: 63, w: 34, rot: -5, depth: -12, delay: -1 },
-  { src: img("magic-personnel", "07-tote"), alt: "Tote bag with the Magic Personnel logo", x: 68, y: 58, w: 29, rot: -3, depth: 10, delay: -3 },
+  { src: img("wall", "web-bakwa"), alt: "Website homepage design for a plant-based bottle brand", x: 61, y: 57, w: 37, rot: -3, depth: 10, delay: -3 },
 ];
 
-export const HERO_STRIP = ["Logos", "Identities", "Brand books", "Mascots", "Packaging", "Mockups"];
+export const HERO_STRIP = ["Logos", "Identities", "Brand books", "Mascots", "Packaging", "Websites", "Instagram grids", "Mockups"];
 
 // PLACEHOLDER: first-draft copy written from the brand books and the site's positioning. Review before launch.
 export const BRAND_BOOK = {
@@ -320,6 +357,10 @@ export const DESIGN_FAQ = [
   {
     q: "What does a brand identity project include?",
     a: "It depends on the business. The projects on this page include a logo and its variations, a colour palette, typefaces, mockups on real products and a brand book that pulls it all together.",
+  },
+  {
+    q: "Do you design websites and Instagram grids as well?",
+    a: "Yes. The wall further down shows websites and Instagram grids we have designed for small businesses, from wellness and spirits to packaging and consultancy. If you already have a brand we can design the site and the feed to match it; if you don't, we can start with the brand.",
   },
   {
     q: "Can you help people find the brand online too?",

@@ -5,15 +5,16 @@ import DesignHero from "../../components/DesignHero.astro";
 import DesignStory from "../../components/DesignStory.astro";
 import DesignRail from "../../components/DesignRail.astro";
 import DesignBoard from "../../components/DesignBoard.astro";
+import DesignWall from "../../components/DesignWall.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/design.css";
 import { getImage } from "astro:assets";
-import { DESIGN_PROJECTS, DESIGN_FAQ } from "../../data/design";
+import { DESIGN_PROJECTS, DESIGN_FAQ, DESIGN_WALL, WALL_KINDS } from "../../data/design";
 import { webPage, breadcrumbs } from "../../lib/schema";
 
 const o = Astro.site!.origin;
-const title = "Branding for small businesses: logos and brand identity";
-const desc = "Logo, brand identity and brand book design for small businesses: housekeeping in London, wellness in Croydon, waterproofing and pregnancy fitness.";
+const title = "Branding, websites and social design for small businesses";
+const desc = "Logos, brand identity, brand books, websites and Instagram grids for small businesses: housekeeping, wellness, spirits, packaging and more.";
 const items = await Promise.all(
   DESIGN_PROJECTS.map(async (p, i) => ({
     "@type": "ListItem",
@@ -31,9 +32,23 @@ const items = await Promise.all(
     },
   })),
 );
+const wallItems = await Promise.all(
+  DESIGN_WALL.map(async (t, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    item: {
+      "@type": "ImageObject",
+      name: `${WALL_KINDS[t.kind]} design, ${t.sector.toLowerCase()}`,
+      description: t.alt,
+      contentUrl: new URL((await getImage({ src: t.src, width: 1200, format: "webp" })).src, o).href,
+      creator: { "@id": `${o}/#organization` },
+    },
+  })),
+);
 const schema = [
   webPage(o, "/work/design", "CollectionPage", title, desc),
   { "@context": "https://schema.org", "@type": "ItemList", name: "Design work", itemListElement: items },
+  { "@context": "https://schema.org", "@type": "ItemList", name: "Websites and Instagram grids", itemListElement: wallItems },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -56,6 +71,7 @@ const schema = [
     </div>
   </div>
 
+  <DesignWall />
   <DesignStory part="process" />
   <DesignStory part="faq" />
 
@@ -219,6 +235,55 @@ const schema = [
     if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
     if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
   });
+  // The wall: tiles settle in, drift a little as you scroll, and the chips fade the other kind
+  const wall = document.querySelector<HTMLElement>("[data-dz-wall]");
+  if (wall) {
+    const wts = [...wall.querySelectorAll<HTMLElement>(".dz-wt")];
+    if (calm) wts.forEach((t) => t.classList.add("is-in"));
+    else {
+      const wio = new IntersectionObserver(
+        (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); wio.unobserve(e.target); } }),
+        { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+      );
+      wts.forEach((t) => wio.observe(t));
+      // Scroll drift: each tile moves a few px against the scroll, by its own depth
+      let wq = false;
+      const drift = () => {
+        wq = false;
+        const vh = window.innerHeight;
+        for (const t of wts) {
+          const r = t.getBoundingClientRect();
+          if (r.bottom < -80 || r.top > vh + 80) continue;
+          const k = (r.top + r.height / 2 - vh / 2) / vh; // -1 .. 1 around the middle of the screen
+          t.style.setProperty("--py", `${(k * Number(t.dataset.depth)).toFixed(1)}px`);
+        }
+      };
+      window.addEventListener("scroll", () => { if (!wq) { wq = true; requestAnimationFrame(drift); } }, { passive: true });
+      drift();
+    }
+    const chips = [...wall.querySelectorAll<HTMLButtonElement>("[data-filter]")];
+    const count = wall.querySelector<HTMLElement>("[data-wall-count]")!;
+    const noun: Record<string, string> = { all: "pieces", web: "websites", social: "Instagram grids" };
+    let kind = "all";
+    const visible = () => wts.filter((t) => kind === "all" || t.dataset.kind === kind);
+    chips.forEach((c) =>
+      c.addEventListener("click", () => {
+        kind = c.dataset.filter ?? "all";
+        chips.forEach((o) => o.setAttribute("aria-pressed", String(o === c)));
+        wts.forEach((t) => { const dim = !(kind === "all" || t.dataset.kind === kind); t.classList.toggle("is-dim", dim); t.toggleAttribute("inert", dim); });
+        count.textContent = `${visible().length} ${noun[kind]}`;
+      }),
+    );
+    // The viewer cycles through what is showing
+    wts.forEach((t) =>
+      t.querySelector<HTMLButtonElement>(".dz-wt-open")!.addEventListener("click", (e) => {
+        const list = visible();
+        const btns = list.map((x) => x.querySelector<HTMLButtonElement>(".dz-wt-open")!);
+        const items: Item[] = btns.map((b) => ({ full: b.dataset.full ?? "", alt: b.dataset.alt ?? "", caption: b.dataset.caption ?? "" }));
+        openBox(items, Math.max(0, list.indexOf(t)), "Websites and Instagram grids", e.currentTarget as HTMLElement);
+      }),
+    );
+  }
   // Swipe on touch screens
   let sx = 0, sy = 0;
   dlg.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; });

@@ -195,6 +195,57 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 .dz-lb, .dz-lb * { cursor: auto !important; }
 .dz-lb button { cursor: pointer !important; }
 
+/* The wall: websites and Instagram grids, scattered on red */
+.dz-wall { background: var(--red); color: var(--cream); padding: clamp(3.5rem, 8vw, 7rem) var(--gutter) clamp(4rem, 9vw, 8rem); overflow: hidden; }
+.dz-wall-in { max-width: 96rem; margin: 0 auto; }
+.dz-wall :focus-visible { outline-color: var(--cream); }
+.dz-wall-head { display: grid; gap: 1rem; max-width: 52rem; margin: 0 0 clamp(2rem, 5vw, 4rem); }
+.dz-wall-head .dz-kicker { margin: 0; }
+.dz-wall-head .dz-h2 { margin: 0; }
+.dz-wall-lede { margin: 0; max-width: 40rem; font-size: 1.05rem; opacity: 0.92; }
+.dz-wall-ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 0.5rem; }
+.dz-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.dz-chips button { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.6rem; padding: 0.4rem 1rem; border: 1.5px solid rgba(245, 239, 232, 0.7); border-radius: 999px; background: transparent; color: var(--cream); font: 600 0.92rem/1 var(--body); cursor: pointer; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.dz-chips button span { font-size: 0.78rem; opacity: 0.7; }
+.dz-chips button:hover { transform: translateY(-2px); }
+.dz-chips button[aria-pressed="true"] { background: var(--cream); border-color: var(--cream); color: var(--ink); }
+.dz-wall-count { margin: 0; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.75; }
+
+.dz-wt-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 0.9rem; margin: 0; padding: 0; list-style: none; align-items: start; }
+.dz-wt { grid-column: span 1; min-width: 0; transform: translateY(var(--py, 0px)); transition: opacity 0.45s ease, filter 0.45s ease; }
+.dz-wt--web { grid-column: span 2; }
+.dz-wt:nth-child(even) { margin-top: 1.5rem; }
+.dz-wt-open { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; transform: rotate(calc(var(--rot, 0deg) * 0.6)); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.dz-wt-frame { position: relative; display: block; overflow: hidden; border-radius: 0.9rem; background: #fff; box-shadow: 0 1rem 2.4rem rgba(23, 9, 10, 0.32); transition: box-shadow 0.4s ease; }
+.dz-wt-frame img { display: block; width: 100%; height: auto; aspect-ratio: var(--r); object-fit: cover; -webkit-user-drag: none; transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.dz-wt--web .dz-wt-frame { border-radius: 0.7rem; background: #f4f1ec; }
+.dz-wt-bar { display: flex; align-items: center; gap: 0.3rem; height: 1.35rem; padding: 0 0.7rem; background: #f4f1ec; border-bottom: 1px solid rgba(23, 9, 10, 0.1); }
+.dz-wt-bar i { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: rgba(23, 9, 10, 0.22); }
+.dz-wt-frame.is-profile { padding: 0.3rem; border-radius: 1.5rem; background: #0b0a0a; }
+.dz-wt-frame.is-profile img { border-radius: 1.2rem; }
+.dz-wt-cap { display: block; margin-top: 0.7rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.85; transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+.dz-wt-open:hover { transform: translateY(-8px) rotate(0deg); }
+.dz-wt-open:hover .dz-wt-frame { box-shadow: 0 1.8rem 3.2rem rgba(23, 9, 10, 0.42); }
+.dz-wt-open:hover img { transform: scale(1.03); }
+.dz-wt-open:hover .dz-wt-cap { opacity: 1; transform: translateX(0.2rem); }
+.dz-wt.is-dim { opacity: 0.16; filter: grayscale(1); pointer-events: none; }
+.dz-wt.is-dim .dz-wt-open { transform: rotate(0deg) scale(0.97); }
+.js-dz .dz-wt:not(.is-in) .dz-wt-open { opacity: 0; transform: translateY(1.6rem) rotate(calc(var(--rot, 0deg) * 1.8)); }
+.js-dz .dz-wt .dz-wt-open { transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.7s ease; }
+.js-dz .dz-wt.is-in .dz-wt-open:hover { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+@media (min-width: 900px) {
+  .dz-wt-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(1.25rem, 2.4vw, 2.5rem) clamp(0.9rem, 1.8vw, 1.75rem); }
+  .dz-wt, .dz-wt--web { grid-column: span var(--w, 4); margin-top: var(--top, 0rem); }
+  .dz-wt:nth-child(even) { margin-top: var(--top, 0rem); }
+  .dz-wt-open { transform: rotate(var(--rot, 0deg)); }
+  .js-dz .dz-wt:not(.is-in) .dz-wt-open { transform: translateY(1.6rem) rotate(calc(var(--rot, 0deg) * 2)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dz-wt { transform: none; transition: none; }
+  .dz-wt-open, .dz-wt-open:hover, .dz-wt-open:hover img, .dz-wt-frame img { transform: none; transition: none; }
+  .js-dz .dz-wt:not(.is-in) .dz-wt-open { opacity: 1; transform: none; }
+}
+
 /* How we design a brand */
 .dz-flow { position: relative; display: grid; gap: 2rem; margin: clamp(2rem, 5vw, 4rem) 0 0; padding: 0; list-style: none; }
 .dz-flow li { position: relative; padding-left: 4rem; }
