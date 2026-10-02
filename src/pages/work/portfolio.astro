@@ -13,7 +13,7 @@ import { DESIGN_PROJECTS, DESIGN_FAQ, DESIGN_WALL, WALL_KINDS } from "../../data
 import { webPage, breadcrumbs } from "../../lib/schema";
 
 const o = Astro.site!.origin;
-const title = "Branding, websites and social design for small businesses";
+const title = "Portfolio: branding, websites and social design";
 const desc = "Logos, brand identity, brand books, websites and Instagram grids for small businesses: housekeeping, wellness, spirits, packaging and more.";
 const items = await Promise.all(
   DESIGN_PROJECTS.map(async (p, i) => ({
@@ -26,7 +26,7 @@ const items = await Promise.all(
       keywords: p.story.keywords.join(", "),
       genre: "Brand identity",
       ...(p.story.place ? { contentLocation: { "@type": "Place", name: p.story.place } } : {}),
-      url: `${o}/work/design#${p.slug}`,
+      url: `${o}/work/portfolio#${p.slug}`,
       image: new URL((await getImage({ src: p.tiles[0].src, width: 1200, format: "webp" })).src, o).href,
       creator: { "@id": `${o}/#organization` },
     },
@@ -46,15 +46,15 @@ const wallItems = await Promise.all(
   })),
 );
 const schema = [
-  webPage(o, "/work/design", "CollectionPage", title, desc),
-  { "@context": "https://schema.org", "@type": "ItemList", name: "Design work", itemListElement: items },
+  webPage(o, "/work/portfolio", "CollectionPage", title, desc),
+  { "@context": "https://schema.org", "@type": "ItemList", name: "Portfolio", itemListElement: items },
   { "@context": "https://schema.org", "@type": "ItemList", name: "Websites and Instagram grids", itemListElement: wallItems },
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: DESIGN_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   },
-  breadcrumbs(o, [{ name: "Work", path: "/work" }, { name: "Design", path: "/work/design" }]),
+  breadcrumbs(o, [{ name: "Work", path: "/work" }, { name: "Portfolio", path: "/work/portfolio" }]),
 ];
 ---
 
@@ -113,28 +113,6 @@ const schema = [
     tiles.forEach((t) => io.observe(t));
   }
 
-  // Hero: the work cards drift with the pointer (mouse only)
-  const hero = document.querySelector<HTMLElement>("[data-dz-hero]");
-  if (hero && !calm && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    const cards = [...hero.querySelectorAll<HTMLElement>(".dz-hc")];
-    let queued = false;
-    let pt = { x: 0, y: 0 };
-    const apply = () => {
-      queued = false;
-      cards.forEach((el) => {
-        const d = Number(el.dataset.depth);
-        el.style.setProperty("--px", `${(pt.x * d).toFixed(1)}px`);
-        el.style.setProperty("--py", `${(pt.y * d).toFixed(1)}px`);
-      });
-    };
-    hero.addEventListener("pointermove", (e) => {
-      const r = hero.getBoundingClientRect();
-      pt = { x: (e.clientX - r.left) / r.width - 0.5, y: (e.clientY - r.top) / r.height - 0.5 };
-      if (!queued) { queued = true; requestAnimationFrame(apply); }
-    });
-    hero.addEventListener("pointerleave", () => { pt = { x: 0, y: 0 }; apply(); });
-  }
-
   // Process steps light up as they arrive
   const steps = [...document.querySelectorAll<HTMLElement>("[data-dz-flow] li")];
   if (calm) steps.forEach((t) => t.classList.add("is-in"));
@@ -146,15 +124,18 @@ const schema = [
     steps.forEach((t) => so.observe(t));
   }
 
-  // Rail: highlight the project in view and slide the ink pill to it (desktop), or scroll the strip (mobile)
-  const rail = document.querySelector<HTMLElement>("[data-rail]");
-  const boards = [...document.querySelectorAll<HTMLElement>("[data-board]")];
-  if (rail && boards.length) {
+  // Rails: highlight the item in view and slide the ink pill to it (desktop), or scroll the strip (mobile).
+  // Each .dz-layout has its own rail; its targets are the elements marked data-spy-target / data-board.
+  document.querySelectorAll<HTMLElement>("[data-dz-layout], .dz-layout").forEach((layout) => {
+    const rail = layout.querySelector<HTMLElement>("[data-rail]");
+    const targets = [...layout.querySelectorAll<HTMLElement>("[data-board], [data-spy-target]")];
+    if (!rail || !targets.length) return;
     const links = [...rail.querySelectorAll<HTMLAnchorElement>("a[data-spy]")];
     const hl = rail.querySelector<HTMLElement>(".dz-hl")!;
     const nav = rail.querySelector<HTMLElement>(".dz-nav")!;
     const list = rail.querySelector<HTMLElement>(".dz-index")!;
     const of = rail.querySelector<HTMLElement>("[data-of]");
+    const scattered = targets[0].hasAttribute("data-spy-target"); // tiles in columns: pick the one nearest the line
     const strip = () => window.matchMedia("(max-width: 899px)").matches;
     let current = "";
     const mark = (slug: string) => {
@@ -172,14 +153,22 @@ const schema = [
       }
     };
     const pick = () => {
-      // The board whose top has passed 40% of the viewport is the current one
       const line = window.innerHeight * 0.4;
-      const first = boards[0].getBoundingClientRect().top;
-      const last = boards[boards.length - 1].getBoundingClientRect().bottom;
-      nav.style.setProperty("--p", Math.min(1, Math.max(0, (line - first) / Math.max(1, last - first))).toFixed(3));
-      let slug = boards[0].id;
-      for (const b of boards) if (b.getBoundingClientRect().top <= line) slug = b.id;
-      if (first > line) { current = ""; links.forEach((l) => l.removeAttribute("aria-current")); hl.style.opacity = "0"; return; }
+      const box = layout.getBoundingClientRect();
+      nav.style.setProperty("--p", Math.min(1, Math.max(0, (line - box.top) / Math.max(1, box.height))).toFixed(3));
+      if (box.top > line || box.bottom < 0) { current = ""; links.forEach((l) => l.removeAttribute("aria-current")); hl.style.opacity = "0"; if (of) of.textContent = box.top > line ? "01" : String(links.length).padStart(2, "0"); return; }
+      let slug = targets[0].id;
+      if (scattered) {
+        let best = Infinity;
+        for (const t of targets) {
+          const r = t.getBoundingClientRect();
+          const d = line < r.top ? r.top - line : line > r.bottom ? line - r.bottom : 0; // 0 when the line crosses the tile
+          const score = d * 2 + Math.abs(r.top + r.height / 2 - line) * 0.001;
+          if (score < best) { best = score; slug = t.id; }
+        }
+      } else {
+        for (const t of targets) if (t.getBoundingClientRect().top <= line) slug = t.id;
+      }
       if (slug !== current) { current = slug; mark(slug); }
     };
     let ticking = false;
@@ -187,7 +176,7 @@ const schema = [
     window.addEventListener("resize", () => { current = ""; pick(); });
     document.fonts?.ready.then(() => { current = ""; pick(); });
     pick();
-  }
+  });
 
   // Lightbox: previous and next stay within the project that was opened
   const dlg = document.querySelector<HTMLDialogElement>(".dz-lb")!;
@@ -195,13 +184,15 @@ const schema = [
   const lbProj = dlg.querySelector<HTMLElement>(".dz-lb-proj")!;
   const lbCap = dlg.querySelector<HTMLElement>(".dz-lb-cap")!;
   const lbCount = dlg.querySelector<HTMLElement>(".dz-lb-count")!;
-  type Item = { full: string; alt: string; caption: string };
+  type Item = { full: string; alt: string; caption: string; tall?: boolean };
   let set: Item[] = [];
   let at = 0;
   let opener: HTMLElement | null = null;
   const show = (i: number) => {
     at = (i + set.length) % set.length;
     const b = set[at];
+    dlg.classList.toggle("is-tall", !!b.tall);
+    dlg.querySelector<HTMLElement>(".dz-lb-fig")!.scrollTop = 0;
     lbImg.src = b.full;
     lbImg.alt = b.alt;
     lbCap.textContent = b.caption;
@@ -219,11 +210,6 @@ const schema = [
     const btns = [...board.querySelectorAll<HTMLButtonElement>(".dz-open")];
     const list: Item[] = btns.map((b) => ({ full: b.dataset.full ?? "", alt: b.dataset.alt ?? "", caption: b.dataset.caption ?? "" }));
     btns.forEach((b, i) => b.addEventListener("click", () => openBox(list, i, board.querySelector(".dz-name")?.textContent ?? "", b)));
-  });
-  // The interactive brand book's Enlarge button reuses the same viewer
-  window.addEventListener("dz:lightbox", (e) => {
-    const d = (e as CustomEvent<{ items: Item[]; index: number; title: string; opener: HTMLElement }>).detail;
-    openBox(d.items, d.index, d.title, d.opener);
   });
   dlg.addEventListener("close", () => { root.classList.remove("dz-lock"); opener?.focus({ preventScroll: true }); });
   dlg.querySelector(".dz-lb-x")!.addEventListener("click", () => dlg.close());
@@ -261,29 +247,17 @@ const schema = [
       window.addEventListener("scroll", () => { if (!wq) { wq = true; requestAnimationFrame(drift); } }, { passive: true });
       drift();
     }
-    const chips = [...wall.querySelectorAll<HTMLButtonElement>("[data-filter]")];
-    const count = wall.querySelector<HTMLElement>("[data-wall-count]")!;
-    const noun: Record<string, string> = { all: "pieces", web: "websites", social: "Instagram grids" };
-    let kind = "all";
-    const visible = () => wts.filter((t) => kind === "all" || t.dataset.kind === kind);
-    chips.forEach((c) =>
-      c.addEventListener("click", () => {
-        kind = c.dataset.filter ?? "all";
-        chips.forEach((o) => o.setAttribute("aria-pressed", String(o === c)));
-        wts.forEach((t) => { const dim = !(kind === "all" || t.dataset.kind === kind); t.classList.toggle("is-dim", dim); t.toggleAttribute("inert", dim); });
-        count.textContent = `${visible().length} ${noun[kind]}`;
-      }),
-    );
-    // The viewer cycles through what is showing
-    wts.forEach((t) =>
-      t.querySelector<HTMLButtonElement>(".dz-wt-open")!.addEventListener("click", (e) => {
-        const list = visible();
-        const btns = list.map((x) => x.querySelector<HTMLButtonElement>(".dz-wt-open")!);
-        const items: Item[] = btns.map((b) => ({ full: b.dataset.full ?? "", alt: b.dataset.alt ?? "", caption: b.dataset.caption ?? "" }));
-        openBox(items, Math.max(0, list.indexOf(t)), "Websites and Instagram grids", e.currentTarget as HTMLElement);
-      }),
+    // The viewer cycles through all the pieces, in the same order as the rail
+    const order = [...wall.querySelectorAll<HTMLElement>(".dz-rail a[data-spy]")].map((a) => document.getElementById(a.dataset.spy!)!).filter(Boolean);
+    const items: Item[] = order.map((t) => {
+      const b = t.querySelector<HTMLButtonElement>(".dz-wt-open")!;
+      return { full: b.dataset.full ?? "", alt: b.dataset.alt ?? "", caption: b.dataset.caption ?? "", tall: b.dataset.tall === "1" };
+    });
+    order.forEach((t, i) =>
+      t.querySelector<HTMLButtonElement>(".dz-wt-open")!.addEventListener("click", (e) => openBox(items, i, "Websites and Instagram grids", e.currentTarget as HTMLElement)),
     );
   }
+
   // Swipe on touch screens
   let sx = 0, sy = 0;
   dlg.addEventListener("pointerdown", (e) => { sx = e.clientX; sy = e.clientY; });

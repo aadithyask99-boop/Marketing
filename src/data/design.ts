@@ -1,6 +1,6 @@
 import type { ImageMetadata } from "astro";
 
-// Design work shown on /work/design. Images live in src/assets/design/<slug>/ (WebP, rendered from the
+// Design work shown on /work/portfolio. Images live in src/assets/design/<slug>/ (WebP, rendered from the
 // clients' brand books). Add a project here and it appears in the rail and the page automatically.
 // PLACEHOLDER: the stories below are first drafts written from facts the team gave us and the brand books. Review before launch.
 
@@ -274,50 +274,41 @@ export const DESIGN_PROJECTS: DesignProject[] = [
   },
 ];
 
-// The scattered wall: websites and Instagram grids, shown by type and sector rather than under a client.
+// The websites and Instagram grids section: scattered tiles with their own left rail, shown by type and sector, not under a client.
 // PLACEHOLDER: sector labels are drawn from what each design shows. Confirm them before launch.
 export type WallKind = "web" | "social";
 export interface WallTile {
+  id: string;
   src: ImageMetadata;
   kind: WallKind;
-  /** Short, anonymous sector label shown under the tile. */
+  /** Short, anonymous sector label shown under the tile and in the rail. */
   sector: string;
   alt: string;
-  /** Width in a 12-column grid on desktop. */
-  w: number;
+  /** Desktop column (0 or 1) and the extra space above the tile in rem, so the wall looks scattered. */
+  col: 0 | 1;
+  top: number;
   /** Tilt in degrees (kept small). */
   rot: number;
-  /** Extra space above the tile on desktop, in rem, so the wall looks scattered. */
-  top: number;
   /** Scroll drift in px; the sign sets the direction. */
   depth: number;
-  /** Instagram crops of a whole profile get a phone bezel. */
-  profile?: boolean;
+  /** Instagram profile screens sit to one side of their column. */
+  side?: "l" | "r";
+  /** Order in the single-column phone layout, so websites and grids alternate. */
+  mo: number;
 }
 
 export const WALL_KINDS: Record<WallKind, string> = { web: "Website", social: "Instagram grid" };
 
 export const DESIGN_WALL: WallTile[] = [
-  { src: img("wall", "web-workplace"), kind: "web", sector: "Workplace software", alt: "Website homepage design for workplace software: a white serif headline on a glowing orange gradient", w: 6, rot: -1.2, top: 0, depth: 14 },
-  { src: img("wall", "ig-magic-profile"), kind: "social", sector: "Housekeeping", alt: "Instagram profile and grid design for a housekeeping brand, in black, gold and photography", w: 3, rot: 1.6, top: 3.5, depth: -16, profile: true },
-  { src: img("wall", "ig-flowergrid-grid"), kind: "social", sector: "Wellness", alt: "Instagram grid for a wellness brand mixing warm photography with gold and brown quote posts", w: 3, rot: -1.4, top: 1, depth: 10 },
-  { src: img("wall", "ig-bakwa-profile"), kind: "social", sector: "Sustainable packaging", alt: "Instagram profile and grid design for a plastic-free water brand, with green branding and nature imagery", w: 3, rot: 1, top: 0, depth: -12, profile: true },
-  { src: img("wall", "web-manavatty"), kind: "web", sector: "Spirits", alt: "Website homepage design for a spirits brand: a bottle in an arched rainforest frame between two serif headlines", w: 5, rot: 1.2, top: 3, depth: 8 },
-  { src: img("wall", "web-diagramx"), kind: "web", sector: "Architecture and engineering", alt: "Website homepage design for an architecture and engineering consultancy: three large words over a timber house", w: 4, rot: -1, top: 0, depth: -10 },
-  { src: img("wall", "ig-manavatty-grid"), kind: "social", sector: "Spirits", alt: "Instagram grid for a spirits brand: bottles shot in rainforest and studio settings", w: 5, rot: -1.3, top: 2, depth: 12 },
-  { src: img("wall", "web-bakwa"), kind: "web", sector: "Sustainable packaging", alt: "Website homepage design for a plant-based bottle brand: a tilted green-labelled bottle beside a large headline", w: 4, rot: 1, top: 0, depth: -8 },
-  { src: img("wall", "ig-manavatty-profile"), kind: "social", sector: "Spirits", alt: "Instagram profile design for a spirits brand with product highlight icons", w: 3, rot: -1, top: 2.5, depth: 14, profile: true },
-  { src: img("wall", "web-flowergrid"), kind: "web", sector: "Wellness", alt: "Website homepage design for a wellness centre: a calm portrait in warm light with a wave-shaped cream panel", w: 6, rot: 1.2, top: 0, depth: -10 },
-  { src: img("wall", "ig-magic-grid"), kind: "social", sector: "Housekeeping", alt: "Instagram grid for a housekeeping brand: services, lifestyle photography and a client review", w: 4, rot: -1.5, top: 3, depth: 12 },
-];
-
-// Hero collage: real work floating in the showcase panel. x / y / w are percentages of the panel.
-export const HERO_CARDS = [
-  { src: img("magic-personnel", "02-logo-concept"), alt: "Magic Personnel logo concept", x: 3, y: 7, w: 52, rot: -4, depth: 14, delay: 0 },
-  { src: img("magic-personnel", "09-cap"), alt: "Cap printed with the Magic Personnel logo", x: 62, y: 3, w: 24, rot: 5, depth: -18, delay: -2 },
-  { src: img("ultraseal", "06-bucket"), alt: "UltraSeal product bucket", x: 31, y: 47, w: 46, rot: 3, depth: 22, delay: -4 },
-  { src: img("flower-grid", "01-badge"), alt: "Flower Grid gold badge logo", x: 2, y: 63, w: 34, rot: -5, depth: -12, delay: -1 },
-  { src: img("wall", "web-bakwa"), alt: "Website homepage design for a plant-based bottle brand", x: 61, y: 57, w: 37, rot: -3, depth: 10, delay: -3 },
+  { id: "ig-magic", src: img("wall", "ig-magic"), kind: "social", sector: "Housekeeping", alt: "Complete Instagram profile and grid design for a housekeeping brand, in black, gold and photography", col: 0, top: 0, rot: 1.4, depth: -16, side: "r", mo: 2 },
+  { id: "web-workplace", src: img("wall", "web-workplace"), kind: "web", sector: "Workplace software", alt: "Website homepage design for workplace software: a white serif headline on a glowing orange gradient", col: 0, top: 0, rot: -1.2, depth: 12, mo: 1 },
+  { id: "ig-bakwa", src: img("wall", "ig-bakwa"), kind: "social", sector: "Sustainable packaging", alt: "Complete Instagram profile and grid design for a plastic-free water brand, with green branding and nature imagery", col: 0, top: 0, rot: -1.2, depth: 10, side: "l", mo: 4 },
+  { id: "web-flowergrid", src: img("wall", "web-flowergrid"), kind: "web", sector: "Wellness", alt: "Website homepage design for a wellness centre: a calm portrait in warm light with a wave-shaped cream panel", col: 0, top: 0, rot: 1.1, depth: -10, mo: 5 },
+  { id: "web-diagramx", src: img("wall", "web-diagramx"), kind: "web", sector: "Architecture and engineering", alt: "Website homepage design for an architecture and engineering consultancy: three large words over a timber house", col: 0, top: 0, rot: -1, depth: 8, mo: 7 },
+  { id: "web-manavatty", src: img("wall", "web-manavatty"), kind: "web", sector: "Spirits", alt: "Website homepage design for a spirits brand: a bottle in an arched rainforest frame between two serif headlines", col: 1, top: 5, rot: 1.2, depth: -12, mo: 3 },
+  { id: "ig-manavatty", src: img("wall", "ig-manavatty"), kind: "social", sector: "Spirits", alt: "Complete Instagram profile and grid design for a spirits brand: bottles shot in rainforest and studio settings", col: 1, top: 0, rot: 1.3, depth: 14, side: "l", mo: 6 },
+  { id: "web-bakwa", src: img("wall", "web-bakwa"), kind: "web", sector: "Sustainable packaging", alt: "Website homepage design for a plant-based bottle brand: a tilted green-labelled bottle beside a large headline", col: 1, top: 0, rot: -1, depth: 9, mo: 9 },
+  { id: "ig-flowergrid", src: img("wall", "ig-flowergrid"), kind: "social", sector: "Wellness", alt: "Complete Instagram profile and grid design for a wellness brand mixing warm photography with gold and brown quote posts", col: 1, top: 0, rot: -1.2, depth: -14, side: "r", mo: 8 },
 ];
 
 export const HERO_STRIP = ["Logos", "Identities", "Brand books", "Mascots", "Packaging", "Websites", "Instagram grids", "Mockups"];
@@ -328,6 +319,7 @@ export const BRAND_BOOK = {
   lead: "A brand book is the instruction manual for how a brand looks, sounds and behaves.",
   body: "It puts the logo, colours, typefaces, imagery and rules in one place, so anyone can use the brand correctly: a printer, a developer, a new hire, a shop that wants to stock your product. No guessing, no redoing, no calling the designer to ask which blue.",
   why: "That consistency is what makes a brand feel trustworthy. People rarely notice it when it is right, but they always notice when it is wrong.",
+  note: "* For illustration only. A full brand book is far more extensive.",
 };
 
 export const DESIGN_STEPS = [
@@ -336,12 +328,6 @@ export const DESIGN_STEPS = [
   { t: "Shape", d: "One route is refined: mark, colour and type, tested on light, dark and small sizes.", get: "The final logo set" },
   { t: "Test in the world", d: "We put it on caps, boxes, signs, screens and stationery to see it work for real.", get: "Mockups" },
   { t: "Hand over", d: "Everything goes into a brand book, so the brand stays consistent after we step away.", get: "Your brand book" },
-];
-
-export const DESIGN_WHY = [
-  { n: "01", t: "Search-aware design", d: "We also work on SEO and AI search, so your name, mark and messaging are built to be found, remembered and quoted, not only admired.", tone: "red" },
-  { n: "02", t: "Made to be used", d: "Light, dark, small and one-colour versions, with the rules to match. A brand that holds up on a bucket as well as on a billboard.", tone: "ink" },
-  { n: "03", t: "One team", d: "Brand, website and search under one roof, so nothing gets lost between agencies and the story stays the same everywhere.", tone: "cream" },
 ];
 
 // PLACEHOLDER: first-draft answers written only from facts on this page. Review before launch.

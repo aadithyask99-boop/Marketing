@@ -1,50 +1,54 @@
 ---
 import { Image, getImage } from "astro:assets";
-import { DESIGN_WALL, WALL_KINDS } from "../data/design";
+import DesignRail from "./DesignRail.astro";
+import { DESIGN_WALL, WALL_KINDS, type WallKind } from "../data/design";
 
 // PLACEHOLDER: first-draft copy. Websites and Instagram grids are shown by type and sector, not under a client.
 const tiles = await Promise.all(
   DESIGN_WALL.map(async (t) => ({
     ...t,
     full: (await getImage({ src: t.src, width: 1600, format: "webp" })).src,
+    thumb: (await getImage({ src: t.src, width: 160, height: 160, fit: "cover", position: "top", format: "webp" })).src,
     ratio: t.src.width / t.src.height,
     label: `${WALL_KINDS[t.kind]} · ${t.sector}`,
   })),
 );
-const nWeb = tiles.filter((t) => t.kind === "web").length;
-const nSocial = tiles.length - nWeb;
+const kinds: WallKind[] = ["web", "social"];
+const groups = kinds.map((k) => ({
+  label: k === "web" ? "Websites" : "Instagram grids",
+  items: tiles.filter((t) => t.kind === k).map((t) => ({ slug: t.id, name: t.sector, small: WALL_KINDS[t.kind], thumb: t.thumb })),
+}));
+const cols = [0, 1].map((c) => tiles.filter((t) => t.col === c));
 ---
 
-<section class="dz-wall" id="more-work" aria-labelledby="wall-title" data-dz-wall>
-  <div class="dz-wall-in">
-    <header class="dz-wall-head">
-      <p class="dz-kicker">On screens and in feeds</p>
-      <h2 id="wall-title" class="display dz-h2">Websites and <span class="dz-accent">Instagram grids</span></h2>
-      <p class="dz-wall-lede">Web design and Instagram grid design for small businesses, shown the way people meet it: on a screen and in a feed. Not sorted by client, just a look at what we have made.</p>
-      <div class="dz-wall-ctrl">
-        <div class="dz-chips" role="group" aria-label="Filter the wall">
-          <button type="button" data-filter="all" aria-pressed="true">All <span>{tiles.length}</span></button>
-          <button type="button" data-filter="web" aria-pressed="false">Websites <span>{nWeb}</span></button>
-          <button type="button" data-filter="social" aria-pressed="false">Instagram grids <span>{nSocial}</span></button>
-        </div>
-        <p class="dz-wall-count" aria-live="polite" data-wall-count>{tiles.length} pieces</p>
-      </div>
-    </header>
+<section class="dz-body dz-body--wall" id="more-work" aria-labelledby="wall-title" data-dz-wall>
+  <header class="dz-wallhead">
+    <p class="dz-kicker">On screens and in feeds</p>
+    <h2 id="wall-title" class="display dz-h2">Websites and <span class="dz-accent">Instagram grids</span></h2>
+    <p class="dz-wall-lede">Web design and Instagram grid design for small businesses, shown the way people meet it: on a screen and in a feed. Not sorted by client, just a look at what we have made.</p>
+  </header>
 
-    <ul class="dz-wt-grid">
+  <div class="dz-layout" data-dz-layout>
+    <DesignRail groups={groups} title="Websites & feeds" noun="pieces" label="Websites and Instagram grids on this page" contact={false} class="dz-rail--wall" />
+
+    <div class="dz-wt-grid">
       {
-        tiles.map((t, i) => (
-          <li class={`dz-wt dz-wt--${t.kind}`} data-kind={t.kind} data-depth={t.depth} style={`--w:${t.w};--rot:${t.rot}deg;--top:${t.top}rem;--r:${t.ratio.toFixed(3)}`}>
-            <button class="dz-wt-open" type="button" data-full={t.full} data-alt={t.alt} data-caption={t.label} data-cursor="View" aria-label={`View larger: ${t.label}`}>
-              <span class={`dz-wt-frame ${t.profile ? "is-profile" : ""}`}>
-                {t.kind === "web" && <span class="dz-wt-bar" aria-hidden="true"><i></i><i></i><i></i></span>}
-                <Image src={t.src} alt={t.alt} widths={[480, 800, 1200]} sizes="(min-width: 900px) 40vw, 92vw" loading="lazy" decoding="async" />
-              </span>
-              <span class="dz-wt-cap">{t.label}</span>
-            </button>
-          </li>
+        cols.map((col, c) => (
+          <ul class="dz-wt-col" style={c === 1 ? `--col-top:5rem` : undefined}>
+            {col.map((t) => (
+              <li id={t.id} class={`dz-wt dz-wt--${t.kind}`} data-spy-target data-kind={t.kind} data-depth={t.depth} data-side={t.side} style={`--rot:${t.rot}deg;--mo:${t.mo}`}>
+                <button class="dz-wt-open" type="button" data-full={t.full} data-alt={t.alt} data-caption={t.label} data-tall={t.ratio < 0.5 ? "1" : undefined} data-cursor="View" aria-label={`View larger: ${t.label}`}>
+                  <span class={`dz-wt-frame ${t.kind === "social" ? "is-profile" : ""}`}>
+                    {t.kind === "web" && <span class="dz-wt-bar" aria-hidden="true"><i></i><i></i><i></i></span>}
+                    <Image src={t.src} alt={t.alt} widths={[400, 700, 1000]} sizes="(min-width: 900px) 30vw, 70vw" loading="lazy" decoding="async" />
+                  </span>
+                  <span class="dz-wt-cap">{t.label}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
         ))
       }
-    </ul>
+    </div>
   </div>
 </section>

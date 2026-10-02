@@ -1,6 +1,6 @@
 ---
 import DesignBook from "./DesignBook.astro";
-import { BRAND_BOOK, BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_FAQ } from "../data/design";
+import { BRAND_BOOK, BOOK, DESIGN_STEPS, DESIGN_FAQ } from "../data/design";
 import { url } from "../data/site";
 
 interface Props {
@@ -29,6 +29,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
           <nav class="dz-chapters" aria-label="Brand book chapters">
             {BOOK.contents.map((c) => <button type="button" data-spread={c.spread}>{c.t}</button>)}
           </nav>
+          <p class="dz-book-note">{BRAND_BOOK.note}</p>
           <div class="dz-cue-wrap">
             <button class="dz-scroll dz-cue" type="button" data-cursor="Go">
               Please scroll down
@@ -60,23 +61,6 @@ const pad = (n: number) => String(n).padStart(2, "0");
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      <section class="dz-why" aria-labelledby="why-title">
-        <div class="dz-wrap">
-          <h2 id="why-title" class="display dz-h2">
-            Why work <span class="dz-accent">with us?</span>
-          </h2>
-          <ul class="dz-why-grid">
-            {DESIGN_WHY.map((w) => (
-              <li class={`dz-why-card dz-why-card--${w.tone}`}>
-                <span class="dz-why-n" aria-hidden="true">{w.n}</span>
-                <h3 class="display">{w.t}</h3>
-                <p>{w.d}</p>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
     </>

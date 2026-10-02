@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/work/design", "destination": "/work/portfolio", "permanent": true },
+    { "source": "/work/design/", "destination": "/work/portfolio/", "permanent": true }
+  ]
+}

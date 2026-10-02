@@ -1,44 +1,15 @@
 ---
-import { Image } from "astro:assets";
-import Badge from "./Badge.astro";
 import Asterisk from "./Asterisk.astro";
-import { HERO_CARDS, HERO_STRIP } from "../data/design";
+import { HERO_STRIP } from "../data/design";
 ---
 
 <section class="dz-hero section page-top page-hero" data-dz-hero>
-  <div class="dz-hero-grid">
-    <div class="dz-hero-copy">
-      <p class="eyebrow">Work</p>
-      <h1 class="display dz-title">
-        <span data-xray>Brands &amp; design</span> <span class="dz-accent" data-xray>we've made</span>
-      </h1>
-      <p class="lede">A brand is more than a logo. We design the mark, the look and the rules that keep it consistent, then show it working on a cap, a bucket, a website and a feed.</p>
-    </div>
-
-    <div class="dz-panel">
-      <svg class="dz-panel-rings" viewBox="0 0 400 400" aria-hidden="true">
-        <g fill="none" stroke="currentColor" stroke-width="1.5">
-          <circle cx="200" cy="200" r="176"></circle>
-          <circle cx="200" cy="200" r="130"></circle>
-          <circle cx="200" cy="200" r="84"></circle>
-          <circle cx="200" cy="200" r="38"></circle>
-        </g>
-      </svg>
-      <div class="dz-cards" aria-hidden="true">
-        {
-          HERO_CARDS.map((c) => (
-            <span class="dz-hc" data-depth={c.depth} style={`--x:${c.x}%;--y:${c.y}%;--w:${c.w}%;--rot:${c.rot}deg;--d:${c.delay}s`}>
-              <span class="dz-hc-in">
-                <Image src={c.src} alt="" widths={[360, 640]} sizes="(min-width: 1100px) 30vw, 60vw" loading="eager" decoding="async" />
-              </span>
-            </span>
-          ))
-        }
-      </div>
-      <div class="dz-sticker">
-        <Badge href="#brand-book" label="Brand books" cursor="Read" />
-      </div>
-    </div>
+  <div class="dz-hero-copy">
+    <p class="eyebrow">Portfolio</p>
+    <h1 class="display dz-title">
+      <span data-xray>Brands, sites &amp; feeds</span> <span class="dz-accent" data-xray>we've made</span>
+    </h1>
+    <p class="lede">A brand is more than a logo. We design the mark, the look and the rules that keep it consistent, then show it working on a cap, a bucket, a website and a feed.</p>
   </div>
 
   <div class="dz-strip" aria-hidden="true">
