@@ -241,13 +241,6 @@ export const BRAND_BOOK = {
   lead: "A brand book is the instruction manual for how a brand looks, sounds and behaves.",
   body: "It puts the logo, colours, typefaces, imagery and rules in one place, so anyone can use the brand correctly: a printer, a developer, a new hire, a shop that wants to stock your product. No guessing, no redoing, no calling the designer to ask which blue.",
   why: "That consistency is what makes a brand feel trustworthy. People rarely notice it when it is right, but they always notice when it is wrong.",
-  inside: [
-    { t: "Mission and values", d: "What the brand stands for and how it speaks.", spread: 1 },
-    { t: "Logo and how to use it", d: "The mark, its variations, clear space and what never to do.", spread: 3 },
-    { t: "Colours, with codes", d: "Exact values, so print and screen match.", spread: 5 },
-    { t: "Typefaces", d: "What to use for headlines, text and numbers.", spread: 6 },
-    { t: "Imagery and mockups", d: "The brand on a cap, a box, a sign or a screen.", spread: 7 },
-  ],
 };
 
 export const DESIGN_STEPS = [
@@ -284,22 +277,39 @@ export const DESIGN_FAQ = [
   },
 ];
 
-// The interactive brand book in "What's a brand book?": Magic Personnel's real brand book, one slide per spread.
-// Each slide is split down the middle across the two pages.
+// The interactive brand book in "What's a brand book?": Magic Personnel's real brand book.
+// Image spreads are the brand-book slides re-composed onto a two-page grid (the spine sits in whitespace).
+// "contents" and "cta" spreads are live HTML. Page numbers run 2 per spread (spread 1 = pages 01-02).
 export const BOOK = {
   name: "Magic Personnel",
   kicker: "Brand book",
   place: "London",
   logo: img("book-magic-personnel", "00-cover-logo"),
   logoAlt: "Magic Personnel logo",
+  cta: {
+    headline: "Want something similar for your business?",
+    text: "Tell us about it and we'll come back with a real plan, not a sales pitch.",
+    button: "Start your brand",
+  },
   spreads: [
-    { src: img("book-magic-personnel", "01-mission"), title: "Our mission", alt: "Our mission: to provide a service that alleviates the stress of everyday and last-minute situations, shown beside the keyhole M on a cushion" },
-    { src: img("book-magic-personnel", "02-values"), title: "Brand values", alt: "Brand values: competence, consistency and trust, beside the keyhole M on a tote bag" },
-    { src: img("book-magic-personnel", "03-logo"), title: "The logo", alt: "The Magic Personnel logo with its construction grid, on white and black backgrounds" },
-    { src: img("book-magic-personnel", "04-logo-concept"), title: "Logo concept", alt: "Logo concept: the lock, the magic wand, the roof and the serving dish combine into the logo" },
-    { src: img("book-magic-personnel", "05-palette"), title: "Colour palette", alt: "Colour palette: black, magic blue, magic gold and white, with their hex codes" },
-    { src: img("book-magic-personnel", "06-typography"), title: "Typography", alt: "Typography: Gilroy for the logo and a script typeface for display" },
-    { src: img("book-magic-personnel", "07-in-the-world"), title: "In the world", alt: "The brand on a tote bag, cup, jar, cap, sweatshirt, hang tag and box" },
-    { src: img("book-magic-personnel", "08-in-the-world-2"), title: "In the world, continued", alt: "The brand on a t-shirt, brochure, wall print, card and paper" },
+    { type: "contents", title: "Contents" },
+    { type: "image", src: img("book-magic-personnel", "01-mission"), title: "Our mission", photoRight: true, alt: "Our mission: to provide a service that alleviates the stress of everyday and last-minute situations, to be peace of mind, and a brand you can trust, beside the keyhole M on a cushion" },
+    { type: "image", src: img("book-magic-personnel", "02-values"), title: "Brand values", photoRight: true, alt: "Brand values: competence, consistency and trust, beside the keyhole M on a tote bag" },
+    { type: "image", src: img("book-magic-personnel", "03-logo"), title: "The logo", alt: "The Magic Personnel logo with its construction grid, and the logo on white and black cards" },
+    { type: "image", src: img("book-magic-personnel", "04-logo-concept"), title: "Logo concept", alt: "Logo concept: the lock, the magic wand, the roof and the serving dish combine into the logo" },
+    { type: "image", src: img("book-magic-personnel", "05-palette"), title: "Colour palette", alt: "Colour palette: black, magic blue, magic gold and white, with their hex codes" },
+    { type: "image", src: img("book-magic-personnel", "06-typography"), title: "Typography", alt: "Typography: Gilroy for the logo, with the full alphabet, and a script typeface for display" },
+    { type: "image", src: img("book-magic-personnel", "07-in-the-world"), title: "In the world", alt: "The brand on a tote bag, cup, jar, cap, sweatshirt, hang tag and box" },
+    { type: "image", src: img("book-magic-personnel", "08-in-the-world-2"), title: "In the world, continued", alt: "The brand on a t-shirt, brochure, wall print, card and paper" },
+    { type: "cta", title: "Work with us" },
+  ],
+  // Table of contents: which spread each entry turns to
+  contents: [
+    { t: "Mission and values", spread: 2 },
+    { t: "Logo and how to use it", spread: 4 },
+    { t: "Colours, with codes", spread: 6 },
+    { t: "Typefaces", spread: 7 },
+    { t: "Imagery and mockups", spread: 8 },
+    { t: "Work with us", spread: 10 },
   ],
 };

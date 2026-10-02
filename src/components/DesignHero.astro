@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Badge from "./Badge.astro";
 import Asterisk from "./Asterisk.astro";
-import { DESIGN_PROJECTS, HERO_CARDS, HERO_STRIP } from "../data/design";
+import { HERO_CARDS, HERO_STRIP } from "../data/design";
 ---
 
 <section class="dz-hero section page-top page-hero" data-dz-hero>
@@ -13,9 +13,6 @@ import { DESIGN_PROJECTS, HERO_CARDS, HERO_STRIP } from "../data/design";
         <span data-xray>Brands &amp; design</span> <span class="dz-accent" data-xray>we've made</span>
       </h1>
       <p class="lede">A brand is more than a logo. We design the mark, the look and the rules that keep it consistent, then show it working on a cap, a bucket and a brochure.</p>
-      <ul class="dz-jump" aria-label="Jump to a project">
-        {DESIGN_PROJECTS.map((p) => <li><a href={`#${p.slug}`} data-cursor="Go">{p.name} <span aria-hidden="true">↓</span></a></li>)}
-      </ul>
     </div>
 
     <div class="dz-panel">
@@ -47,7 +44,7 @@ import { DESIGN_PROJECTS, HERO_CARDS, HERO_STRIP } from "../data/design";
   <div class="dz-strip" aria-hidden="true">
     <div class="dz-strip-track">
       {
-        [0, 1].map(() => (
+        [0, 1, 2, 3, 4, 5].map(() => (
           <ul class="dz-strip-list">
             {HERO_STRIP.map((w) => <li><span>{w}</span><Asterisk /></li>)}
           </ul>

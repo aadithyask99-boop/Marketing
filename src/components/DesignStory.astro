@@ -1,6 +1,6 @@
 ---
 import DesignBook from "./DesignBook.astro";
-import { BRAND_BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_FAQ } from "../data/design";
+import { BRAND_BOOK, BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_FAQ } from "../data/design";
 import { url } from "../data/site";
 
 interface Props {
@@ -13,10 +13,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
 
 {
   part === "intro" && (
-    <section class="dz-intro" id="brand-book" aria-labelledby="bb-title">
-      <div class="dz-wrap dz-intro-stack">
+    <section class="dz-intro" id="brand-book" aria-labelledby="bb-title" data-dz-pin>
+      <div class="dz-intro-in">
         <div class="dz-intro-copy">
-          <p class="dz-kicker">{BRAND_BOOK.kicker}</p>
           <h2 id="bb-title" class="display dz-h2">
             What's a <span class="dz-accent">brand book?</span>
           </h2>
@@ -25,23 +24,11 @@ const pad = (n: number) => String(n).padStart(2, "0");
           <p class="dz-text dz-text--dim">{BRAND_BOOK.why}</p>
         </div>
 
-        <div class="dz-inside">
-          <h3 class="dz-label">What's inside <span>(tap one to open the book there)</span></h3>
-          <ol class="dz-inside-list">
-            {BRAND_BOOK.inside.map((it, i) => (
-              <li style={`--i:${i}`}>
-                <button class="dz-inside-btn" type="button" data-spread={it.spread} data-cursor="Open">
-                  <span class="dz-inside-n">{pad(i + 1)}</span>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
-                  <span class="dz-inside-t"><b>{it.t}</b><span>{it.d}</span></span>
-                </button>
-              </li>
-            ))}
-          </ol>
-        </div>
-
         <div class="dz-spreads">
           <DesignBook />
+          <nav class="dz-chapters" aria-label="Brand book chapters">
+            {BOOK.contents.map((c) => <button type="button" data-spread={c.spread}>{c.t}</button>)}
+          </nav>
         </div>
       </div>
     </section>
@@ -113,3 +100,44 @@ const pad = (n: number) => String(n).padStart(2, "0");
     </section>
   )
 }
+
+<script>
+  // Pinned scene: the section holds the screen while the book rises and grows until it fills the viewport.
+  // It is scrubbed by normal scrolling (never hijacked) and only runs on desktop with motion allowed.
+  const sec = document.querySelector<HTMLElement>("[data-dz-pin]");
+  if (sec) {
+    const stage = sec.querySelector<HTMLElement>(".dz-intro-in")!;
+    const wide = window.matchMedia("(min-width: 900px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+    const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+    let on = false;
+    const update = () => {
+      if (!on) return;
+      const dist = Math.max(1, sec.offsetHeight - window.innerHeight);
+      const p = clamp(-sec.getBoundingClientRect().top / dist);
+      stage.style.setProperty("--g", ease(clamp((p - 0.04) / 0.46)).toFixed(4)); // book growth
+      stage.style.setProperty("--c", clamp(p / 0.2).toFixed(4)); // copy fade
+      window.dispatchEvent(new CustomEvent("dz:scrub", { detail: { p } })); // the cover opens with the scroll
+    };
+    const setup = () => {
+      const want = wide.matches && !calm.matches;
+      if (want !== on) {
+        on = want;
+        sec.classList.toggle("is-pinned", on);
+        if (!on) {
+          stage.style.removeProperty("--g");
+          stage.style.removeProperty("--c");
+          window.dispatchEvent(new CustomEvent("dz:scrub", { detail: { p: null } }));
+        }
+      }
+      update();
+    };
+    let ticking = false;
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
+    window.addEventListener("resize", setup);
+    wide.addEventListener("change", setup);
+    setup();
+  }
+</script>
+

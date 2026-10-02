@@ -1,0 +1,84 @@
+---
+import { Image } from "astro:assets";
+import { SITE, url } from "../data/site";
+
+// One page of the brand book: the left or right half of a spread.
+// Image spreads show half of a re-composed slide; "contents" and "cta" spreads are live HTML.
+interface Props {
+  spread: any;
+  side: "left" | "right";
+  s: number; // 1-based spread number
+  name: string;
+  contents: { t: string; spread: number }[];
+  cta: { headline: string; text: string; button: string };
+}
+
+const { spread, side, s, name, contents, cta } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+const folio = pad(side === "left" ? 2 * s - 1 : 2 * s);
+const light = side === "right" && spread.photoRight;
+const contact = `${url("/contact")}?service=${encodeURIComponent("Brand & Identity")}`;
+---
+
+{
+  spread.type === "image" && (
+    <span class={`dz-pg dz-pg--${side}`}>
+      <Image src={spread.src} alt={side === "right" ? spread.alt : ""} widths={[900, 1400, 2000]} sizes="(min-width: 900px) 92vw, 96vw" loading="lazy" decoding="async" draggable="false" />
+    </span>
+  )
+}
+
+{
+  spread.type === "contents" && side === "left" && (
+    <div class="dz-cp dz-cp--l dz-cp--contents-l">
+      <img class="dz-cp-mark" src={url("/logo-m-ink.png")} alt="" width="40" height="38" />
+      <h3 class="dz-cp-title">Contents</h3>
+      <p class="dz-cp-lead">Everything in the {name} brand book, in the order it appears.</p>
+    </div>
+  )
+}
+
+{
+  spread.type === "contents" && side === "right" && (
+    <nav class="dz-cp dz-cp--r dz-cp--contents-r" aria-label="Brand book contents">
+      <ol class="dz-toc">
+        {contents.map((c, i) => (
+          <li style={`--i:${i}`}>
+            <button type="button" data-spread={c.spread} data-cursor="Open">
+              <span class="dz-toc-t">{c.t}</span>
+              <span class="dz-toc-dots" aria-hidden="true"></span>
+              <span class="dz-toc-n">{pad(2 * c.spread - 1)}</span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+{
+  spread.type === "cta" && side === "left" && (
+    <div class="dz-cp dz-cp--l dz-cp--cta-l">
+      <p class="dz-cp-kicker">Next chapter</p>
+      <h3 class="dz-cp-cta">{cta.headline}</h3>
+      <svg class="dz-cp-line" viewBox="0 0 400 24" aria-hidden="true"><path pathLength="1" d="M4 16C60 6 110 4 160 12S250 20 300 10 370 6 396 12"></path></svg>
+    </div>
+  )
+}
+
+{
+  spread.type === "cta" && side === "right" && (
+    <div class="dz-cp dz-cp--r dz-cp--cta-r">
+      <p class="dz-cp-lead">{cta.text}</p>
+      <a class="dz-cta-btn" href={contact} data-cursor="Talk">{cta.button} <i aria-hidden="true">↗</i></a>
+      <ul class="dz-cp-links">
+        <li><a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        <li><a href={`mailto:${SITE.email}`}>Email</a></li>
+      </ul>
+      <button class="dz-cp-back" type="button" data-action="cover">Back to the cover</button>
+    </div>
+  )
+}
+
+<span class:list={["dz-folio", `dz-folio--${side}`, light && "is-light"]} aria-hidden="true">{folio}</span>
+{!light && <span class="dz-runf" aria-hidden="true">{name} · Brand book</span>}
