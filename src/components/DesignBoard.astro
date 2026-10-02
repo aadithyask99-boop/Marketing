@@ -2,6 +2,7 @@
 import { Image, getImage } from "astro:assets";
 import type { DesignProject } from "../data/design";
 import { DESIGN_KINDS } from "../data/design";
+import { url } from "../data/site";
 
 interface Props {
   project: DesignProject;
@@ -25,7 +26,6 @@ const tiles = await Promise.all(
         <li>{DESIGN_KINDS[p.kind]}</li>
         {p.tags.map((t) => <li>{t}</li>)}
       </ul>
-      <p class="dz-brief">{p.brief}</p>
     </div>
 
     <div class="dz-meta">
@@ -51,6 +51,22 @@ const tiles = await Promise.all(
       </div>
     </div>
   </header>
+
+  <div class="dz-story">
+    <div class="dz-story-side">
+      <h3 class="dz-story-h">{p.story.heading}</h3>
+      <dl class="dz-glance">
+        {p.story.glance.map((g) => <div><dt>{g.k}</dt><dd>{g.v}</dd></div>)}
+      </dl>
+    </div>
+    <div class="dz-story-body">
+      {p.story.paras.map((t, i) => <p class={i === 0 ? "dz-lead" : undefined}>{t}</p>)}
+      <p class="dz-story-links">
+        <a href={url("/services#brand-identity")} data-cursor="Go">Brand identity design <span aria-hidden="true">↗</span></a>
+        <a href={`${url("/contact")}?service=${encodeURIComponent("Brand & Identity")}`} data-cursor="Talk">Start your brand <span aria-hidden="true">↗</span></a>
+      </p>
+    </div>
+  </div>
 
   <div class="dz-idea">
     <p class="dz-idea-title"><span class="dz-label">The idea</span>{p.idea.title}</p>

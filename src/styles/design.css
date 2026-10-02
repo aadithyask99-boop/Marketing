@@ -238,6 +238,40 @@
 .js-dz .dz-tile { opacity: 0; transform: translateY(1.5rem); transition: opacity 0.7s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
 .js-dz .dz-tile.is-in { opacity: 1; transform: none; }
 
+/* Story block inside each board: SEO-friendly, plain-language write-up */
+.dz-story { display: grid; gap: 1.75rem; margin: 0 0 clamp(1.5rem, 3vw, 2.5rem); }
+@media (min-width: 1100px) { .dz-story { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; } }
+.dz-story-h { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.05; text-wrap: balance; }
+.dz-glance { display: grid; gap: 0; margin: 1.5rem 0 0; }
+.dz-glance div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.75rem; padding: 0.6rem 0; border-top: 1px solid rgba(23, 9, 10, 0.16); }
+.dz-glance div:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.16); }
+.dz-glance dt { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; padding-top: 0.15rem; }
+.dz-glance dd { margin: 0; font-weight: 600; }
+.dz-story-body { display: grid; gap: 1rem; max-width: 40rem; }
+.dz-story-body p { margin: 0; font-size: 1.05rem; }
+.dz-story-body .dz-lead { font-size: clamp(1.2rem, 1.9vw, 1.5rem); font-weight: 600; line-height: 1.3; }
+.dz-story-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.5rem !important; }
+.dz-story-links a { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.6rem; padding: 0.4rem 1.1rem; border: 1.5px solid var(--ink); border-radius: 999px; font-size: 0.92rem; font-weight: 600; transition: background 0.25s ease, color 0.25s ease; }
+.dz-story-links a:hover { background: var(--ink); color: var(--cream); }
+.dz-story-links a:first-child { background: var(--ink); color: var(--cream); }
+.dz-story-links a:first-child:hover { background: var(--red); border-color: var(--red); }
+
+/* FAQ */
+.dz-faq { background: var(--cream); color: var(--ink); padding: 0 var(--gutter) clamp(3.5rem, 8vw, 7rem); }
+.dz-faq-grid { display: grid; gap: 2rem; padding-top: clamp(2.5rem, 6vw, 5rem); border-top: 1px solid rgba(23, 9, 10, 0.18); }
+@media (min-width: 900px) { .dz-faq-grid { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(2rem, 6vw, 6rem); } .dz-faq-side { position: sticky; top: calc(var(--header-h) + 1rem); align-self: start; } }
+.dz-faq .dz-h2 { font-size: clamp(2.8rem, 6vw, 5.5rem); }
+.dz-faq-more { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1.5rem; font-weight: 600; text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 0.3em; transition: color 0.2s ease; }
+.dz-faq-more:hover { color: var(--red); }
+.dz-faq-list details { border-top: 1px solid rgba(23, 9, 10, 0.2); }
+.dz-faq-list details:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
+.dz-faq-list summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 4.25rem; padding: 1rem 0; font-size: clamp(1.1rem, 1.8vw, 1.4rem); font-weight: 600; line-height: 1.25; cursor: pointer; list-style: none; }
+.dz-faq-list summary::-webkit-details-marker { display: none; }
+.dz-faq-list summary svg { flex: none; width: 1.4rem; height: 1.4rem; transition: transform 0.3s ease, color 0.25s ease; }
+.dz-faq-list summary:hover { color: var(--red); }
+.dz-faq-list details[open] summary svg { transform: rotate(45deg); color: var(--red); }
+.dz-faq-list p { margin: 0; padding: 0 0 1.25rem; max-width: 40rem; opacity: 0.85; }
+
 /* Lightbox */
 html.dz-lock { overflow: hidden; }
 .dz-lb { position: fixed; inset: 0; width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(23, 9, 10, 0.94); color: var(--cream); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
@@ -269,7 +303,7 @@ html.dz-lock { overflow: hidden; }
   .dz-hc, .dz-hc-in, .dz-panel-rings, .dz-strip-track, .dz-scroll svg { animation: none; }
   .dz-hc, .dz-spread, .dz-why-card, .dz-node, .dz-hl, .dz-thumb, .dz-index a, .dz-prog span { transition: none; }
   .js-dz .dz-flow li > :not(.dz-node) { transition: none; }
-  .js-dz .dz-tile, .dz-open, .dz-open img, .dz-cap, .dz-marker, .dz-index a, .dz-cta i, .dz-jump a span { transition: none; }
+  .js-dz .dz-tile, .dz-open, .dz-open img, .dz-cap, .dz-marker, .dz-index a, .dz-cta i, .dz-jump a span, .dz-faq-list summary svg { transition: none; }
   .dz-open:hover, .dz-tile:nth-child(even) .dz-open:hover { transform: none; }
   .dz-lb[open] { animation: none; }
 }

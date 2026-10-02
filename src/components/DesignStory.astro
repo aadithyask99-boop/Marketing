@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { BRAND_BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_PROJECTS } from "../data/design";
+import { BRAND_BOOK, DESIGN_STEPS, DESIGN_WHY, DESIGN_PROJECTS, DESIGN_FAQ } from "../data/design";
+import { url } from "../data/site";
 
 interface Props {
-  part: "intro" | "process";
+  part: "intro" | "process" | "faq";
 }
 
 const { part } = Astro.props;
@@ -88,5 +89,29 @@ const spreadB = find("ultraseal", 6);
         </div>
       </section>
     </>
+  )
+}
+
+{
+  part === "faq" && (
+    <section class="dz-faq" aria-labelledby="dz-faq-title">
+      <div class="dz-wrap dz-faq-grid">
+        <div class="dz-faq-side">
+          <p class="dz-kicker">Good to know</p>
+          <h2 id="dz-faq-title" class="display dz-h2">
+            Questions <span class="dz-accent">answered</span>
+          </h2>
+          <a class="dz-faq-more" href={url("/services")} data-cursor="Go">Explore our services <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="dz-faq-list">
+          {DESIGN_FAQ.map((f) => (
+            <details>
+              <summary><span>{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
   )
 }

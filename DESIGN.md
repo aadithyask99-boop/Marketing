@@ -144,3 +144,10 @@ Hero, story and rail details (added with the second pass):
 - **Rail** (`DesignRail`): "M" mark and project count, thumbnail cards for each project with a sliding ink highlight and a red scroll-progress line, and a red "Got a brand in mind?" contact card (CTA, WhatsApp, email, sticker). Under 900px it becomes a sticky strip of pills with small round thumbnails.
 - **The idea strip** under each board header: 3 to 4 concept chips (`idea` in `design.ts`), taken from the client's own brand book.
 
+
+Story and SEO pattern (per project board and page):
+
+- Each project has a `story` in `src/data/design.ts`: a serif H3 heading, three short paragraphs in a warm "we" voice (the first is a plain, quotable answer: who the client is, where, what we made), and an "At a glance" list. **Only facts the team confirmed go in**; anything unknown is left out (UltraSeal has no location or client brief on purpose).
+- Search terms are used naturally in headings and body ("branding for small businesses", "housekeeping brand in London", "waterproofing company branding"), never stuffed.
+- Page `<title>` and description are set around the target terms; the H1 stays the brand headline. JSON-LD: `CollectionPage`, `ItemList` of `CreativeWork` (with `description`, `keywords`, `genre`, `contentLocation` where public), `FAQPage` (`DESIGN_FAQ`) and breadcrumbs.
+- Each story links to `/services#brand-identity` and to the contact form with the service pre-filled.

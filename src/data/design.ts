@@ -2,7 +2,7 @@ import type { ImageMetadata } from "astro";
 
 // Design work shown on /work/design. Images live in src/assets/design/<slug>/ (WebP, rendered from the
 // clients' brand books). Add a project here and it appears in the rail and the page automatically.
-// PLACEHOLDER: the briefs below are first drafts written from the brand books. Review before launch.
+// PLACEHOLDER: the stories below are first drafts written from facts the team gave us and the brand books. Review before launch.
 
 const files = import.meta.glob<{ default: ImageMetadata }>("../assets/design/**/*.webp", { eager: true });
 const img = (slug: string, file: string): ImageMetadata => {
@@ -40,12 +40,25 @@ export interface DesignIdea {
   items: { k: string; v: string }[];
 }
 
+export interface DesignStory {
+  /** Shown as the H3 of the story block. Written for people first, with the search term used naturally. */
+  heading: string;
+  /** Three short paragraphs. The first is a plain answer: who, where, what we made. */
+  paras: [string, string, string];
+  /** "At a glance" rows. Only facts the client or brand book gave us. */
+  glance: { k: string; v: string }[];
+  /** For JSON-LD keywords. */
+  keywords: string[];
+  /** For JSON-LD contentLocation. Left out where the client's location is not public. */
+  place?: string;
+}
+
 export interface DesignProject {
   slug: string;
   kind: DesignKind;
   name: string;
   tagline: string;
-  brief: string;
+  story: DesignStory;
   made: string[];
   tags: string[];
   palette: Swatch[];
@@ -63,8 +76,22 @@ export const DESIGN_PROJECTS: DesignProject[] = [
     kind: "brand",
     name: "Magic Personnel",
     tagline: "Housekeeping and personal assistance, London",
-    brief:
-      "A lock for trust, a wand for ease, a roof for home and a cloche for service, built into one wordmark. The identity carries a quiet sense of magic into a premium household service.",
+    story: {
+      heading: "A housekeeping brand in London, with a little magic added",
+      paras: [
+        "Magic Personnel is a housekeeping and personal assistance business in London. The founder wanted a brand that felt simple and aesthetic, and she already had a logo that worked beautifully.",
+        "So we didn't start again. We kept the logo and added the small details that tell the story: a keyhole in the M for trust, a wand for the I, a serving cloche in the e for hospitality, and a roof with a spark over the top for home. Easy to miss at first glance, hard to unsee after.",
+        "Then we built the rest of the brand around it: a black, blue and gold palette, a clean geometric typeface, and a brand book showing the logo on totes, caps, boxes and print. It is branding for a small business done lightly: respect what already works, and add the details people remember.",
+      ],
+      glance: [
+        { k: "Client", v: "Housekeeping and personal assistance" },
+        { k: "Where", v: "London" },
+        { k: "Brief", v: "Simple and aesthetic" },
+        { k: "Starting point", v: "An existing logo we refined" },
+      ],
+      keywords: ["branding for small businesses", "housekeeping brand London", "logo refinement", "brand book"],
+      place: "London",
+    },
     made: ["Logo and wordmark", "Logo concept and meaning", "Colour palette and typography", "Brand book", "Merchandise and print mockups"],
     tags: ["Logo", "Identity", "Brand book"],
     palette: [
@@ -103,8 +130,20 @@ export const DESIGN_PROJECTS: DesignProject[] = [
     kind: "brand",
     name: "UltraSeal Waterproofing",
     tagline: "Waterproofing solutions by Vogelcorp",
-    brief:
-      "An engineered crab mascot in safety goggles, holding a roller and a bucket, paired with a clean geometric wordmark. Built to be seen on site and to hold up in extreme tropical weather.",
+    story: {
+      heading: "A mascot-led brand for a waterproofing company",
+      paras: [
+        "UltraSeal Waterproofing Solutions, by Vogelcorp, is an engineer-led waterproofing business. We designed its brand from scratch around protection, visibility on site and durability.",
+        "A crab mascot in safety goggles, holding a roller and a bucket, stands for precision and heavy-duty moisture protection, paired with a clean geometric wordmark. Amber makes it easy to spot on a job site, brick red grounds it in masonry, and black and white keep technical documents and field adverts easy to read.",
+        "The brand book sets the rules so it stays consistent: how the logo adapts to amber, brick and black backgrounds, which typeface to use, and how it looks on a bucket, a cap, a box and a bus shelter. Waterproofing company branding has to work on site and on paper.",
+      ],
+      glance: [
+        { k: "Client", v: "Waterproofing (UltraSeal, by Vogelcorp)" },
+        { k: "Built around", v: "Protection, visibility on site, durability" },
+        { k: "Starting point", v: "Designed from scratch, mascot included" },
+      ],
+      keywords: ["waterproofing company branding", "mascot logo design", "brand identity", "brand guidelines"],
+    },
     made: ["Mascot logo", "Logo adaptability rules", "Typography", "Colour palette", "Packaging and merchandise mockups"],
     tags: ["Logo", "Mascot", "Packaging"],
     palette: [
@@ -140,8 +179,22 @@ export const DESIGN_PROJECTS: DesignProject[] = [
     kind: "brand",
     name: "Flower Grid",
     tagline: "Yoga and wellness",
-    brief:
-      "A seated figure held inside interlocking petals: a fine gold-line badge with a serif wordmark, with monochrome versions for stamps, receipts and embroidery.",
+    story: {
+      heading: "A warm, welcoming logo for a holistic wellness brand in Croydon",
+      paras: [
+        "Flower Grid is a holistic wellness brand based in Croydon. The brief was a logo that feels warm and welcoming and shows, at a glance, what they do.",
+        "We designed it from scratch by joining two simple ideas: a seated yoga figure and a flower. Interlocking petals form a circular badge with the figure at its centre, drawn in a fine gold line so it feels precise but warm, never ornate.",
+        "Then we made it work in real life: black and gold versions, app icon tiles, a solid black and white version for stamps and receipts, and a tote and letterhead mockup. A small wellness business needs one mark that works on a screen, a bag and a certificate.",
+      ],
+      glance: [
+        { k: "Client", v: "Holistic wellness" },
+        { k: "Where", v: "Croydon" },
+        { k: "Brief", v: "Warm, welcoming, shows what they do" },
+        { k: "Starting point", v: "Designed from scratch" },
+      ],
+      keywords: ["holistic wellness logo", "logo design Croydon", "wellness branding", "brand identity"],
+      place: "Croydon",
+    },
     made: ["Logo badge", "Logo evolution", "App icon tiles", "Monochrome versions", "Stationery and tote mockups"],
     tags: ["Logo", "Badge", "Stationery"],
     palette: [
@@ -209,4 +262,24 @@ export const DESIGN_WHY = [
   { n: "01", t: "Search-aware design", d: "We also work on SEO and AI search, so your name, mark and messaging are built to be found, remembered and quoted, not only admired.", tone: "red" },
   { n: "02", t: "Made to be used", d: "Light, dark, small and one-colour versions, with the rules to match. A brand that holds up on a bucket as well as on a billboard.", tone: "ink" },
   { n: "03", t: "One team", d: "Brand, website and search under one roof, so nothing gets lost between agencies and the story stays the same everywhere.", tone: "cream" },
+];
+
+// PLACEHOLDER: first-draft answers written only from facts on this page. Review before launch.
+export const DESIGN_FAQ = [
+  {
+    q: "Can you build on a logo we already have?",
+    a: "Yes. For Magic Personnel, a housekeeping business in London, the founder already had a logo she loved. We kept it and added small details: a keyhole in the M, a wand as the I, a cloche in the e, and a roof with sparkles. If your logo works, we will say so and build around it.",
+  },
+  {
+    q: "Do you design logos from scratch?",
+    a: "Yes. Flower Grid, a holistic wellness brand in Croydon, and UltraSeal Waterproofing Solutions both started with a blank page. We designed the logo, the colours, the typefaces and the rules for using them.",
+  },
+  {
+    q: "What does a brand identity project include?",
+    a: "It depends on the business. The projects on this page include a logo and its variations, a colour palette, typefaces, mockups on real products and a brand book that pulls it all together.",
+  },
+  {
+    q: "Can you help people find the brand online too?",
+    a: "Yes. We also work on SEO, AI search and websites, so your name, logo and messaging are built to be found as well as remembered.",
+  },
 ];

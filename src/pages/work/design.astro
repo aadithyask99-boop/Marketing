@@ -8,11 +8,12 @@ import DesignBoard from "../../components/DesignBoard.astro";
 import "@fontsource/instrument-serif/400-italic.css";
 import "../../styles/design.css";
 import { getImage } from "astro:assets";
-import { DESIGN_PROJECTS } from "../../data/design";
+import { DESIGN_PROJECTS, DESIGN_FAQ } from "../../data/design";
 import { webPage, breadcrumbs } from "../../lib/schema";
 
 const o = Astro.site!.origin;
-const desc = "Logos, brand identities, mascots and brand books designed by Maximus Mediascape for Magic Personnel, UltraSeal Waterproofing and Flower Grid.";
+const title = "Branding for small businesses: logos and brand identity";
+const desc = "Logo, brand identity and brand book design for small businesses: a London housekeeping brand, a Croydon wellness studio and a waterproofing company.";
 const items = await Promise.all(
   DESIGN_PROJECTS.map(async (p, i) => ({
     "@type": "ListItem",
@@ -20,7 +21,10 @@ const items = await Promise.all(
     item: {
       "@type": "CreativeWork",
       name: p.name,
-      description: p.brief,
+      description: p.story.paras[0],
+      keywords: p.story.keywords.join(", "),
+      genre: "Brand identity",
+      ...(p.story.place ? { contentLocation: { "@type": "Place", name: p.story.place } } : {}),
       url: `${o}/work/design#${p.slug}`,
       image: new URL((await getImage({ src: p.tiles[0].src, width: 1200, format: "webp" })).src, o).href,
       creator: { "@id": `${o}/#organization` },
@@ -28,13 +32,18 @@ const items = await Promise.all(
   })),
 );
 const schema = [
-  webPage(o, "/work/design", "CollectionPage", "Design work", desc),
+  webPage(o, "/work/design", "CollectionPage", title, desc),
   { "@context": "https://schema.org", "@type": "ItemList", name: "Design work", itemListElement: items },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: DESIGN_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+  },
   breadcrumbs(o, [{ name: "Work", path: "/work" }, { name: "Design", path: "/work/design" }]),
 ];
 ---
 
-<BaseLayout schema={schema} title="Design work" description={desc}>
+<BaseLayout schema={schema} title={title} description={desc}>
   <DesignHero />
   <DesignStory part="intro" />
 
@@ -48,6 +57,7 @@ const schema = [
   </div>
 
   <DesignStory part="process" />
+  <DesignStory part="faq" />
 
   <dialog class="dz-lb" aria-label="Image viewer">
     <button class="dz-lb-x" type="button" aria-label="Close">
