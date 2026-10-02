@@ -29,7 +29,12 @@ const pad = (n: number) => String(n).padStart(2, "0");
           <nav class="dz-chapters" aria-label="Brand book chapters">
             {BOOK.contents.map((c) => <button type="button" data-spread={c.spread}>{c.t}</button>)}
           </nav>
-          <span class="dz-wheel" aria-hidden="true"><i></i></span>
+          <div class="dz-cue-wrap">
+            <button class="dz-scroll dz-cue" type="button" data-cursor="Go">
+              Please scroll down
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg>
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -145,6 +150,9 @@ const pad = (n: number) => String(n).padStart(2, "0");
     window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; update(); }); } }, { passive: true });
     window.addEventListener("resize", setup);
     portraitPhone.addEventListener("change", setup);
+    sec.querySelector(".dz-cue")?.addEventListener("click", () => {
+      window.scrollTo({ top: sec.offsetTop + sec.offsetHeight, behavior: calm.matches ? "auto" : "smooth" });
+    });
     setup();
   }
 </script>

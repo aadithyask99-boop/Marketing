@@ -222,6 +222,56 @@ export const DESIGN_PROJECTS: DesignProject[] = [
       { src: img("flower-grid", "06-monochrome"), alt: "Monochrome versions of the badge on white and on black", caption: "Monochrome", w: 6 },
     ],
   },
+  {
+    slug: "mic-studios",
+    kind: "brand",
+    name: "MIC Studios",
+    tagline: "Pregnancy and postnatal fitness",
+    story: {
+      heading: "A confident, warm logo for a pregnancy and postnatal fitness studio",
+      paras: [
+        "MIC (Make It Count) Studios is a women-centric fitness and Zumba studio for pregnant women and new mothers. The brief was a logo that shows pregnancy and fitness together, without fear or fragility.",
+        "The mark is a stylised silhouette of a pregnant woman standing tall and confident, held inside a circle. The circle stands for wholeness, safety and care; the upright posture says pregnancy and wellness can go together. Soft pink and white keep it warm and welcoming, never aggressive or overly athletic.",
+        "It is deliberately simple so it stays recognisable on a phone screen, a poster, a t-shirt or a sign. We set it out in pink, white and reversed versions, tested it on a framed print, a tee, a box, a tablet and a laptop, and put the reasoning into a brand book.",
+      ],
+      glance: [
+        { k: "Client", v: "Women's fitness and Zumba studio for pregnant women and new mothers" },
+        { k: "Brief", v: "Supportive, empowering and warm, not aggressive or athletic" },
+        { k: "Delivered", v: "Logo, variations, palette, typography, mockups and a brand book" },
+      ],
+      keywords: ["fitness studio logo design", "pregnancy fitness branding", "women's fitness brand identity", "brand book"],
+    },
+    made: ["Logo and wordmark", "Logo concept and meaning", "Colour palette and typography", "Logo variations", "Brand book", "Print, apparel and device mockups"],
+    tags: ["Logo", "Identity", "Brand book"],
+    palette: [
+      { name: "Soft pink", hex: "#F3457E", color: "#f3457e" },
+      { name: "White", hex: "#FFFFFF", color: "#ffffff" },
+    ],
+    type: ["Rounded uppercase logotype"],
+    idea: {
+      title: "A circle and a confident silhouette",
+      items: [
+        { k: "The silhouette", v: "A pregnant woman standing upright: motherhood and life, with fitness, strength and confidence." },
+        { k: "The circle", v: "Wholeness, safety and care, and the cycle of life. A shape that feels protective." },
+        { k: "The pink", v: "Warmth, compassion and a nurturing space, without harsh fitness branding." },
+        { k: "The lettering", v: "Clean, rounded capitals: approachable, confident and clear." },
+      ],
+    },
+    tint: "#fde9f0",
+    tiles: [
+      { src: img("mic-studios", "01-cover"), alt: "MIC Studios logo: a pink circle with a silhouette of a pregnant woman standing confidently, above the wordmark", caption: "Logo", w: 8 },
+      { src: img("mic-studios", "02-poster-concrete"), alt: "Framed MIC Studios logo print on a concrete wall", caption: "Framed print", w: 4 },
+      { src: img("mic-studios", "04-logo-concept"), alt: "Logo concept: a circle plus a pregnant woman silhouette equals the MIC Studios mark", caption: "Logo concept", w: 7 },
+      { src: img("mic-studios", "07-palette"), alt: "Colour palette: soft pink #F3457E and white #FFFFFF", caption: "Colour palette", w: 5 },
+      { src: img("mic-studios", "05-tee"), alt: "White t-shirt on a hanger with the MIC Studios logo, against pink", caption: "T-shirt", w: 4 },
+      { src: img("mic-studios", "11-model"), alt: "Woman in a white sweatshirt printed with the MIC Studios logo", caption: "Sweatshirt", w: 4 },
+      { src: img("mic-studios", "10-box"), alt: "White hanging box printed with the MIC Studios logo", caption: "Packaging", w: 4 },
+      { src: img("mic-studios", "06-typography"), alt: "Typography page: rounded uppercase letters and numerals in white on pink", caption: "Typography", w: 6 },
+      { src: img("mic-studios", "08-variations"), alt: "Four logo versions: pink on white, white on pink, and reversed circle versions", caption: "Logo versions", w: 6 },
+      { src: img("mic-studios", "09-devices"), alt: "MIC Studios logo on a tablet and a phone", caption: "On screens", w: 5 },
+      { src: img("mic-studios", "13-plant-paper"), alt: "Hand holding a printed MIC Studios logo beside a plant", caption: "Print", w: 7 },
+    ],
+  },
 ];
 
 // Hero collage: real work floating in the showcase panel. x / y / w are percentages of the panel.
