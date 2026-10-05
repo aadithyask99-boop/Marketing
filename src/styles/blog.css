@@ -594,7 +594,8 @@
 .tocm { display: none; }
 @media (max-width: 899px) {
   .a-aside .toc { display: none; }
-  .tocm { position: sticky; top: var(--tocm-top, 0px); z-index: 40; display: block; margin: 1.5rem calc(-1 * var(--gutter)) 1rem; padding: 0.4rem var(--gutter); transition: top 0.3s ease; }
+  .tocm { position: sticky; top: var(--tocm-top, 0px); z-index: 40; display: block; margin: 1.5rem calc(-1 * var(--gutter)) 1rem; padding: 0.4rem var(--gutter); transition: top 0.3s ease, transform 0.3s ease, opacity 0.25s ease; }
+  .tocm.is-stuck.is-away { transform: translateY(-130%); opacity: 0; pointer-events: none; }
   .tocm.is-stuck { background: var(--cream); box-shadow: 0 0.5rem 1.25rem rgba(23, 9, 10, 0.12); }
   .tocm-bar { display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 3rem; padding: 0.5rem 1rem; border: 0; border-radius: 1rem; background: #fff; color: var(--ink); font: 600 0.8rem/1.2 var(--body); text-align: left; cursor: pointer; box-shadow: 0 0.5rem 1.5rem rgba(23, 9, 10, 0.08); -webkit-tap-highlight-color: transparent; }
   .tocm.is-stuck .tocm-bar { box-shadow: none; border: 1px solid rgba(23, 9, 10, 0.12); }

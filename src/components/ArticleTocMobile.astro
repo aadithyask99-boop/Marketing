@@ -46,6 +46,7 @@ const count = items.length + (Astro.props.faq ? 1 : 0);
     if (header) new MutationObserver(place).observe(header, { attributes: true, attributeFilter: ["class"] });
 
     let ticking = false;
+    let lastY = window.scrollY;
     const update = () => {
       ticking = false;
       if (!phone.matches) return;
@@ -53,6 +54,12 @@ const count = items.length + (Astro.props.faq ? 1 : 0);
       const topPx = parseFloat(root.style.getPropertyValue("--tocm-top")) || 0;
       const stuck = root.getBoundingClientRect().top <= topPx + 1 && window.scrollY > 0;
       root.classList.toggle("is-stuck", stuck);
+      // Scrolling up brings the site header back, so the contents bar steps out of the way; scrolling down returns it.
+      const y = window.scrollY;
+      if (!stuck) root.classList.remove("is-away");
+      else if (y < lastY - 4 && panel.hidden) root.classList.add("is-away");
+      else if (y > lastY + 4) root.classList.remove("is-away");
+      lastY = y;
       const line = window.innerHeight * 0.3;
       let current: HTMLElement | null = null;
       for (const t of targets) if (t.getBoundingClientRect().top <= line) current = t;
