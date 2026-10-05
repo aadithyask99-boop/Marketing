@@ -8,7 +8,6 @@ readMins: 9
 tldr: "We built iAudit Global's digital presence from nothing: an 80+ page website, around 40 search-led articles, a full measurement setup, community activity and a LinkedIn page that reached 872 organic followers. The site now gets Google and Bing traffic, appears in AI answers, and has been seen in 129 countries, with no paid spend behind the organic results."
 tags: ["Case study", "B2B SaaS", "SEO", "AEO", "GEO", "LinkedIn", "Content strategy"]
 logo: ../../assets/blog/logo-iaudit.png
-heroStyle: editorial
 logoAlt: "iAudit Global logo"
 faq:
   - q: "What did Maximus Mediascape do for iAudit Global?"

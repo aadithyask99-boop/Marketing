@@ -510,22 +510,6 @@
 .post-cover.is-fill { place-items: stretch; }
 .post-link:hover .post-cover.is-fill .post-logo { transform: scale(1.04); }
 
-/* Dark hero variant (heroTone: ink) */
-.a-head--ink { background: var(--ink); }
-.a-head--ink .a-by .post-avatar { color: var(--ink); }
-.a-head--ink .ask-list a { border-color: var(--cream); }
-.a-head--ink .ask-list a:hover { background: var(--cream); color: var(--ink); }
-.a-head--ink .article-back, .a-head--ink .a-date { opacity: 0.85; }
-
-/* Light hero variant (heroTone: cream): the cover cream, so it still separates from the page body */
-.a-head--cream { background: #ebe4d9; color: var(--ink); }
-.a-head--cream .a-by .post-avatar { background: var(--ink); color: var(--cream); }
-.a-head--cream .tldr { box-shadow: 0 1rem 2.5rem rgba(23, 9, 10, 0.12); }
-.a-head--cream .ask-list a:hover { background: var(--red); border-color: var(--red); color: var(--cream); }
-
-.a-head--cream .a-title, .a-head--cream .article-back, .a-head--cream .a-by { color: var(--ink); }
-.a-head--cream .tldr-dot { background: var(--red); }
-.a-head--cream .a-title, .a-head--cream .a-title [data-xray] { --xr-base: var(--ink); --xr-rev: var(--red); }
 
 
 /* ---------- Editorial header (heroStyle: editorial) ---------- */

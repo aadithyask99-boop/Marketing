@@ -29,7 +29,6 @@ const others = posts.filter((p) => p.id !== post.id && !related.includes(p)).sor
 const more = [...related, ...others].slice(0, 3);
 const TONES = ["cream", "ink", "red"] as const;
 const date = d.date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
-const initials = d.author.split(" ").map((w) => w[0]).join("").slice(0, 2);
 const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href;
 const ask = encodeURIComponent(`Summarise this article and tell me the key takeaways: ${pageUrl}`);
 const AI = [
@@ -37,7 +36,6 @@ const AI = [
   { name: "Claude", href: `https://claude.ai/new?q=${ask}` },
   { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${ask}` },
 ];
-const editorial = d.heroStyle === "editorial";
 const o = Astro.site!.origin;
 const postImage = d.image ? await getImage({ src: d.image, width: 1200 }) : null;
 const postUrl = `${o}/blog/${post.id}`;
@@ -66,88 +64,42 @@ const schema = [
 ---
 
 <BaseLayout title={d.title} description={d.excerpt} schema={schema} image={postImage?.src}>
-  {editorial && <div class="a-progress" aria-hidden="true"><span></span></div>}
+  <div class="a-progress" aria-hidden="true"><span></span></div>
 
-  {
-    editorial ? (
-      <header class:list={["a-banner", d.logo ? "has-logo" : "has-photo", d.logoFill && "is-fill"]}>
-        {
-          d.logo ? (
-            <Image class="a-banner-img" src={d.logo} alt={d.logoAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="100vw" loading="eager" />
-          ) : d.image ? (
-            <Image class="a-banner-img" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="100vw" loading="eager" />
-          ) : (
-            <OfferShape shape={cat.shape} class="a-banner-shape" />
-          )
-        }
-        {!d.logo && <p class="display a-banner-label">{d.heroLabel ?? cat.label}</p>}
-      </header>
-    ) : (
-  <header class:list={["a-head", "page-top", d.heroTone === "ink" && "a-head--ink", d.heroTone === "cream" && "a-head--cream"]}>
-    <div class="a-info">
-      <a class="article-back" href={url("/blog")}>&larr; All posts</a>
-      <p class="a-date">{date} · {d.readMins} min read</p>
-      <h1 class="display a-title">{d.title}</h1>
-      <p class="a-by"><span class="post-avatar" aria-hidden="true">{initials}</span>By {d.author}</p>
-
-      <div class="tldr">
-        <p class="tldr-label"><span class="tldr-dot"></span>Short answer</p>
-        <p class="tldr-text">{d.tldr}</p>
-      </div>
-
-      <div class="ask">
-        <p class="ask-label">Ask AI to summarise</p>
-        <ul class="ask-list" data-ask>
-          {AI.map((a) => <li><a href={a.href} target="_blank" rel="noopener noreferrer">{a.name} <span aria-hidden="true">↗</span></a></li>)}
-        </ul>
-      </div>
-    </div>
-
-    <figure class="a-art">
-      <div class:list={["a-tile", d.logo ? ["has-logo", d.logoFill && "is-fill"] : d.image && "has-photo"]}>
-        {
-          d.logo ? (
-            <Image class="a-logo" src={d.logo} alt={d.logoAlt ?? ""} widths={d.logoFill ? [640, 960, 1400] : [320, 640, 960]} sizes={d.logoFill ? "(min-width: 900px) 50vw, 100vw" : "(min-width: 900px) 30vw, 60vw"} loading="eager" />
-          ) : d.image ? (
-            <Image class="a-photo" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" />
-          ) : (
-            <OfferShape shape={cat.shape} class="a-shape" />
-          )
-        }
-      </div>
-    </figure>
+  <header class:list={["a-banner", d.logo ? "has-logo" : "has-photo", d.logoFill && "is-fill"]}>
+    {
+      d.logo ? (
+        <Image class="a-banner-img" src={d.logo} alt={d.logoAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="100vw" loading="eager" />
+      ) : d.image ? (
+        <Image class="a-banner-img" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="100vw" loading="eager" />
+      ) : (
+        <OfferShape shape={cat.shape} class="a-banner-shape" />
+      )
+    }
+    {!d.logo && <p class="display a-banner-label">{d.heroLabel ?? cat.label}</p>}
   </header>
-    )
-  }
 
-  <section class:list={["a-body", "section--cream", editorial && "is-editorial"]}>
-    {!editorial && <p class="a-credit">{cat.label} · Illustration by {SITE.name}</p>}
+  <section class="a-body section--cream is-editorial">
     <div class="a-grid">
-      {
-        editorial ? (
-          <div class="a-main">
-            <div class="a-intro">
-              <a class="article-back" href={url("/blog")}>&larr; All posts</a>
-              <p class="a-meta"><span class="a-pill"><i aria-hidden="true"></i>{cat.label}</span><span>{date}</span><span>{d.readMins} min read</span></p>
-              <h1 class="display a-title" data-no-xray>{d.title}</h1>
-              <p class="a-by"><span class="a-by-logo" aria-hidden="true"></span>By {d.author}</p>
-              <div class="tldr">
-                <p class="tldr-label">TLDR</p>
-                <p class="tldr-text">{d.tldr}</p>
-              </div>
-              <div class="ask">
-                <p class="ask-label">Ask AI to summarise</p>
-                <ul class="ask-list" data-ask>
-                  {AI.map((a) => <li><a href={a.href} target="_blank" rel="noopener noreferrer">{a.name} <span aria-hidden="true">↗</span></a></li>)}
-                </ul>
-              </div>
-            </div>
-            <article class="prose"><Content /></article>
+      <div class="a-main">
+        <div class="a-intro">
+          <a class="article-back" href={url("/blog")}>&larr; All posts</a>
+          <p class="a-meta"><span class="a-pill"><i aria-hidden="true"></i>{cat.label}</span><span>{date}</span><span>{d.readMins} min read</span></p>
+          <h1 class="display a-title" data-no-xray>{d.title}</h1>
+          <p class="a-by"><span class="a-by-logo" aria-hidden="true"></span>By {d.author}</p>
+          <div class="tldr">
+            <p class="tldr-label">TLDR</p>
+            <p class="tldr-text">{d.tldr}</p>
           </div>
-        ) : (
-          <article class="prose"><Content /></article>
-        )
-      }
+          <div class="ask">
+            <p class="ask-label">Ask AI to summarise</p>
+            <ul class="ask-list" data-ask>
+              {AI.map((a) => <li><a href={a.href} target="_blank" rel="noopener noreferrer">{a.name} <span aria-hidden="true">↗</span></a></li>)}
+            </ul>
+          </div>
+        </div>
+        <article class="prose"><Content /></article>
+      </div>
       <aside class="a-aside"><ArticleToc headings={headings} /><ShareRail title={d.title} /></aside>
     </div>
     <div class="a-wrap">

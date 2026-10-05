@@ -23,11 +23,7 @@ const blog = defineCollection({
     logoAlt: z.string().optional(),
     // The logo has its own background colour: fill the whole tile with it instead of sitting on cream.
     logoFill: z.boolean().default(false),
-    // Hero background: red (default) or ink for posts whose imagery clashes with red.
-    // "editorial" = calm banner + title above the paragraphs; "classic" = the red split header.
-    heroStyle: z.enum(["classic", "editorial"]).default("classic"),
     heroLabel: z.string().optional(),
-    heroTone: z.enum(["red", "ink", "cream"]).default("red"),
   }),
 });
 
