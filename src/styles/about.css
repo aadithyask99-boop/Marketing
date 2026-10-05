@@ -1,16 +1,6 @@
 /* Hero */
 .about-hero { position: relative; overflow: hidden; }
-.about-hero > :not(.hero-floats) { position: relative; z-index: 1; }
 .about-hero .lede { color: var(--cream); }
-.hero-floats { position: absolute; inset: 0; pointer-events: none; }
-.hf { position: absolute; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-.hf .hf-shape { position: static; width: 100%; height: auto; aspect-ratio: 1; opacity: 1; transform: none; fill: var(--cream); }
-.hf .hf-shape .ring { stroke: var(--cream); }
-.hf .hf-shape .solid, .hf .hf-shape .petal { fill: var(--cream); }
-.hf--a { right: 6%; top: 18%; width: clamp(8rem, 16vw, 15rem); opacity: 0.95; }
-.hf--b { right: 22%; bottom: 12%; width: clamp(6rem, 11vw, 10rem); opacity: 0.7; }
-.hf--c { right: 3%; bottom: 8%; width: clamp(6rem, 12vw, 11rem); opacity: 0.85; }
-@media (max-width: 700px) { .hf--b, .hf--c { display: none; } .hf--a { right: -2rem; top: auto; bottom: 4rem; width: 9rem; opacity: 0.5; } }
 
 /* Story */
 .astory { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 7rem) var(--gutter); }
@@ -152,7 +142,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .office-pill, .pill-time, .val, .val-img, .hf, .vals-btn, .vals-dots span, .clock, .pin-dot { transition: none; }
+  .office-pill, .pill-time, .val, .val-img, .vals-btn, .vals-dots span, .clock, .pin-dot { transition: none; }
   .clock.is-open .clock-dot, .pin-pulse { animation: none; }
 }
 
