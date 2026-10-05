@@ -87,10 +87,10 @@ const schema = [
     </div>
 
     <figure class="a-art">
-      <div class:list={["a-tile", d.logo ? "has-logo" : d.image && "has-photo"]}>
+      <div class:list={["a-tile", d.logo ? ["has-logo", d.logoFill && "is-fill"] : d.image && "has-photo"]}>
         {
           d.logo ? (
-            <Image class="a-logo" src={d.logo} alt={d.logoAlt ?? ""} widths={[320, 640, 960]} sizes="(min-width: 900px) 30vw, 60vw" loading="eager" />
+            <Image class="a-logo" src={d.logo} alt={d.logoAlt ?? ""} widths={d.logoFill ? [640, 960, 1400] : [320, 640, 960]} sizes={d.logoFill ? "(min-width: 900px) 50vw, 100vw" : "(min-width: 900px) 30vw, 60vw"} loading="eager" />
           ) : d.image ? (
             <Image class="a-photo" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" />
           ) : (

@@ -21,6 +21,8 @@ const blog = defineCollection({
     // A client logo shown on a cream tile instead of a photo (case studies).
     logo: image().optional(),
     logoAlt: z.string().optional(),
+    // The logo has its own background colour: fill the whole tile with it instead of sitting on cream.
+    logoFill: z.boolean().default(false),
   }),
 });
 

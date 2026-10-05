@@ -5,11 +5,12 @@ category: case-studies
 author: Maximus Team
 date: 2026-10-05
 readMins: 6
-draft: true
+draft: false
 tldr: "Bakwa, a Kerala brand making bottles from plant-based materials, had a limited budget. We built a single-page website with one enquiry form, grew an Instagram audience organically, and gave publications a real story to tell. In three months that meant 5.3K+ followers, 3,000+ enquiries and ₹10 lakh+ in revenue, with ₹0 spent on advertising."
 tags: ["Case study", "Brand building", "Social media", "Content distribution", "PR", "Sustainability"]
 logo: ../../assets/blog/logo-bakwa.png
-logoAlt: "Bakwa logo"
+logoAlt: "Bakwa logo: It's not water. It's a movement."
+logoFill: true
 faq:
   - q: "What did Maximus Mediascape do for Bakwa?"
     a: "We built a simple one-page website with a single enquiry form, ran Bakwa's social content to grow its audience, and helped get its story to publications and other channels. We are now working with Bakwa on its next website."

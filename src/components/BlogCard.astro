@@ -16,8 +16,9 @@ interface Props {
   image?: ImageMetadata;
   imageAlt?: string;
   logo?: ImageMetadata;
+  logoFill?: boolean;
 }
-const { slug, title, excerpt, category, author, readMins, tone, featured = false, image, imageAlt = "", logo } = Astro.props;
+const { slug, title, excerpt, category, author, readMins, tone, featured = false, image, imageAlt = "", logo, logoFill = false } = Astro.props;
 const cat = BLOG_CATEGORIES.find((c) => c.slug === category)!;
 const initials = author.split(" ").map((w) => w[0]).join("").slice(0, 2);
 const search = `${title} ${excerpt} ${cat.label}`.toLowerCase();
@@ -25,10 +26,10 @@ const search = `${title} ${excerpt} ${cat.label}`.toLowerCase();
 
 <li class:list={["post", featured && "post--feature"]} data-cat={category} data-search={search}>
   <a class="post-link" href={url(`/blog/${slug}`)} data-cursor="Read">
-    <div class:list={["post-cover", `post-cover--${tone}`, logo ? "has-logo" : image && "has-photo"]}>
+    <div class:list={["post-cover", `post-cover--${tone}`, logo ? ["has-logo", logoFill && "is-fill"] : image && "has-photo"]}>
       {
         logo ? (
-          <Image class="post-logo" src={logo} alt={imageAlt} widths={[240, 480, 720]} sizes={featured ? "(min-width: 900px) 22vw, 50vw" : "(min-width: 900px) 14vw, 40vw"} loading="lazy" />
+          <Image class="post-logo" src={logo} alt={imageAlt} widths={logoFill ? [480, 720, 1000] : [240, 480, 720]} sizes={logoFill ? (featured ? "(min-width: 900px) 45vw, 100vw" : "(min-width: 900px) 25vw, (min-width: 600px) 50vw, 100vw") : (featured ? "(min-width: 900px) 22vw, 50vw" : "(min-width: 900px) 14vw, 40vw")} loading="lazy" />
         ) : image ? (
           <Image class="post-photo" src={image} alt={imageAlt} widths={[480, 720, 1000]} sizes={featured ? "(min-width: 900px) 45vw, 100vw" : "(min-width: 900px) 25vw, (min-width: 600px) 50vw, 100vw"} loading="lazy" />
         ) : (

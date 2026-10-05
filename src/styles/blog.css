@@ -503,3 +503,10 @@
 .post-logo { display: block; width: auto; height: auto; max-width: 52%; max-height: 58%; object-fit: contain; transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .post-link:hover .post-logo { transform: scale(1.06); }
 @media (prefers-reduced-motion: reduce) { .post-logo { transition: none; } .post-link:hover .post-logo { transform: none; } }
+/* A logo with its own background colour fills the whole tile */
+.a-tile.is-fill, .post-cover.is-fill { background: #0e6e37; }
+.a-tile.is-fill .a-logo { width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
+.post-cover.is-fill .post-logo { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; object-fit: contain; }
+.post-cover.is-fill { place-items: stretch; }
+.post-link:hover .post-cover.is-fill .post-logo { transform: scale(1.04); }
+
