@@ -10,6 +10,7 @@ import OfferShape from "../../components/OfferShape.astro";
 import { Image, getImage } from "astro:assets";
 import "../../styles/offerings.css";
 import "../../styles/blog.css";
+import "../../styles/casestudy.css";
 import { BLOG_CATEGORIES, SITE, url } from "../../data/site";
 import { breadcrumbs } from "../../lib/schema";
 
@@ -150,4 +151,37 @@ const schema = [
     Perplexity: `https://www.perplexity.ai/search?q=${q}`,
   };
   links.forEach((a) => { const k = a.textContent!.replace(/\s*↗\s*$/, "").trim(); if (map[k]) a.href = map[k]; });
+</script>
+
+<script>
+  // Case study screenshots: click to enlarge in a native dialog (Esc or the close button to leave).
+  const shots = document.querySelectorAll<HTMLImageElement>(".prose .cs-frame img");
+  if (shots.length && typeof HTMLDialogElement !== "undefined") {
+    const dlg = document.createElement("dialog");
+    dlg.className = "cs-lb";
+    dlg.setAttribute("aria-label", "Enlarged screenshot");
+    const close = document.createElement("button");
+    close.type = "button";
+    close.setAttribute("aria-label", "Close");
+    close.textContent = "\u2715";
+    const big = document.createElement("img");
+    dlg.append(close, big);
+    document.body.append(dlg);
+    let from: HTMLElement | null = null;
+    const open = (img: HTMLImageElement) => {
+      from = img;
+      big.src = img.currentSrc || img.src;
+      big.alt = img.alt;
+      dlg.showModal();
+    };
+    close.addEventListener("click", () => dlg.close());
+    dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener("close", () => from?.focus());
+    shots.forEach((img) => {
+      img.tabIndex = 0;
+      img.setAttribute("role", "button");
+      img.addEventListener("click", () => open(img));
+      img.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img); } });
+    });
+  }
 </script>

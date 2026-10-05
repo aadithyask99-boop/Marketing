@@ -192,3 +192,14 @@ Hero: no client names; the "Please scroll down" cue is centred; the word strip r
 **Open items**: confirm sector labels (especially "Workplace software"); iAudit screenshot must not show real client data; copy marked placeholder in `design.ts` needs review; MIC Studios story lacks location/"from scratch" facts; live Luna depends on the client allowing framing; only Chromium tested (Safari/iPhone untested beyond the backface fix); small italic kickers remain on some other sections only if reintroduced.
 
 **Conventions**: push to the work branch then straight to the Vercel branch without asking; client facts are never invented (ask first); verify with Playwright (Chromium at `/opt/pw-browsers/chromium`, module `/opt/node-tools/node_modules/playwright/index.mjs`), preview with `npx astro preview --port 4321`.
+
+## 13. Case study infographic pattern (blog posts in `case-studies`)
+
+First used by `src/content/blog/iaudit-global-organic-growth.md`. Styles in `src/styles/casestudy.css` (`cs-` prefix, imported by `src/pages/blog/[slug].astro`).
+
+- **Linear style:** thin 2px lines, round caps, `currentColor` line icons (24px viewBox, same stroke as the Process icons), pills, tokens only. Red is the line that "travels"; ink is structure.
+- **Because posts are `.md`**, figures are raw single-line HTML blocks (no blank lines inside, or markdown breaks them). Each is a `<figure class="fig cs-...">`, so the existing observer in `[slug].astro` adds `.is-in` and the lines draw once on scroll. No script is needed per figure; with reduced motion or no JS everything is simply shown.
+- **Figures:** `cs-line` (vertical rail on phones, horizontal route from 700px; `--n` sets the stop count; used for the route and the question-to-platform funnel), `cs-pillars` + `cs-base` (cards on one foundation bar), `cs-tree` (root, branches), `cs-tools` (pills under a red baseline), `cs-feed` (sources converging on a node, SVG with `preserveAspectRatio="none"` and non-scaling strokes), `cs-grow` (zero to a number), `cs-chips` (stat chips), `cs-ledger` (hairline rows of Bebas numbers), `cs-shot` (screenshot in a browser-bar frame).
+- **Screenshots** live in `public/case-studies/<slug>/*.webp` and are raw `<img>` tags with `width`/`height`. Do not use markdown `![]()` for dashboards: `.prose p:has(> img)` crops to 16:9 and tints the picture red. Clicking one opens a native `<dialog>` (`.cs-lb`, Esc or the close button; focus returns to the image).
+- **Numbers always carry their period and source** (e.g. "Search Console, 12-month view"). Use the client's own screenshots as the source of truth; never merge figures from different periods into one claim.
+- To redraw a chart from real data later, use the `dataviz` skill and keep the screenshot beside it as proof.

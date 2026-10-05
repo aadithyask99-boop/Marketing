@@ -1,0 +1,154 @@
+/* Case study infographics (inside .prose, blog posts in the case-studies category).
+   Linear style: thin single-weight lines, round caps, currentColor icons, pills, tokens only.
+   Everything is prefixed cs- . Lines draw in once when the figure scrolls into view (.fig.is-in, set in [slug].astro). */
+
+.prose .fig[class*="cs-"] { overflow: hidden; }
+.cs-ico { width: 1.5rem; height: 1.5rem; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.prose .cs-reset, .prose .cs-reset li { margin: 0; padding: 0; list-style: none; }
+
+/* ---------- Route and rail (the line with stops) ---------- */
+.cs-line { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.cs-line > li { position: relative; display: grid; align-content: start; grid-template-columns: 3rem minmax(0, 1fr); column-gap: 1rem; margin: 0; padding: 0 0 1.5rem; }
+.prose .cs-line > li, .prose .cs-line > li + li { margin: 0; }
+.cs-line > li:last-child { padding-bottom: 0; }
+.cs-line > li::before { content: ""; position: absolute; left: 1.5rem; top: 3rem; bottom: 0; width: 0; border-left: 2px solid var(--red); transform-origin: top; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.14s); }
+.cs-line > li:last-child::before { display: none; }
+.cs-node { grid-row: 1 / span 2; display: grid; place-items: center; width: 3rem; height: 3rem; border: 2px solid var(--ink); border-radius: 50%; background: var(--cream); color: var(--ink); transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+.cs-line > li:hover .cs-node { background: var(--red); border-color: var(--red); color: var(--cream); }
+.cs-node--start { border-style: dashed; }
+.cs-node--end { background: var(--red); border-color: var(--red); color: var(--cream); }
+.cs-step { margin: 0.1rem 0 0; font: 600 0.75rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+.cs-name { margin: 0.2rem 0 0; font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1; text-transform: uppercase; }
+.cs-text { margin: 0.3rem 0 0; font-size: 0.9rem; line-height: 1.4; opacity: 0.85; }
+
+@media (min-width: 700px) {
+  .cs-line { grid-template-columns: repeat(var(--n, 7), minmax(0, 1fr)); }
+  .cs-line > li { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; padding: 0 0.35rem; column-gap: 0; }
+  .cs-line > li::before { left: calc(50% + 1.75rem); right: calc(-50% + 1.75rem); top: 1.5rem; bottom: auto; width: auto; height: 0; border-left: 0; border-top: 2px solid var(--red); transform-origin: left; }
+  .cs-node { grid-row: auto; margin-bottom: 0.75rem; }
+  .cs-name { font-size: 1.3rem; }
+}
+
+/* ---------- Pillars ---------- */
+.cs-pillars { display: grid; gap: 0.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.cs-pillars > li { position: relative; display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 1.1rem 1rem 1.25rem; border: 1px solid rgba(23, 9, 10, 0.18); border-radius: 1.1rem; background: var(--cream); transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease; }
+.cs-pillars > li + li { margin: 0; }
+.cs-pillars > li:hover { transform: translateY(-0.25rem); border-color: var(--red); }
+.cs-pillars .cs-ico { width: 2rem; height: 2rem; color: var(--red); }
+.cs-pillars .cs-name { margin: 0; font-size: 1.35rem; }
+.cs-pillars .cs-text { margin: 0; }
+.cs-base { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin: 0.75rem 0 0; padding: 0.7rem 1.25rem; border-radius: 999px; background: var(--red); color: var(--cream); font: 600 0.95rem/1.2 var(--body); text-align: center; transform-origin: left; transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.5s; }
+@media (min-width: 700px) { .cs-pillars { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+
+/* ---------- Site tree ---------- */
+.cs-tree { display: flex; flex-direction: column; align-items: center; }
+.cs-root { position: relative; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 0.2rem 0.75rem; margin: 0; padding: 0.6rem 1.4rem; border-radius: 999px; background: var(--ink); color: var(--cream); font: 600 0.95rem/1.2 var(--body); text-align: center; }
+.cs-root strong { font-family: var(--display); font-weight: 400; font-size: 1.5rem; letter-spacing: 0.02em; text-transform: uppercase; }
+.cs-branches { position: relative; display: grid; gap: 0.6rem; width: 100%; margin: 0; padding: 1.75rem 0 0 1.25rem; list-style: none; }
+.cs-branches::before { content: ""; position: absolute; left: 0; top: 0; bottom: 1.5rem; border-left: 2px solid var(--red); transform-origin: top; transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s; }
+.cs-branches > li { position: relative; margin: 0; padding: 0.8rem 1rem; border: 1px solid rgba(23, 9, 10, 0.18); border-radius: 1rem; background: var(--cream); transition: border-color 0.25s ease, transform 0.25s ease; }
+.cs-branches > li + li { margin: 0; }
+.cs-branches > li:hover { border-color: var(--red); transform: translateY(-0.15rem); }
+.cs-branches > li::before { content: ""; position: absolute; left: -1.25rem; top: 1.4rem; width: 1.25rem; border-top: 2px solid var(--red); }
+.cs-branches .cs-name { margin: 0; font-size: 1.3rem; }
+.cs-branches .cs-text { margin: 0.15rem 0 0; font-size: 0.85rem; }
+.cs-tree-note { margin: 1rem 0 0; font-size: 0.85rem; opacity: 0.7; text-align: center; }
+@media (min-width: 800px) {
+  .cs-root::after { content: ""; position: absolute; left: 50%; top: 100%; height: 1.75rem; border-left: 2px solid var(--red); }
+  .cs-branches { grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 1.75rem 0 0; margin-top: 1.75rem; }
+  .cs-branches::before { left: 10%; right: 10%; top: 0; bottom: auto; border-left: 0; border-top: 2px solid var(--red); transform-origin: center; }
+  .cs-branches > li { text-align: center; }
+  .cs-branches > li::before { left: 50%; top: -1.75rem; width: 0; height: 1.75rem; border-top: 0; border-left: 2px solid var(--red); }
+}
+
+/* ---------- Tools on one baseline ---------- */
+.cs-tools { display: grid; gap: 1.1rem; }
+.cs-tools-group { padding-bottom: 1rem; border-bottom: 2px solid var(--red); }
+.cs-tools-group:last-child { padding-bottom: 0; border-bottom: 0; }
+.cs-tools-label { margin: 0 0 0.6rem; font: 600 0.75rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+.cs-pills { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0; padding: 0; list-style: none; }
+.cs-pills li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; padding: 0.4rem 0.9rem; border: 2px solid var(--ink); border-radius: 999px; font: 600 0.9rem/1 var(--body); transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+.cs-pills li + li { margin: 0; }
+.cs-pills li:hover { background: var(--ink); color: var(--cream); }
+
+/* ---------- Sources feeding AI answers ---------- */
+.cs-feed { display: grid; justify-items: center; }
+.cs-feed-src { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.4rem; width: 100%; margin: 0; padding: 0; list-style: none; }
+.cs-feed-src li { margin: 0; padding: 0.55rem 0.2rem; border: 2px solid var(--ink); border-radius: 999px; font: 600 clamp(0.72rem, 2.2vw, 0.9rem)/1 var(--body); text-align: center; }
+.cs-feed-src li + li { margin: 0; }
+.cs-feed-lines { display: block; width: 100%; height: 3.5rem; overflow: visible; transition: clip-path 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s; }
+.cs-feed-lines path { fill: none; stroke: var(--red); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.cs-feed-core { display: inline-flex; align-items: center; gap: 0.6rem; margin: 0; padding: 0.7rem 1.5rem; border-radius: 999px; background: var(--red); color: var(--cream); font-family: var(--display); font-size: 1.5rem; line-height: 1; text-transform: uppercase; }
+.cs-feed-core .cs-ico { width: 1.25rem; height: 1.25rem; }
+
+/* ---------- Growth rail (zero to a number) ---------- */
+.cs-grow { display: flex; align-items: center; gap: 0.75rem; margin: 0 0 1.25rem; }
+.cs-grow-end { flex: none; display: flex; flex-direction: column; font-family: var(--display); font-size: clamp(2.25rem, 7vw, 3.5rem); line-height: 0.9; }
+.cs-grow-end small { margin-top: 0.3rem; font: 600 0.8rem/1.2 var(--body); opacity: 0.7; }
+.cs-grow-end--to { align-items: flex-end; color: var(--red); text-align: right; }
+.cs-grow-line { position: relative; flex: 1 1 auto; min-width: 2rem; height: 2px; background: rgba(23, 9, 10, 0.18); transform-origin: left; }
+.cs-grow-line::after { content: ""; position: absolute; inset: 0; background: var(--red); transform-origin: left; transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1) 0.2s; }
+.cs-grow-line::before { content: ""; position: absolute; right: -0.1rem; top: 50%; z-index: 1; width: 0.9rem; height: 0.9rem; margin-top: -0.45rem; border-radius: 50%; background: var(--red); }
+
+/* ---------- Stat chips ---------- */
+.cs-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.cs-chips li { display: flex; flex-direction: column; gap: 0.1rem; margin: 0; padding: 0.6rem 1rem; border-radius: 1rem; background: var(--ink); color: var(--cream); }
+.cs-chips li + li { margin: 0; }
+.cs-chips li:first-child { background: var(--red); }
+.cs-chips strong { font-family: var(--display); font-weight: 400; font-size: 1.75rem; line-height: 1; }
+.cs-chips span { font-size: 0.8rem; line-height: 1.2; opacity: 0.85; }
+
+/* ---------- Screenshots in a browser frame (click to enlarge) ---------- */
+.prose .fig.cs-shot { margin: 2rem 0; padding: 0; overflow: visible; border-radius: 0; background: transparent; }
+.cs-frame { overflow: hidden; border: 2px solid var(--ink); border-radius: 1.25rem; background: var(--cream); }
+.cs-frame-bar { display: flex; align-items: center; gap: 0.35rem; padding: 0.55rem 0.9rem; border-bottom: 2px solid var(--ink); background: var(--cream); }
+.cs-frame-bar i { width: 0.6rem; height: 0.6rem; border-radius: 50%; border: 2px solid var(--ink); }
+.cs-frame-bar span { margin-left: 0.5rem; font: 600 0.75rem/1.2 var(--body); letter-spacing: 0.06em; }
+.cs-frame img { display: block; width: 100%; height: auto; margin: 0; cursor: zoom-in; }
+.cs-shot figcaption { margin: 0.8rem 0 0; font-size: 0.85rem; line-height: 1.4; opacity: 1; }
+.cs-shot figcaption .cs-chips { margin-top: 0.75rem; }
+.cs-shot-pair { display: grid; gap: 1rem; margin: 2rem 0; }
+.cs-shot-pair .cs-shot { margin: 0; }
+@media (min-width: 700px) { .cs-shot-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; } }
+
+/* ---------- Result ledger ---------- */
+.cs-ledger { margin: 0; padding: 0; list-style: none; border-top: 2px solid var(--ink); }
+.cs-ledger li { display: grid; grid-template-columns: minmax(6.5rem, 9rem) minmax(0, 1fr); align-items: center; gap: 0.25rem 1.25rem; margin: 0; padding: 0.8rem 0; border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
+.cs-ledger li + li { margin: 0; }
+.cs-ledger strong { font-family: var(--display); font-weight: 400; font-size: clamp(1.9rem, 5vw, 2.75rem); line-height: 0.95; color: var(--red); }
+.cs-ledger span { font-size: 0.95rem; line-height: 1.35; }
+.cs-ledger small { display: block; margin-top: 0.15rem; font-size: 0.8rem; opacity: 0.65; }
+
+/* ---------- Enlarged screenshot ---------- */
+.cs-lb { width: min(96vw, 90rem); max-width: none; max-height: 94svh; padding: 0; border: 0; border-radius: 1rem; background: var(--ink); color: var(--cream); cursor: auto; overflow: auto; }
+.cs-lb::backdrop { background: rgba(23, 9, 10, 0.85); }
+.cs-lb img { display: block; width: 100%; height: auto; }
+.cs-lb button { position: sticky; top: 0.6rem; float: right; margin: 0.6rem 0.6rem -3rem 0; z-index: 1; width: 2.5rem; height: 2.5rem; border: 2px solid var(--cream); border-radius: 50%; background: var(--ink); color: var(--cream); font: 600 1.1rem/1 var(--body); cursor: pointer; }
+.cs-lb button:hover { background: var(--red); border-color: var(--red); }
+.cs-lb button, .cs-lb img { cursor: auto; }
+.cs-lb button { cursor: pointer; }
+
+/* ---------- Draw-in (only when scripting is available, and motion is allowed) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-fig .cs-line > li::before { transform: scaleY(0); }
+  .js-fig .fig.is-in .cs-line > li::before { transform: none; }
+  .js-fig .cs-base, .js-fig .cs-branches::before { transform: scaleX(0); }
+  .js-fig .cs-branches::before { transform: scaleY(0); }
+  .js-fig .fig.is-in .cs-base, .js-fig .fig.is-in .cs-branches::before { transform: none; }
+  .js-fig .cs-grow-line::after { transform: scaleX(0); }
+  .js-fig .fig.is-in .cs-grow-line::after { transform: none; }
+  .js-fig .cs-feed-lines { clip-path: inset(0 0 100% 0); }
+  .js-fig .fig.is-in .cs-feed-lines { clip-path: inset(0); }
+}
+@media (min-width: 700px) and (prefers-reduced-motion: no-preference) {
+  .js-fig .cs-line > li::before { transform: scaleX(0); }
+  .js-fig .fig.is-in .cs-line > li::before { transform: none; }
+}
+@media (min-width: 800px) and (prefers-reduced-motion: no-preference) {
+  .js-fig .cs-branches::before { transform: scaleX(0); }
+  .js-fig .fig.is-in .cs-branches::before { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cs-node, .cs-pillars > li, .cs-branches > li, .cs-pills li { transition: none; }
+  .cs-pillars > li:hover, .cs-branches > li:hover { transform: none; }
+}
