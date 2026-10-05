@@ -199,3 +199,7 @@
   .fw-pill, .fw-pill.is-hover { transition: none; }
   .fw-pill.is-hover { transform: rotate(-3deg); }
 }
+
+/* Tall screenshots: show the top (profile header) in the upper part, text on solid ink below */
+.fw--top .fw-img { bottom: auto; height: 62%; }
+.fw--top .fw-link::after { background: linear-gradient(180deg, rgba(23, 9, 10, 0) 38%, var(--ink) 62%); }

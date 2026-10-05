@@ -9,7 +9,7 @@ import bakwaGrid from "../assets/design/wall/ig-bakwa.webp";
 const items = [
   { tone: "ink", client: "Bakwa", img: bakwa, alt: "Bakwa logo on a green tile: It's not water. It's a movement.", tags: ["Website", "Social", "PR"], line: "A one-page website and zero ad spend.", metric: "3,000+", metricLabel: "enquiries in 3 months", reported: true, href: "/blogs/bakwa-brand-from-scratch" },
   { tone: "cream", client: "Luna", img: luna, alt: "Luna, an AI wellness companion chatbot with a friendly flame mascot and suggested topics", tags: ["AI chatbot", "Wellness"], line: "An AI wellness companion that answers visitors around the clock.", metric: "", metricLabel: "", reported: false, href: "/work/portfolio#app-luna" },
-  { tone: "red", client: "Bakwa Instagram", img: bakwaGrid, alt: "Complete Instagram profile and grid design for a sustainable packaging brand", tags: ["Social", "Sustainable packaging"], line: "A complete Instagram profile and grid.", metric: "5.3K+", metricLabel: "organic followers", reported: true, href: "/work/portfolio#ig-bakwa" },
+  { tone: "red", client: "Bakwa Instagram", img: bakwaGrid, alt: "Complete Instagram profile and grid design for a sustainable packaging brand", tags: ["Social", "Sustainable packaging"], line: "A complete Instagram profile and grid.", metric: "", metricLabel: "", reported: false, pos: "top", href: "/work/portfolio#ig-bakwa" },
 ];
 ---
 
@@ -21,9 +21,9 @@ const items = [
   <ul class="featured-grid">
     {
       items.map((w) => (
-        <li class={`fw fw--${w.tone} fw--photo`}>
+        <li class={`fw fw--${w.tone} fw--photo${w.pos ? " fw--top" : ""}`}>
           <a class="fw-link" href={url(w.href)} data-cursor="View">
-            <Image class="fw-img" src={w.img} alt={w.alt} widths={[480, 720, 960]} sizes="(min-width: 900px) 25vw, 100vw" loading="lazy" />
+            <Image class="fw-img" style={w.pos ? `object-position: 50% ${w.pos === "top" ? "0%" : w.pos}` : undefined} src={w.img} alt={w.alt} widths={[480, 720, 960]} sizes="(min-width: 900px) 25vw, 100vw" loading="lazy" />
             <span class="fw-arrow" aria-hidden="true">↗</span>
             {w.metric && <span class="fw-metric">{w.metric}<small>{w.metricLabel}{w.reported ? "*" : ""}</small></span>}
             <span class="fw-pill">{w.client}</span>
