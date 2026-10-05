@@ -305,3 +305,5 @@ Good prompting is a useful starting point for working with AI, but businesses ca
 Maximus Mediascape helps businesses explore practical applications of **[AI automation, chatbots, lead qualification, customer support and automated workflows.](/our-services/)**
 
 If you're looking to move from simply experimenting with AI to using it more effectively across your digital operations, Maximus Mediascape can help you identify opportunities to put AI and automation to work.
+
+**Related guides:** [How to Write Effective AI Prompts for Better Results](/blogs/how-to-write-effective-ai-prompts/), [10 AI Prompting Techniques for Better Responses Every Time](/blogs/ai-prompting-techniques-for-better-responses/), [Common AI Prompting Mistakes and How to Fix Them](/blogs/common-ai-prompting-mistakes/).

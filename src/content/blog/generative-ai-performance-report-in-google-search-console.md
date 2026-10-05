@@ -225,3 +225,5 @@ What is actually happening to our visibility in AI Search, and what can the data
 If you're already investing in SEO, this is another report worth keeping an eye on.
 
 Google is still rolling the feature out, so don't worry if you can't see it in Search Console yet. Not every website has access, and Google says a site may also lack the report if it hasn't received enough impressions from generative AI features.
+
+**Related guides:** [How to Track Social Media Performance in Google Search Console](/blogs/track-social-media-performance-in-google-search-console/), [Mastering First-Party Data Strategy for Privacy-First Growth](/blogs/mastering-first-party-data-strategy-growth/).

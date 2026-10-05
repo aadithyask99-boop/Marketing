@@ -103,3 +103,5 @@ If you are thinking about how AI advertising fits into your strategy, we would b
 What is your take on ads in ChatGPT? Opportunity, concern, or both? Share your thoughts in the comments.
 
 ***Maximus Mediascape | Architects of Digital Excellence***
+
+**Related guides:** [Testing ads in ChatGPT: What OpenAI’s Pilot Means for Marketers](/blogs/testing-ads-in-chatgpt/), [ChatGPT Ads Expansion to the UK: What Businesses Need to Know](/blogs/chatgpt-ads-expansion-uk/), [ChatGPT Ads in India: How Businesses Can Advertise on ChatGPT](/blogs/chatgpt-ads-in-india/), [ChatGPT Ads for B2B Companies: How to Reach Decision Makers](/blogs/chatgpt-ads-for-b2b-companies/).

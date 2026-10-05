@@ -261,3 +261,5 @@ If the answer is no, those are good places to begin.
 If you would like a second opinion, [we offer a free marketing audit where we review your website structure, content, SEO, and overall digital presence.](/digital-marketing-agency-in-london/)
 
 We will identify practical improvements that can help your business become easier to discover through both traditional search and AI search.
+
+**Related guides:** [Why Brand Mentions Matter More Than Backlinks](/blogs/why-brand-mentions-matter-more-than-backlinks/), [How to Build Content AI Actually Understands](/blogs/how-to-build-content-ai-actually-understands/), [How people search in ChatGPT vs Google](/blogs/how-people-search-in-chatgpt-vs-google/), [How to Get Your Business Cited in Google AI Overviews in London](/blogs/get-your-business-cited-in-google-ai-overviews-in-london/).

@@ -360,3 +360,5 @@ These questions will not solve every problem, but they can help you work out whe
 For some businesses, the next step is also to look beyond individual AI tasks and consider where AI could become part of everyday processes. Maximus Mediascape provides [AI, automation and chatbot solutions](/our-services/) for areas such as customer support, lead handling and business workflows.
 
 The more useful question is not simply whether you are using AI. It is whether you are giving it enough direction to do something genuinely useful for your business.
+
+**Related guides:** [The Future of Work: How Human AI Collaboration is Transforming Business](/blogs/human-ai-collaboration-future-of-work/).

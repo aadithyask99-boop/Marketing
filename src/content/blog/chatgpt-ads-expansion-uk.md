@@ -171,3 +171,5 @@ We also run the full campaign management if you decide to move forward, handling
 Request a free marketing audit here: [https://maximusmediascape.com/digital-marketing-agency-in-london/](/digital-marketing-agency-in-london/)
 
 We will take a look at your current marketing, tell you if ChatGPT ads are a fit, and map out what channel to test first.
+
+**Related guides:** [Ads in ChatGPT: What This Means for Your Marketing Strategy](/blogs/ads-in-chatgpt-and-your-marketing-strategy/), [Testing ads in ChatGPT: What OpenAI’s Pilot Means for Marketers](/blogs/testing-ads-in-chatgpt/), [ChatGPT Ads in India: How Businesses Can Advertise on ChatGPT](/blogs/chatgpt-ads-in-india/), [ChatGPT Ads for B2B Companies: How to Reach Decision Makers](/blogs/chatgpt-ads-for-b2b-companies/).

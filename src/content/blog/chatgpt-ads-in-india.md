@@ -176,3 +176,5 @@ Businesses that already have strong digital foundations are likely to be better 
 For businesses that want to explore how ChatGPT advertising could fit into a wider digital strategy, [Maximus Mediascape's services](/our-services/) cover digital advertising, SEO, website development, landing page optimisation and AI solutions.
 
 You can also read our earlier guide on [ChatGPT Ads and the expansion into the UK](/blogs/chatgpt-ads-expansion-uk/) for a closer look at how the advertising platform is developing in another major market.
+
+**Related guides:** [Ads in ChatGPT: What This Means for Your Marketing Strategy](/blogs/ads-in-chatgpt-and-your-marketing-strategy/), [Testing ads in ChatGPT: What OpenAI’s Pilot Means for Marketers](/blogs/testing-ads-in-chatgpt/), [ChatGPT Ads for B2B Companies: How to Reach Decision Makers](/blogs/chatgpt-ads-for-b2b-companies/), [How to Get Your Business Recommended by ChatGPT](/blogs/how-to-get-your-business-recommended-by-chatgpt/).

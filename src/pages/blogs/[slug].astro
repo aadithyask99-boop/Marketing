@@ -14,6 +14,7 @@ import "../../styles/blog.css";
 import "../../styles/casestudy.css";
 import { BLOG_CATEGORIES, SITE, url } from "../../data/site";
 import { breadcrumbs } from "../../lib/schema";
+import { relatedPosts } from "../../lib/related";
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).filter((p) => !p.data.draft);
@@ -24,10 +25,7 @@ const { post, posts } = Astro.props;
 const { Content, headings } = await render(post);
 const d = post.data;
 const cat = BLOG_CATEGORIES.find((c) => c.slug === d.category)!;
-const related = posts.filter((p) => p.id !== post.id && p.data.category === d.category).slice(0, 3);
-// Always show three: same-category first, then the newest of the rest.
-const others = posts.filter((p) => p.id !== post.id && !related.includes(p)).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-const more = [...related, ...others].slice(0, 3);
+const more = relatedPosts(post, posts, 6);
 const TONES = ["cream", "ink", "red"] as const;
 const date = d.date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.href;
@@ -118,7 +116,7 @@ const schema = [
     <ul class="blog-grid blog-grid--related">
       {
         more.map((p, i) => (
-          <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} image={p.data.image} imageAlt={p.data.imageAlt} />
+          <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} image={p.data.image} imageAlt={p.data.logoAlt ?? p.data.imageAlt} logo={p.data.logo} logoFill={p.data.logoFill} />
         ))
       }
     </ul>

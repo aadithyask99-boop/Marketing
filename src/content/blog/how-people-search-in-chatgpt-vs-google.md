@@ -164,3 +164,5 @@ Finally, many businesses do not measure outcomes. If you are not tracking enquir
 If you want a clear starting point, request a free marketing audit. We will review your website structure, messaging, and visibility, and highlight what to fix first so your site matches How People Search in ChatGPT as well as how people search on Google.
 
 You can request it here: [Digital Marketing Agency in London](/digital-marketing-agency-in-london/)
+
+**Related guides:** [How Google AI Mode Is Changing SEO](/blogs/how-google-ai-mode-is-changing-seo/), [Why Brand Mentions Matter More Than Backlinks](/blogs/why-brand-mentions-matter-more-than-backlinks/), [How to Build Content AI Actually Understands](/blogs/how-to-build-content-ai-actually-understands/), [How to Get Your Business Cited in Google AI Overviews in London](/blogs/get-your-business-cited-in-google-ai-overviews-in-london/).

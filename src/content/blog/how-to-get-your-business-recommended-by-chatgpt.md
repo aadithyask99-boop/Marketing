@@ -138,3 +138,5 @@ We will show you exactly what is helping your brand and what is making you invis
 Request your free audit here: [Digital Marketing Agency in London.](/digital-marketing-agency-in-london/)
 
 Let's make sure your business is the one the AI recommends.
+
+**Related guides:** [ChatGPT Ads in India: How Businesses Can Advertise on ChatGPT](/blogs/chatgpt-ads-in-india/), [ChatGPT Ads for B2B Companies: How to Reach Decision Makers](/blogs/chatgpt-ads-for-b2b-companies/).

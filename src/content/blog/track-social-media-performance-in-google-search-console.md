@@ -257,3 +257,5 @@ If you want to keep up with changes like this and learn practical ways to improv
 <https://www.instagram.com/maximusmediascape/>
 
 We regularly share practical insights on SEO, AI search, websites, and digital marketing that businesses can apply straight away.
+
+**Related guides:** [Generative AI Performance Report in Google Search Console](/blogs/generative-ai-performance-report-in-google-search-console/), [Mastering First-Party Data Strategy for Privacy-First Growth](/blogs/mastering-first-party-data-strategy-growth/).
