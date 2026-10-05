@@ -10,14 +10,7 @@
 .dz-hero [data-xray] { --xr-base: var(--cream); --xr-rev: var(--ink); }
 .dz-hero .lede { color: var(--cream); max-width: 44rem; }
 
-.dz-strip { margin-inline: calc(var(--gutter) * -1); overflow: hidden; border-block: 1px solid rgba(245, 239, 232, 0.45); padding: 0.55rem 0; }
-.dz-strip-track { display: flex; width: max-content; animation: dz-strip 46s linear infinite; }
-.dz-strip:hover .dz-strip-track { animation-play-state: paused; }
-.dz-strip-list { display: flex; align-items: center; margin: 0; padding: 0; list-style: none; }
-.dz-strip-list li { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem); padding-right: clamp(1rem, 2vw, 1.75rem); font-family: var(--display); font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1; text-transform: uppercase; white-space: nowrap; }
-.dz-strip .asterisk { width: 0.7em; height: 0.7em; margin: 0; }
 /* Six identical copies; slide by exactly one copy so the loop is seamless at any width */
-@keyframes dz-strip { to { transform: translateX(calc(-100% / 6)); } }
 .dz-scroll { display: inline-flex; align-items: center; gap: 0.5rem; align-self: center; font-weight: 600; font-size: 0.92rem; }
 .dz-scroll svg { width: 1.1rem; height: 1.1rem; animation: dz-bob 2s ease-in-out infinite; }
 @keyframes dz-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(0.3rem); } }
@@ -469,7 +462,7 @@ html.dz-lock { overflow: hidden; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dz-strip-track, .dz-scroll svg { animation: none; }
+  .dz-scroll svg { animation: none; }
   .dz-hl, .dz-thumb, .dz-index a, .dz-prog span { transition: none; }
   .js-dz .dz-tile, .dz-open, .dz-open img, .dz-cap, .dz-marker, .dz-index a, .dz-cta i,   .dz-open:hover, .dz-tile:nth-child(even) .dz-open:hover { transform: none; }
   .dz-lb[open] { animation: none; }

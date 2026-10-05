@@ -313,7 +313,6 @@ export const DESIGN_WALL: WallTile[] = [
   { id: "ig-bakwa", src: img("wall", "ig-bakwa"), kind: "social", sector: "Sustainable packaging", alt: "Complete Instagram profile and grid design for a plastic-free water brand, with green branding and nature imagery", top: 3, rot: -1.2, depth: 10, side: "r" },
 ];
 
-export const HERO_STRIP = ["Logos", "Identities", "Brand books", "Mascots", "Packaging", "Websites", "Apps", "Instagram grids", "Mockups"];
 
 export const BRAND_BOOK = {
   kicker: "Brand books",

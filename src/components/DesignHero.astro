@@ -1,6 +1,4 @@
 ---
-import Asterisk from "./Asterisk.astro";
-import { HERO_STRIP } from "../data/design";
 ---
 
 <section class="dz-hero section page-top page-hero" data-dz-hero>
@@ -9,17 +7,5 @@ import { HERO_STRIP } from "../data/design";
       <span data-xray>Brands, sites &amp; feeds</span> <span class="dz-accent" data-xray>we've made</span>
     </h1>
     <p class="lede">A brand is more than a logo. We design the mark, the look and the rules that keep it consistent, then show it working on a cap, a bucket, a website and a feed.</p>
-  </div>
-
-  <div class="dz-strip" aria-hidden="true">
-    <div class="dz-strip-track">
-      {
-        [0, 1, 2, 3, 4, 5].map(() => (
-          <ul class="dz-strip-list">
-            {HERO_STRIP.map((w) => <li><span>{w}</span><Asterisk /></li>)}
-          </ul>
-        ))
-      }
-    </div>
   </div>
 </section>
