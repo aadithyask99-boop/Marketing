@@ -12,9 +12,9 @@ const TONES = ["cream", "ink", "red"] as const;
 const all = (await getCollection("blog"))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
-// Only the newest featured post takes the big top slot; everything else flows into the grid by date.
-const lead = all.find((p) => p.data.featured);
-const posts = lead ? [lead, ...all.filter((p) => p !== lead)] : all;
+// The newest post always takes the big top slot; everything else flows into the grid by date, newest first.
+const lead = all[0];
+const posts = all;
 const o = Astro.site!.origin;
 const schema = [
   webPage(o, "/blog", "CollectionPage", "Blog", "Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.", { mainEntity: { "@type": "Blog", name: "Maximus Mediascape Blog", blogPost: posts.map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: `${o}/blog/${p.id}`, datePublished: p.data.date.toISOString() })) } }),
