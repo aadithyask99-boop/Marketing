@@ -15,7 +15,7 @@ const items = WORK.slice(0, 3);
     {
       items.map((w, i) => (
         <li class={`fw fw--${TONES[i]}`}>
-          <a class="fw-link" href={`${url("/contact")}?service=${encodeURIComponent(w.category)}`} data-cursor="View">
+          <a class="fw-link" href={`${url("/contact-us")}?service=${encodeURIComponent(w.category)}`} data-cursor="View">
             <OfferShape shape={SHAPES[i]} class="fw-shape" />
             <span class="fw-pill">{w.title}</span>
             <span class="fw-arrow" aria-hidden="true">↗</span>
@@ -25,7 +25,7 @@ const items = WORK.slice(0, 3);
       ))
     }
     <li class="fw fw--secret">
-      <a class="fw-link" href={url("/contact")} data-cursor="Ask">
+      <a class="fw-link" href={url("/contact-us")} data-cursor="Ask">
         <svg class="fw-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z"></path></svg>
         <span class="fw-secret">Shhh! There's more, but it's a secret.</span>
         <span class="fw-ask">Ask us <span aria-hidden="true">↗</span></span>

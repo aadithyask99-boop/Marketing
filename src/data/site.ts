@@ -1,5 +1,10 @@
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
-export const url = (path: string) => `${base}${path}`;
+// Internal page URLs end in a slash, matching the previous site (/our-services/, /blogs/slug/).
+export const url = (path: string) => {
+  const m = path.match(/^([^?#]*)(.*)$/)!;
+  const p = m[1] === "/" || m[1].endsWith("/") || /\.\w+$/.test(m[1]) ? m[1] : `${m[1]}/`;
+  return `${base}${p}${m[2]}`;
+};
 
 export const SITE = {
   name: "Maximus Mediascape",
@@ -37,11 +42,11 @@ export const STORY = {
 
 export const NAV = [
   { href: "/", label: "Home" },
-  { href: "/services", label: "Services" },
+  { href: "/our-services", label: "Services" },
   { href: "/work", label: "Work" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+  { href: "/blogs", label: "Blog" },
+  { href: "/about-us", label: "About" },
+  { href: "/contact-us", label: "Contact" },
 ];
 
 export const ROTATING_WORDS = ["Creative", "SEO", "Branding", "Marketing", "AI", "GEO", "AEO"];

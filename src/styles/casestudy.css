@@ -253,3 +253,13 @@
   .cs-node, .cs-pillars > li, .cs-branches > li, .cs-pills li, .cs-embed-ico { transition: none; }
   .cs-pillars > li:hover, .cs-branches > li:hover { transform: none; }
 }
+
+/* ---------- Blog guides (migrated posts): numbered chips, linked and current route stops ---------- */
+.cs-chips--num li, .cs-chips--num li:first-child { flex-direction: row; align-items: center; gap: 0.6rem; padding: 0.5rem 1rem 0.5rem 0.75rem; border-radius: 999px; background: var(--ink); }
+.cs-chips--num strong { display: grid; place-items: center; min-width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--red); font-size: 1.05rem; line-height: 1; padding-top: 0.1rem; }
+.cs-chips--num span { font-size: 0.85rem; opacity: 1; }
+.cs-name a { color: inherit; text-decoration: none; }
+.cs-name a:hover, .cs-name a:focus-visible { color: var(--red); text-decoration: underline; text-underline-offset: 0.2em; }
+.cs-line > li.is-here .cs-node { background: var(--red); border-color: var(--red); color: var(--cream); }
+.cs-line > li.is-here .cs-name::after { content: "You are here"; display: block; width: fit-content; margin: 0.35rem auto 0; padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--ink); color: var(--cream); font: 600 0.65rem/1.4 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
+@media (max-width: 699px) { .cs-line > li.is-here .cs-name::after { margin: 0.35rem 0 0; } }

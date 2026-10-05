@@ -17,8 +17,8 @@ const lead = all[0];
 const posts = all;
 const o = Astro.site!.origin;
 const schema = [
-  webPage(o, "/blog", "CollectionPage", "Blog", "Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.", { mainEntity: { "@type": "Blog", name: "Maximus Mediascape Blog", blogPost: posts.map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: `${o}/blog/${p.id}`, datePublished: p.data.date.toISOString() })) } }),
-  breadcrumbs(o, [{ name: "Blog", path: "/blog" }]),
+  webPage(o, "/blogs", "CollectionPage", "Blog", "Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.", { mainEntity: { "@type": "Blog", name: "Maximus Mediascape Blog", blogPost: posts.map((p) => ({ "@type": "BlogPosting", headline: p.data.title, url: `${o}/blogs/${p.id}/`, datePublished: p.data.date.toISOString() })) } }),
+  breadcrumbs(o, [{ name: "Blog", path: "/blogs" }]),
 ];
 ---
 
@@ -70,7 +70,7 @@ const schema = [
       }
     </ul>
     <p class="blog-empty" hidden>
-      Nothing found. <a href="/contact">Ask us instead</a> and we'll point you to the right place.
+      Nothing found. <a href="/contact-us">Ask us instead</a> and we'll point you to the right place.
     </p>
   </section>
 

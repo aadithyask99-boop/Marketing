@@ -38,7 +38,7 @@ const AI = [
 ];
 const o = Astro.site!.origin;
 const postImage = d.image ? await getImage({ src: d.image, width: 1200 }) : null;
-const postUrl = `${o}/blog/${post.id}`;
+const postUrl = `${o}/blogs/${post.id}/`;
 const schema = [
   {
     "@context": "https://schema.org",
@@ -59,7 +59,7 @@ const schema = [
     "@type": "FAQPage",
     mainEntity: d.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   },
-  breadcrumbs(o, [{ name: "Blog", path: "/blog" }, { name: d.title, path: `/blog/${post.id}` }]),
+  breadcrumbs(o, [{ name: "Blog", path: "/blogs" }, { name: d.title, path: `/blogs/${post.id}/` }]),
 ].filter(Boolean) as object[];
 ---
 
@@ -83,7 +83,7 @@ const schema = [
     <div class="a-grid">
       <div class="a-main">
         <div class="a-intro">
-          <a class="article-back" href={url("/blog")}>&larr; All posts</a>
+          <a class="article-back" href={url("/blogs")}>&larr; All posts</a>
           <p class="a-meta"><span class="a-pill">{cat.label}</span><span>{date}</span><span>{d.readMins} min read</span></p>
           <h1 class="display a-title" data-no-xray>{d.title}</h1>
           <p class="a-by"><span class="a-by-logo" aria-hidden="true"></span>By {d.author}</p>
@@ -105,8 +105,8 @@ const schema = [
     <div class="a-wrap">
     <Faq items={d.faq} />
     <div class="a-foot">
-      <p class="a-tags"><span>In this article:</span>{d.tags.map((t) => <a href={`${url("/blog")}?q=${encodeURIComponent(t)}`}>#{t}</a>)}</p>
-      <p class="a-geo">Built to be quoted by AI. This page ships with <a href={`${url("/services")}#ai-search`}>the same structured data we set up for clients</a>.</p>
+      <p class="a-tags"><span>In this article:</span>{d.tags.map((t) => <a href={`${url("/blogs")}?q=${encodeURIComponent(t)}`}>#{t}</a>)}</p>
+      <p class="a-geo">Built to be quoted by AI. This page ships with <a href={`${url("/our-services")}#ai-search`}>the same structured data we set up for clients</a>.</p>
     </div>
     </div>
   </section>

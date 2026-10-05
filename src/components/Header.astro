@@ -29,7 +29,7 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
     </nav>
 
     <div class="nav-actions">
-      <a class="nav-cta" href={minimal ? "#start" : url("/contact")} {...(minimal ? { "data-preset": "I'd like the Starter website package (from £999)" } : { "aria-haspopup": "true", "aria-expanded": "false", "aria-controls": "wa-card" })}>
+      <a class="nav-cta" href={minimal ? "#start" : url("/contact-us")} {...(minimal ? { "data-preset": "I'd like the Starter website package (from £999)" } : { "aria-haspopup": "true", "aria-expanded": "false", "aria-controls": "wa-card" })}>
         {minimal ? "Get started" : "Talk to us"}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
       </a>

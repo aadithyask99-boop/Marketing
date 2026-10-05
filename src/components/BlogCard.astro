@@ -25,7 +25,7 @@ const search = `${title} ${excerpt} ${cat.label}`.toLowerCase();
 ---
 
 <li class:list={["post", featured && "post--feature"]} data-cat={category} data-search={search}>
-  <a class="post-link" href={url(`/blog/${slug}`)} data-cursor="Read">
+  <a class="post-link" href={url(`/blogs/${slug}`)} data-cursor="Read">
     <div class:list={["post-cover", `post-cover--${tone}`, logo ? ["has-logo", logoFill && "is-fill"] : image && "has-photo"]}>
       {
         logo ? (

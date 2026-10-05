@@ -3,6 +3,8 @@ import { SITE, OFFICES, SOCIALS, SERVICES } from "../data/site";
 // Real profile URLs only; "#" placeholders are left out of sameAs.
 const sameAs = SOCIALS.map((s) => s.href).filter((h) => h.startsWith("http"));
 
+const slashed = (p: string) => (p.endsWith("/") ? p : `${p}/`);
+
 export const orgId = (origin: string) => `${origin}/#organization`;
 
 export function siteGraph(origin: string) {
@@ -44,7 +46,8 @@ export function siteGraph(origin: string) {
   };
 }
 
-export function webPage(origin: string, path: string, type: string, name: string, description: string, extra: object = {}) {
+export function webPage(origin: string, rawPath: string, type: string, name: string, description: string, extra: object = {}) {
+  const path = slashed(rawPath);
   return {
     "@context": "https://schema.org",
     "@type": type,
@@ -66,7 +69,7 @@ export function breadcrumbs(origin: string, trail: { name: string; path: string 
       "@type": "ListItem",
       position: i + 1,
       name: t.name,
-      item: `${origin}${t.path}`,
+      item: `${origin}${slashed(t.path)}`,
     })),
   };
 }
