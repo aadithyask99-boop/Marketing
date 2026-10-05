@@ -558,3 +558,30 @@
   .blog-grid:not(.is-filtered) .post--feature .post-title { font-size: clamp(2.2rem, 3.4vw, 3.6rem); }
 }
 
+
+
+/* ---------- Calm blog page (cream header, small chips, search beside them, wide grid) ---------- */
+.blog-hero { background: var(--cream); color: var(--ink); align-items: center; text-align: center; justify-content: flex-start; min-height: 0; padding-top: calc(var(--header-h) + clamp(2rem, 5vw, 4rem)); padding-bottom: clamp(2rem, 4vw, 3rem); }
+.blog-label { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 0 1rem; font: 600 0.85rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; }
+.blog-label i { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--red); }
+.blog-title { font-size: clamp(3rem, 8vw, 7rem); color: var(--ink); }
+.blog-hero .blog-accent { color: var(--red); }
+.blog-hero .lede { margin: 1rem auto 0; color: var(--ink); opacity: 0.8; }
+.blog-hero [data-xray] { --xr-base: var(--ink); --xr-rev: var(--red); }
+.blog-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.75rem 1.25rem; width: 100%; max-width: 90rem; margin-top: 2rem; }
+.blog-tools .blog-chips { margin: 0; padding: 0; justify-content: center; flex-wrap: wrap; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+.blog-hero .chip { min-height: 2.25rem; padding: 0.35rem 0.95rem; border: 1.5px solid var(--ink); color: var(--ink); font-size: 0.85rem; }
+.blog-hero .chip:hover { background: rgba(23, 9, 10, 0.08); }
+.blog-hero .chip[aria-pressed="true"] { background: var(--ink); color: var(--cream); }
+.blog-hero .blog-search { flex: 0 1 20rem; min-height: 2.75rem; margin: 0; padding: 0.15rem 1rem; background: #fff; box-shadow: none; border: 1.5px solid rgba(23, 9, 10, 0.25); }
+.blog-hero .blog-search input { min-height: 2.25rem; font-size: 0.95rem; }
+.blog-hero .blog-search > svg { width: 1.1rem; height: 1.1rem; }
+.blog-hero .blog-count { min-height: 0; margin-top: 0.75rem; }
+.blog-list { padding-top: 0; }
+
+/* Tags: small outlined pills with a red dot instead of solid red blocks */
+.post-tag { display: inline-flex; align-items: center; gap: 0.45rem; background: transparent; color: inherit; border: 1.5px solid currentColor; padding: 0.2rem 0.7rem; }
+.post-tag::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--red); }
+
+/* Hover: no lift; the photo eases in and the cursor shows Read */
+.post-link:hover { transform: none; box-shadow: none; }

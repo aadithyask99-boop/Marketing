@@ -24,9 +24,11 @@ const schema = [
 
 <BaseLayout schema={schema} title="Blog" description="Ideas on AI search, SEO, websites, automation and brand from Maximus Mediascape.">
   <section class="blog-hero page-top page-hero">
+    <p class="blog-label"><i aria-hidden="true"></i>Blog</p>
     <h1 class="display blog-title">Ideas worth <span class="blog-accent">ranking</span></h1>
     <p class="lede">Notes on getting found, cited and chosen, from Google to ChatGPT.</p>
 
+    <div class="blog-tools">
     <div class="blog-chips" role="group" aria-label="Filter by category">
       <button type="button" class="chip" data-cat="all" aria-pressed="true">All</button>
       {BLOG_CATEGORIES.map((c) => <button type="button" class="chip" data-cat={c.slug} aria-pressed="false">{c.label}</button>)}
@@ -40,6 +42,7 @@ const schema = [
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </button>
     </form>
+    </div>
     <p class="blog-count" aria-live="polite"></p>
   </section>
 
