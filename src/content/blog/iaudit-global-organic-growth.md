@@ -116,7 +116,7 @@ The same effort shows up in answers people actually read:
 
 We treated LinkedIn as an acquisition channel in its own right, not somewhere to repost website content. We built and managed the page from scratch, with content around the problems, standards and questions its professional audience cares about. Over about 12 months it reached 872 organic followers, with no paid follower campaigns.
 
-<figure class="fig cs-growfig"><div class="cs-grow"><span class="cs-grow-end">0<small>Day one</small></span><span class="cs-grow-line"></span><span class="cs-grow-end cs-grow-end--to">872<small>followers, no paid campaigns</small></span></div><ul class="cs-chips"><li><strong>23,579</strong><span>impressions, 1 Aug to 30 Sep 2026 (up 86.1%)</span></li></ul><figcaption>The iAudit Global LinkedIn page, built from scratch over about 12 months. Source: LinkedIn page analytics.</figcaption></figure>
+<figure class="fig cs-growfig"><div class="cs-gstats"><p class="cs-gbig"><strong>872</strong><span>organic followers in about 12 months, with no paid campaigns</span></p><p class="cs-gside"><strong>23,579</strong><span>impressions, 1 Aug to 30 Sep 2026</span><em>up 86.1%</em></p></div><div class="cs-rail"><span>0 · Day one</span><span class="cs-rail-line"><i></i></span><span>872 today</span></div><figcaption>The iAudit Global LinkedIn page, built from scratch. Source: LinkedIn page analytics.</figcaption></figure>
 
 Content went out as regular posts, LinkedIn Articles and a newsletter for followers. Website articles were repurposed as LinkedIn-native content, so the same research reached the audience in different formats. One post reached 11,465 organic impressions and 8,416 members, with a reported 87.72% CTR.
 
