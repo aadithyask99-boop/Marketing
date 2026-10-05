@@ -590,22 +590,23 @@
 .blog-more-btn { min-height: 3rem; padding: 0.7rem 1.75rem; border: 0; border-radius: 999px; background: var(--ink); color: var(--cream); font: 600 1rem/1 var(--body); cursor: pointer; transition: background 0.2s ease; }
 .blog-more-btn:hover, .blog-more-btn:focus-visible { background: var(--red); }
 
-/* Phone contents bar */
+/* Phone contents bar: same glass pill as the site header, so the two swap places */
 .tocm { display: none; }
 @media (max-width: 899px) {
   .a-aside .toc { display: none; }
-  .tocm { position: sticky; top: var(--tocm-top, 0px); z-index: 40; display: block; margin: 1.5rem calc(-1 * var(--gutter)) 1rem; padding: 0.4rem var(--gutter); transition: top 0.3s ease, transform 0.3s ease, opacity 0.25s ease; }
-  .tocm.is-stuck.is-away { transform: translateY(-130%); opacity: 0; pointer-events: none; }
-  .tocm.is-stuck { background: var(--cream); box-shadow: 0 0.5rem 1.25rem rgba(23, 9, 10, 0.12); }
-  .tocm-bar { display: flex; align-items: center; gap: 0.75rem; width: 100%; min-height: 3rem; padding: 0.5rem 1rem; border: 0; border-radius: 1rem; background: #fff; color: var(--ink); font: 600 0.8rem/1.2 var(--body); text-align: left; cursor: pointer; box-shadow: 0 0.5rem 1.5rem rgba(23, 9, 10, 0.08); -webkit-tap-highlight-color: transparent; }
-  .tocm.is-stuck .tocm-bar { box-shadow: none; border: 1px solid rgba(23, 9, 10, 0.12); }
+  .tocm { position: sticky; top: 0.75rem; z-index: 55; display: block; margin: 1.5rem calc(-1 * var(--gutter)) 1rem; padding: 0 var(--gutter); perspective: 700px; }
+  .tocm.is-away { pointer-events: none; }
+  .tocm-bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.75rem; width: 100%; height: 3.4rem; padding: 0 0.4rem 0 1.1rem; border: 0; border-radius: 999px; color: var(--ink); font: 600 0.8rem/1.2 var(--body); text-align: left; cursor: pointer; background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(245, 239, 232, 0.36)); -webkit-backdrop-filter: blur(18px) saturate(1.8); backdrop-filter: blur(18px) saturate(1.8); box-shadow: 0 12px 32px rgba(23, 9, 10, 0.22); transform-origin: 50% 0; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease; -webkit-tap-highlight-color: transparent; }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .tocm-bar { background: rgba(245, 239, 232, 0.92); } }
+  .tocm.is-away .tocm-bar { transform: rotateX(-90deg); opacity: 0; }
   .tocm-bar:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
-  .tocm-title { flex: none; letter-spacing: 0.12em; text-transform: uppercase; }
-  .tocm-now { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; font-size: 0.9rem; opacity: 0.75; text-align: right; }
+  .tocm-title { letter-spacing: 0.12em; text-transform: uppercase; }
+  .tocm-now { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; font-size: 0.9rem; opacity: 0.75; text-align: right; }
   .tocm.is-stuck .tocm-now { color: var(--red); opacity: 1; font-weight: 600; }
-  .tocm-bar svg { flex: none; width: 1.1rem; height: 1.1rem; transition: transform 0.25s ease; }
-  .tocm.is-open .tocm-bar svg { transform: rotate(180deg); }
-  .tocm-panel { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(100% - 0.2rem); max-height: 60svh; overflow-y: auto; padding: 0.5rem 1rem; border-radius: 1rem; background: #fff; box-shadow: 0 1rem 2.5rem rgba(23, 9, 10, 0.2); overscroll-behavior: contain; }
+  .tocm-btn { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--ink); color: var(--cream); }
+  .tocm-btn svg { width: 1.1rem; height: 1.1rem; transition: transform 0.25s ease; }
+  .tocm.is-open .tocm-btn svg { transform: rotate(180deg); }
+  .tocm-panel { position: absolute; left: var(--gutter); right: var(--gutter); top: calc(100% + 0.4rem); max-height: 60svh; overflow-y: auto; padding: 0.5rem 1.1rem; border-radius: 1.5rem; background: rgba(255, 255, 255, 0.96); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); box-shadow: 0 1rem 2.5rem rgba(23, 9, 10, 0.22); overscroll-behavior: contain; }
   .tocm-panel[hidden] { display: none; }
   .tocm-panel ol { margin: 0; padding: 0; list-style: none; }
   .tocm-panel li { margin: 0; border-top: 1px solid rgba(23, 9, 10, 0.1); }
@@ -614,6 +615,6 @@
   .tocm-panel a { display: flex; align-items: center; gap: 0.6rem; min-height: 2.75rem; padding: 0.5rem 0; font-size: 0.95rem; line-height: 1.3; text-decoration: none; }
   .tocm-panel a.is-current { color: var(--red); font-weight: 700; }
   .tocm-panel a.is-current::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--red); }
-  .prose :is(h2, h3) { scroll-margin-top: 7.5rem; }
+  .prose :is(h2, h3) { scroll-margin-top: 6rem; }
 }
-@media (prefers-reduced-motion: reduce) { .tocm, .tocm-bar svg { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .tocm-bar, .tocm-btn svg { transition: none; } }
