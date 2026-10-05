@@ -68,6 +68,8 @@ The key is to provide **the right information, rather than simply more informati
 
 ## How to Write a Really Good AI Prompt
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Start with a clear goal</span></li><li><strong>2</strong><span>Give relevant context</span></li><li><strong>3</strong><span>Be specific</span></li><li><strong>4</strong><span>Say how to present the answer</span></li><li><strong>5</strong><span>Add useful constraints</span></li><li><strong>6</strong><span>Use examples</span></li><li><strong>7</strong><span>Break complex requests into steps</span></li><li><strong>8</strong><span>Review and refine</span></li></ul><figcaption>Eight habits of a really good prompt.</figcaption></figure>
+
 ### 1. Start With a Clear Goal
 
 The first step is to tell the AI exactly what you want it to do.
@@ -243,6 +245,8 @@ Treat the interaction as a conversation. Review the response, identify what is m
 ## Common AI Prompting Mistakes to Avoid
 
 Even a few small changes can make a prompt considerably more useful. Some common mistakes include:
+
+![Hands typing on a keyboard beside a laptop](/blog-media/how-to-write-a-really-good-ai-prompt-photo.webp)
 
 ### Being Too Vague
 

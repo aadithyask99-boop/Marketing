@@ -23,7 +23,7 @@ faq:
   - q: "Can Maximus Mediascape help me find and fix SEO red flags on my website?"
     a: "Yes. We offer a free marketing audit where we review your website structure, indexing, speed, content, and local SEO setup. We identify what is holding you back and provide a clear priority list of fixes. You can request yours here: Digital Marketing Agency"
 image: ../../assets/blog/seo-red-flags-on-your-website.webp
-imageAlt: "A red no-entry road sign against a yellow wall"
+imageAlt: "A red flag with a white cross outside a shopfront"
 ---
 
 If your website is not ranking, traffic has flattened, or enquiries feel inconsistent, there is a good chance you are dealing with SEO red flags on your website. The frustrating part is that many of these issues do not look like “errors”. The site loads, the pages are live, and everything seems fine. But Google may be struggling to crawl, understand, or trust what you have published.

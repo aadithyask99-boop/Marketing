@@ -23,7 +23,7 @@ faq:
   - q: "Should businesses focus on backlinks or brand mentions?"
     a: "Businesses should not treat them as an either-or choice. A strong online presence can include relevant backlinks, brand mentions, reviews, social content, publications and industry discussions. The aim should be to build a credible presence across the places where potential customers and search systems discover information."
 image: ../../assets/blog/why-brand-mentions-matter-more-than-backlinks.webp
-imageAlt: "A microphone on a stand in a softly lit room"
+imageAlt: "A close-up of a microphone"
 ---
 
 For years, backlinks have been one of the main ways businesses measured their online authority. The logic was simple: if reputable websites linked to your business, search engines had more reasons to trust your website.
@@ -35,6 +35,8 @@ A business can be mentioned in publications, social media posts, reviews, videos
 We saw this first-hand with [**Bakwa**](https://bakwa.in/), a sustainable packaging brand. Through a focused content and outreach campaign, Bakwa's story reached major publications and was reposted across more than 200 web and social channels. That visibility helped the brand generate more than 3,000 enquiries and over ₹10 lakh in revenue in two months, without spending money on paid advertising.
 
 The campaign is a useful example of why businesses should think beyond backlinks.
+
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>What is a brand mention?</span></li><li><strong>2</strong><span>Backlinks still matter, so why look beyond them?</span></li><li><strong>3</strong><span>Why brand mentions matter</span></li><li><strong>4</strong><span>Why context matters more than the numbers</span></li></ul><figcaption>What this article covers.</figcaption></figure>
 
 ## What Is a Brand Mention?
 
@@ -107,6 +109,8 @@ Your website tells people what you say about your business.
 Brand mentions show what other people are saying about it.
 
 That wider footprint can include publications, social platforms, reviews, partners, communities and other websites.
+
+![An empty stage and auditorium](/blog-media/why-brand-mentions-matter-more-than-backlinks-photo.webp)
 
 ## Why Context Matters More Than the Number of Mentions
 

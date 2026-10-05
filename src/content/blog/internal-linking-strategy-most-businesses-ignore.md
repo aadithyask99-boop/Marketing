@@ -23,7 +23,7 @@ faq:
   - q: "Can Maximus Mediascape help me improve my internal linking strategy?"
     a: "Yes. We offer a free marketing audit that includes a review of your site structure, internal linking, and overall SEO setup. We identify gaps and send you a clear priority list of fixes. Request yours here: Digital Marketing Agency in London"
 image: ../../assets/blog/internal-linking-strategy-most-businesses-ignore.webp
-imageAlt: "Metal chain links crossing in a cross shape"
+imageAlt: "A heavy chain hanging between stone posts"
 ---
 
 Most websites publish pages then leave them disconnected. A blog post sits alone. A service page has no links pointing to it. A case study exists but nobody finds it. This is where an internal linking strategy most businesses ignore comes in.
@@ -78,6 +78,8 @@ Homepages rank for broad, competitive terms. Service pages rank for specific int
 
 If your top service page is 5 clicks away from the homepage, Google will crawl it less often and treat it as less important. Pages that matter should be easy to reach.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Core pages</span></li><li><strong>2</strong><span>Support pages</span></li><li><strong>3</strong><span>Proof pages</span></li></ul><figcaption>The three page types in a simple structure.</figcaption></figure>
+
 ## A Simple Internal Link Structure That Works for Most Businesses
 
 You do not need a complicated system. Most businesses can use a hub and spoke model.
@@ -117,6 +119,8 @@ For example, in our blog post about internal linking strategy, we could link to 
 Navigation should be clear and focused. Your main services should be obvious. At Maximus, we list Website Design and Development, Digital Marketing and Advertising, SEO and Content Creation, Social Media Management, AI Automation and Chatbot Solutions, Email and SMS Marketing, and Brand and Identity [in our services menu.](/our-services/)
 
 Footer can include links to key service pages, but keep it clean and avoid cluttering it with every page you have.
+
+![A close-up of a metal chain link](/blog-media/internal-linking-strategy-most-businesses-ignore-photo.webp)
 
 ### Internal Linking Best Practices (Without Overcomplicating It)
 

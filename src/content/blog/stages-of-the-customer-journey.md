@@ -23,7 +23,7 @@ faq:
   - q: "What is the difference between a customer journey and a sales funnel?"
     a: "A customer journey focuses on the complete experience a customer has with a business, including research, purchase and post-purchase interactions. A sales funnel mainly focuses on moving potential customers towards a sale. The customer journey provides a broader view of customer behaviour and relationships."
 image: ../../assets/blog/stages-of-the-customer-journey.webp
-imageAlt: "A wooden path winding through dunes towards the sea"
+imageAlt: "A paved path running through green woodland"
 ---
 
 Every customer starts somewhere.

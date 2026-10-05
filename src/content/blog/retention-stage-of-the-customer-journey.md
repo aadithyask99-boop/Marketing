@@ -23,7 +23,7 @@ faq:
   - q: "How can digital tools improve the Retention Stage of the Customer Journey?"
     a: "Digital tools such as customer relationship management systems, email marketing, AI-powered automation, and personalised communication can help businesses stay connected with customers, provide timely support, and deliver better experiences throughout the Retention Stage of the Customer Journey."
 image: ../../assets/blog/retention-stage-of-the-customer-journey.webp
-imageAlt: "Regular customers seated in a busy cafe"
+imageAlt: "A cafe sign reading Coffee makes everything better"
 ---
 
 Many businesses spend a significant amount of time attracting new customers. They invest in advertising, promotions, sales efforts, and improving their visibility to reach more people.

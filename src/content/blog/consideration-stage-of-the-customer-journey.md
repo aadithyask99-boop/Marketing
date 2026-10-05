@@ -23,7 +23,7 @@ faq:
   - q: "What information are customers looking for during the consideration stage?"
     a: "Customers typically look for pricing information, service details, case studies, customer reviews, testimonials, project timelines, business experience and evidence that a product or service can solve their specific problem. Clear and transparent information helps customers make informed decisions while narrowing down their options."
 image: ../../assets/blog/consideration-stage-of-the-customer-journey.webp
-imageAlt: "Yellow hiking signposts pointing in different directions"
+imageAlt: "Directional signposts in several colours pointing different ways"
 ---
 
 When people first realise they have a problem, they rarely make an immediate purchase. Instead, they spend time understanding their options, comparing businesses and deciding which solution is most likely to meet their needs. This period of research is known as the **Consideration Stage of the Customer Journey**.

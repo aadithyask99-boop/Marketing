@@ -56,6 +56,8 @@ You need AI solutions for small business problems you already recognise, such as
 
 Think of AI and small business as a partnership. The tools handle the repetitive, pattern based work. You still handle judgement, local knowledge and relationships.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Draft content faster</span></li><li><strong>2</strong><span>Improve website copy and basic SEO</span></li><li><strong>3</strong><span>Make email marketing easier</span></li><li><strong>4</strong><span>Reduce repetitive customer support</span></li><li><strong>5</strong><span>Turn analytics into plain English</span></li><li><strong>6</strong><span>Support testing and optimising ads</span></li></ul><figcaption>Six practical ways to use AI in small business marketing.</figcaption></figure>
+
 ### Practical Ways To Use AI For Small Business Marketing
 
 Below are six practical AI applications for small business marketing that we use or see working well for clients. You do not need to do all of them at once. Even one or two can make a real difference.
@@ -139,6 +141,8 @@ Explain, in normal language, what changed and why it matters
 Instead of staring at charts, you receive a short explanation that says, for example, “Google Ads drove more leads at a lower cost than Facebook this month, mainly from people searching for emergency repairs”. That is the kind of insight you can act on.
 
 This is one of the clearest benefits of AI for small business marketing. You get the story from the data without needing to be an analyst.
+
+![A business owner concentrating on a laptop at a white desk](/blog-media/ai-for-small-business-marketing-photo.webp)
 
 ### 6. Support For Testing And Optimising Ads
 

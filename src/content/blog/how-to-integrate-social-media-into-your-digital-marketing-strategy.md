@@ -32,6 +32,8 @@ Integration simply means this: social media should support your wider goals, suc
 
 This guide explains how to integrate social media properly, what to measure, and how to turn attention into outcomes.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Why social feels busy but does not convert</span></li><li><strong>2</strong><span>Start with one outcome, not more content</span></li><li><strong>3</strong><span>The simple funnel that makes social work</span></li><li><strong>4</strong><span>How to integrate social with SEO</span></li></ul><figcaption>What this guide covers.</figcaption></figure>
+
 ## Why social media feels busy but does not move the numbers
 
 Social media can keep you busy without making you money. You can post regularly, get a few likes, and still have an empty diary.
@@ -73,6 +75,8 @@ This is one of the biggest wins when you **Integrate Social Media into Your Digi
 Social media and SEO are not the same thing, but they can support each other.
 
 Social gives you fast feedback. You learn what questions people ask, what objections come up, and what language your audience uses. Then you turn the best performing topics into evergreen website pages that can rank on Google for months.
+
+![A hand holding up a smartphone in a sunlit street](/blog-media/how-to-integrate-social-media-into-your-digital-marketing-strategy-photo.webp)
 
 ### How Google indexes public Instagram posts
 

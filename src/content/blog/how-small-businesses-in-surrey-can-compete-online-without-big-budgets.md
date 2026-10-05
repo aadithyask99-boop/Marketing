@@ -40,6 +40,8 @@ In Surrey, someone searching “electrician in Guildford” or “physio near Wo
 
 This is the core of how small businesses in Surrey can compete online without big budgets. You do not have to outspend. You have to outmatch on relevance and trust.
 
+<figure class="fig cs-linefig"><ol class="cs-line" style="--n:5"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></span><div><p class="cs-step">First</p><h4 class="cs-name">Win Google Maps</h4><p class="cs-text">Before you spend a penny on ads.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h7M9 17h5"/></svg></span><div><p class="cs-step">Second</p><h4 class="cs-name">One service page that converts</h4><p class="cs-text">A page that actually does its job.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><div><p class="cs-step">Third</p><h4 class="cs-name">Reviews that do more</h4><p class="cs-text">More than making you feel good.</p></div></li><li style="--i:3"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span><div><p class="cs-step">Fourth</p><h4 class="cs-name">One useful offer</h4><p class="cs-text">Something people actually want.</p></div></li><li style="--i:4"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span><div><p class="cs-step">Fifth</p><h4 class="cs-name">Small, focused ads</h4><p class="cs-text">Only after the basics work.</p></div></li></ol><figcaption>The five things to fix first when money is tight.</figcaption></figure>
+
 ### The Five Things to Fix First When Money Is Tight
 
 If you are trying to work out how small businesses in Surrey can compete online without big budgets, start with the basics that change outcomes quickly.
@@ -107,6 +109,8 @@ If you run a local clinic, offer a straightforward guide on how to choose the ri
 If you are an accountant or consultant, provide a “what to prepare before your first tax call” list.
 
 This approach works because it gives local customers a reason to act right now, without feeling like they are committing to a huge invoice. It builds immediate trust. Offering clear, helpful value upfront is a highly practical part of how small businesses in Surrey can compete online without big budgets. It proves your expertise long before a contract is signed.
+
+![Buckets of fresh flowers outside a small shop](/blog-media/how-small-businesses-in-surrey-can-compete-online-without-big-budgets-photo.webp)
 
 ### 5. Use Small, Focused Ads Only After the Basics Work
 

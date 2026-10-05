@@ -32,6 +32,8 @@ A marketing audit is not a complicated corporate exercise that requires a degree
 
 Here is our practical guide on how to do a marketing audit for a small business in Tunbridge Wells without getting lost in technical jargon.
 
+<figure class="fig cs-linefig"><ol class="cs-line" style="--n:5"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></span><div><p class="cs-step">Step 1</p><h4 class="cs-name">Google Maps</h4><p class="cs-text">Check your Google Maps and local visibility.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg></span><div><p class="cs-step">Step 2</p><h4 class="cs-name">Your website</h4><p class="cs-text">Test it like a frustrated customer.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span><div><p class="cs-step">Step 3</p><h4 class="cs-name">Paid ads</h4><p class="cs-text">Find out where your budget is leaking.</p></div></li><li style="--i:3"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span><div><p class="cs-step">Step 4</p><h4 class="cs-name">Competitors</h4><p class="cs-text">Look closely at your local competitors.</p></div></li><li style="--i:4"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></span><div><p class="cs-step">Step 5</p><h4 class="cs-name">Social media</h4><p class="cs-text">Audit your social media properly.</p></div></li></ol><figcaption>The five steps of the audit.</figcaption></figure>
+
 ### Why local businesses in Kent need to check their marketing
 
 The local market is highly competitive. Whether you are a plumber, a clinic owner, or a retailer on the High Street, your customers are searching online before they ever pick up the phone. If your digital presence is outdated or confusing, they will simply click on your competitor instead.
@@ -55,6 +57,8 @@ It is very easy to fall in love with the design of your own website and ignore h
 If you are spending money on Google Ads or Facebook Ads, you must include them in your review. It is very easy to waste money on paid ads in Tunbridge Wells if your targeting is set up incorrectly.
 
 Check your location settings first. Are your ads only showing to people in Kent, or are you accidentally paying for clicks from people in London or Manchester who will never use your service? Next, look at the search terms report if you are using Google Ads. This shows you exactly what people typed in before they clicked your ad. If you are a high-end kitchen fitter and you are paying for clicks from people searching for "cheap DIY kitchen cabinets", your budget is leaking. Knowing how to spot these errors is why understanding how to do a marketing audit for a small business in Tunbridge Wells is so important for your bottom line.
+
+![A hand ticking off a checklist in a notebook](/blog-media/how-to-do-a-marketing-audit-for-a-small-business-in-tunbridge-wells-photo.webp)
 
 ### Step 4: Look closely at your local competitors
 

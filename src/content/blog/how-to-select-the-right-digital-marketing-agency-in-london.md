@@ -30,6 +30,8 @@ Finding a digital marketing agency in London is incredibly easy. Finding the rig
 
 When you finally decide to **select the right digital marketing agency in London**, you are making one of the most significant decisions for your business. It is a long term commitment that involves trusting another team with your brand, your budget, and your growth. The best agency is rarely the one with the flashiest awards. Instead, it is the team that treats your marketing budget as if it were their own and understands that every pound spent must have a clear path to a return on investment.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Define your objectives</span></li><li><strong>2</strong><span>Specialism vs full service</span></li><li><strong>3</strong><span>Red flags and warning signs</span></li><li><strong>4</strong><span>Communication and collaboration</span></li><li><strong>5</strong><span>Tech insight and future-proofing</span></li></ul><figcaption>What to weigh when choosing an agency.</figcaption></figure>
+
 ## Define Your Objectives Before the Search
 
 Before you even start a Google search, you must be clear on what you want to achieve. A common mistake is looking for a general agency when you actually have a specific problem to solve. Are you looking to fix a slow, outdated website? Do you need a consistent flow of leads via Meta ads? Or is your primary goal to get cited in AI search results through advanced SEO?
@@ -57,6 +59,8 @@ One of the biggest warning signs is an agency that guarantees a number one ranki
 ### The Trap of Hidden Ad Accounts
 
 Another major red flag is the ownership of your assets. You should always own your website domain, your Google Business Profile, and your ad accounts. If an agency insists on running your Meta ads through their own private account where you cannot see the actual spend or the settings, they are effectively holding your marketing hostage. A true partner builds their value on results and transparency, not on locking you into a system you cannot control.
+
+![A team working around a table with laptops and notebooks](/blog-media/how-to-select-the-right-digital-marketing-agency-in-london-photo.webp)
 
 ### Beyond Vanity Metrics
 

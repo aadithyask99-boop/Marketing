@@ -44,6 +44,8 @@ Restraint signals confidence. Cheap websites try to say everything at once. Expe
 
 Consistency signals professionalism. If your fonts change between pages, your colours feel random, or your buttons look different depending on where you click, the site feels patched together. Premium sites repeat a single design system so the experience feels deliberate, not accidental.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Deliberate white space</span></li><li><strong>2</strong><span>Premium typography and hierarchy</span></li><li><strong>3</strong><span>High-quality, specific imagery</span></li><li><strong>4</strong><span>Smooth, fast performance</span></li><li><strong>5</strong><span>Trust signals in the right places</span></li><li><strong>6</strong><span>Intentional microcopy</span></li><li><strong>7</strong><span>Design consistency everywhere</span></li></ul><figcaption>Seven elements that make a website look expensive.</figcaption></figure>
+
 ## 7 Elements That Make a Website Look Expensive
 
 ### 1. Deliberate Use of White Space
@@ -61,6 +63,8 @@ Stock photos can work, but only if they match your brand. Real photos of your te
 ### 4. Smooth, Fast Performance
 
 Speed is a quality signal. If your site takes more than three seconds to load on a mobile device, it feels broken, not premium. Expensive sites load quickly, scroll smoothly, and respond immediately when you interact with buttons or forms. Performance is not just technical; it is part of the user's perception of your professionalism.
+
+![A calm display of flowers in a neutral room](/blog-media/what-makes-a-website-look-expensive-photo.webp)
 
 ### 5. Trust Signals in the Right Places
 

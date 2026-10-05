@@ -36,6 +36,8 @@ Instead of typing short keyword phrases, they are asking complete questions, add
 
 Understanding how Google AI Mode is changing SEO will help you prepare your website for the next stage of search rather than relying on strategies that were designed for a very different internet.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Understanding Google AI Mode</span></li><li><strong>2</strong><span>Why it is changing search</span></li><li><strong>3</strong><span>How it is changing SEO</span></li><li><strong>4</strong><span>What Google AI Mode looks for</span></li></ul><figcaption>The shift at a glance.</figcaption></figure>
+
 ## Understanding Google AI Mode
 
 Google AI Mode is Google's conversational search experience powered by its AI models.
@@ -141,6 +143,8 @@ For example, we recently explored how businesses can improve their chances of be
 That article focuses on trust signals, authority, and credibility, all of which also influence how AI driven search experiences understand businesses.
 
 Together, connected content creates a stronger knowledge base than isolated articles.
+
+![A friendly white robot with large eyes](/blog-media/how-google-ai-mode-is-changing-seo-photo.webp)
 
 ### Trust Signals
 

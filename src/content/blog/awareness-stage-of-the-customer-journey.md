@@ -23,7 +23,7 @@ faq:
   - q: "How can a digital marketing audit improve marketing results?"
     a: "A digital marketing audit reviews your website, SEO, branding and overall online presence to identify areas that need improvement. Addressing these issues before launching campaigns can improve user experience, increase conversions and help you get more value from your marketing budget."
 image: ../../assets/blog/awareness-stage-of-the-customer-journey.webp
-imageAlt: "A crowded city crossing lit by bright advertising signs at night"
+imageAlt: "A busy city street lined with colourful advertising signs"
 ---
 
 Every successful marketing campaign starts long before the first advert goes live or the first piece of content is published. Yet one of the biggest mistakes we see businesses make is investing in marketing before building the right foundations.

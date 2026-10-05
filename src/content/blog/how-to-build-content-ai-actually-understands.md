@@ -34,6 +34,8 @@ The answer starts with the content you publish.
 
 Learning how to build content AI actually understands is not about writing for machines. It is about creating clear, useful and connected information that helps both people and AI make sense of your business.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Make your business easy to understand</span></li><li><strong>2</strong><span>Create content around real customer questions</span></li><li><strong>3</strong><span>Use search intent to guide your content</span></li><li><strong>4</strong><span>Build depth around the topics you know</span></li></ul><figcaption>Four ways to build content AI can understand.</figcaption></figure>
+
 ## Make Your Business Easy to Understand
 
 Start with the basics.
@@ -123,6 +125,8 @@ This does not mean posting promotional links everywhere.
 If people are discussing a problem your business understands, contribute something useful. Answer questions, share experience and provide information that genuinely helps.
 
 [Our guide on how to get your business recommended by ChatGPT](/blogs/how-to-get-your-business-recommended-by-chatgpt/) explores this wider approach to building the online presence and signals that can help AI systems understand a business.
+
+![A person writing in a notebook on the grass](/blog-media/how-to-build-content-ai-actually-understands-photo.webp)
 
 ### Create Content That Adds Something Original
 

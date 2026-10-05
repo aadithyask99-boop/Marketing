@@ -23,7 +23,7 @@ faq:
   - q: "What are the most common mistakes that stop London businesses being cited?"
     a: "The most common issues are incomplete Google Business Profiles, inconsistent NAP details across directories, lack of reviews mentioning London areas, vague homepage headlines, missing FAQ sections, no structured data, and weak contact pages. Fix these foundations first before focusing on content or backlinks."
 image: ../../assets/blog/get-your-business-cited-in-google-ai-overviews-in-london.webp
-imageAlt: "An aerial view of the London skyline on a cloudy day"
+imageAlt: "The London skyline with the Walkie-Talkie and the Gherkin beside the Thames"
 ---
 
 Google AI Overviews now appear at the top of many search results, summarising answers and citing sources directly. For London businesses, this changes local SEO. If your website is cited, you get visibility before the traditional rankings even begin.
@@ -31,6 +31,8 @@ Google AI Overviews now appear at the top of many search results, summarising an
 But how do you get your business cited in Google AI Overviews in London when competition is high and thousands of businesses offer similar services?
 
 This guide breaks it down into practical steps you can act on today.
+
+<figure class="fig cs-linefig"><ol class="cs-line" style="--n:4"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.5-6-11a6 6 0 0 1 12 0c0 5.5-6 11-6 11zM12 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></span><div><p class="cs-step">Step 1</p><h4 class="cs-name">Local foundations</h4><p class="cs-text">Google Business Profile, NAP consistency, reviews and a contact page.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h7M9 17h5"/></svg></span><div><p class="cs-step">Step 2</p><h4 class="cs-name">Website changes</h4><p class="cs-text">One page per core service, a London landing page, FAQ blocks and proof near claims.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg></span><div><p class="cs-step">Step 3</p><h4 class="cs-name">Structured data</h4><p class="cs-text">On-page formatting and structured data that machines can read.</p></div></li><li style="--i:3"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><div><p class="cs-step">Step 4</p><h4 class="cs-name">London authority signals</h4><p class="cs-text">Local PR, partnerships and case studies with London clients.</p></div></li></ol><figcaption>Four layers that help a London business get cited.</figcaption></figure>
 
 ### What Google AI Overviews Cites for London Searches
 
@@ -106,6 +108,8 @@ Each service page should answer:
 - What areas in London you cover
 - What the outcome or benefit is
 - What the next step is
+
+![Big Ben lit up at night](/blog-media/get-your-business-cited-in-google-ai-overviews-in-london-photo.webp)
 
 ### A London Focused Landing Page
 

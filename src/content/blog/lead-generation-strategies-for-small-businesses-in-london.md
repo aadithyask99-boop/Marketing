@@ -38,6 +38,8 @@ For small businesses in London, the fastest route to more leads usually comes fr
 
 If you want your lead generation to feel less unpredictable, focus first on capturing high intent leads, then build additional demand through content and paid social.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Clear offer and positioning</span></li><li><strong>2</strong><span>A homepage that guides decisions</span></li><li><strong>3</strong><span>Tracking and lead capture</span></li><li><strong>4</strong><span>Local SEO and Google Business Profile</span></li><li><strong>5</strong><span>Service pages that match how people search</span></li><li><strong>6</strong><span>Google Ads for high-intent leads</span></li><li><strong>7</strong><span>Follow-up and lead nurturing</span></li></ul><figcaption>The building blocks of lead generation.</figcaption></figure>
+
 ## Start with the Basics That Make Every Strategy Work
 
 Before you add new tactics, make sure your foundations are not quietly blocking conversions. Most lead generation problems are not caused by a lack of marketing. They are caused by friction.
@@ -85,6 +87,8 @@ Google Ads is one of the most direct lead generation strategies for small busine
 The main reason Google Ads fails is not because it “does not work”. It fails because the landing page does not match the search, the offer is unclear, or tracking is broken. London clicks can be expensive in competitive industries, so you need a page that converts and a campaign structure that filters out poor quality traffic.
 
 If you are paying for clicks, make sure you are not sending people to a generic homepage. Send them to a page built for the specific service they searched for, with one clear call to action.
+
+![Colleagues talking across a table in a bright office](/blog-media/lead-generation-strategies-for-small-businesses-in-london-photo.webp)
 
 ### Meta Ads for Demand Creation and Retargeting
 

@@ -35,6 +35,8 @@ They care about clarity and trade offs, not just “best”.
 
 For businesses, the takeaway is simple. If your website is vague, generic, or hard to verify, it is less useful in a world where people want direct answers and clear decisions.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Informational searches</span></li><li><strong>2</strong><span>Commercial investigation</span></li><li><strong>3</strong><span>Practical or transactional searches</span></li><li><strong>4</strong><span>Navigational searches</span></li></ul><figcaption>The four types of search people do in ChatGPT.</figcaption></figure>
+
 ## The 4 types of searches people do in ChatGPT
 
 A helpful way to understand How People Search in ChatGPT is to group queries by intent. Most prompts fall into one of these four categories.
@@ -110,6 +112,8 @@ You will see patterns like:
 The underlying point is that people are trying to reduce risk. They want to avoid a bad choice, wasted time, and unclear costs.
 
 If your website does not answer the risk questions, it loses. “We offer quality service” is not a risk reducer. “Here is what is included, here is our process, here is typical pricing, here are results, here is what happens next” is.
+
+![A hand holding a phone beside an open notebook and pen](/blog-media/how-people-search-in-chatgpt-vs-google-photo.webp)
 
 ### What influences recommendations in ChatGPT style search
 

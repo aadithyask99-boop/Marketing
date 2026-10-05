@@ -34,6 +34,8 @@ We have been watching this development closely. When a platform with 700 million
 
 Here is what we know, what it means, and how to think about it practically.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>What is actually happening</span></li><li><strong>2</strong><span>Why this matters for businesses</span></li><li><strong>3</strong><span>What marketers should be thinking about</span></li><li><strong>4</strong><span>How to prepare now</span></li></ul><figcaption>What this article covers.</figcaption></figure>
+
 ### What Is Actually Happening
 
 OpenAI has begun introducing ads in ChatGPT for US users. According to reports from Wired and [CNN](https://edition.cnn.com/2026/01/16/tech/chatgpt-ads-openai), the company is taking a measured approach, testing formats before a wider rollout. This follows months of speculation after OpenAI hired Shivakumar Venkataraman, a senior advertising executive from Google, signalling clear intent.
@@ -73,6 +75,8 @@ New platforms often offer lower costs and less competition in their early stages
 **Are you tracking the right metrics?**
 
 As advertising expands to AI platforms, measurement will become more complex. Attribution models built for search and social may not apply directly. Prepare for a period of learning and adaptation.
+
+![A busy city crossing lit by bright advertising signs at night](/blog-media/ads-in-chatgpt-and-your-marketing-strategy-photo.webp)
 
 ### How to Prepare Now
 

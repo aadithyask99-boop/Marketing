@@ -23,7 +23,7 @@ faq:
   - q: "How can Maximus Mediascape help with the ChatGPT Ads Expansion UK?"
     a: "We help you determine if this new channel fits your business goals and budget. From technical setup and targeting to creative and tracking, we manage the full process to ensure the ChatGPT Ads Expansion UK delivers actual enquiries rather than just clicks."
 image: ../../assets/blog/chatgpt-ads-expansion-uk.webp
-imageAlt: "A red London telephone box with light trails from passing traffic"
+imageAlt: "A vintage red London double-decker bus parked on a green"
 ---
 
 OpenAI has officially launched the ChatGPT Ads Expansion UK, bringing their advertising platform to the United Kingdom and five other major markets. Alongside this expansion, they are testing a new ad unit that groups multiple advertisers together in a single placement. For UK businesses, this represents a significant new channel opening up, and the time to test it is now, before the competition increases.
@@ -33,6 +33,8 @@ This guide breaks down what is changing, why it matters, and whether these ads a
 ## What is happening with ChatGPT ads right now
 
 OpenAI is making three significant moves simultaneously.
+
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Geographic targeting expansion</span></li><li><strong>2</strong><span>Multi-advertiser placements</span></li><li><strong>3</strong><span>New campaign management features</span></li></ul><figcaption>What is changing with ChatGPT ads.</figcaption></figure>
 
 ### Geographic Targeting Expansion
 
@@ -103,6 +105,8 @@ Both are intent based. Both reach people actively looking for something. But the
 ### Google Ads
 
 Google Ads are keyword triggered. Someone types a search and your ad appears because it matches that keyword. The user is in search mode. They are comparing options openly.
+
+![Big Ben against a blue evening sky](/blog-media/chatgpt-ads-expansion-uk-photo.webp)
 
 ### ChatGPT Ads
 

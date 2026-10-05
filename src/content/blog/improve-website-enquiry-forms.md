@@ -32,6 +32,8 @@ The problem is rarely that your service is wrong or your price is too high. More
 
 This guide explains how to **improve website enquiry forms** so that more visitors complete the action and turn into paying customers.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Why poor forms cost leads</span></li><li><strong>2</strong><span>Optimise forms for mobile</span></li><li><strong>3</strong><span>Use social proof near the form</span></li><li><strong>4</strong><span>What to do after someone submits</span></li><li><strong>5</strong><span>Common form design mistakes</span></li></ul><figcaption>What this guide covers.</figcaption></figure>
+
 ## Why Poor Enquiry Forms Cost London Businesses Thousands in Lost Leads
 
 Most business owners assume that their form is "fine" because it technically works. However, conversion is not about function; it is about psychology and user experience. The more effort a visitor has to put in, the more likely they are to abandon the process halfway through.
@@ -63,6 +65,8 @@ A slow-loading form is a silent conversion killer. If your enquiry form takes mo
 Beyond speed, the logic of your form also affects completion rates. If you need to ask multiple questions, consider using conditional logic. This means showing additional fields only when they are relevant based on the visitor's previous answers. For example, if someone selects "I need a website," the form can then ask, "What platform are you currently using?" without showing that question to everyone.
 
 This approach makes long forms feel shorter and more personalised. It also reduces the visual overwhelm that can cause someone to abandon the process before they start. If you want to **improve website enquiry forms** properly, conditional logic is essential.
+
+![Hands typing on a laptop keyboard](/blog-media/improve-website-enquiry-forms-photo.webp)
 
 ## What to Do After Someone Submits Your Enquiry Form
 

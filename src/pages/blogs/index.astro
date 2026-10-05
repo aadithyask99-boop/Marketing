@@ -69,6 +69,9 @@ const schema = [
         ))
       }
     </ul>
+    <div class="blog-more" hidden>
+      <button type="button" class="blog-more-btn" data-more></button>
+    </div>
     <p class="blog-empty" hidden>
       Nothing found. <a href="/contact-us">Ask us instead</a> and we'll point you to the right place.
     </p>
@@ -89,19 +92,34 @@ const schema = [
 
   if (grid && input && clear && count && empty) {
     const base = document.querySelector<HTMLAnchorElement>(".logo")?.getAttribute("href")?.replace(/\/$/, "") ?? "";
-    if (emptyLink) emptyLink.setAttribute("href", `${base}/contact`);
+    if (emptyLink) emptyLink.setAttribute("href", `${base}/contact-us/`);
     const params = new URLSearchParams(location.search);
     let cat = chips.some((c) => c.dataset.cat === params.get("cat")) ? params.get("cat")! : "all";
     input.value = (params.get("q") ?? "").slice(0, 80);
 
+    const STEP = 12;
+    const more = document.querySelector<HTMLElement>(".blog-more");
+    const moreBtn = document.querySelector<HTMLButtonElement>("[data-more]");
+    const KEY = "blog-limit";
+    let limit = STEP;
+    try { limit = Math.max(STEP, Number(sessionStorage.getItem(KEY)) || STEP); } catch {}
+    const remember = () => { try { sessionStorage.setItem(KEY, String(limit)); } catch {} };
+
     const apply = () => {
       const q = input.value.trim().toLowerCase();
       let shown = 0;
+      let visible = 0;
       items.forEach((el) => {
         const ok = (cat === "all" || el.dataset.cat === cat) && (!q || el.dataset.search!.includes(q));
-        el.hidden = !ok;
         if (ok) shown++;
+        el.hidden = !ok || shown > limit;
+        if (!el.hidden) visible++;
       });
+      if (more && moreBtn) {
+        const left = shown - visible;
+        more.hidden = left <= 0;
+        moreBtn.textContent = `Show ${Math.min(STEP, left)} more`;
+      }
       chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.cat === cat)));
       const filtered = cat !== "all" || q !== "";
       grid.classList.toggle("is-filtered", filtered);
@@ -114,9 +132,17 @@ const schema = [
       history.replaceState(null, "", location.pathname + (next.size ? `?${next}` : ""));
     };
 
-    chips.forEach((c) => c.addEventListener("click", () => { cat = c.dataset.cat!; apply(); }));
-    input.addEventListener("input", apply);
-    clear.addEventListener("click", () => { input.value = ""; apply(); input.focus(); });
+    const reset = () => { limit = STEP; remember(); };
+    chips.forEach((c) => c.addEventListener("click", () => { cat = c.dataset.cat!; reset(); apply(); }));
+    input.addEventListener("input", () => { reset(); apply(); });
+    clear.addEventListener("click", () => { input.value = ""; reset(); apply(); input.focus(); });
+    moreBtn?.addEventListener("click", () => {
+      const firstNew = items.find((el) => el.hidden && (cat === "all" || el.dataset.cat === cat) && (!input.value.trim() || el.dataset.search!.includes(input.value.trim().toLowerCase())));
+      limit += STEP;
+      remember();
+      apply();
+      firstNew?.querySelector<HTMLElement>("a")?.focus({ preventScroll: false });
+    });
     apply();
   }
 </script>

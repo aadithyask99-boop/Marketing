@@ -189,6 +189,8 @@ AI systems require data, raising legitimate concerns about privacy and ethics. E
 
 The pace of change in AI is rapid, but that does not mean you need to overhaul everything immediately. A measured, thoughtful approach tends to produce better results than rushing to adopt every new tool.
 
+<figure class="fig cs-linefig"><ol class="cs-line" style="--n:5"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg></span><div><p class="cs-step">Step 1</p><h4 class="cs-name">Assess your current state</h4><p class="cs-text"></p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4 10-10"/></svg></span><div><p class="cs-step">Step 2</p><h4 class="cs-name">Define clear objectives</h4><p class="cs-text"></p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span><div><p class="cs-step">Step 3</p><h4 class="cs-name">Start small and learn</h4><p class="cs-text"></p></div></li><li style="--i:3"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span><div><p class="cs-step">Step 4</p><h4 class="cs-name">Invest in your people</h4><p class="cs-text"></p></div></li><li style="--i:4"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z"/></svg></span><div><p class="cs-step">Step 5</p><h4 class="cs-name">Keep humans central</h4><p class="cs-text"></p></div></li></ol><figcaption>Preparing your organisation, step by step.</figcaption></figure>
+
 ### Assess Your Current State
 
 Start by understanding your current workflows. Where are the bottlenecks? Which tasks consume disproportionate time relative to their value? These are often good candidates for automation or AI assistance.
@@ -200,6 +202,8 @@ What do you want to achieve? Faster processes? Better decisions? Improved custom
 ### Start Small and Learn
 
 Pilot new approaches on a small scale before committing fully. Learn what works in your specific context. Gather feedback from your team. Iterate based on what you discover.
+
+![Two people working together on a laptop](/blog-media/human-ai-collaboration-future-of-work-photo.webp)
 
 ### Invest in Your People
 

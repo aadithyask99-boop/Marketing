@@ -51,6 +51,8 @@ As cookies disappear, marketers are losing visibility into user journeys and rel
 
 The shift requires a move away from surveillance-based marketing and towards direct, value-led engagement built on first-party relationships supported by reliable **Data Driven Advertising** approaches.
 
+<figure class="fig cs-linefig"><ol class="cs-line" style="--n:5"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h7M9 17h5"/></svg></span><div><p class="cs-step">Step 1</p><h4 class="cs-name">Collect with value</h4><p class="cs-text">Exchange something useful for clear, consented data.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></span><div><p class="cs-step">Step 2</p><h4 class="cs-name">Unify</h4><p class="cs-text">Bring data into a single customer view.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4 10-10"/></svg></span><div><p class="cs-step">Step 3</p><h4 class="cs-name">Govern</h4><p class="cs-text">Protect privacy and build trust.</p></div></li><li style="--i:3"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/></svg></span><div><p class="cs-step">Step 4</p><h4 class="cs-name">Activate</h4><p class="cs-text">Use it across your channels.</p></div></li><li style="--i:4"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span><div><p class="cs-step">Step 5</p><h4 class="cs-name">Measure</h4><p class="cs-text">Track performance without cookies.</p></div></li></ol><figcaption>Building a first-party data strategy.</figcaption></figure>
+
 ### How to Build a Strong First-Party Data Strategy
 
 A resilient first-party data strategy is not about collecting more data. It is about collecting better data and using it responsibly.
@@ -78,6 +80,8 @@ This includes logging when and how consent was given, limiting data collection t
 Data only delivers value when it is used. First-party audiences can power personalised email journeys, dynamic website content, and privacy-safe paid media activation.
 
 Sales teams benefit from lead scoring and intent alerts, while marketing teams can focus on high-value segments such as repeat visitors or engaged prospects. Activation is most effective when aligned with strategic **Digital Marketing** execution.
+
+![A laptop screen showing an analytics dashboard](/blog-media/mastering-first-party-data-strategy-growth-photo.webp)
 
 ### Measure Performance Without Cookies
 

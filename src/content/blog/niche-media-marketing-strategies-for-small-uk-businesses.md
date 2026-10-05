@@ -40,6 +40,8 @@ This works particularly well here because buying decisions are often local and c
 
 That is the heart of niche media marketing strategies for small UK businesses. You borrow trust, then earn it.
 
+<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Pick one niche channel and commit for 30 days</span></li><li><strong>2</strong><span>Build a shortlist you can win</span></li><li><strong>3</strong><span>Lead with something useful</span></li><li><strong>4</strong><span>Use micro creators</span></li><li><strong>5</strong><span>Sponsor native placements</span></li><li><strong>6</strong><span>Send traffic to one focused page</span></li><li><strong>7</strong><span>Track lead quality, not just clicks</span></li></ul><figcaption>Seven strategies for niche media.</figcaption></figure>
+
 ### Niche Media Marketing Strategies for Small UK Businesses That Actually Bring Leads
 
 Below are seven niche media marketing strategies for small UK businesses you can use without a giant budget. The key is not to do all seven at once. Pick one or two, do them properly, and build from there.
@@ -87,6 +89,8 @@ Niche media works best when it feels natural to the channel. A clunky advert tha
 For newsletters, a “sponsored tip of the week” often performs well, especially if it genuinely helps. For podcasts, a short host read can feel personal and trusted. For community groups, a pinned post offering something useful can work better than repeated promotional posts. For member directories, a featured listing paired with a clear offer can drive steady enquiries.
 
 These placements fit well into niche media marketing strategies for small UK businesses because they do not feel like interruption advertising. They feel like a recommendation.
+
+![A magazine and tablet on a desk](/blog-media/niche-media-marketing-strategies-for-small-uk-businesses-photo.webp)
 
 ### 6. Send Traffic to One Focused Page, Not Your Homepage
 

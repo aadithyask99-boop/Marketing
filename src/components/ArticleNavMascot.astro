@@ -1,0 +1,179 @@
+---
+// Phone-only contents navigation for articles: a small cartoon "M" that appears once the reader
+// passes the hero, pops out when they scroll up, and opens a contents sheet on tap (or a short hold).
+interface Props { headings: { depth: number; slug: string; text: string }[] }
+const items = Astro.props.headings.filter((h) => h.depth === 2);
+---
+
+{
+  items.length > 0 && (
+    <>
+      <div class="mascot" data-mascot hidden>
+        <p class="mascot-bubble" role="status" aria-live="polite" data-bubble></p>
+        <button class="mascot-btn" type="button" aria-label="Open contents" aria-expanded="false" aria-controls="mascot-sheet" data-open>
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle class="m-body" cx="32" cy="32" r="29" />
+            <ellipse cx="22.5" cy="26" rx="6.2" ry="7.4" fill="#f5efe8" />
+            <ellipse cx="41.5" cy="26" rx="6.2" ry="7.4" fill="#f5efe8" />
+            <circle class="m-pupil" cx="24" cy="27.5" r="3" fill="#17090a" />
+            <circle class="m-pupil" cx="43" cy="27.5" r="3" fill="#17090a" />
+            <path d="M19 40q6.5 9 13 0q6.5 9 13 0" fill="none" stroke="#f5efe8" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="12" cy="38" r="3.2" fill="#e10600" opacity=".85" />
+            <circle cx="52" cy="38" r="3.2" fill="#e10600" opacity=".85" />
+            <g class="m-wave"><ellipse cx="56" cy="12" rx="5.5" ry="7" fill="#e10600" transform="rotate(20 56 12)" /></g>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mascot-sheet" id="mascot-sheet" data-sheet hidden>
+        <div class="mascot-scrim" data-close></div>
+        <nav class="mascot-panel" aria-label="Table of contents" role="dialog" aria-modal="true">
+          <div class="mascot-head">
+            <p>In this article</p>
+            <button type="button" class="mascot-x" aria-label="Close contents" data-close>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            </button>
+          </div>
+          <ol>
+            {items.map((h) => <li><a href={`#${h.slug}`} data-id={h.slug}>{h.text}</a></li>)}
+            <li data-faq hidden><a href="#faq" data-id="faq">FAQ</a></li>
+          </ol>
+          <button type="button" class="mascot-top" data-top>Back to top <span aria-hidden="true">↑</span></button>
+        </nav>
+      </div>
+    </>
+  )
+}
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-mascot]");
+  const sheet = document.querySelector<HTMLElement>("[data-sheet]");
+  const banner = document.querySelector<HTMLElement>(".a-banner");
+  if (root && sheet && banner) {
+    const btn = root.querySelector<HTMLButtonElement>("[data-open]")!;
+    const bubble = root.querySelector<HTMLElement>("[data-bubble]")!;
+    const panel = sheet.querySelector<HTMLElement>(".mascot-panel")!;
+    const closeBtn = sheet.querySelector<HTMLButtonElement>(".mascot-x")!;
+    const links = [...sheet.querySelectorAll<HTMLAnchorElement>("a[data-id]")];
+    const phone = window.matchMedia("(max-width: 899px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (document.getElementById("faq")) sheet.querySelector<HTMLElement>("[data-faq]")!.hidden = false;
+    document.body.classList.add("has-mascot");
+
+    let shown = false;
+    let tuckTimer = 0;
+    let lastY = window.scrollY;
+    let seen = false;
+    try { seen = sessionStorage.getItem("mascot-seen") === "1"; } catch {}
+
+    const tuck = () => root.classList.add("is-tucked");
+    const untuck = (stay = 3500) => {
+      root.classList.remove("is-tucked");
+      window.clearTimeout(tuckTimer);
+      tuckTimer = window.setTimeout(tuck, stay);
+    };
+    const say = (text: string, ms: number) => {
+      bubble.textContent = text;
+      bubble.classList.add("is-on");
+      window.setTimeout(() => { bubble.classList.remove("is-on"); }, ms);
+    };
+
+    const setShown = (on: boolean) => {
+      if (on === shown) return;
+      shown = on;
+      if (on) {
+        root.hidden = false;
+        requestAnimationFrame(() => root.classList.add("is-on"));
+        untuck(4500);
+        if (!seen) {
+          seen = true;
+          try { sessionStorage.setItem("mascot-seen", "1"); } catch {}
+          window.setTimeout(() => say("Navigation here", 4000), 450);
+        }
+      } else {
+        root.classList.remove("is-on");
+        bubble.classList.remove("is-on");
+        window.setTimeout(() => { if (!shown) root.hidden = true; }, 300);
+      }
+    };
+
+    const targets = links.map((a) => document.getElementById(a.dataset.id!)).filter(Boolean) as HTMLElement[];
+    const spy = () => {
+      const line = window.innerHeight * 0.3;
+      let current = targets.length ? targets[0].id : "";
+      for (const t of targets) if (t.getBoundingClientRect().top <= line) current = t.id;
+      links.forEach((a) => a.classList.toggle("is-current", a.dataset.id === current));
+    };
+
+    let ticking = false;
+    const onScroll = () => {
+      ticking = false;
+      if (!phone.matches) { setShown(false); return; }
+      const y = window.scrollY;
+      const past = banner.getBoundingClientRect().bottom < 0;
+      setShown(past);
+      if (past && y < lastY - 4) untuck(3500);
+      else if (past && y > lastY + 4 && !root.classList.contains("is-tucked")) { window.clearTimeout(tuckTimer); tuckTimer = window.setTimeout(tuck, 1800); }
+      lastY = y;
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+    let from: HTMLElement | null = null;
+    const open = () => {
+      if (!sheet.hidden) return;
+      from = btn;
+      spy();
+      sheet.hidden = false;
+      requestAnimationFrame(() => sheet.classList.add("is-open"));
+      btn.setAttribute("aria-expanded", "true");
+      document.documentElement.classList.add("mascot-lock");
+      window.clearTimeout(tuckTimer);
+      closeBtn.focus();
+    };
+    const close = (restore = true) => {
+      sheet.classList.remove("is-open");
+      btn.setAttribute("aria-expanded", "false");
+      document.documentElement.classList.remove("mascot-lock");
+      window.setTimeout(() => { if (!sheet.classList.contains("is-open")) sheet.hidden = true; }, calm.matches ? 0 : 260);
+      if (restore) from?.focus();
+      untuck(2500);
+    };
+
+    // Tap opens. A short hold opens too, as a shortcut; the click that follows a hold is ignored.
+    let holdTimer = 0;
+    let held = false;
+    btn.addEventListener("pointerdown", () => {
+      held = false;
+      holdTimer = window.setTimeout(() => { held = true; open(); }, 700);
+    });
+    ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, () => window.clearTimeout(holdTimer)));
+    btn.addEventListener("contextmenu", (e) => e.preventDefault());
+    btn.addEventListener("click", () => { if (held) { held = false; return; } open(); });
+
+    sheet.querySelectorAll<HTMLElement>("[data-close]").forEach((el) => el.addEventListener("click", () => close()));
+    sheet.querySelector<HTMLElement>("[data-top]")!.addEventListener("click", () => {
+      close(false);
+      window.scrollTo({ top: 0, behavior: calm.matches ? "auto" : "smooth" });
+    });
+    links.forEach((a) => a.addEventListener("click", (e) => {
+      const target = document.getElementById(a.dataset.id!);
+      if (!target) return;
+      e.preventDefault();
+      close(false);
+      target.scrollIntoView({ behavior: calm.matches ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", `#${a.dataset.id}`);
+    }));
+    document.addEventListener("keydown", (e) => {
+      if (sheet.hidden) return;
+      if (e.key === "Escape") { e.preventDefault(); close(); return; }
+      if (e.key !== "Tab") return;
+      const focusable = [...panel.querySelectorAll<HTMLElement>("a, button")].filter((el) => !el.closest("[hidden]"));
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  }
+</script>
