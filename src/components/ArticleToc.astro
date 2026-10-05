@@ -1,5 +1,5 @@
 ---
-interface Props { headings: { depth: number; slug: string; text: string }[] }
+interface Props { headings: { depth: number; slug: string; text: string }[]; faq?: boolean }
 import { tocItems } from "../lib/toc";
 const items = tocItems(Astro.props.headings);
 ---
@@ -15,7 +15,7 @@ const items = tocItems(Astro.props.headings);
         <span class="toc-bar" aria-hidden="true"><span class="toc-fill"></span></span>
         <ol>
           {items.map((h) => <li><a href={`#${h.slug}`} data-id={h.slug}>{h.text}</a></li>)}
-          <li><a href="#faq" data-id="faq">FAQ</a></li>
+          {Astro.props.faq && <li><a href="#faq" data-id="faq">FAQ</a></li>}
         </ol>
       </div>
     </nav>

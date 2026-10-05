@@ -101,7 +101,7 @@ const schema = [
         <ArticleTocMobile headings={headings} faq={d.faq.length > 0} />
         <article class="prose"><Content /></article>
       </div>
-      <aside class="a-aside"><ArticleToc headings={headings} /><ShareRail title={d.title} /></aside>
+      <aside class="a-aside"><ArticleToc headings={headings} faq={d.faq.length > 0} /><ShareRail title={d.title} /></aside>
     </div>
     <div class="a-wrap">
     <Faq items={d.faq} />

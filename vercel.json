@@ -1,15 +1,60 @@
 {
   "trailingSlash": true,
   "redirects": [
-    { "source": "/digital-marketing-agency-in-london/", "destination": "/our-services/", "permanent": true },
-    { "source": "/digital-marketing-agency-in-surrey/", "destination": "/our-services/", "permanent": true },
-    { "source": "/digital-marketing-agency-in-tunbridge-wells/", "destination": "/our-services/", "permanent": true },
-    { "source": "/full-stack-marketing-agency/", "destination": "/our-services/", "permanent": true },
-    { "source": "/full-stack-marketing-agency-london/", "destination": "/our-services/", "permanent": true },
-    { "source": "/locations/:path*", "destination": "/our-services/", "permanent": true },
-    { "source": "/services/", "destination": "/our-services/", "permanent": true },
-    { "source": "/blogs/tag/:path*", "destination": "/blogs/", "permanent": true },
-    { "source": "/tag/:path*", "destination": "/blogs/", "permanent": true },
-    { "source": "/blog/:slug/", "destination": "/blogs/:slug/", "permanent": true }
+    {
+      "source": "/digital-marketing-agency-in-london/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-agency-in-surrey/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/digital-marketing-agency-in-tunbridge-wells/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/full-stack-marketing-agency/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/full-stack-marketing-agency-london/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/:path*/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/locations/:path*",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/services/",
+      "destination": "/our-services/",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/tag/:path*",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/tag/:path*",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/blog/:slug/",
+      "destination": "/blogs/:slug/",
+      "permanent": true
+    }
   ]
 }

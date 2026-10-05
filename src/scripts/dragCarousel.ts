@@ -7,14 +7,14 @@ export function initDragCarousel(root: HTMLElement) {
   const dots = [...root.querySelectorAll<HTMLElement>(".vals-dots span")];
   if (win && track) {
     // One server-rendered set of cards is enough: clone it twice here so the loop is seamless
-    // without repeating links in the HTML. Clones are hidden from assistive tech and the tab order.
+    // without repeating links in the HTML. Clones stay clickable (never inert) but are hidden from assistive tech and the tab order.
     const first = track.querySelector<HTMLElement>(".vals-list")!;
     if (track.querySelectorAll(".vals-list").length === 1) {
       for (let i = 0; i < 2; i++) {
         const c = first.cloneNode(true) as HTMLElement;
         c.setAttribute("data-clone", "");
         c.setAttribute("aria-hidden", "true");
-        c.setAttribute("inert", "");
+        c.querySelectorAll("a, button").forEach((el) => el.setAttribute("tabindex", "-1"));
         track.append(c);
       }
     }
@@ -78,7 +78,7 @@ export function initDragCarousel(root: HTMLElement) {
     win.addEventListener("pointermove", (e) => {
       if (!drag || e.pointerId !== drag.id) return;
       const dx = e.clientX - drag.x0;
-      if (Math.abs(dx) > 4 && !drag.moved) { drag.moved = true; win.setPointerCapture(e.pointerId); }
+      if (Math.abs(dx) > 8 && !drag.moved) { drag.moved = true; win.setPointerCapture(e.pointerId); }
       if (!drag.moved) return;
       drag.v = e.clientX - drag.last;
       drag.last = e.clientX;
@@ -92,6 +92,7 @@ export function initDragCarousel(root: HTMLElement) {
       if (!drag) return;
       let v = drag.v;
       dragged = drag.moved;
+      if (dragged) window.setTimeout(() => { dragged = false; }, 120);
       drag = null;
       if (reduced) return;
       const glide = () => {
