@@ -3,12 +3,12 @@ title: "How we built iAudit Global's organic presence from zero"
 excerpt: "Twelve months of website, SEO, content, community and LinkedIn work for a global audit SaaS brand: an 80+ page site, around 40 articles, impressions from 129 countries and growing AI citations, all without paid spend."
 category: case-studies
 author: Maximus Team
-date: 2026-10-05
+date: 2026-10-04
 readMins: 9
 tldr: "We built iAudit Global's digital presence from nothing: an 80+ page website, around 40 search-led articles, a full measurement setup, community activity and a LinkedIn page that reached 872 organic followers. The site now gets Google and Bing traffic, appears in AI answers, and has been seen in 129 countries, with no paid spend behind the organic results."
 tags: ["Case study", "B2B SaaS", "SEO", "AEO", "GEO", "LinkedIn", "Content strategy"]
-image: ../../assets/blog/iaudit-global-organic-growth.jpg
-imageAlt: "A person writing notes on paperwork at a desk"
+logo: ../../assets/blog/logo-iaudit.png
+logoAlt: "iAudit Global logo"
 faq:
   - q: "What did Maximus Mediascape do for iAudit Global?"
     a: "We built the digital foundation for the brand: the website, search-led content, technical SEO and measurement setup, community and LinkedIn activity, and visibility work for AI-driven discovery. The engagement has run for 12 months and is ongoing."
@@ -143,5 +143,3 @@ The website is the foundation. SEO brings relevant searches in. Content answers 
 The work is still ongoing. The aim is not a temporary spike in traffic, but a digital presence that becomes more useful, more visible and more authoritative over time.
 
 **Built slowly. Built properly. Built for the long term.**
-
-*Header photo from Unsplash.*

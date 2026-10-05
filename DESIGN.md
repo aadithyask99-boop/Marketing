@@ -203,3 +203,10 @@ First used by `src/content/blog/iaudit-global-organic-growth.md`. Styles in `src
 - **Screenshots** live in `public/case-studies/<slug>/*.webp` and are raw `<img>` tags with `width`/`height`. Do not use markdown `![]()` for dashboards: `.prose p:has(> img)` crops to 16:9 and tints the picture red. Clicking one opens a native `<dialog>` (`.cs-lb`, Esc or the close button; focus returns to the image).
 - **Numbers always carry their period and source** (e.g. "Search Console, 12-month view"). Use the client's own screenshots as the source of truth; never merge figures from different periods into one claim.
 - To redraw a chart from real data later, use the `dataviz` skill and keep the screenshot beside it as proof.
+
+**Logo heroes and more figures (second pass):**
+- A post can set `logo` (and `logoAlt`) in its frontmatter. The hero tile and the blog card then show the client's logo, centred on a cream tile with no photo tint (`.a-tile.has-logo`, `.post-cover.has-logo`). Use it for case studies; trim transparent padding off the logo first.
+- `cs-line--num` puts a big figure on each stop. `cs-reach` is one linear bar for a split (e.g. followers vs non-followers). `cs-swap` pairs "Instead of" with "We chose" using a line and arrow.
+- `cs-embed` is a click-to-load third-party player: nothing is requested until the visitor presses play, the caption always carries a plain link, and the script in `[slug].astro` creates a sandboxed iframe on click.
+- A post with `draft: true` is not built, not in the sitemap and not on `/blog`.
+

@@ -18,6 +18,9 @@ const blog = defineCollection({
     draft: z.boolean().default(false),
     image: image().optional(),
     imageAlt: z.string().optional(),
+    // A client logo shown on a cream tile instead of a photo (case studies).
+    logo: image().optional(),
+    logoAlt: z.string().optional(),
   }),
 });
 

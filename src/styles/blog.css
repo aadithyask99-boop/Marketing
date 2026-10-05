@@ -495,3 +495,11 @@
 .prose :is(.photo, p:has(> img)):hover img { transform: scale(1.03); }
 .prose :is(.photo, p:has(> img)):hover::after { opacity: 0.55; }
 @media (prefers-reduced-motion: reduce) { .post-photo, .a-photo, .prose :is(.photo, p:has(> img)) img { transition: none; } .post-link:hover .post-photo, .prose :is(.photo, p:has(> img)):hover img { transform: none; } }
+
+/* Client logo heroes and covers (case studies): the logo sits on a cream tile, no photo tint */
+.a-tile.has-logo { background: #ebe4d9; }
+.a-logo { display: block; width: auto; height: auto; max-width: 62%; max-height: 62%; object-fit: contain; }
+.post-cover.has-logo { background: #ebe4d9; }
+.post-logo { display: block; width: auto; height: auto; max-width: 52%; max-height: 58%; object-fit: contain; transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.post-link:hover .post-logo { transform: scale(1.06); }
+@media (prefers-reduced-motion: reduce) { .post-logo { transition: none; } .post-link:hover .post-logo { transform: none; } }

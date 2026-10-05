@@ -87,9 +87,11 @@ const schema = [
     </div>
 
     <figure class="a-art">
-      <div class:list={["a-tile", d.image && "has-photo"]}>
+      <div class:list={["a-tile", d.logo ? "has-logo" : d.image && "has-photo"]}>
         {
-          d.image ? (
+          d.logo ? (
+            <Image class="a-logo" src={d.logo} alt={d.logoAlt ?? ""} widths={[320, 640, 960]} sizes="(min-width: 900px) 30vw, 60vw" loading="eager" />
+          ) : d.image ? (
             <Image class="a-photo" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="(min-width: 900px) 50vw, 100vw" loading="eager" />
           ) : (
             <OfferShape shape={cat.shape} class="a-shape" />
@@ -186,3 +188,25 @@ const schema = [
     });
   }
 </script>
+
+<script>
+  // Click-to-load embeds: nothing is requested from the third party until the visitor presses play.
+  document.querySelectorAll<HTMLElement>(".prose .cs-embed[data-embed]").forEach((box) => {
+    const stage = box.querySelector<HTMLElement>(".cs-embed-stage");
+    const play = box.querySelector<HTMLButtonElement>(".cs-embed-play");
+    const src = box.dataset.embed;
+    if (!stage || !play || !src) return;
+    play.addEventListener("click", () => {
+      const frame = document.createElement("iframe");
+      frame.src = src;
+      frame.title = "Instagram reel";
+      frame.loading = "lazy";
+      frame.allowFullscreen = true;
+      frame.allow = "encrypted-media; fullscreen; picture-in-picture";
+      frame.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-presentation");
+      stage.replaceChildren(frame);
+    });
+  });
+</script>
+
