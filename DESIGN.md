@@ -109,7 +109,7 @@ Data lives in `src/data/site.ts` (`SITE`, `NAV`, `SERVICES`, `CATEGORIES`, `CLIE
 ## 8. How to build a new page (recipe)
 
 1. Create `src/pages/<name>.astro` using `BaseLayout` with `title`, `description`, and `schema` from `src/lib/schema.ts` (`webPage(...)`, `breadcrumbs(...)`).
-2. **Hero:** `<section class="section page-top page-hero">` with `<p class="eyebrow">`, `<h1 class="display …">` (Bebas phrase + `<span>` Boska accent word, `data-xray`), and `<p class="lede">`. Red background comes from `body`.
+2. **Hero:** `<section class="section page-top page-hero">` with `<h1 class="display …">` (Bebas phrase + `<span>` Boska accent word, `data-xray`), and `<p class="lede">`. Red background comes from `body`.
 3. **Body:** alternate cream (`.section--cream`) and ink sections. Put each page's CSS in `src/styles/<page>.css`, imported in the page, and scope it with a prefix (the Starter page uses `st-`). Reuse tokens only.
 4. Optional social proof: `Proof`, `Voices`.
 5. End with `<ClosingCta />` (ink) or `<ClosingCta tone="red" />`, and set `footerTone` to match.
@@ -177,3 +177,18 @@ Hero: no client names; the "Please scroll down" cue is centred; the word strip r
 **Page naming and structure**: the page is "Portfolio" at `/work/portfolio` (it was `/work/design`; redirected in `astro.config.mjs` and `vercel.json`). Portfolio is made of Brand identity (the client boards, rail headed "Brand identity") and Websites & social (the scattered tiles, rail headed "Websites & social"); each half opens with the same kicker + H2 + lede header (`.dz-wallhead`). Order: hero (big type + starred word strip, no side panel) -> "What's a brand book?" (pinned book, with a footnote "* For illustration only. A full brand book is far more extensive.") -> Brand identity -> Websites and Instagram grids -> FAQ. On desktop a page navigation bar (`DesignPageNav.astro`: Brand identity, Websites, Apps & software, Instagram grids, Questions) takes over from the site header while you are inside the portfolio: it shows exactly when the real header slides away on scroll down and hides when the real header returns on scroll up (it mirrors the header's `is-hidden` class and is built from the header's own `nav-pill` classes, so it looks identical). It is hidden under 900px; phones keep the rail strips. Links smooth-scroll and then correct themselves if lazy images shift the layout, and the clicked link stays lit while the page travels there. The old "Why work with us?" section was removed.
 
 **Apps and live views**: the second part of the Portfolio is "Websites, apps and Instagram grids" (rail "Digital & social"; groups Websites, Apps & software, Instagram grids). Apps are tiles in the same browser frame (`kind: "app"` in `DESIGN_WALL`) with a pill: `live: { url, title, mic? }` shows **Try it live** and opens the `.dz-live` viewer, `href` shows **Visit site** (new tab). Nothing from the client's site loads before the click: the iframe is created on click (sandboxed, `referrerpolicy=no-referrer`, microphone allowed only when `mic` is set), a preconnect is added on hover/focus only, and the frame is removed on close. The viewer always shows an "Open in new tab" link in case the client later blocks framing, and a note not to enter personal information. Luna (wellness chatbot) is live; the iAudit dashboard is behind a login, so it is a screenshot plus a link to the product site. A rail taller than the screen scrolls itself to keep the current row visible.
+
+## 12. Status and handover (Portfolio work)
+
+**Done and live** (branch `claude/sharp-turing-cg8w0c`, fast-forwarded to `claude/fervent-clarke-uctw7x` which Vercel deploys):
+- `/work/portfolio` (was `/work/design`, redirected via `astro.config.mjs` and `vercel.json`). Hero: big type + starred strip, no side panel, no eyebrow (eyebrows also removed on Blog, Work, Services, About; 404 keeps "404").
+- Pinned full-screen brand book (Magic Personnel, illustrative; footnote "* For illustration only..."). Desktop two-page 3D book; portrait phones single-page view with chapter chips and a "Please scroll down" cue; Safari fix = JS face switching, no blend modes.
+- Brand identity: 4 client boards (Magic Personnel, UltraSeal, Flower Grid, MIC Studios) with a sticky rail.
+- Digital & social: websites, apps (Luna with click-to-open live viewer, iAudit with link), full-length Instagram profiles, fixed order Websites > Apps > Instagram, scattered with a second matching rail.
+- Desktop page nav bar (`DesignPageNav.astro`) that swaps with the site header on scroll inside the portfolio; hidden under 900px.
+- FAQ, closing CTA. "How we design a brand", "Why work with us" and the contents table were removed on request.
+- Accent font is now Boska (`--accent`), replacing Instrument Serif; Bebas Neue and Mulish unchanged.
+
+**Open items**: confirm sector labels (especially "Workplace software"); iAudit screenshot must not show real client data; copy marked placeholder in `design.ts` needs review; MIC Studios story lacks location/"from scratch" facts; live Luna depends on the client allowing framing; only Chromium tested (Safari/iPhone untested beyond the backface fix); small italic kickers remain on some other sections only if reintroduced.
+
+**Conventions**: push to the work branch then straight to the Vercel branch without asking; client facts are never invented (ask first); verify with Playwright (Chromium at `/opt/pw-browsers/chromium`, module `/opt/node-tools/node_modules/playwright/index.mjs`), preview with `npx astro preview --port 4321`.
