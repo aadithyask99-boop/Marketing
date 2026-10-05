@@ -78,7 +78,7 @@ export function initXray(zone: Element | null, radiusRem = 10) {
 // Every page hero headline gets the same hover: wrap loose text so each piece can be split into letters.
 export function initHeadlines() {
   document.querySelectorAll<HTMLElement>("main h1").forEach((h1) => {
-    if (h1.dataset.xrayInit) return;
+    if (h1.dataset.xrayInit || h1.hasAttribute("data-no-xray")) return;
     if (!h1.querySelector("[data-xray]")) {
       [...h1.childNodes].forEach((n) => {
         if (n.nodeType === Node.TEXT_NODE && n.textContent?.trim()) {

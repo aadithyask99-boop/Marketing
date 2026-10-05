@@ -129,7 +129,7 @@ const schema = [
             <div class="a-intro">
               <a class="article-back" href={url("/blog")}>&larr; All posts</a>
               <p class="a-meta"><span class="a-pill"><i aria-hidden="true"></i>{cat.label}</span><span>{date}</span><span>{d.readMins} min read</span></p>
-              <h1 class="display a-title a-title--ed" data-xray>{d.title}</h1>
+              <h1 class="display a-title" data-no-xray>{d.title}</h1>
               <p class="a-by"><span class="post-avatar" aria-hidden="true">{initials}</span>By {d.author}</p>
               <div class="tldr">
                 <p class="tldr-label">Short answer</p>
@@ -254,9 +254,7 @@ const schema = [
 </script>
 
 <script>
-  // Editorial header: x-ray hover on the title and a thin reading-progress line.
-  import { initXray } from "../../scripts/xray";
-  initXray(document.querySelector(".a-title--ed"), 12);
+  // Editorial header: a thin reading-progress line.
   const bar = document.querySelector<HTMLElement>(".a-progress span");
   const art = document.querySelector<HTMLElement>(".prose");
   if (bar && art) {
