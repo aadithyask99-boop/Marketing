@@ -113,17 +113,52 @@ const schema = [
 
   <section class="section section--cream related" aria-labelledby="related-title">
     <h2 id="related-title" class="display related-title">Keep reading</h2>
-    <ul class="blog-grid blog-grid--related">
+    <div class="rel" data-rel>
+    <ul class="blog-grid blog-grid--related rel-track" tabindex="0" aria-label="Related posts, scroll sideways">
       {
         more.map((p, i) => (
           <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} image={p.data.image} imageAlt={p.data.logoAlt ?? p.data.imageAlt} logo={p.data.logo} logoFill={p.data.logoFill} />
         ))
       }
     </ul>
+    <div class="rel-nav">
+      <button class="rel-btn" type="button" data-dir="-1" aria-label="Previous posts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button>
+      <button class="rel-btn" type="button" data-dir="1" aria-label="Next posts"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></button>
+    </div>
+    </div>
   </section>
 
   <ClosingCta />
 </BaseLayout>
+
+<script>
+  // Keep reading carousel: scrolls on its own, pauses on hover, focus or touch, and stays still for reduced motion.
+  const rel = document.querySelector<HTMLElement>("[data-rel]");
+  const relTrack = rel?.querySelector<HTMLElement>(".rel-track");
+  if (rel && relTrack) {
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const step = () => (relTrack.querySelector<HTMLElement>(".post")?.offsetWidth ?? 300) + 16;
+    const atEnd = () => relTrack.scrollLeft + relTrack.clientWidth >= relTrack.scrollWidth - 4;
+    const move = (dir: number) => {
+      if (dir > 0 && atEnd()) relTrack.scrollTo({ left: 0, behavior: calm ? "auto" : "smooth" });
+      else if (dir < 0 && relTrack.scrollLeft <= 4) relTrack.scrollTo({ left: relTrack.scrollWidth, behavior: calm ? "auto" : "smooth" });
+      else relTrack.scrollBy({ left: dir * step(), behavior: calm ? "auto" : "smooth" });
+    };
+    rel.querySelectorAll<HTMLButtonElement>(".rel-btn").forEach((b) => b.addEventListener("click", () => move(Number(b.dataset.dir))));
+    let timer = 0;
+    let visible = false;
+    let paused = false;
+    const tick = () => { window.clearTimeout(timer); if (!calm && visible && !paused) timer = window.setTimeout(() => { move(1); tick(); }, 3500); };
+    const hold = (v: boolean) => { paused = v; v ? window.clearTimeout(timer) : tick(); };
+    rel.addEventListener("pointerenter", () => hold(true));
+    rel.addEventListener("pointerleave", () => hold(false));
+    rel.addEventListener("focusin", () => hold(true));
+    rel.addEventListener("focusout", () => hold(false));
+    rel.addEventListener("touchstart", () => hold(true), { passive: true });
+    rel.addEventListener("touchend", () => window.setTimeout(() => hold(false), 4000), { passive: true });
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; visible ? tick() : window.clearTimeout(timer); }, { threshold: 0.3 }).observe(rel);
+  }
+</script>
 
 <script>
   // Case study figures: bars, columns and dots animate in once as they scroll into view.
