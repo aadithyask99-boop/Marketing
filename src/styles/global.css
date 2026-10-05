@@ -364,7 +364,7 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
 .cursor.is-label .cursor-label { opacity: 1; transform: none; }
 
 @media (hover: hover) and (pointer: fine) {
-  body.has-cursor, body.has-cursor a, body.has-cursor button { cursor: none; }
+  body.has-cursor, body.has-cursor a, body.has-cursor button, body.has-cursor summary, body.has-cursor label, body.has-cursor [role="button"] { cursor: none; }
   body.has-cursor input, body.has-cursor textarea, body.has-cursor select { cursor: auto; }
 }
 @media (hover: none), (pointer: coarse) {

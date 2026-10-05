@@ -113,7 +113,7 @@
 .cs-frame-bar { display: flex; align-items: center; gap: 0.35rem; padding: 0.55rem 0.9rem; border-bottom: 2px solid var(--ink); background: var(--cream); }
 .cs-frame-bar i { width: 0.6rem; height: 0.6rem; border-radius: 50%; border: 2px solid var(--ink); }
 .cs-frame-bar span { margin-left: 0.5rem; font: 600 0.75rem/1.2 var(--body); letter-spacing: 0.06em; }
-.cs-frame img { display: block; width: 100%; height: auto; margin: 0; cursor: zoom-in; }
+.cs-frame img { display: block; width: 100%; height: auto; margin: 0; }
 .cs-shot figcaption { margin: 0.8rem 0 0; font-size: 0.85rem; line-height: 1.4; opacity: 1; }
 .cs-shot figcaption .cs-chips { margin-top: 0.75rem; }
 .cs-shot-pair { display: grid; gap: 1rem; margin: 2rem 0; }
@@ -134,8 +134,8 @@
 .cs-lb img { display: block; width: 100%; height: auto; }
 .cs-lb button { position: sticky; top: 0.6rem; float: right; margin: 0.6rem 0.6rem -3rem 0; z-index: 1; width: 2.5rem; height: 2.5rem; border: 2px solid var(--cream); border-radius: 50%; background: var(--ink); color: var(--cream); font: 600 1.1rem/1 var(--body); cursor: pointer; }
 .cs-lb button:hover { background: var(--red); border-color: var(--red); }
-.cs-lb button, .cs-lb img { cursor: auto; }
-.cs-lb button { cursor: pointer; }
+.cs-lb, .cs-lb img { cursor: auto !important; }
+.cs-lb button { cursor: pointer !important; }
 
 /* ---------- Draw-in (only when scripting is available, and motion is allowed) ---------- */
 @media (prefers-reduced-motion: no-preference) {

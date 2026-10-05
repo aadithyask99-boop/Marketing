@@ -179,6 +179,7 @@ const schema = [
     dlg.addEventListener("close", () => from?.focus());
     shots.forEach((img) => {
       img.tabIndex = 0;
+      img.dataset.cursor = "Enlarge";
       img.setAttribute("role", "button");
       img.addEventListener("click", () => open(img));
       img.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(img); } });
