@@ -69,7 +69,7 @@ const total = n;
         {
           numbered.map((g) => (
             <>
-              {numbered.length > 1 && <li class="dz-kind" aria-hidden="true">{g.label}</li>}
+              {numbered.length > 1 && g.label && <li class="dz-kind" aria-hidden="true">{g.label}</li>}
               {g.items.map(({ slug, name, small, thumb, n }) => (
                 <li>
                   <a href={`#${slug}`} data-spy={slug}>

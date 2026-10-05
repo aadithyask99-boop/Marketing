@@ -2,7 +2,7 @@
 .legal { background: var(--cream); color: var(--ink); padding: clamp(3rem, 7vw, 5.5rem) var(--gutter) clamp(4rem, 9vw, 7rem); }
 .legal-in { max-width: 46rem; margin-inline: auto; }
 .legal-title { font-size: clamp(3.5rem, 12vw, 10rem); }
-.legal-title em { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; }
+.legal-title em { font-family: var(--accent); font-style: italic; font-weight: 400; text-transform: none; }
 .legal-meta { margin-top: 1rem; font-size: 0.95rem; opacity: 0.7; }
 .legal h2 { margin: clamp(2rem, 4vw, 3rem) 0 0.75rem; font-family: var(--display); font-size: clamp(1.75rem, 3.5vw, 2.5rem); font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
 .legal p, .legal li { font-size: 1.05rem; line-height: 1.7; }

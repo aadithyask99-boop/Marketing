@@ -28,7 +28,7 @@
 .voice { flex: 0 0 100%; scroll-snap-align: center; padding: 0 0.5rem; }
 .voice-mark {
   display: block;
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: var(--accent);
   font-size: 5rem;
   line-height: 0.8;
   height: 2.5rem;
@@ -37,7 +37,7 @@
 .voice-quote {
   margin: 1rem auto 0;
   max-width: 50rem;
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: var(--accent);
   font-size: clamp(1.75rem, 3.8vw, 3.1rem);
   line-height: 1.15;
   text-wrap: balance;

@@ -130,7 +130,7 @@
 /* Values: infinite drag carousel */
 .vals { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
 .vals-title { max-width: 70rem; margin: 0 auto clamp(2rem, 5vw, 3.5rem); padding-inline: var(--gutter); font-size: clamp(2.4rem, 6vw, 5rem); text-align: center; line-height: 0.95; }
-.vals-accent { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; color: var(--red); }
+.vals-accent { font-family: var(--accent); font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; color: var(--red); }
 .vals-window { overflow-x: auto; scrollbar-width: none; padding-block: 1rem; outline-offset: -4px; }
 .vals-window::-webkit-scrollbar { display: none; }
 .vals-track { display: flex; width: max-content; }

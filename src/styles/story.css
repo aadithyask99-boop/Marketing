@@ -122,7 +122,7 @@
   position: relative;
   display: inline-block;
   margin-top: 0.15em;
-  font-family: "Instrument Serif", Georgia, serif;
+  font-family: var(--accent);
   font-style: italic;
   font-size: clamp(2.75rem, 9vw, 8.5rem);
   line-height: 1.05;

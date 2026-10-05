@@ -1,3 +1,19 @@
+/* Accent serif: Boska Medium and Medium Italic (Fontshare, ITF Free Font License, see src/assets/fonts) */
+@font-face {
+  font-family: "Boska";
+  font-style: normal;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("../assets/fonts/boska-medium.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Boska";
+  font-style: italic;
+  font-weight: 400 500;
+  font-display: swap;
+  src: url("../assets/fonts/boska-medium-italic.woff2") format("woff2");
+}
+
 :root {
   --red: #e10600;
   --cream: #f5efe8;
@@ -9,6 +25,7 @@
   --header-h: 5rem;
   --display: "Bebas Neue", Impact, "Arial Narrow", sans-serif;
   --body: "Mulish", system-ui, sans-serif;
+  --accent: "Boska", Georgia, "Times New Roman", serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }

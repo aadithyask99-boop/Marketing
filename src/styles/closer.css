@@ -136,4 +136,4 @@
 .closer--red .lead-chips button:hover { background: var(--cream); color: var(--red); }
 .closer--red .field-error { color: var(--cream); font-weight: 600; }
 
-.closer .section-title em { font-family: "Instrument Serif", serif; font-style: italic; font-weight: 400; text-transform: none; }
+.closer .section-title em { font-family: var(--accent); font-style: italic; font-weight: 400; text-transform: none; }

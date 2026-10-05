@@ -33,13 +33,13 @@ Rules seen across the site:
 
 ## 3. Typography
 
-Three fonts, all self-hosted through `@fontsource`.
+Three fonts, all free and self-hosted: Bebas Neue and Mulish through `@fontsource`, and Boska (Fontshare, ITF Free Font License) from `src/assets/fonts`. None is bespoke; the accent font is one CSS variable (`--accent` in `global.css`), so a licensed or commissioned face is a one-line swap.
 
 | Font | Use | How |
 |---|---|---|
 | **Bebas Neue** (`--display`) | Every headline, big numbers, nav-menu items, card titles | Class `.display`: uppercase, weight 400, `line-height: 0.88` |
 | **Mulish** 400/600 (`--body`) | Everything else: body, buttons, labels, nav | 600 for emphasis, buttons, nav, labels. Never bold 700 |
-| **Instrument Serif** italic | The one **accent word** in a headline: "All the ways we *grow brands*", "Ideas worth *ranking*", "This is how we *work*", "Talk to us if you *need:*" | `font-style: italic; text-transform: none; font-size: 1.05em`. Import `@fontsource/instrument-serif/400-italic.css` on pages that use it. Also used for testimonial quotes and short taglines such as "from Google to ChatGPT." |
+| **Boska** Medium Italic (`--accent`) | The one **accent word** in a headline: "All the ways we *grow brands*", "Ideas worth *ranking*", "This is how we *work*", "Talk to us if you *need:*" | `font-family: var(--accent); font-style: italic; text-transform: none; font-size: 1.05em`. The `@font-face` (Medium and Medium Italic) lives in `global.css`; nothing to import per page. Replaced Boska, which is very common on AI-built sites. Also used for testimonial quotes and short taglines such as "from Google to ChatGPT." |
 
 Scale (all fluid with `clamp`):
 
@@ -49,7 +49,7 @@ Scale (all fluid with `clamp`):
 - `.lede`: `clamp(1.05rem, 1.6vw, 1.4rem)`, max-width 40rem, under the headline.
 - Body 1rem / 1.5.
 
-**Headline pattern:** Bebas phrase + one Instrument Serif italic word (see above). Do not italicise more than one or two words.
+**Headline pattern:** Bebas phrase + one Boska italic word (see above). Do not italicise more than one or two words.
 
 **X-ray hover:** big headlines are marked `data-xray` and initialised with `initXray(el, radiusRem)` from `src/scripts/xray.ts`. Letters near the cursor flip colour (cream to ink on red). Desktop mouse only. Use it on page-hero headlines and the footer wordmark.
 
@@ -89,7 +89,7 @@ Reusable sections:
 |---|---|
 | `ClosingCta` | The "Now it's your turn." AI-style search-bar lead form (step 1 message, step 2 email and phone, step 3 thanks) with example chips. Props `tone="ink"/"red"`, `heading`, `eyebrow`, `title`, `lede`, `service`. Posts to Formspree via `submitLead`. **Put this at the end of every page.** |
 | `Proof` | Client logo marquee (`tone="cream"/"ink"`) |
-| `Voices` | Testimonial carousel in Instrument Serif (`tone` too). Currently placeholder quotes |
+| `Voices` | Testimonial carousel in Boska (`tone` too). Currently placeholder quotes |
 | `Offerings`, `ServiceBlocks`, `Process`, `FeaturedWork`, `AboutStory`, etc. | Page-specific but reusable |
 | `Faq` | Accordion |
 | `StickyCta` | Mobile bottom bar that appears after the hero (landing pages) |
@@ -109,7 +109,7 @@ Data lives in `src/data/site.ts` (`SITE`, `NAV`, `SERVICES`, `CATEGORIES`, `CLIE
 ## 8. How to build a new page (recipe)
 
 1. Create `src/pages/<name>.astro` using `BaseLayout` with `title`, `description`, and `schema` from `src/lib/schema.ts` (`webPage(...)`, `breadcrumbs(...)`).
-2. **Hero:** `<section class="section page-top page-hero">` with `<p class="eyebrow">`, `<h1 class="display …">` (Bebas phrase + `<span>` Instrument Serif accent word, `data-xray`), and `<p class="lede">`. Red background comes from `body`.
+2. **Hero:** `<section class="section page-top page-hero">` with `<p class="eyebrow">`, `<h1 class="display …">` (Bebas phrase + `<span>` Boska accent word, `data-xray`), and `<p class="lede">`. Red background comes from `body`.
 3. **Body:** alternate cream (`.section--cream`) and ink sections. Put each page's CSS in `src/styles/<page>.css`, imported in the page, and scope it with a prefix (the Starter page uses `st-`). Reuse tokens only.
 4. Optional social proof: `Proof`, `Voices`.
 5. End with `<ClosingCta />` (ink) or `<ClosingCta tone="red" />`, and set `footerTone` to match.
@@ -118,7 +118,7 @@ Data lives in `src/data/site.ts` (`SITE`, `NAV`, `SERVICES`, `CATEGORIES`, `CLIE
 
 ## 9. The Starter page (`/website-starter`) as a variant
 
-A campaign landing page built on the same system with a few deliberate differences: `landing` header (logo plus one "Get started" button), `footerTone="red"`, its own `starter.css` (`st-` prefix), pill buttons with a circle arrow (`.st-pill`), a green £999 badge sticker, pinned scroll scenes (statement and "how it works" on desktop; the statement is also pinned on mobile), stage tabs, a payment path, an impact carousel, glow-edged plan cards, an FAQ with one-open-at-a-time, and a sticky mobile CTA. It does **not** use the Instrument Serif accent in its headlines, which is the main place it drifts from the rest of the site; add one if you want it to feel closer to the main pages.
+A campaign landing page built on the same system with a few deliberate differences: `landing` header (logo plus one "Get started" button), `footerTone="red"`, its own `starter.css` (`st-` prefix), pill buttons with a circle arrow (`.st-pill`), a green £999 badge sticker, pinned scroll scenes (statement and "how it works" on desktop; the statement is also pinned on mobile), stage tabs, a payment path, an impact carousel, glow-edged plan cards, an FAQ with one-open-at-a-time, and a sticky mobile CTA. It does **not** use the Boska accent in its headlines, which is the main place it drifts from the rest of the site; add one if you want it to feel closer to the main pages.
 
 ## 10. Things to watch
 
@@ -133,13 +133,13 @@ For showcasing client work (brand boards, Instagram grids, web designs) on one p
 
 - Red `.page-hero`, then a **cream body** with a **sticky left rail** (`DesignRail`) and one **board per project** (`DesignBoard`). Styles in `src/styles/design.css` (`dz-` prefix).
 - Rail sticks at `top: calc(var(--header-h) + 1rem)` from 900px up, with a scroll-spy marker. Under 900px it becomes a sticky pill strip at the top.
-- Each board: number, Bebas name, Instrument Serif tagline, tags, brief, "what we made", palette (hex only when the client's brand book states it) and type, then a **scattered gallery**: 12-column grid, per-tile widths (`w`), uneven tops, hover tilt, "View" cursor label. Tiles open a native `<dialog>` lightbox (prev/next, Esc, swipe, focus return).
+- Each board: number, Bebas name, Boska tagline, tags, brief, "what we made", palette (hex only when the client's brand book states it) and type, then a **scattered gallery**: 12-column grid, per-tile widths (`w`), uneven tops, hover tilt, "View" cursor label. Tiles open a native `<dialog>` lightbox (prev/next, Esc, swipe, focus return).
 - Content lives in `src/data/design.ts`; images in `src/assets/design/<slug>/*.webp` (about 1600px wide, under 100KB). Add a project (or `kind: "social"` / `"web"`) and it appears in the rail automatically.
 - Do not publish contact details printed in client brand books.
 
 Hero, story and rail details (added with the second pass):
 
-- **Hero** (`DesignHero`): giant Bebas headline with one Instrument Serif word, a cream **showcase panel** holding a floating collage of real work (`HERO_CARDS` in `design.ts`, pointer parallax), a green scalloped `Badge` sticker, and a Bebas **marquee strip** with the green asterisk. "Please scroll down" cue at the bottom.
+- **Hero** (`DesignHero`): giant Bebas headline with one Boska word, a cream **showcase panel** holding a floating collage of real work (`HERO_CARDS` in `design.ts`, pointer parallax), a green scalloped `Badge` sticker, and a Bebas **marquee strip** with the green asterisk. "Please scroll down" cue at the bottom.
 - **Story sections** (`DesignStory`): "What's a brand book?" (ink, right after the hero), then the rail and boards, then the FAQ. Copy lives in `BRAND_BOOK`, `DESIGN_STEPS`, `DESIGN_WHY`. Surfaces alternate red / ink / cream / ink / cream / ink.
 - **Rail** (`DesignRail`): "M" mark and project count, thumbnail cards for each project with a sliding ink highlight and a red scroll-progress line, and a red "Got a brand in mind?" contact card (CTA, WhatsApp, email, sticker). Under 900px it becomes a sticky strip of pills with small round thumbnails.
 - **The idea strip** under each board header: 3 to 4 concept chips (`idea` in `design.ts`), taken from the client's own brand book.

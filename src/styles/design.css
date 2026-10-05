@@ -6,7 +6,7 @@
 .dz-hero-copy { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 92rem; }
 .dz-title { font-size: clamp(3.6rem, 15vw, 8rem); }
 @media (min-width: 700px) { .dz-title { font-size: clamp(5rem, min(12.5vw, 24svh), 12.5rem); line-height: 0.88; } }
-.dz-accent { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; white-space: nowrap; }
+.dz-accent { font-family: var(--accent); font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; white-space: nowrap; }
 .dz-hero [data-xray] { --xr-base: var(--cream); --xr-rev: var(--ink); }
 .dz-hero .lede { color: var(--cream); max-width: 44rem; }
 
@@ -25,7 +25,6 @@
 
 /* Shared editorial bits */
 .dz-wrap { max-width: 96rem; margin: 0 auto; }
-.dz-kicker { margin: 0 0 0.75rem; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.3rem, 2vw, 1.7rem); opacity: 0.8; }
 .dz-h2 { font-size: clamp(3rem, 8vw, 7rem); }
 .dz-intro { background: var(--ink); color: var(--cream); padding: clamp(3.5rem, 8vw, 7rem) var(--gutter); }
 .dz-intro :focus-visible { outline-color: var(--cream); }
@@ -64,7 +63,7 @@
 .dz-cover { position: absolute; inset: 0; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; align-items: center; padding: 9% 8% 8%; background: #fffcec; color: var(--ink); text-align: center; }
 .dz-cover::before { content: ""; position: absolute; inset: 4%; border: 1px solid rgba(23, 9, 10, 0.18); border-radius: 0.3rem; pointer-events: none; }
 .dz-cover-spine { position: absolute; left: 0; top: 0; bottom: 0; width: 7%; background: linear-gradient(to right, rgba(23, 9, 10, 0.2), rgba(23, 9, 10, 0.04) 70%, transparent); }
-.dz-cover-kicker { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.9rem); }
+.dz-cover-kicker { font-family: var(--accent); font-style: italic; font-size: clamp(1.2rem, 2.4vw, 1.9rem); }
 .dz-cover-logo { width: 78%; height: auto; max-height: 100%; object-fit: contain; }
 .dz-cover-place { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
 
@@ -75,7 +74,7 @@
 .dz-bb:hover:not(:disabled) { background: var(--cream); color: var(--ink); border-color: var(--cream); }
 .dz-bb:disabled { opacity: 0.3; cursor: default; }
 .dz-book-status { flex: 1; margin: 0; min-width: 0; font-size: 0.92rem; font-weight: 600; text-align: center; }
-.dz-book-hint { margin: 0; text-align: center; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.15rem; opacity: 0.7; }
+.dz-book-hint { margin: 0; text-align: center; font-family: var(--accent); font-style: italic; font-size: 1.15rem; opacity: 0.7; }
 .dz-book-wrap :focus-visible { outline-color: var(--cream); }
 @media (max-width: 599px) { .dz-book-status { font-size: 0.82rem; } }
 .dz-book-turn { display: contents; }
@@ -105,7 +104,7 @@
 .dz-cp { position: absolute; z-index: 2; display: grid; align-content: start; color: var(--ink); }
 .dz-cp--l { inset: 5.5cqw 3.5cqw 5cqw 4.5cqw; }
 .dz-cp--r { inset: 5.5cqw 4.5cqw 5cqw 3.5cqw; }
-.dz-cp-title { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: 8.6cqw; line-height: 0.95; }
+.dz-cp-title { margin: 0; font-family: var(--accent); font-style: italic; font-weight: 400; font-size: 8.6cqw; line-height: 0.95; }
 .dz-cp-lead { margin: 2cqw 0 0; max-width: 28cqw; font-size: 1.5cqw; line-height: 1.5; opacity: 0.75; }
 .dz-cp-mark { position: absolute; left: 0; bottom: 0; width: 3.4cqw; height: auto; }
 .dz-cp--contents-r { align-content: center; }
@@ -121,8 +120,8 @@
 .dz-toc button[aria-current] .dz-toc-t::after { content: ""; display: inline-block; width: 0.7cqw; height: 0.7cqw; margin-left: 0.8cqw; border-radius: 50%; background: var(--red); vertical-align: middle; }
 .dz-toc button:focus-visible { outline: 2px solid var(--red); outline-offset: 0.5cqw; border-radius: 0.5cqw; }
 @keyframes dz-dots { to { background-position-x: 0.62cqw; } }
-.dz-cp-kicker { margin: 0 0 1.6cqw; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.9cqw; opacity: 0.7; }
-.dz-cp-cta { margin: 0; max-width: 38cqw; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: 6cqw; line-height: 1.02; }
+.dz-cp-kicker { margin: 0 0 1.6cqw; font-family: var(--accent); font-style: italic; font-size: 1.9cqw; opacity: 0.7; }
+.dz-cp-cta { margin: 0; max-width: 38cqw; font-family: var(--accent); font-style: italic; font-weight: 400; font-size: 6cqw; line-height: 1.02; }
 .dz-cp-line { width: 24cqw; height: auto; margin-top: 1.2cqw; color: var(--red); overflow: visible; }
 .dz-cp-line path { fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.45s; }
 .dz-book-wrap[data-last] .dz-cp-line path { stroke-dashoffset: 0; }
@@ -186,24 +185,18 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 .dz-body--wall::before { content: ""; display: block; max-width: 96rem; height: 1px; margin: 0 auto clamp(2.5rem, 6vw, 5rem); background: rgba(23, 9, 10, 0.14); }
 .dz-wallhead { display: grid; gap: 1rem; max-width: 96rem; margin: 0 auto 1.5rem; }
 @media (min-width: 900px) { .dz-wallhead { margin-bottom: 0; } }
-.dz-wallhead .dz-kicker, .dz-wallhead .dz-h2 { margin: 0; }
+.dz-wallhead .dz-h2 { margin: 0; }
 .dz-wall-lede { margin: 0; max-width: 40rem; font-size: 1.05rem; opacity: 0.85; }
-.dz-rail--wall .dz-i-text small { display: none; }
-.dz-rail--wall .dz-index a { grid-template-columns: 2.5rem minmax(0, 1fr); gap: 0.65rem; padding: 0.4rem 0.75rem 0.4rem 0.5rem; }
-.dz-rail--wall .dz-thumb { width: 2.5rem; height: 2.5rem; border-radius: 0.65rem; }
-.dz-rail--wall .dz-i-n { font-size: 0.85rem; }
-.dz-rail--wall .dz-rail-in { gap: 0.9rem; }
-.dz-rail--wall .dz-rail-logo { width: 2rem; }
-.dz-rail--wall .dz-index a { padding-block: 0.28rem; }
-.dz-rail--wall .dz-i-name { font-size: 0.88rem; line-height: 1.15; }
-.dz-rail--wall .dz-kind { margin-top: 0.6rem; }
-@media (min-width: 900px) { .dz-rail--wall .dz-rail-in { overflow-y: auto; scrollbar-width: none; } .dz-rail--wall .dz-rail-in::-webkit-scrollbar { display: none; } }
+@media (min-width: 900px) {
+  .dz-rail--wall .dz-rail-in { overflow-y: auto; scrollbar-width: none; -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 2.5rem), transparent); padding-bottom: 2rem; }
+  .dz-rail--wall .dz-rail-in::-webkit-scrollbar { display: none; }
+}
 
 .dz-wt-grid { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(2rem, 6vw, 3rem); margin: 0; padding: 0 0 1rem; list-style: none; }
 .dz-wt-gap { display: none; }
 .dz-wt { position: relative; min-width: 0; transform: translateY(var(--py, 0px)); }
 .dz-wt--social { width: 72%; }
-.dz-wt--social[data-side="r"] { justify-self: end; }
+.dz-wt--social { justify-self: center; }
 .dz-wt-open { display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; transform: rotate(calc(var(--rot, 0deg) * 0.6)); transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .dz-wt-frame { position: relative; display: block; overflow: hidden; border-radius: 0.9rem; background: #fff; box-shadow: 0 1rem 2.2rem rgba(23, 9, 10, 0.16); transition: box-shadow 0.4s ease; }
 .dz-wt-frame img { display: block; width: 100%; height: auto; -webkit-user-drag: none; transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1); }
@@ -281,7 +274,7 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 
 /* The idea strip inside each board */
 .dz-idea { display: grid; gap: 1.25rem; margin: 0 0 clamp(1.5rem, 3vw, 2.5rem); padding: clamp(1.25rem, 2.4vw, 2rem); border-radius: 1.5rem; background: #ebe4d9; }
-.dz-idea-title { display: grid; gap: 0.25rem; margin: 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.05; }
+.dz-idea-title { display: grid; gap: 0.25rem; margin: 0; font-family: var(--accent); font-style: italic; font-size: clamp(1.6rem, 2.8vw, 2.4rem); line-height: 1.05; }
 .dz-idea-title .dz-label { font-family: var(--body); font-style: normal; }
 .dz-idea-list { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
 @media (min-width: 1100px) { .dz-idea-list { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
@@ -314,7 +307,7 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 .dz-prog span { display: block; height: 100%; border-radius: 2px; background: var(--red); transform: scaleY(var(--p, 0)); transform-origin: top; transition: transform 0.2s linear; }
 .dz-hl { position: absolute; left: 1rem; right: 0; top: 0; height: 0; border-radius: 1.1rem; background: var(--ink); opacity: 0; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), height 0.3s ease, opacity 0.2s ease; pointer-events: none; }
 .dz-index { position: relative; margin: 0; padding: 0; list-style: none; }
-.dz-kind { margin: 0.9rem 0 0.35rem; padding-left: 0.75rem; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.1rem; opacity: 0.6; }
+.dz-kind { margin: 0.9rem 0 0.35rem; padding-left: 0.75rem; font-family: var(--accent); font-style: italic; font-size: 1.1rem; opacity: 0.6; }
 .dz-kind:first-child { margin-top: 0; }
 .dz-index a { position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr); align-items: center; gap: 0.75rem; padding: 0.55rem 0.75rem 0.55rem 0.55rem; border-radius: 1.1rem; line-height: 1.2; transition: color 0.3s ease, background 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
 .dz-thumb { width: 3rem; height: 3rem; border-radius: 0.8rem; object-fit: cover; box-shadow: inset 0 0 0 1px rgba(23, 9, 10, 0.14); transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -331,7 +324,7 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 .dz-contact { position: relative; display: grid; justify-items: start; gap: 0.9rem; padding: 1.25rem; overflow: hidden; border-radius: 1.5rem; background: var(--red); color: var(--cream); }
 .dz-contact :focus-visible { outline-color: var(--cream); }
 .dz-contact-sticker { position: absolute; right: -0.4rem; top: -0.6rem; width: 4.5rem; transform: rotate(10deg); }
-.dz-contact-q { max-width: 9.5rem; margin: 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: 1.75rem; line-height: 1.05; }
+.dz-contact-q { max-width: 9.5rem; margin: 0; font-family: var(--accent); font-style: italic; font-size: 1.75rem; line-height: 1.05; }
 .dz-contact-q em { font-style: italic; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.18em; }
 .dz-cta { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.35rem 0.35rem 0.35rem 1.15rem; border-radius: 999px; background: var(--ink); color: var(--cream); font-size: 0.95rem; font-weight: 600; transition: background 0.25s ease; }
 .dz-cta i { display: grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 50%; background: var(--red); font-style: normal; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -368,7 +361,7 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 @media (min-width: 1100px) { .dz-bhead { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: end; } }
 .dz-num { margin: 0 0 0.25rem; font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.04em; color: var(--red); }
 .dz-name { font-size: clamp(3rem, 7vw, 6.5rem); overflow-wrap: anywhere; }
-.dz-tagline { margin: 0.9rem 0 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
+.dz-tagline { margin: 0.9rem 0 0; font-family: var(--accent); font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.8rem); }
 .dz-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1.1rem 0 0; padding: 0; list-style: none; }
 .dz-tags li { padding: 0.25rem 0.8rem; border: 1px solid rgba(23, 9, 10, 0.35); border-radius: 999px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
 .dz-tags li:first-child { background: var(--ink); border-color: var(--ink); color: var(--cream); }
@@ -415,7 +408,7 @@ body.dz-holding .scroll-top { opacity: 0; pointer-events: none; }
 /* Story block inside each board: SEO-friendly, plain-language write-up */
 .dz-story { display: grid; gap: 1.75rem; margin: 0 0 clamp(1.5rem, 3vw, 2.5rem); }
 @media (min-width: 1100px) { .dz-story { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; } }
-.dz-story-h { margin: 0; font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.05; text-wrap: balance; }
+.dz-story-h { margin: 0; font-family: var(--accent); font-style: italic; font-weight: 400; font-size: clamp(1.9rem, 3.4vw, 3rem); line-height: 1.05; text-wrap: balance; }
 .dz-glance { display: grid; gap: 0; margin: 1.5rem 0 0; }
 .dz-glance div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.75rem; padding: 0.6rem 0; border-top: 1px solid rgba(23, 9, 10, 0.16); }
 .dz-glance div:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.16); }

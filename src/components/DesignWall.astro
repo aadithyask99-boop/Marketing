@@ -1,7 +1,7 @@
 ---
 import { Image, getImage } from "astro:assets";
 import DesignRail from "./DesignRail.astro";
-import { DESIGN_WALL, WALL_KINDS, WALL_GROUPS, type WallKind } from "../data/design";
+import { DESIGN_WALL, WALL_KINDS, type WallKind } from "../data/design";
 
 // PLACEHOLDER: first-draft copy. Websites and Instagram grids are shown by type and sector, not under a client.
 const tiles = await Promise.all(
@@ -15,7 +15,7 @@ const tiles = await Promise.all(
 );
 const kinds: WallKind[] = ["web", "app", "social"];
 const groups = kinds.map((k) => ({
-  label: WALL_GROUPS[k],
+  label: "", // one flat list, like the Brand identity rail; the kind shows as the small tag under each name
   items: tiles.filter((t) => t.kind === k).map((t) => ({ slug: t.id, name: t.sector, small: WALL_KINDS[t.kind], thumb: t.thumb })),
 }));
 const ordered = kinds.flatMap((k) => tiles.filter((t) => t.kind === k));
@@ -23,13 +23,12 @@ const ordered = kinds.flatMap((k) => tiles.filter((t) => t.kind === k));
 
 <section class="dz-body dz-body--wall" id="more-work" aria-labelledby="wall-title" data-dz-wall>
   <header class="dz-wallhead">
-    <p class="dz-kicker">On screens and in feeds</p>
     <h2 id="wall-title" class="display dz-h2">Websites, apps and <span class="dz-accent">Instagram grids</span></h2>
     <p class="dz-wall-lede">Web design, software and Instagram grid design for small businesses, shown the way people meet it: on a screen and in a feed. Not sorted by client, just a look at what we have made. Some of it you can try live.</p>
   </header>
 
   <div class="dz-layout" data-dz-layout>
-    <DesignRail groups={groups} title="Digital & social" noun="pieces" label="Websites, apps and Instagram grids on this page" contact={false} class="dz-rail--wall" />
+    <DesignRail groups={groups} title="Digital & social" noun="projects" label="Websites, apps and Instagram grids on this page" contact={false} class="dz-rail--wall" />
 
     <ul class="dz-wt-grid">
       {
