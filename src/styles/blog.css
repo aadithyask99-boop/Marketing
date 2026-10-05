@@ -532,7 +532,7 @@
 .a-progress { position: fixed; inset: 0 0 auto 0; z-index: 70; height: 3px; pointer-events: none; }
 .a-progress span { display: block; height: 100%; background: var(--red); transform: scaleX(0); transform-origin: left; }
 
-.a-banner { position: relative; display: grid; place-items: center; min-height: clamp(22rem, 68svh, 44rem); overflow: hidden; background: var(--ink); color: var(--cream); }
+.a-banner { position: relative; display: grid; place-items: center; min-height: clamp(26rem, 80svh, 56rem); overflow: hidden; background: var(--ink); color: var(--cream); }
 .a-banner.has-logo { background: #ebe4d9; }
 .a-banner.is-fill { background: #0e6e37; }
 .a-banner-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1) contrast(1.05); }
