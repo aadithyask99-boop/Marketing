@@ -17,7 +17,7 @@ const { tone = "cream" } = Astro.props;
           <li class="voice" role="group" aria-roledescription="slide" aria-label={`${i + 1} of ${TESTIMONIALS.length}`}>
             <span class="voice-mark" aria-hidden="true">&ldquo;</span>
             <blockquote class="voice-quote">{t.quote}</blockquote>
-            <p class="voice-by"><strong>{t.role}</strong><span>{t.company}</span></p>
+            <p class="voice-by"><strong>{t.name}</strong><span>{t.detail}</span></p>
           </li>
         ))
       }

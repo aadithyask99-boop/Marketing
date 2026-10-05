@@ -318,28 +318,27 @@ export const CLIENTS = [
   "Bakwa",
 ];
 
-// PLACEHOLDER testimonials: replace with real quotes before launch.
+// Real client quotes. "Undisclosed Client" is used where the client asked not to be named.
 export const TESTIMONIALS = [
   {
-    quote:
-      "Working with the team felt effortless. They understood the brief fast, moved quickly, and the results spoke for themselves.",
-    role: "Marketing Lead",
-    company: "Client name",
-    placeholder: true,
+    quote: "Maximus Mediascape brought our app idea to life and made the whole process seamless. I couldn\u2019t recommend their team more!",
+    name: "Mathew Chiweda",
+    detail: "Co-Founder, iAudit Global",
   },
   {
-    quote:
-      "Clear communication, sharp ideas and no fluff. Our search visibility and enquiries have both moved in the right direction.",
-    role: "Head of Growth",
-    company: "Client name",
-    placeholder: true,
+    quote: "Maximus Mediascape helped us turn Bakwa\u2019s story into something people wanted to talk about. From social media to PR, they helped us get noticed and featured by The Better India. Couldn\u2019t recommend the team more!",
+    name: "Aswin J",
+    detail: "Co-Founder, Bakwa",
   },
   {
-    quote:
-      "They took a complicated project and made it simple. Professional, creative and genuinely fun to work with.",
-    role: "Founder",
-    company: "Client name",
-    placeholder: true,
+    quote: "Maximus Mediascape transformed our website and helped us build a much stronger presence on Google. The team understood what we needed, delivered brilliantly, and we couldn\u2019t recommend them more.",
+    name: "Undisclosed Client",
+    detail: "Web Development & SEO",
+  },
+  {
+    quote: "Maximus Mediascape helped put our brand on the map in ChatGPT and AI search. We\u2019re now showing up where our customers are searching, and we couldn\u2019t be happier with the results.",
+    name: "Undisclosed Client",
+    detail: "Head Of Marketing, FMCG Company London",
   },
 ];
 
