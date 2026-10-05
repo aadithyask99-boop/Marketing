@@ -510,3 +510,10 @@
 .post-cover.is-fill { place-items: stretch; }
 .post-link:hover .post-cover.is-fill .post-logo { transform: scale(1.04); }
 
+/* Dark hero variant (heroTone: ink) */
+.a-head--ink { background: var(--ink); }
+.a-head--ink .a-by .post-avatar { color: var(--ink); }
+.a-head--ink .ask-list a { border-color: var(--cream); }
+.a-head--ink .ask-list a:hover { background: var(--cream); color: var(--ink); }
+.a-head--ink .article-back, .a-head--ink .a-date { opacity: 0.85; }
+

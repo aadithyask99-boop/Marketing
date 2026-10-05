@@ -187,6 +187,42 @@
 .cs-embed-stage iframe { display: block; width: 100%; height: min(46rem, 135vw); border: 0; background: #fff; }
 .prose .cs-embed figcaption { max-width: 26rem; margin: 0.8rem auto 0; text-align: center; }
 
+/* ---------- One-page site wireframe ---------- */
+.cs-wire { max-width: 34rem; margin-inline: auto; overflow: hidden; border: 2px solid var(--ink); border-radius: 1.25rem; background: var(--cream); }
+.cs-wire-body { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.cs-wire-body > li { position: relative; display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 0.9rem; align-items: center; margin: 0; padding: 1rem 1.1rem; border-bottom: 2px dashed rgba(23, 9, 10, 0.25); }
+.cs-wire-body > li + li { margin: 0; }
+.cs-wire-body > li:last-child { border-bottom: 0; background: var(--red); color: var(--cream); }
+.cs-wire-n { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border: 2px solid currentColor; border-radius: 50%; font-family: var(--display); font-size: 1.15rem; line-height: 1; }
+.cs-wire-t { margin: 0; font-family: var(--display); font-weight: 400; font-size: 1.5rem; line-height: 1; text-transform: uppercase; }
+.cs-wire-d { margin: 0.2rem 0 0; font-size: 0.9rem; line-height: 1.35; opacity: 0.8; }
+.cs-wire-ph { display: grid; gap: 0.35rem; margin-top: 0.55rem; }
+.cs-wire-ph i { display: block; height: 0.4rem; border-radius: 999px; background: rgba(23, 9, 10, 0.16); }
+.cs-wire-ph i:nth-child(1) { width: 85%; }
+.cs-wire-ph i:nth-child(2) { width: 60%; }
+.cs-wire-form { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.65rem; }
+.cs-wire-form i { flex: 1 1 auto; height: 2rem; border: 2px solid currentColor; border-radius: 999px; opacity: 0.7; }
+.cs-wire-form b { flex: none; padding: 0.4rem 0.95rem; border-radius: 999px; background: var(--cream); color: var(--red); font: 600 0.85rem/1.2 var(--body); }
+
+/* ---------- Profile card (sharp stand-in for a profile screenshot) ---------- */
+.cs-profile { max-width: 24rem; margin-inline: auto; padding: 1.25rem; border: 2px solid var(--ink); border-radius: 1.5rem; background: var(--cream); }
+.cs-profile-top { display: flex; align-items: center; gap: 1rem; }
+.cs-profile-av { flex: none; display: block; width: 4.5rem; height: 4.5rem; overflow: hidden; border-radius: 50%; background: #0e6e37; }
+.cs-profile-av img { display: block; width: 100%; height: 100%; margin: 0; object-fit: cover; }
+.cs-profile-id { min-width: 0; }
+.cs-profile-id strong { display: block; font-size: 1.05rem; line-height: 1.2; }
+.cs-profile-id span { font-size: 0.85rem; opacity: 0.7; }
+.cs-profile-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.5rem; margin: 1.1rem 0 0; padding: 0.9rem 0; border-block: 1px solid rgba(23, 9, 10, 0.2); list-style: none; text-align: center; }
+.cs-profile-stats li { margin: 0; }
+.cs-profile-stats li + li { margin: 0; }
+.cs-profile-stats strong { display: block; font-family: var(--display); font-weight: 400; font-size: 2rem; line-height: 1; }
+.cs-profile-stats li:nth-child(2) strong { color: var(--red); }
+.cs-profile-stats span { font-size: 0.8rem; opacity: 0.75; }
+.cs-profile-bio { margin: 0.9rem 0 0; font-size: 0.9rem; line-height: 1.5; }
+.cs-profile-bio b { font-weight: 600; }
+.prose .cs-profile-btn { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; padding: 0.5rem 1.1rem; border-radius: 999px; background: var(--ink); color: var(--cream); font: 600 0.9rem/1.2 var(--body); text-decoration: none; }
+.prose .cs-profile-btn:hover { background: var(--red); }
+
 /* ---------- Draw-in (only when scripting is available, and motion is allowed) ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .js-fig .cs-line > li::before { transform: scaleY(0); }
