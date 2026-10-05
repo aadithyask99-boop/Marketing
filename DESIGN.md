@@ -238,3 +238,7 @@ The editorial header replaced the old red split header on all posts (no `heroSty
 
 ## 18. Featured work (Oct 2026)
 `/work/` shows three real cards (Bakwa case study, the Luna wellness chat, the Bakwa Instagram grid) built in `FeaturedWork.astro` with real images, a client pill, one line, tags and a metric where there is one (client-reported figures carry an asterisk), plus the "Shhh" card. The results strip uses three figures from the case studies (3,000+ enquiries, 31.0% AI-search visibility, 5,000 AI citations), each naming its client and linking to the story. No placeholder copy remains; add cards in the `items` array and figures in `RESULTS` (`src/data/site.ts`).
+
+## 19. Keep reading carousel and inline image sizing
+- **Keep reading** (`PostCarousel.astro`) is the same looping drag carousel as "Our values shape the work we do": centred title with a red italic accent word, cards you can drag, arrows and dots below, nothing moves on its own. The shared behaviour lives in `src/scripts/dragCarousel.ts` and the shared styles in `src/styles/carousel.css` (both used by `ValuesMarquee.astro` too). The six related posts are rendered once in the HTML (crawlable links); the script clones the set twice for the seamless loop and marks clones `inert`.
+- **Inline images** in migrated posts are never stretched past their real size (smaller screenshots sit centred at natural size with a soft shadow); photos and wide graphics still fill the column.

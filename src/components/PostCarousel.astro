@@ -1,0 +1,40 @@
+---
+import "../styles/carousel.css";
+import BlogCard from "./BlogCard.astro";
+import { BLOG_CATEGORIES } from "../data/site";
+import type { CollectionEntry } from "astro:content";
+
+interface Props { posts: CollectionEntry<"blog">[] }
+const { posts } = Astro.props;
+const TONES = ["cream", "ink", "red"] as const;
+---
+
+<section class="vals vals--posts" data-vals aria-labelledby="related-title">
+  <h2 id="related-title" class="display vals-title">Keep <span class="vals-accent">reading</span></h2>
+  <div class="vals-window" data-window data-cursor="Drag" tabindex="0" aria-label="Related posts, drag or use the arrow keys">
+    <div class="vals-track" data-track>
+      <ul class="vals-list">
+        {
+          posts.map((p, i) => (
+            <BlogCard slug={p.id} title={p.data.title} excerpt={p.data.excerpt} category={p.data.category} author={p.data.author} readMins={p.data.readMins} tone={TONES[i % 3]} image={p.data.image} imageAlt={p.data.logoAlt ?? p.data.imageAlt} logo={p.data.logo} logoFill={p.data.logoFill} />
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+  <div class="vals-ctrl">
+    <button class="vals-btn" type="button" data-dir="-1" aria-label="Previous posts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
+    </button>
+    <span class="vals-dots" aria-hidden="true">{posts.map(() => <span></span>)}</span>
+    <button class="vals-btn" type="button" data-dir="1" aria-label="Next posts">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+    </button>
+  </div>
+</section>
+
+<script>
+  import { initDragCarousel } from "../scripts/dragCarousel";
+  const root = document.querySelector<HTMLElement>("[data-vals]");
+  if (root) initDragCarousel(root);
+</script>

@@ -619,19 +619,10 @@
 @media (prefers-reduced-motion: reduce) { .tocm-bar, .tocm-btn svg { transition: none; } }
 
 /* Migrated posts: inline images (brand graphics, screenshots, photos) show whole and in real colour */
-.prose p:has(> img[src^="/blog-media/"]) { aspect-ratio: auto; background: none; overflow: hidden; }
-.prose p:has(> img[src^="/blog-media/"]) img { position: static; width: 100%; height: auto; object-fit: contain; border-radius: inherit; }
+.prose p:has(> img[src^="/blog-media/"]) { aspect-ratio: auto; overflow: visible; }
+.prose p:has(> img[src^="/blog-media/"]) img { position: static; object-fit: contain; }
 .prose p:has(> img[src^="/blog-media/"]):hover img { transform: none; }
 
-/* Keep reading carousel */
-.rel { position: relative; max-width: 78rem; margin-inline: auto; }
-.blog-grid--related.rel-track { display: flex; gap: 1rem; max-width: none; margin: 0; padding: 0.25rem 0 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
-.rel-track::-webkit-scrollbar { display: none; }
-.rel-track > .post { flex: 0 0 min(82%, 20rem); scroll-snap-align: start; }
-@media (min-width: 700px) { .rel-track > .post { flex-basis: calc((100% - 2rem) / 3); } }
-.rel-track:focus-visible { outline: 2px solid var(--red); outline-offset: 4px; border-radius: 1rem; }
-.rel-nav { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 0.75rem; }
-.rel-btn { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; color: var(--ink); cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
-.rel-btn:hover, .rel-btn:focus-visible { background: var(--ink); color: var(--cream); }
-.rel-btn svg { width: 1.2rem; height: 1.2rem; }
-@media (prefers-reduced-motion: reduce) { .rel-track { scroll-behavior: auto; } }
+/* Inline images in migrated posts: never stretched past their real size, centred */
+.prose p:has(> img[src^="/blog-media/"]) { text-align: center; background: none; }
+.prose p:has(> img[src^="/blog-media/"]) img { display: inline-block; width: auto; max-width: 100%; height: auto; border-radius: 1rem; box-shadow: 0 0.5rem 1.5rem rgba(23, 9, 10, 0.1); }

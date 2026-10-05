@@ -1,0 +1,22 @@
+/* Values: infinite drag carousel */
+.vals { background: var(--cream); color: var(--ink); padding: clamp(3.5rem, 8vw, 7rem) 0; overflow: hidden; }
+.vals-title { max-width: 70rem; margin: 0 auto clamp(2rem, 5vw, 3.5rem); padding-inline: var(--gutter); font-size: clamp(2.4rem, 6vw, 5rem); text-align: center; line-height: 0.95; }
+.vals-accent { font-family: var(--accent); font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; color: var(--red); }
+.vals-window { overflow-x: auto; scrollbar-width: none; padding-block: 1rem; outline-offset: -4px; }
+.vals-window::-webkit-scrollbar { display: none; }
+.vals-track { display: flex; width: max-content; }
+.vals-list { display: flex; gap: 1.25rem; margin: 0; padding: 0 0.625rem; list-style: none; }
+.vals.is-enhanced .vals-window { overflow: hidden; touch-action: pan-y; user-select: none; }
+.vals.is-enhanced .vals-track { will-change: transform; }
+.vals-list[data-clone] { display: none; }
+.vals.is-enhanced .vals-list[data-clone] { display: flex; }
+.vals-ctrl { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.5rem; padding-inline: var(--gutter); }
+.vals-dots { display: flex; gap: 0.5rem; }
+.vals-dots span { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: rgba(23, 9, 10, 0.2); transition: background 0.2s ease, transform 0.2s ease; }
+.vals-dots span.is-on { background: var(--red); transform: scale(1.35); }
+.vals-btn { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; color: inherit; cursor: pointer; transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+.vals-btn:hover { background: var(--ink); color: var(--cream); transform: scale(1.06); }
+.vals-btn svg { width: 1.2rem; height: 1.2rem; }
+.vals-list > .post { flex: none; width: clamp(16rem, 24vw, 20rem); }
+.vals-list > .post .post-link { height: 100%; }
+@media (prefers-reduced-motion: reduce) { .vals-btn, .vals-dots span { transition: none; } }
