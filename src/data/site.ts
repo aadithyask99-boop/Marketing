@@ -40,10 +40,11 @@ export const STORY = {
   finaleAccent: "from Google to ChatGPT.",
 };
 
-export const NAV = [
+export interface NavItem { href: string; label: string; children?: { href: string; label: string; note: string }[] }
+export const NAV: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/our-services", label: "Services" },
-  { href: "/work", label: "Work" },
+  { href: "/work", label: "Work", children: [{ href: "/work/portfolio", label: "Portfolio", note: "Brand identity, websites, apps and Instagram grids" }] },
   { href: "/blogs", label: "Blog" },
   { href: "/about-us", label: "About" },
   { href: "/contact-us", label: "Contact" },

@@ -420,3 +420,8 @@ main h1 [data-xray], .hero-title [data-xray] { --xr-base: var(--cream); --xr-rev
   .menu-go { width: 1.9rem; height: 1.9rem; }
   .menu-cta { min-height: 3rem; }
 }
+
+/* Phone menu: sub pages sit under their parent, indented and smaller */
+.menu-list li.menu-sub { border-bottom-style: dashed; }
+.menu-list li.menu-sub a { min-height: 3rem; padding-left: 1.25rem; font-size: clamp(1.5rem, 6vw, 2rem); opacity: 0.8; }
+.menu-list li.menu-sub .menu-go { width: 1.9rem; height: 1.9rem; }

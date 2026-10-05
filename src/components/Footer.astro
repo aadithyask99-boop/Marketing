@@ -60,7 +60,7 @@ const ICONS: Record<string, string> = {
         <nav class="footer-col" aria-label="Footer">
           <ul>
             <li><a href={url("/")}>Home</a></li>
-            {pages.map((item) => <li><a href={url(item.href)}>{item.label}</a></li>)}
+            {pages.map((item) => <><li><a href={url(item.href)}>{item.label}</a></li>{item.children?.map((c) => <li><a href={url(c.href)}>{c.label}</a></li>)}</>)}
           </ul>
         </nav>
         <div class="footer-col">

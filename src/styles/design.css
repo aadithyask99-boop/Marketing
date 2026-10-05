@@ -482,3 +482,30 @@ html.dz-lock { overflow: hidden; }
 .dz-lb-fig::-webkit-scrollbar, .dz-lb::-webkit-scrollbar { display: none; }
 html.dz-lock { scrollbar-width: none; }
 html.dz-lock::-webkit-scrollbar { display: none; }
+
+/* Phone pill: same glass as the site header; takes its place while the header is away */
+.dpm { display: none; }
+@media (max-width: 899px) {
+  .dpm { position: fixed; top: 0.75rem; left: 0; right: 0; z-index: 55; display: block; padding: 0 var(--gutter); perspective: 700px; }
+  .dpm.is-away { pointer-events: none; }
+  .dpm-bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 0.75rem; width: 100%; height: 3.4rem; padding: 0 0.4rem 0 1.1rem; border: 0; border-radius: 999px; color: var(--ink); font: 600 0.8rem/1.2 var(--body); text-align: left; cursor: pointer; background: linear-gradient(135deg, rgba(255, 255, 255, 0.62), rgba(245, 239, 232, 0.36)); -webkit-backdrop-filter: blur(18px) saturate(1.8); backdrop-filter: blur(18px) saturate(1.8); box-shadow: 0 12px 32px rgba(23, 9, 10, 0.22); transform-origin: 50% 0; transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease; -webkit-tap-highlight-color: transparent; }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .dpm-bar { background: rgba(245, 239, 232, 0.92); } }
+  .dpm.is-away .dpm-bar { transform: rotateX(-90deg); opacity: 0; }
+  .dpm-bar:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .dpm-title { letter-spacing: 0.12em; text-transform: uppercase; }
+  .dpm-now { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.9rem; font-weight: 600; color: var(--red); text-align: right; }
+  .dpm-btn { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--ink); color: var(--cream); }
+  .dpm-btn svg { width: 1.1rem; height: 1.1rem; transition: transform 0.25s ease; }
+  .dpm.is-open .dpm-btn svg { transform: rotate(180deg); }
+  .dpm-panel { color: var(--ink); position: absolute; left: var(--gutter); right: var(--gutter); top: calc(100% + 0.4rem); max-height: 60svh; overflow-y: auto; padding: 0.5rem 1.1rem; border-radius: 1.5rem; background: rgba(255, 255, 255, 0.96); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px); box-shadow: 0 1rem 2.5rem rgba(23, 9, 10, 0.22); }
+  .dpm-panel[hidden] { display: none; }
+  .dpm-panel ol { margin: 0; padding: 0; list-style: none; }
+  .dpm-panel li { margin: 0; border-top: 1px solid rgba(23, 9, 10, 0.1); }
+  .dpm-panel li:first-child { border-top: 0; }
+  .dpm-panel a { color: var(--ink); display: flex; align-items: center; gap: 0.6rem; min-height: 2.75rem; padding: 0.5rem 0; font-size: 0.95rem; text-decoration: none; }
+  .dpm-panel a[aria-current] { color: var(--red); font-weight: 700; }
+  .dpm-panel a[aria-current]::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--red); }
+  /* The project chip strips sit under the pill/header instead of behind it */
+  .dz-rail { top: 4.3rem; }
+}
+@media (prefers-reduced-motion: reduce) { .dpm-bar, .dpm-btn svg { transition: none; } }

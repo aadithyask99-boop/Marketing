@@ -1,0 +1,102 @@
+---
+import { DESIGN_WALL } from "../data/design";
+
+// Phones only. Same glass pill as the site header: while the portfolio is on screen and the header has slid away,
+// this pill takes its place showing the section you are in; tap for the list. It flips away when the header returns.
+const first = (k: "web" | "app" | "social") => DESIGN_WALL.find((t) => t.kind === k)?.id;
+const links = [
+  { label: "Brand identity", id: "brand-identity", kind: "brand" },
+  { label: "Websites", id: first("web"), kind: "web" },
+  { label: "Apps & software", id: first("app"), kind: "app" },
+  { label: "Instagram grids", id: first("social"), kind: "social" },
+  { label: "Questions", id: "faq", kind: "faq" },
+].filter((l) => l.id);
+---
+
+<div class="dpm is-away" data-dpm inert>
+  <button class="dpm-bar" type="button" aria-expanded="false" aria-controls="dpm-list">
+    <span class="dpm-title">Portfolio</span>
+    <span class="dpm-now" data-now>{links[0].label}</span>
+    <span class="dpm-btn" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+    </span>
+  </button>
+  <nav class="dpm-panel" id="dpm-list" aria-label="Portfolio sections" hidden>
+    <ol>
+      {links.map((l) => <li><a href={`#${l.id}`} data-kind={l.kind}>{l.label}</a></li>)}
+    </ol>
+  </nav>
+</div>
+
+<script>
+  import { currentKind } from "../lib/portfolio-section";
+  const root = document.querySelector<HTMLElement>("[data-dpm]");
+  const real = document.querySelector<HTMLElement>("header.site-header:not(.page-nav)");
+  const brand = document.getElementById("brand-identity");
+  const faq = document.getElementById("faq");
+  if (root && real && brand && faq) {
+    const bar = root.querySelector<HTMLButtonElement>(".dpm-bar")!;
+    const panel = root.querySelector<HTMLElement>(".dpm-panel")!;
+    const now = root.querySelector<HTMLElement>("[data-now]")!;
+    const anchors = [...root.querySelectorAll<HTMLAnchorElement>("a[data-kind]")];
+    const phone = window.matchMedia("(max-width: 899px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let lock: { kind: string; until: number } | null = null;
+    let shown = false;
+
+    function setOpen(open: boolean, restore = false) {
+      panel.hidden = !open;
+      bar.setAttribute("aria-expanded", String(open));
+      root.classList.toggle("is-open", open);
+      if (!open && restore) bar.focus();
+    }
+    const label = (kind: string) => anchors.find((a) => a.dataset.kind === kind)?.textContent?.trim() ?? "";
+    const sync = () => {
+      const inRegion = brand.getBoundingClientRect().top < 120 && faq.getBoundingClientRect().bottom > 160;
+      const on = phone.matches && inRegion && real.classList.contains("is-hidden");
+      if (on !== shown) {
+        shown = on;
+        root.classList.toggle("is-away", !on);
+        root.toggleAttribute("inert", !on);
+        if (!on) setOpen(false);
+      }
+      if (on) {
+        const kind = lock && Date.now() < lock.until ? lock.kind : currentKind();
+        now.textContent = label(kind);
+        anchors.forEach((a) => (a.dataset.kind === kind ? a.setAttribute("aria-current", "location") : a.removeAttribute("aria-current")));
+      }
+    };
+    let ticking = false;
+    const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { ticking = false; sync(); }); } };
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    new MutationObserver(queue).observe(real, { attributes: true, attributeFilter: ["class"] });
+    sync();
+
+    bar.addEventListener("click", () => setOpen(panel.hidden));
+    document.addEventListener("click", (e) => { if (!panel.hidden && !root.contains(e.target as Node)) setOpen(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) setOpen(false, true); });
+    anchors.forEach((a) =>
+      a.addEventListener("click", (e) => {
+        const target = document.getElementById(a.getAttribute("href")!.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        lock = { kind: a.dataset.kind!, until: Date.now() + 2600 };
+        setOpen(false);
+        sync();
+        target.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });
+        history.replaceState(null, "", a.getAttribute("href"));
+        // If lazy images shift the layout on the way, nudge it onto the mark
+        const settle = (n: number) => {
+          const want = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+          const off = target.getBoundingClientRect().top - want;
+          if (Math.abs(off) > 12 && n > 0) {
+            window.scrollTo({ top: window.scrollY + off, behavior: calm ? "auto" : "smooth" });
+            window.setTimeout(() => settle(n - 1), 700);
+          }
+        };
+        window.setTimeout(() => settle(2), calm ? 50 : 1100);
+      }),
+    );
+  }
+</script>

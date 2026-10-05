@@ -35,6 +35,7 @@ const links = [
 </header>
 
 <script>
+  import { currentKind } from "../lib/portfolio-section";
   const bar = document.querySelector<HTMLElement>("[data-page-nav]");
   const real = document.querySelector<HTMLElement>("header.site-header:not(.page-nav)");
   const brand = document.getElementById("brand-identity");
@@ -58,13 +59,7 @@ const links = [
       hl.style.opacity = "1";
     };
     const pick = () => {
-      const line = window.innerHeight * 0.4;
-      let kind = "brand";
-      if (faq.getBoundingClientRect().top <= line) kind = "faq";
-      else if (wall.getBoundingClientRect().top <= line) {
-        const slug = document.querySelector<HTMLElement>(".dz-rail--wall a[aria-current]")?.dataset.spy;
-        kind = (slug && document.getElementById(slug)?.dataset.kind) || "web";
-      }
+      let kind = currentKind();
       if (lock && Date.now() < lock.until) kind = lock.kind;
       const a = anchors.find((x) => x.dataset.kind === kind) ?? null;
       if (a !== current) {

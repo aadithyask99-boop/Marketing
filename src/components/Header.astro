@@ -21,8 +21,13 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
       <span class="nav-hl" aria-hidden="true"></span>
       {
         links.map((item) => (
-          <a href={url(item.href)} aria-current={path === item.href || path.startsWith(`${item.href}/`) ? "page" : undefined}>
+          <a
+            href={url(item.href)}
+            aria-current={path === item.href || path.startsWith(`${item.href}/`) ? "page" : undefined}
+            {...(item.children ? { "data-sub": item.href, "aria-haspopup": "true", "aria-expanded": "false", "aria-controls": `sub-${item.label.toLowerCase()}` } : {})}
+          >
             {item.label}
+            {item.children && <svg class="nav-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>}
           </a>
         ))
       }
@@ -45,6 +50,17 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
     </div>
 
   </div>
+
+  {!minimal && links.filter((l) => l.children).map((l) => (
+    <div class="nav-sub" id={`sub-${l.label.toLowerCase()}`} data-sub-for={l.href} role="group" aria-label={`${l.label} pages`} hidden>
+      {l.children!.map((c) => (
+        <a href={url(c.href)} aria-current={path === c.href || path.startsWith(`${c.href}/`) ? "page" : undefined}>
+          <span class="nav-sub-label">{c.label}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></span>
+          <span class="nav-sub-note">{c.note}</span>
+        </a>
+      ))}
+    </div>
+  ))}
 
   {!minimal && <div class="wa-card" id="wa-card" role="dialog" aria-label="Chat with us on WhatsApp" hidden>
     <svg class="wa-logo" viewBox="0 0 24 24" aria-hidden="true"><path d={siWhatsapp.path}></path></svg>
@@ -90,6 +106,47 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
       document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
       window.addEventListener("scroll", () => { if (card.classList.contains("is-open")) close(); }, { passive: true });
     }
+
+    // Dropdown under Work (desktop): glass panel opens on hover or focus, closes on leave, Escape or focus-out
+    header.querySelectorAll<HTMLAnchorElement>("a[data-sub]").forEach((trigger) => {
+      const panel = header.querySelector<HTMLElement>(`[data-sub-for="${trigger.dataset.sub}"]`);
+      if (!panel) return;
+      let t = 0;
+      let skip = false;
+      const place = () => {
+        const r = trigger.getBoundingClientRect();
+        const h = header.getBoundingClientRect();
+        const w = panel.offsetWidth || 304;
+        panel.style.left = `${Math.max(8, Math.min(window.innerWidth - w - 8, r.left + r.width / 2 - w / 2 - h.left))}px`;
+      };
+      const open = () => {
+        if (!desk.matches || skip) return;
+        window.clearTimeout(t);
+        panel.hidden = false;
+        place();
+        requestAnimationFrame(() => panel.classList.add("is-open"));
+        trigger.setAttribute("aria-expanded", "true");
+      };
+      const close = () => {
+        window.clearTimeout(t);
+        panel.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+        t = window.setTimeout(() => { if (!panel.classList.contains("is-open")) panel.hidden = true; }, 220);
+      };
+      const later = () => { window.clearTimeout(t); t = window.setTimeout(close, 200); };
+      trigger.addEventListener("pointerenter", open);
+      trigger.addEventListener("pointerleave", later);
+      panel.addEventListener("pointerenter", () => window.clearTimeout(t));
+      panel.addEventListener("pointerleave", later);
+      trigger.addEventListener("focus", open);
+      trigger.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown") { e.preventDefault(); open(); panel.querySelector<HTMLElement>("a")?.focus(); }
+      });
+      header.addEventListener("focusout", (e) => { if (!header.contains(e.relatedTarget as Node)) close(); });
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && panel.classList.contains("is-open")) { close(); skip = true; trigger.focus(); skip = false; } });
+      window.addEventListener("scroll", () => { if (panel.classList.contains("is-open")) close(); }, { passive: true });
+      window.addEventListener("resize", close);
+    });
 
     const wrap = header.querySelector<HTMLElement>(".nav-links")!;
     const hl = header.querySelector<HTMLElement>(".nav-hl")!;

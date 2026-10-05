@@ -3,15 +3,17 @@ import { NAV, url } from "../data/site";
 
 const basePath = url("");
 const path = Astro.url.pathname.slice(basePath.length).replace(/\/$/, "") || "/";
+// Sub pages (Work > Portfolio) follow their parent as an indented row
+const rows = NAV.flatMap((n) => [{ href: n.href, label: n.label, sub: false, parent: !!n.children }, ...(n.children ?? []).map((c) => ({ href: c.href, label: c.label, sub: true, parent: false }))]);
 ---
 
 <nav id="menu" class="menu" aria-label="Main" hidden>
   <div class="menu-panel">
     <ul class="menu-list">
       {
-        NAV.map((item, i) => (
-          <li style={`--i:${i}`}>
-            <a href={url(item.href)} aria-current={path === item.href || (item.href !== "/" && path.startsWith(`${item.href}/`)) ? "page" : undefined}>
+        rows.map((item, i) => (
+          <li style={`--i:${i}`} class:list={[item.sub && "menu-sub"]}>
+            <a href={url(item.href)} aria-current={path === item.href || (item.href !== "/" && !item.parent && path.startsWith(`${item.href}/`)) ? "page" : undefined}>
               <span>{item.label}</span>
               <span class="menu-go" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"></path></svg>
@@ -21,7 +23,7 @@ const path = Astro.url.pathname.slice(basePath.length).replace(/\/$/, "") || "/"
         ))
       }
     </ul>
-    <a class="menu-cta" href={url("/contact-us")} style={`--i:${NAV.length}`}>
+    <a class="menu-cta" href={url("/contact-us")} style={`--i:${rows.length}`}>
       Talk to us
       <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg>
     </a>

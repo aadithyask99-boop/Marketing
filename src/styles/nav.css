@@ -200,3 +200,38 @@ body.menu-open .menu-btn { width: 2.75rem; height: 2.75rem; background: var(--in
 .site-header--minimal .nav-cta { display: inline-flex; }
 .site-header--minimal .nav-pill { grid-template-columns: 1fr auto; }
 @media (min-width: 900px) { .site-header--minimal .nav-pill { grid-template-columns: 1fr auto; } }
+
+/* Dropdown under Work: liquid glass, desktop only */
+.nav-chev { width: 0.8rem; height: 0.8rem; margin-left: 0.35rem; transition: transform 0.25s ease; }
+.nav-links a[aria-expanded="true"] .nav-chev { transform: rotate(180deg); }
+.nav-sub {
+  position: absolute;
+  top: 4.5rem;
+  left: 0;
+  z-index: 2;
+  width: 19rem;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
+  color: var(--ink);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(245, 239, 232, 0.55));
+  -webkit-backdrop-filter: blur(18px) saturate(1.8);
+  backdrop-filter: blur(18px) saturate(1.8);
+  box-shadow: 0 12px 32px rgba(23, 9, 10, 0.22);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-0.5rem) scale(0.97);
+  transform-origin: top center;
+  transition: opacity 0.2s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-sub[hidden] { display: none; }
+.nav-sub.is-open { pointer-events: auto; opacity: 1; transform: none; }
+.nav-sub::before { content: ""; position: absolute; left: 0; right: 0; top: -1rem; height: 1rem; }
+.nav-sub a { display: grid; gap: 0.2rem; padding: 0.8rem 1rem; border-radius: 1rem; transition: background 0.2s ease; }
+.nav-sub a:hover, .nav-sub a:focus-visible { background: rgba(23, 9, 10, 0.08); }
+.nav-sub a[aria-current="page"] .nav-sub-label { color: var(--red); }
+.nav-sub-label { display: flex; align-items: center; justify-content: space-between; font-weight: 700; font-size: 1.05rem; }
+.nav-sub-label svg { width: 1rem; height: 1rem; }
+.nav-sub-note { font-size: 0.85rem; line-height: 1.35; opacity: 0.7; }
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .nav-sub { background: rgba(245, 239, 232, 0.96); } }
+@media (max-width: 899px) { .nav-sub { display: none !important; } .nav-chev { display: none; } }
+@media (prefers-reduced-motion: reduce) { .nav-sub, .nav-chev { transition: none; } }

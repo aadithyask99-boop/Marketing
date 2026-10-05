@@ -7,6 +7,7 @@ import DesignRail from "../../components/DesignRail.astro";
 import DesignBoard from "../../components/DesignBoard.astro";
 import DesignWall from "../../components/DesignWall.astro";
 import DesignPageNav from "../../components/DesignPageNav.astro";
+import DesignPageNavMobile from "../../components/DesignPageNavMobile.astro";
 import "../../styles/design.css";
 import { getImage } from "astro:assets";
 import { DESIGN_PROJECTS, DESIGN_FAQ, DESIGN_WALL, WALL_KINDS } from "../../data/design";
@@ -114,6 +115,7 @@ const schema = [
   </dialog>
 
   <DesignPageNav />
+  <DesignPageNavMobile />
 
   <ClosingCta service="Brand & Identity" />
 </BaseLayout>
