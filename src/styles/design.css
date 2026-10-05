@@ -476,3 +476,9 @@ html.dz-lock { overflow: hidden; }
   .dz-ear, .dz-cover::after, .dz-cp-line path, .dz-toc-t, .dz-toc-n, .dz-cta-btn, .dz-cta-btn i { transition: none; }
   .dz-toc button:hover .dz-toc-dots { animation: none; }
 }
+
+/* No scrollbars around the viewers: tall images still scroll with wheel, touch and keys */
+.dz-lb-fig, .dz-lb { scrollbar-width: none; }
+.dz-lb-fig::-webkit-scrollbar, .dz-lb::-webkit-scrollbar { display: none; }
+html.dz-lock { scrollbar-width: none; }
+html.dz-lock::-webkit-scrollbar { display: none; }
