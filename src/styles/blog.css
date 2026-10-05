@@ -202,13 +202,15 @@
   gap: 0.35rem;
   min-height: 2.5rem;
   padding: 0.4rem 1rem;
-  border: 2px solid var(--cream);
+  border: 2px solid var(--ink);
   border-radius: 999px;
+  background: var(--ink);
+  color: var(--cream);
   font-size: 0.9rem;
   font-weight: 600;
   transition: background 0.2s ease, color 0.2s ease;
 }
-.ask-list a:hover { background: var(--cream); color: var(--red); }
+.ask-list a:hover { background: var(--cream); border-color: var(--cream); color: var(--ink); }
 .a-art { margin: 0; }
 .a-tile { display: grid; place-items: center; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 1.5rem; background: var(--cream); }
 .a-shape { position: static; width: 62%; height: 84%; opacity: 1; transform: none; fill: var(--red); }
