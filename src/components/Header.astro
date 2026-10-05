@@ -182,7 +182,9 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
       },
       { passive: true },
     );
-    header.addEventListener("focusin", () => { focusInside = true; show(); });
+    // Only keyboard focus keeps the header pinned; a tap on the menu button also leaves focus there,
+    // which used to stop the header hiding (and so the contents bar from ever returning).
+    header.addEventListener("focusin", (e) => { focusInside = (e.target as Element).matches(":focus-visible"); if (focusInside) show(); });
     header.addEventListener("focusout", () => (focusInside = false));
     new MutationObserver(() => menuOpen() && show()).observe(document.body, { attributes: true, attributeFilter: ["class"] });
     window.addEventListener("resize", update);
