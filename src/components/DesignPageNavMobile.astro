@@ -25,6 +25,9 @@ const links = [
     <ol>
       {links.map((l) => <li><a href={`#${l.id}`} data-kind={l.kind}>{l.label}</a></li>)}
     </ol>
+    <div class="dpm-projects" data-projects hidden>
+      <p class="dpm-h">Projects</p>
+    </div>
   </nav>
 </div>
 
@@ -43,6 +46,42 @@ const links = [
     const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let lock: { kind: string; until: number } | null = null;
     let shown = false;
+
+    // The projects list (the old chip strips, now folded into this panel), built from the page's own rails
+    const projects = root.querySelector<HTMLElement>("[data-projects]")!;
+    const railLinks = [...document.querySelectorAll<HTMLAnchorElement>(".dz-rail a[data-spy]")];
+    const projectLinks: HTMLAnchorElement[] = [];
+    let list: HTMLUListElement | null = null;
+    document.querySelectorAll<HTMLElement>(".dz-rail .dz-index > li").forEach((li) => {
+      if (li.classList.contains("dz-kind")) {
+        const h = document.createElement("p");
+        h.className = "dpm-kind";
+        h.textContent = li.textContent?.trim() ?? "";
+        projects.append(h);
+        list = document.createElement("ul");
+        projects.append(list);
+        return;
+      }
+      const src = li.querySelector<HTMLAnchorElement>("a[data-spy]");
+      if (!src) return;
+      if (!list) {
+        const h = document.createElement("p");
+        h.className = "dpm-kind";
+        h.textContent = "Brand identity";
+        projects.append(h);
+        list = document.createElement("ul");
+        projects.append(list);
+      }
+      const a = document.createElement("a");
+      a.href = `#${src.dataset.spy}`;
+      a.dataset.spy = src.dataset.spy;
+      a.textContent = src.querySelector(".dz-i-name")?.textContent?.trim() ?? src.textContent?.trim() ?? "";
+      const item = document.createElement("li");
+      item.append(a);
+      list.append(item);
+      projectLinks.push(a);
+    });
+    projects.hidden = projectLinks.length === 0;
 
     function setOpen(open: boolean, restore = false) {
       panel.hidden = !open;
@@ -64,6 +103,8 @@ const links = [
         const kind = lock && Date.now() < lock.until ? lock.kind : currentKind();
         now.textContent = label(kind);
         anchors.forEach((a) => (a.dataset.kind === kind ? a.setAttribute("aria-current", "location") : a.removeAttribute("aria-current")));
+        const live = new Set(railLinks.filter((l) => l.hasAttribute("aria-current")).map((l) => l.dataset.spy));
+        projectLinks.forEach((a) => (live.has(a.dataset.spy) ? a.setAttribute("aria-current", "location") : a.removeAttribute("aria-current")));
       }
     };
     let ticking = false;
@@ -76,12 +117,12 @@ const links = [
     bar.addEventListener("click", () => setOpen(panel.hidden));
     document.addEventListener("click", (e) => { if (!panel.hidden && !root.contains(e.target as Node)) setOpen(false); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) setOpen(false, true); });
-    anchors.forEach((a) =>
+    [...anchors, ...projectLinks].forEach((a) =>
       a.addEventListener("click", (e) => {
         const target = document.getElementById(a.getAttribute("href")!.slice(1));
         if (!target) return;
         e.preventDefault();
-        lock = { kind: a.dataset.kind!, until: Date.now() + 2600 };
+        if (a.dataset.kind) lock = { kind: a.dataset.kind, until: Date.now() + 2600 };
         setOpen(false);
         sync();
         target.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "start" });

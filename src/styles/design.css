@@ -505,7 +505,14 @@ html.dz-lock::-webkit-scrollbar { display: none; }
   .dpm-panel a { color: var(--ink); display: flex; align-items: center; gap: 0.6rem; min-height: 2.75rem; padding: 0.5rem 0; font-size: 0.95rem; text-decoration: none; }
   .dpm-panel a[aria-current] { color: var(--red); font-weight: 700; }
   .dpm-panel a[aria-current]::before { content: ""; flex: none; width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--red); }
-  /* The project chip strips sit under the pill/header instead of behind it */
-  .dz-rail { top: 4.3rem; }
+  /* The old chip strips are replaced by this pill; their projects live in its list */
+  .dz-rail { display: none; }
+  .dpm-projects { margin-top: 0.4rem; padding-top: 0.6rem; border-top: 2px solid rgba(23, 9, 10, 0.12); }
+  .dpm-projects[hidden] { display: none; }
+  .dpm-h, .dpm-kind { margin: 0; font: 600 0.7rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6; }
+  .dpm-kind { margin-top: 0.9rem; }
+  .dpm-projects ul { margin: 0.3rem 0 0; padding: 0; list-style: none; }
+  .dpm-projects li { margin: 0; border: 0; }
+  .dpm-projects a { min-height: 2.5rem; padding: 0.35rem 0 0.35rem 0.25rem; font-size: 0.92rem; }
 }
 @media (prefers-reduced-motion: reduce) { .dpm-bar, .dpm-btn svg { transition: none; } }
