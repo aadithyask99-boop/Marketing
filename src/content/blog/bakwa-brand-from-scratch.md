@@ -2,7 +2,7 @@
 title: "How we built Bakwa with a one-page website and zero ad spend"
 excerpt: "Three months, a simple one-page website and no paid advertising: 5.3K+ organic Instagram followers, 3,000+ enquiries, ₹10 lakh+ in revenue and coverage in The Better India and The South First."
 category: case-studies
-author: Maximus Team
+author: Maximus Mediascape
 date: 2026-10-05
 readMins: 6
 draft: false

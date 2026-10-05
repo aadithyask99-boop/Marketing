@@ -130,9 +130,9 @@ const schema = [
               <a class="article-back" href={url("/blog")}>&larr; All posts</a>
               <p class="a-meta"><span class="a-pill"><i aria-hidden="true"></i>{cat.label}</span><span>{date}</span><span>{d.readMins} min read</span></p>
               <h1 class="display a-title" data-no-xray>{d.title}</h1>
-              <p class="a-by"><span class="post-avatar" aria-hidden="true">{initials}</span>By {d.author}</p>
+              <p class="a-by"><span class="a-by-logo" aria-hidden="true"></span>By {d.author}</p>
               <div class="tldr">
-                <p class="tldr-label">Short answer</p>
+                <p class="tldr-label">TLDR</p>
                 <p class="tldr-text">{d.tldr}</p>
               </div>
               <div class="ask">

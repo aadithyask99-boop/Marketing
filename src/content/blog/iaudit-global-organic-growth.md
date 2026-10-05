@@ -2,7 +2,7 @@
 title: "How we built iAudit Global's organic presence from zero"
 excerpt: "Twelve months of website, SEO, content, community and LinkedIn work for a global audit SaaS brand: an 80+ page site, around 40 articles, impressions from 129 countries and growing AI citations, all without paid spend."
 category: case-studies
-author: Maximus Team
+author: Maximus Mediascape
 date: 2026-10-04
 readMins: 9
 tldr: "We built iAudit Global's digital presence from nothing: an 80+ page website, around 40 search-led articles, a full measurement setup, community activity and a LinkedIn page that reached 872 organic followers. The site now gets Google and Bing traffic, appears in AI answers, and has been seen in 129 countries, with no paid spend behind the organic results."

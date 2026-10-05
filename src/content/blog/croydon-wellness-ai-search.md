@@ -2,7 +2,7 @@
 title: "How we built AI search visibility for a Croydon wellness brand"
 excerpt: "Twelve months of search, community and AI visibility work for a local wellness business: impressions up 184%, AI-search visibility up 4.2× and qualified enquiries up 78%."
 category: case-studies
-author: Maximus Team
+author: Maximus Mediascape
 date: 2026-10-01
 readMins: 14
 featured: true

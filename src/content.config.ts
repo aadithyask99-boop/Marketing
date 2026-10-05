@@ -8,7 +8,7 @@ const blog = defineCollection({
     title: z.string(),
     excerpt: z.string(),
     category: z.enum(["case-studies", "ai-search", "seo-content", "web-automation", "brand-social"]),
-    author: z.string().default("Maximus Team"),
+    author: z.string().default("Maximus Mediascape"),
     date: z.coerce.date(),
     readMins: z.number().default(5),
     tldr: z.string(),
