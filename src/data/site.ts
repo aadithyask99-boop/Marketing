@@ -373,15 +373,6 @@ export const SOCIALS = [
   { name: "Medium", href: "https://medium.com/@maximusmediascape" },
 ];
 
-export const WORK = [
-  { title: "Project One", category: "Branding", tone: "blue" },
-  { title: "Project Two", category: "SEO + Content", tone: "ink" },
-  { title: "Project Three", category: "Creative Campaign", tone: "cream" },
-  { title: "Project Four", category: "GEO + AEO", tone: "cream" },
-  { title: "Project Five", category: "Marketing", tone: "blue" },
-  { title: "Project Six", category: "AI Workflows", tone: "ink" },
-];
-
 export const BLOG_CATEGORIES = [
   { slug: "case-studies", label: "Case Studies", shape: "stack" },
   { slug: "ai-search", label: "AI Search (GEO & AEO)", shape: "rings" },
@@ -422,13 +413,12 @@ export const PROCESS = [
   },
 ];
 
-// PLACEHOLDER results: replace with real, verified numbers.
+// Results come from our case studies (see the blog). "reported" means the client gave us the figure.
 export const RESULTS = [
-  { value: "+180%", label: "AI answer citations" },
-  { value: "2.3x", label: "Qualified enquiries" },
-  { value: "10 wks", label: "Typical time to launch*" },
+  { value: "3,000+", label: "Enquiries", who: "Bakwa, 3 months, zero ad spend", reported: true, href: "/blogs/bakwa-brand-from-scratch" },
+  { value: "31.0%", label: "AI-search visibility", who: "Croydon wellness brand, up from 7.4% in 12 months", reported: false, href: "/blogs/croydon-wellness-ai-search" },
+  { value: "5,000", label: "AI citations", who: "iAudit Global", reported: true, href: "/blogs/iaudit-global-organic-growth" },
 ];
-
 // About page. The facts (2021, University of Surrey, cafes/salons/shops, UAE 2024, India 2025,
 // 10+ projects) are the client's; the wording and everything else is a first draft to review.
 export const ABOUT = {

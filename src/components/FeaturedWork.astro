@@ -1,25 +1,34 @@
 ---
-import OfferShape from "./OfferShape.astro";
-import { WORK, url } from "../data/site";
-const SHAPES = ["rings", "spiral", "grid"] as const;
-const TONES = ["ink", "cream", "red"] as const;
-const items = WORK.slice(0, 3);
+import { Image } from "astro:assets";
+import { url } from "../data/site";
+import bakwa from "../assets/blog/logo-bakwa.png";
+import luna from "../assets/design/wall/app-luna.webp";
+import bakwaGrid from "../assets/design/wall/ig-bakwa.webp";
+
+// Real projects: a case study, an AI chat and an Instagram grid. "reported" figures come from the client.
+const items = [
+  { tone: "ink", client: "Bakwa", img: bakwa, alt: "Bakwa logo on a green tile: It's not water. It's a movement.", tags: ["Website", "Social", "PR"], line: "A one-page website and zero ad spend.", metric: "3,000+", metricLabel: "enquiries in 3 months", reported: true, href: "/blogs/bakwa-brand-from-scratch" },
+  { tone: "cream", client: "Luna", img: luna, alt: "Luna, an AI wellness companion chatbot with a friendly flame mascot and suggested topics", tags: ["AI chatbot", "Wellness"], line: "An AI wellness companion that answers visitors around the clock.", metric: "", metricLabel: "", reported: false, href: "/work/portfolio#app-luna" },
+  { tone: "red", client: "Bakwa Instagram", img: bakwaGrid, alt: "Complete Instagram profile and grid design for a sustainable packaging brand", tags: ["Social", "Sustainable packaging"], line: "A complete Instagram profile and grid.", metric: "5.3K+", metricLabel: "organic followers", reported: true, href: "/work/portfolio#ig-bakwa" },
+];
 ---
+
 
 <section class="featured" aria-labelledby="featured-title">
   <svg class="featured-spark" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6z"></path></svg>
   <h2 id="featured-title" class="display featured-title">Featured work</h2>
-  <p class="featured-note">Placeholder projects. Replace with real case studies.</p>
   <a class="featured-more" href={url("/work/portfolio")} data-cursor="View">See our portfolio <span aria-hidden="true">↗</span></a>
   <ul class="featured-grid">
     {
-      items.map((w, i) => (
-        <li class={`fw fw--${TONES[i]}`}>
-          <a class="fw-link" href={`${url("/contact-us")}?service=${encodeURIComponent(w.category)}`} data-cursor="View">
-            <OfferShape shape={SHAPES[i]} class="fw-shape" />
-            <span class="fw-pill">{w.title}</span>
+      items.map((w) => (
+        <li class={`fw fw--${w.tone} fw--photo`}>
+          <a class="fw-link" href={url(w.href)} data-cursor="View">
+            <Image class="fw-img" src={w.img} alt={w.alt} widths={[480, 720, 960]} sizes="(min-width: 900px) 25vw, 100vw" loading="lazy" />
             <span class="fw-arrow" aria-hidden="true">↗</span>
-            <span class="fw-tag">{w.category}</span>
+            {w.metric && <span class="fw-metric">{w.metric}<small>{w.metricLabel}{w.reported ? "*" : ""}</small></span>}
+            <span class="fw-pill">{w.client}</span>
+            <span class="fw-line">{w.line}</span>
+            <span class="fw-tag">{w.tags.join(" · ")}</span>
           </a>
         </li>
       ))

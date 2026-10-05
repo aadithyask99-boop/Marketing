@@ -7,7 +7,7 @@ import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import "../styles/offerings.css";
 import "../styles/process.css";
-import { RESULTS } from "../data/site";
+import { RESULTS, url } from "../data/site";
 import { webPage, breadcrumbs, serviceList } from "../lib/schema";
 const o = Astro.site!.origin;
 const schema = [
@@ -27,9 +27,9 @@ const schema = [
 
   <section class="results" aria-label="Results">
     <ul>
-      {RESULTS.map((r) => <li><span class="result-value">{r.value}</span><span class="result-label">{r.label}</span></li>)}
+      {RESULTS.map((r) => <li><a href={url(r.href)}><span class="result-value">{r.value}</span><span class="result-label">{r.label}{r.reported ? "*" : ""}</span><span class="result-who">{r.who}</span></a></li>)}
     </ul>
-    <p class="results-note">Placeholder figures. Replace with verified results.</p>
+    <p class="results-note">* As reported by the client. Figures from our case studies; <a href={url("/blogs")}>read the full stories</a>.</p>
   </section>
 
   <Proof />
