@@ -37,6 +37,7 @@ const AI = [
   { name: "Claude", href: `https://claude.ai/new?q=${ask}` },
   { name: "Perplexity", href: `https://www.perplexity.ai/search?q=${ask}` },
 ];
+const editorial = d.heroStyle === "editorial";
 const o = Astro.site!.origin;
 const postImage = d.image ? await getImage({ src: d.image, width: 1200 }) : null;
 const postUrl = `${o}/blog/${post.id}`;
@@ -65,7 +66,23 @@ const schema = [
 ---
 
 <BaseLayout title={d.title} description={d.excerpt} schema={schema} image={postImage?.src}>
+  {editorial && <div class="a-progress" aria-hidden="true"><span></span></div>}
 
+  {
+    editorial ? (
+      <header class:list={["a-banner", d.logo ? "has-logo" : "has-photo", d.logoFill && "is-fill"]}>
+        {
+          d.logo ? (
+            <Image class="a-banner-img" src={d.logo} alt={d.logoAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="100vw" loading="eager" />
+          ) : d.image ? (
+            <Image class="a-banner-img" src={d.image} alt={d.imageAlt ?? ""} widths={[640, 960, 1400, 1800]} sizes="100vw" loading="eager" />
+          ) : (
+            <OfferShape shape={cat.shape} class="a-banner-shape" />
+          )
+        }
+        {!d.logo && <p class="display a-banner-label">{d.heroLabel ?? cat.label}</p>}
+      </header>
+    ) : (
   <header class:list={["a-head", "page-top", d.heroTone === "ink" && "a-head--ink", d.heroTone === "cream" && "a-head--cream"]}>
     <div class="a-info">
       <a class="article-back" href={url("/blog")}>&larr; All posts</a>
@@ -100,11 +117,37 @@ const schema = [
       </div>
     </figure>
   </header>
+    )
+  }
 
-  <section class="a-body section--cream">
-    <p class="a-credit">{cat.label} · Illustration by {SITE.name}</p>
+  <section class:list={["a-body", "section--cream", editorial && "is-editorial"]}>
+    {!editorial && <p class="a-credit">{cat.label} · Illustration by {SITE.name}</p>}
     <div class="a-grid">
-      <article class="prose"><Content /></article>
+      {
+        editorial ? (
+          <div class="a-main">
+            <div class="a-intro">
+              <a class="article-back" href={url("/blog")}>&larr; All posts</a>
+              <p class="a-meta"><span class="a-pill"><i aria-hidden="true"></i>{cat.label}</span><span>{date}</span><span>{d.readMins} min read</span></p>
+              <h1 class="display a-title a-title--ed" data-xray>{d.title}</h1>
+              <p class="a-by"><span class="post-avatar" aria-hidden="true">{initials}</span>By {d.author}</p>
+              <div class="tldr">
+                <p class="tldr-label">Short answer</p>
+                <p class="tldr-text">{d.tldr}</p>
+              </div>
+              <div class="ask">
+                <p class="ask-label">Ask AI to summarise</p>
+                <ul class="ask-list" data-ask>
+                  {AI.map((a) => <li><a href={a.href} target="_blank" rel="noopener noreferrer">{a.name} <span aria-hidden="true">↗</span></a></li>)}
+                </ul>
+              </div>
+            </div>
+            <article class="prose"><Content /></article>
+          </div>
+        ) : (
+          <article class="prose"><Content /></article>
+        )
+      }
       <aside class="a-aside"><ArticleToc headings={headings} /><ShareRail title={d.title} /></aside>
     </div>
     <div class="a-wrap">
@@ -208,5 +251,26 @@ const schema = [
       stage.replaceChildren(frame);
     });
   });
+</script>
+
+<script>
+  // Editorial header: x-ray hover on the title and a thin reading-progress line.
+  import { initXray } from "../../scripts/xray";
+  initXray(document.querySelector(".a-title--ed"), 12);
+  const bar = document.querySelector<HTMLElement>(".a-progress span");
+  const art = document.querySelector<HTMLElement>(".prose");
+  if (bar && art) {
+    let queued = false;
+    const paint = () => {
+      queued = false;
+      const r = art.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (window.innerHeight * 0.3 - r.top) / r.height));
+      bar.style.transform = `scaleX(${p})`;
+    };
+    const queue = () => { if (!queued) { queued = true; requestAnimationFrame(paint); } };
+    addEventListener("scroll", queue, { passive: true });
+    addEventListener("resize", queue);
+    paint();
+  }
 </script>
 

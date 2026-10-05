@@ -210,3 +210,11 @@ First used by `src/content/blog/iaudit-global-organic-growth.md`. Styles in `src
 - `cs-embed` is a click-to-load third-party player: nothing is requested until the visitor presses play, the caption always carries a plain link, and the script in `[slug].astro` creates a sandboxed iframe on click.
 - A post with `draft: true` is not built, not in the sitemap and not on `/blog`.
 
+
+## 14. Editorial article header (`heroStyle: editorial`)
+
+Opt-in per post (default `classic`, the red split header). A calm alternative modelled on a simple case-study layout:
+- **Banner** (`.a-banner`): full width, about 56svh with a concave cream curve at the bottom. Photo posts: black-and-white photo under an ink fade with a centred Bebas label (`heroLabel`, default the category). Logo posts (`logo`, `logoFill`): the logo is the label, on its own colour. The site header floats over it; it samples the banner's CSS background colour to pick the light or dark mark, so keep a background colour on the banner.
+- **Title block above the paragraphs** (`.a-intro`, inside the article column so the contents rail starts level with it): back link, outlined category pill with a red dot, date, read time, big ink Bebas H1 (x-ray hover), author, short answer as a plain block with a red rule, Ask AI as outlined pills, hairline rule, then the article.
+- **Colour budget:** cream and ink; red only on small accents (pill dot, short-answer rule, links, the 3px reading-progress line, hover). Images supply the colour.
+- If approved site-wide, flip the default in `src/content.config.ts` and drop the classic layout and `heroTone`.
