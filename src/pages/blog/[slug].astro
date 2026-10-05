@@ -66,7 +66,7 @@ const schema = [
 
 <BaseLayout title={d.title} description={d.excerpt} schema={schema} image={postImage?.src}>
 
-  <header class:list={["a-head", "page-top", d.heroTone === "ink" && "a-head--ink"]}>
+  <header class:list={["a-head", "page-top", d.heroTone === "ink" && "a-head--ink", d.heroTone === "cream" && "a-head--cream"]}>
     <div class="a-info">
       <a class="article-back" href={url("/blog")}>&larr; All posts</a>
       <p class="a-date">{date} · {d.readMins} min read</p>

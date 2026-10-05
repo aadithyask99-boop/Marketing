@@ -11,7 +11,7 @@ tags: ["Case study", "Brand building", "Social media", "Content distribution", "
 logo: ../../assets/blog/logo-bakwa.png
 logoAlt: "Bakwa logo: It's not water. It's a movement."
 logoFill: true
-heroTone: ink
+heroTone: cream
 faq:
   - q: "What did Maximus Mediascape do for Bakwa?"
     a: "We built a simple one-page website with a single enquiry form, ran Bakwa's social content to grow its audience, and helped get its story to publications and other channels. We are now working with Bakwa on its next website."
