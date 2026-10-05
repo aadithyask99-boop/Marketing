@@ -3,7 +3,6 @@ import { Image, getImage } from "astro:assets";
 import DesignRail from "./DesignRail.astro";
 import { DESIGN_WALL, WALL_KINDS, WALL_GROUPS, type WallKind } from "../data/design";
 
-// PLACEHOLDER: first-draft copy. Websites and Instagram grids are shown by type and sector, not under a client.
 const tiles = await Promise.all(
   DESIGN_WALL.map(async (t) => ({
     ...t,

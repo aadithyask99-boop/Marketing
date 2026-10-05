@@ -342,7 +342,6 @@ export const TESTIMONIALS = [
   },
 ];
 
-// Placeholder links: replace "#" with the real profile URLs.
 export const OFFICES = [
   {
     country: "United Kingdom",
@@ -381,7 +380,6 @@ export const BLOG_CATEGORIES = [
 ] as const;
 export type BlogCategory = (typeof BLOG_CATEGORIES)[number]["slug"];
 
-// PLACEHOLDER process copy and timings: adjust to how the team really works.
 export const PROCESS = [
   {
     title: "Planning & Analysis",
@@ -418,8 +416,7 @@ export const RESULTS = [
   { value: "31.0%", label: "AI-search visibility", who: "Croydon wellness brand, up from 7.4% in 12 months", reported: false, href: "/blogs/croydon-wellness-ai-search" },
   { value: "5,000", label: "AI citations", who: "iAudit Global", reported: true, href: "/blogs/iaudit-global-organic-growth" },
 ];
-// About page. The facts (2021, University of Surrey, cafes/salons/shops, UAE 2024, India 2025,
-// 10+ projects) are the client's; the wording and everything else is a first draft to review.
+// About page.
 export const ABOUT = {
   lede: "A marketing agency that began with friends helping local businesses, and now works across three countries.",
   chapters: [

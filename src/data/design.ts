@@ -2,7 +2,6 @@ import type { ImageMetadata } from "astro";
 
 // Design work shown on /work/portfolio. Images live in src/assets/design/<slug>/ (WebP, rendered from the
 // clients' brand books). Add a project here and it appears in the rail and the page automatically.
-// PLACEHOLDER: the stories below are first drafts written from facts the team gave us and the brand books. Review before launch.
 
 const files = import.meta.glob<{ default: ImageMetadata }>("../assets/design/**/*.webp", { eager: true });
 const img = (slug: string, file: string): ImageMetadata => {
@@ -275,7 +274,6 @@ export const DESIGN_PROJECTS: DesignProject[] = [
 ];
 
 // The websites and Instagram grids section: scattered tiles with their own left rail, shown by type and sector, not under a client.
-// PLACEHOLDER: sector labels are drawn from what each design shows. Confirm them before launch.
 export type WallKind = "web" | "app" | "social";
 export interface WallTile {
   id: string;
@@ -317,7 +315,6 @@ export const DESIGN_WALL: WallTile[] = [
 
 export const HERO_STRIP = ["Logos", "Identities", "Brand books", "Mascots", "Packaging", "Websites", "Apps", "Instagram grids", "Mockups"];
 
-// PLACEHOLDER: first-draft copy written from the brand books and the site's positioning. Review before launch.
 export const BRAND_BOOK = {
   kicker: "Brand books",
   lead: "A brand book is the instruction manual for how a brand looks, sounds and behaves.",
@@ -326,7 +323,6 @@ export const BRAND_BOOK = {
   note: "* For illustration only. A full brand book is far more extensive.",
 };
 
-// PLACEHOLDER: first-draft answers written only from facts on this page. Review before launch.
 export const DESIGN_FAQ = [
   {
     q: "Can you build on a logo we already have?",
