@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/BlogCard.astro";
 import ClosingCta from "../../components/ClosingCta.astro";
 import ArticleToc from "../../components/ArticleToc.astro";
-import ArticleNavMascot from "../../components/ArticleNavMascot.astro";
+import ArticleTocMobile from "../../components/ArticleTocMobile.astro";
 import ShareRail from "../../components/ShareRail.astro";
 import Faq from "../../components/Faq.astro";
 import OfferShape from "../../components/OfferShape.astro";
@@ -99,6 +99,7 @@ const schema = [
             </ul>
           </div>
         </div>
+        <ArticleTocMobile headings={headings} faq={d.faq.length > 0} />
         <article class="prose"><Content /></article>
       </div>
       <aside class="a-aside"><ArticleToc headings={headings} /><ShareRail title={d.title} /></aside>
@@ -123,7 +124,6 @@ const schema = [
     </ul>
   </section>
 
-  <ArticleNavMascot headings={headings} />
   <ClosingCta />
 </BaseLayout>
 

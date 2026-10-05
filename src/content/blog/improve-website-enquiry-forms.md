@@ -32,7 +32,7 @@ The problem is rarely that your service is wrong or your price is too high. More
 
 This guide explains how to **improve website enquiry forms** so that more visitors complete the action and turn into paying customers.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Why poor forms cost leads</span></li><li><strong>2</strong><span>Optimise forms for mobile</span></li><li><strong>3</strong><span>Use social proof near the form</span></li><li><strong>4</strong><span>What to do after someone submits</span></li><li><strong>5</strong><span>Common form design mistakes</span></li></ul><figcaption>What this guide covers.</figcaption></figure>
+<figure class="fig cs-checkfig"><ol class="cs-check"><li>Why poor forms cost leads</li><li>Optimise forms for mobile</li><li>Use social proof near the form</li><li>What to do after someone submits</li><li>Common form design mistakes</li></ol><figcaption>What this guide covers.</figcaption></figure>
 
 ## Why Poor Enquiry Forms Cost London Businesses Thousands in Lost Leads
 

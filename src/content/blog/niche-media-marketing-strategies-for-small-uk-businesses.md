@@ -40,7 +40,7 @@ This works particularly well here because buying decisions are often local and c
 
 That is the heart of niche media marketing strategies for small UK businesses. You borrow trust, then earn it.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Pick one niche channel and commit for 30 days</span></li><li><strong>2</strong><span>Build a shortlist you can win</span></li><li><strong>3</strong><span>Lead with something useful</span></li><li><strong>4</strong><span>Use micro creators</span></li><li><strong>5</strong><span>Sponsor native placements</span></li><li><strong>6</strong><span>Send traffic to one focused page</span></li><li><strong>7</strong><span>Track lead quality, not just clicks</span></li></ul><figcaption>Seven strategies for niche media.</figcaption></figure>
+<figure class="fig cs-checkfig"><ol class="cs-check"><li>Pick one niche channel and commit for 30 days</li><li>Build a shortlist you can win</li><li>Lead with something useful</li><li>Use micro creators</li><li>Sponsor native placements</li><li>Send traffic to one focused page</li><li>Track lead quality, not just clicks</li></ol><figcaption>Seven strategies for niche media.</figcaption></figure>
 
 ### Niche Media Marketing Strategies for Small UK Businesses That Actually Bring Leads
 

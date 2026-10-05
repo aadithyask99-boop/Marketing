@@ -1,0 +1,86 @@
+---
+// Phone contents bar: visible under the intro, then pinned under the header while the reader scrolls,
+// showing the section they are in. Tap to open the list. Desktop keeps the side rail (ArticleToc).
+interface Props { headings: { depth: number; slug: string; text: string }[]; faq?: boolean }
+import { tocItems } from "../lib/toc";
+const items = tocItems(Astro.props.headings);
+const count = items.length + (Astro.props.faq ? 1 : 0);
+---
+
+{
+  items.length > 0 && (
+    <div class="tocm" data-tocm>
+      <button class="tocm-bar" type="button" aria-expanded="false" aria-controls="tocm-list">
+        <span class="tocm-title">Contents</span>
+        <span class="tocm-now" data-now data-count={`${count} sections`}>{count} sections</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <nav class="tocm-panel" id="tocm-list" aria-label="Table of contents" hidden>
+        <ol>
+          {items.map((h) => <li><a href={`#${h.slug}`} data-id={h.slug}>{h.text}</a></li>)}
+          {Astro.props.faq && <li><a href="#faq" data-id="faq">FAQ</a></li>}
+        </ol>
+      </nav>
+    </div>
+  )
+}
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-tocm]");
+  if (root) {
+    const bar = root.querySelector<HTMLButtonElement>(".tocm-bar")!;
+    const panel = root.querySelector<HTMLElement>(".tocm-panel")!;
+    const now = root.querySelector<HTMLElement>("[data-now]")!;
+    const links = [...root.querySelectorAll<HTMLAnchorElement>("a[data-id]")];
+    const header = document.querySelector<HTMLElement>(".site-header");
+    const phone = window.matchMedia("(max-width: 899px)");
+    const calm = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const targets = links.map((a) => document.getElementById(a.dataset.id!)).filter(Boolean) as HTMLElement[];
+
+    // Pin just under the header while it shows; at the very top once it slides away.
+    const place = () => {
+      const hidden = !header || header.classList.contains("is-hidden");
+      const top = hidden ? 0 : Math.max(0, Math.round(header!.getBoundingClientRect().bottom));
+      root.style.setProperty("--tocm-top", `${top}px`);
+    };
+    if (header) new MutationObserver(place).observe(header, { attributes: true, attributeFilter: ["class"] });
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      if (!phone.matches) return;
+      place();
+      const topPx = parseFloat(root.style.getPropertyValue("--tocm-top")) || 0;
+      const stuck = root.getBoundingClientRect().top <= topPx + 1 && window.scrollY > 0;
+      root.classList.toggle("is-stuck", stuck);
+      const line = window.innerHeight * 0.3;
+      let current: HTMLElement | null = null;
+      for (const t of targets) if (t.getBoundingClientRect().top <= line) current = t;
+      links.forEach((a) => a.classList.toggle("is-current", !!current && a.dataset.id === current.id));
+      const label = current ? links.find((a) => a.dataset.id === current!.id)?.textContent?.trim() : "";
+      now.textContent = stuck && label ? label : now.dataset.count ?? "";
+    };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+
+    const setOpen = (open: boolean, restore = false) => {
+      panel.hidden = !open;
+      bar.setAttribute("aria-expanded", String(open));
+      root.classList.toggle("is-open", open);
+      if (open) update();
+      if (!open && restore) bar.focus();
+    };
+    bar.addEventListener("click", () => setOpen(panel.hidden));
+    document.addEventListener("click", (e) => { if (!panel.hidden && !root.contains(e.target as Node)) setOpen(false); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !panel.hidden) setOpen(false, true); });
+    links.forEach((a) => a.addEventListener("click", (e) => {
+      const target = document.getElementById(a.dataset.id!);
+      if (!target) return;
+      e.preventDefault();
+      setOpen(false);
+      target.scrollIntoView({ behavior: calm.matches ? "auto" : "smooth", block: "start" });
+      history.replaceState(null, "", `#${a.dataset.id}`);
+    }));
+  }
+</script>

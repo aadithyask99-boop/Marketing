@@ -255,11 +255,31 @@
 }
 
 /* ---------- Blog guides (migrated posts): numbered chips, linked and current route stops ---------- */
-.cs-chips--num li, .cs-chips--num li:first-child { flex-direction: row; align-items: center; gap: 0.6rem; padding: 0.5rem 1rem 0.5rem 0.75rem; border-radius: 999px; background: var(--ink); }
-.cs-chips--num strong { display: grid; place-items: center; min-width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--red); font-size: 1.05rem; line-height: 1; padding-top: 0.1rem; }
-.cs-chips--num span { font-size: 0.85rem; opacity: 1; }
 .cs-name a { color: inherit; text-decoration: none; }
 .cs-name a:hover, .cs-name a:focus-visible { color: var(--red); text-decoration: underline; text-underline-offset: 0.2em; }
 .cs-line > li.is-here .cs-node { background: var(--red); border-color: var(--red); color: var(--cream); }
 .cs-line > li.is-here .cs-name::after { content: "You are here"; display: block; width: fit-content; margin: 0.35rem auto 0; padding: 0.15rem 0.5rem; border-radius: 999px; background: var(--ink); color: var(--cream); font: 600 0.65rem/1.4 var(--body); letter-spacing: 0.1em; text-transform: uppercase; }
 @media (max-width: 699px) { .cs-line > li.is-here .cs-name::after { margin: 0.35rem 0 0; } }
+
+/* Checklist rail: big red numbers, plain rows, hairline dividers */
+.prose .fig.cs-checkfig { padding: clamp(0.5rem, 2vw, 1rem) clamp(1.1rem, 3vw, 2rem) clamp(1.1rem, 3vw, 1.75rem); background: transparent; border: 2px solid var(--ink); }
+.cs-check { margin: 0; padding: 0; list-style: none; counter-reset: cs-c; }
+.prose .cs-check > li { display: flex; align-items: baseline; gap: 1rem; margin: 0; padding: 0.85rem 0; border-top: 1px solid rgba(23, 9, 10, 0.18); font-weight: 600; line-height: 1.3; counter-increment: cs-c; }
+.prose .cs-check > li:first-child { border-top: 0; }
+.cs-check > li::before { content: counter(cs-c, decimal-leading-zero); flex: none; min-width: 2.4rem; font: 400 1.7rem/1 var(--display); color: var(--red); }
+.prose .cs-checkfig figcaption { margin-top: 0.5rem; }
+
+/* Topic cards: two columns of white cards with a big red number */
+.prose .fig.cs-cardsfig { padding: 0; background: transparent; }
+.cs-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 600px) { .cs-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.prose .cs-cards > li { display: flex; flex-direction: column; gap: 0.5rem; margin: 0; padding: 1.1rem 1.25rem 1.2rem; border-radius: 1.25rem; background: #fff; box-shadow: 0 0.5rem 1.5rem rgba(23, 9, 10, 0.07); font-weight: 600; line-height: 1.3; }
+.cs-cards > li::before { content: attr(data-n); font: 400 2.6rem/1 var(--display); color: var(--red); }
+.prose .cs-cardsfig figcaption { margin-top: 0.75rem; padding-inline: 0.25rem; }
+
+/* Pull card: one sentence from the post, set large */
+.prose .fig.cs-pullfig { margin: 2.5rem 0; padding: clamp(1.5rem, 5vw, 3rem); background: var(--ink); color: var(--cream); }
+.prose .cs-pull { position: relative; margin: 0; padding: 1.5rem 0 0; border: 0; background: none; }
+.cs-pull::before { content: ""; position: absolute; top: 0; left: 0; width: 3.5rem; border-top: 3px solid var(--red); }
+.cs-pull p { margin: 0; font: italic 500 clamp(1.4rem, 3.6vw, 2.2rem)/1.25 var(--accent); }
+.prose .cs-pullfig figcaption { margin-top: 1rem; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }

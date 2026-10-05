@@ -35,7 +35,7 @@ They care about clarity and trade offs, not just “best”.
 
 For businesses, the takeaway is simple. If your website is vague, generic, or hard to verify, it is less useful in a world where people want direct answers and clear decisions.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Informational searches</span></li><li><strong>2</strong><span>Commercial investigation</span></li><li><strong>3</strong><span>Practical or transactional searches</span></li><li><strong>4</strong><span>Navigational searches</span></li></ul><figcaption>The four types of search people do in ChatGPT.</figcaption></figure>
+<figure class="fig cs-pullfig"><blockquote class="cs-pull"><p>On Google, users scan a list of results and choose where to click. In ChatGPT, they ask a full question in plain English and expect one clear, confident answer back.</p></blockquote><figcaption>In short</figcaption></figure>
 
 ## The 4 types of searches people do in ChatGPT
 

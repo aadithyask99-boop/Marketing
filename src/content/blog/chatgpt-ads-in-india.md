@@ -34,7 +34,7 @@ For businesses already investing in Google, Meta or LinkedIn advertising, ChatGP
 
 So, what are ChatGPT Ads, how do they work in India, and how can a business get started?
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>What are ChatGPT Ads?</span></li><li><strong>2</strong><span>Are they available in India?</span></li><li><strong>3</strong><span>How to advertise on ChatGPT in India</span></li><li><strong>4</strong><span>How much do they cost?</span></li><li><strong>5</strong><span>How they differ from Google Ads</span></li><li><strong>6</strong><span>How to create better ads</span></li></ul><figcaption>The main questions this guide answers.</figcaption></figure>
+<figure class="fig cs-pullfig"><blockquote class="cs-pull"><p>A ChatGPT advertisement is not the same as paying ChatGPT to recommend a particular product or company.</p></blockquote><figcaption>In short</figcaption></figure>
 
 ## What are ChatGPT Ads?
 

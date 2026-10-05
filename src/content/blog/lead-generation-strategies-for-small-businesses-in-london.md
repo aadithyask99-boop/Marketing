@@ -38,7 +38,7 @@ For small businesses in London, the fastest route to more leads usually comes fr
 
 If you want your lead generation to feel less unpredictable, focus first on capturing high intent leads, then build additional demand through content and paid social.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Clear offer and positioning</span></li><li><strong>2</strong><span>A homepage that guides decisions</span></li><li><strong>3</strong><span>Tracking and lead capture</span></li><li><strong>4</strong><span>Local SEO and Google Business Profile</span></li><li><strong>5</strong><span>Service pages that match how people search</span></li><li><strong>6</strong><span>Google Ads for high-intent leads</span></li><li><strong>7</strong><span>Follow-up and lead nurturing</span></li></ul><figcaption>The building blocks of lead generation.</figcaption></figure>
+<figure class="fig cs-cardsfig"><ul class="cs-cards"><li data-n="01">Clear offer and positioning</li><li data-n="02">A homepage that guides decisions</li><li data-n="03">Tracking and lead capture</li><li data-n="04">Local SEO and Google Business Profile</li><li data-n="05">Service pages that match how people search</li><li data-n="06">Google Ads for high-intent leads</li><li data-n="07">Follow-up and lead nurturing</li></ul><figcaption>The building blocks of lead generation.</figcaption></figure>
 
 ## Start with the Basics That Make Every Strategy Work
 

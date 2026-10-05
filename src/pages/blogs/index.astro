@@ -100,13 +100,30 @@ const schema = [
     const STEP = 12;
     const more = document.querySelector<HTMLElement>(".blog-more");
     const moreBtn = document.querySelector<HTMLButtonElement>("[data-more]");
-    const KEY = "blog-limit";
-    let limit = STEP;
-    try { limit = Math.max(STEP, Number(sessionStorage.getItem(KEY)) || STEP); } catch {}
-    const remember = () => { try { sessionStorage.setItem(KEY, String(limit)); } catch {} };
+    const KEY = "blog-pages";
+    let pages = 1;
+    try { pages = Math.max(1, Number(sessionStorage.getItem(KEY)) || 1); } catch {}
+    const remember = () => { try { sessionStorage.setItem(KEY, String(pages)); } catch {} };
 
+    // Round the number of cards up so the last row is full whatever the screen width.
+    // On wide screens the lead card spans several columns, so the first row holds fewer cards.
+    const rounded = (want: number) => {
+      const cols = Math.max(1, getComputedStyle(grid).gridTemplateColumns.split(" ").length);
+      const lead = grid.querySelector<HTMLElement>(".post--feature");
+      const other = items.find((el) => !el.hidden && el !== lead);
+      const gap = parseFloat(getComputedStyle(grid).columnGap) || 0;
+      const span = lead && other && !lead.hidden && !grid.classList.contains("is-filtered") ? Math.max(1, Math.round((lead.offsetWidth + gap) / (other.offsetWidth + gap))) : 1;
+      const first = span > 1 ? Math.max(1, cols - span + 1) : cols;
+      if (want <= first) return first;
+      return first + Math.ceil((want - first) / cols) * cols;
+    };
+    const limitFor = (n: number) => rounded(n * STEP);
+
+    let limit = 0;
     const apply = () => {
       const q = input.value.trim().toLowerCase();
+      grid.classList.toggle("is-filtered", cat !== "all" || q !== "");
+      limit = limitFor(pages);
       let shown = 0;
       let visible = 0;
       items.forEach((el) => {
@@ -118,7 +135,7 @@ const schema = [
       if (more && moreBtn) {
         const left = shown - visible;
         more.hidden = left <= 0;
-        moreBtn.textContent = `Show ${Math.min(STEP, left)} more`;
+        moreBtn.textContent = `Show ${Math.min(limitFor(pages + 1), shown) - visible} more`;
       }
       chips.forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.cat === cat)));
       const filtered = cat !== "all" || q !== "";
@@ -132,17 +149,19 @@ const schema = [
       history.replaceState(null, "", location.pathname + (next.size ? `?${next}` : ""));
     };
 
-    const reset = () => { limit = STEP; remember(); };
+    const reset = () => { pages = 1; remember(); };
     chips.forEach((c) => c.addEventListener("click", () => { cat = c.dataset.cat!; reset(); apply(); }));
     input.addEventListener("input", () => { reset(); apply(); });
     clear.addEventListener("click", () => { input.value = ""; reset(); apply(); input.focus(); });
     moreBtn?.addEventListener("click", () => {
       const firstNew = items.find((el) => el.hidden && (cat === "all" || el.dataset.cat === cat) && (!input.value.trim() || el.dataset.search!.includes(input.value.trim().toLowerCase())));
-      limit += STEP;
+      pages += 1;
       remember();
       apply();
       firstNew?.querySelector<HTMLElement>("a")?.focus({ preventScroll: false });
     });
     apply();
+    let t = 0;
+    window.addEventListener("resize", () => { window.clearTimeout(t); t = window.setTimeout(apply, 150); });
   }
 </script>

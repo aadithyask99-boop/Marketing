@@ -36,7 +36,7 @@ Instead of typing short keyword phrases, they are asking complete questions, add
 
 Understanding how Google AI Mode is changing SEO will help you prepare your website for the next stage of search rather than relying on strategies that were designed for a very different internet.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Understanding Google AI Mode</span></li><li><strong>2</strong><span>Why it is changing search</span></li><li><strong>3</strong><span>How it is changing SEO</span></li><li><strong>4</strong><span>What Google AI Mode looks for</span></li></ul><figcaption>The shift at a glance.</figcaption></figure>
+<figure class="fig cs-pullfig"><blockquote class="cs-pull"><p>Instead of typing short keyword phrases, they are asking complete questions, adding context, and expecting direct answers.</p></blockquote><figcaption>In short</figcaption></figure>
 
 ## Understanding Google AI Mode
 

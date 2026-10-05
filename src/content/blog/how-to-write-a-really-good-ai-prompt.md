@@ -68,7 +68,7 @@ The key is to provide **the right information, rather than simply more informati
 
 ## How to Write a Really Good AI Prompt
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Start with a clear goal</span></li><li><strong>2</strong><span>Give relevant context</span></li><li><strong>3</strong><span>Be specific</span></li><li><strong>4</strong><span>Say how to present the answer</span></li><li><strong>5</strong><span>Add useful constraints</span></li><li><strong>6</strong><span>Use examples</span></li><li><strong>7</strong><span>Break complex requests into steps</span></li><li><strong>8</strong><span>Review and refine</span></li></ul><figcaption>Eight habits of a really good prompt.</figcaption></figure>
+<figure class="fig cs-checkfig"><ol class="cs-check"><li>Start with a clear goal</li><li>Give relevant context</li><li>Be specific</li><li>Say how to present the answer</li><li>Add useful constraints</li><li>Use examples</li><li>Break complex requests into steps</li><li>Review and refine</li></ol><figcaption>Eight habits of a really good prompt.</figcaption></figure>
 
 ### 1. Start With a Clear Goal
 

@@ -34,7 +34,7 @@ This guide breaks down what is changing, why it matters, and whether these ads a
 
 OpenAI is making three significant moves simultaneously.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Geographic targeting expansion</span></li><li><strong>2</strong><span>Multi-advertiser placements</span></li><li><strong>3</strong><span>New campaign management features</span></li></ul><figcaption>What is changing with ChatGPT ads.</figcaption></figure>
+<figure class="fig cs-cardsfig"><ul class="cs-cards"><li data-n="01">Geographic targeting expansion</li><li data-n="02">Multi-advertiser placements</li><li data-n="03">New campaign management features</li></ul><figcaption>What is changing with ChatGPT ads.</figcaption></figure>
 
 ### Geographic Targeting Expansion
 

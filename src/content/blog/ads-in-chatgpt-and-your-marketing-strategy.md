@@ -34,7 +34,7 @@ We have been watching this development closely. When a platform with 700 million
 
 Here is what we know, what it means, and how to think about it practically.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>What is actually happening</span></li><li><strong>2</strong><span>Why this matters for businesses</span></li><li><strong>3</strong><span>What marketers should be thinking about</span></li><li><strong>4</strong><span>How to prepare now</span></li></ul><figcaption>What this article covers.</figcaption></figure>
+<figure class="fig cs-pullfig"><blockquote class="cs-pull"><p>When a platform with 700 million monthly active users introduces advertising, it changes the landscape.</p></blockquote><figcaption>In short</figcaption></figure>
 
 ### What Is Actually Happening
 

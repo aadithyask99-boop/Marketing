@@ -56,7 +56,7 @@ You need AI solutions for small business problems you already recognise, such as
 
 Think of AI and small business as a partnership. The tools handle the repetitive, pattern based work. You still handle judgement, local knowledge and relationships.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Draft content faster</span></li><li><strong>2</strong><span>Improve website copy and basic SEO</span></li><li><strong>3</strong><span>Make email marketing easier</span></li><li><strong>4</strong><span>Reduce repetitive customer support</span></li><li><strong>5</strong><span>Turn analytics into plain English</span></li><li><strong>6</strong><span>Support testing and optimising ads</span></li></ul><figcaption>Six practical ways to use AI in small business marketing.</figcaption></figure>
+<figure class="fig cs-cardsfig"><ul class="cs-cards"><li data-n="01">Draft content faster</li><li data-n="02">Improve website copy and basic SEO</li><li data-n="03">Make email marketing easier</li><li data-n="04">Reduce repetitive customer support</li><li data-n="05">Turn analytics into plain English</li><li data-n="06">Support testing and optimising ads</li></ul><figcaption>Six practical ways to use AI in small business marketing.</figcaption></figure>
 
 ### Practical Ways To Use AI For Small Business Marketing
 

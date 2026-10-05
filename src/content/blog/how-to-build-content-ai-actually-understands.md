@@ -34,7 +34,7 @@ The answer starts with the content you publish.
 
 Learning how to build content AI actually understands is not about writing for machines. It is about creating clear, useful and connected information that helps both people and AI make sense of your business.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Make your business easy to understand</span></li><li><strong>2</strong><span>Create content around real customer questions</span></li><li><strong>3</strong><span>Use search intent to guide your content</span></li><li><strong>4</strong><span>Build depth around the topics you know</span></li></ul><figcaption>Four ways to build content AI can understand.</figcaption></figure>
+<figure class="fig cs-checkfig"><ol class="cs-check"><li>Make your business easy to understand</li><li>Create content around real customer questions</li><li>Use search intent to guide your content</li><li>Build depth around the topics you know</li></ol><figcaption>Four ways to build content AI can understand.</figcaption></figure>
 
 ## Make Your Business Easy to Understand
 

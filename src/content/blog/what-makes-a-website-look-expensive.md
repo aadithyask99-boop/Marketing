@@ -44,7 +44,7 @@ Restraint signals confidence. Cheap websites try to say everything at once. Expe
 
 Consistency signals professionalism. If your fonts change between pages, your colours feel random, or your buttons look different depending on where you click, the site feels patched together. Premium sites repeat a single design system so the experience feels deliberate, not accidental.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Deliberate white space</span></li><li><strong>2</strong><span>Premium typography and hierarchy</span></li><li><strong>3</strong><span>High-quality, specific imagery</span></li><li><strong>4</strong><span>Smooth, fast performance</span></li><li><strong>5</strong><span>Trust signals in the right places</span></li><li><strong>6</strong><span>Intentional microcopy</span></li><li><strong>7</strong><span>Design consistency everywhere</span></li></ul><figcaption>Seven elements that make a website look expensive.</figcaption></figure>
+<figure class="fig cs-cardsfig"><ul class="cs-cards"><li data-n="01">Deliberate white space</li><li data-n="02">Premium typography and hierarchy</li><li data-n="03">High-quality, specific imagery</li><li data-n="04">Smooth, fast performance</li><li data-n="05">Trust signals in the right places</li><li data-n="06">Intentional microcopy</li><li data-n="07">Design consistency everywhere</li></ul><figcaption>Seven elements that make a website look expensive.</figcaption></figure>
 
 ## 7 Elements That Make a Website Look Expensive
 

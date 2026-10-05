@@ -1,6 +1,7 @@
 ---
 interface Props { headings: { depth: number; slug: string; text: string }[] }
-const items = Astro.props.headings.filter((h) => h.depth === 2);
+import { tocItems } from "../lib/toc";
+const items = tocItems(Astro.props.headings);
 ---
 
 {

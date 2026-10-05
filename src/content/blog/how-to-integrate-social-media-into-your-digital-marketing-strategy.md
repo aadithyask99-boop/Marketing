@@ -32,7 +32,7 @@ Integration simply means this: social media should support your wider goals, suc
 
 This guide explains how to integrate social media properly, what to measure, and how to turn attention into outcomes.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Why social feels busy but does not convert</span></li><li><strong>2</strong><span>Start with one outcome, not more content</span></li><li><strong>3</strong><span>The simple funnel that makes social work</span></li><li><strong>4</strong><span>How to integrate social with SEO</span></li></ul><figcaption>What this guide covers.</figcaption></figure>
+<figure class="fig cs-cardsfig"><ul class="cs-cards"><li data-n="01">Why social feels busy but does not convert</li><li data-n="02">Start with one outcome, not more content</li><li data-n="03">The simple funnel that makes social work</li><li data-n="04">How to integrate social with SEO</li></ul><figcaption>What this guide covers.</figcaption></figure>
 
 ## Why social media feels busy but does not move the numbers
 

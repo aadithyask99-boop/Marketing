@@ -36,7 +36,7 @@ We saw this first-hand with [**Bakwa**](https://bakwa.in/), a sustainable packag
 
 The campaign is a useful example of why businesses should think beyond backlinks.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>What is a brand mention?</span></li><li><strong>2</strong><span>Backlinks still matter, so why look beyond them?</span></li><li><strong>3</strong><span>Why brand mentions matter</span></li><li><strong>4</strong><span>Why context matters more than the numbers</span></li></ul><figcaption>What this article covers.</figcaption></figure>
+<figure class="fig cs-cardsfig"><ul class="cs-cards"><li data-n="01">What is a brand mention?</li><li data-n="02">Backlinks still matter, so why look beyond them?</li><li data-n="03">Why brand mentions matter</li><li data-n="04">Why context matters more than the numbers</li></ul><figcaption>What this article covers.</figcaption></figure>
 
 ## What Is a Brand Mention?
 

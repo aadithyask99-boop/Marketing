@@ -38,7 +38,7 @@ A prompt can be too vague, contain conflicting requirements, leave out important
 
 Here are 10 common mistakes to look for.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Being too vague</span></li><li><strong>2</strong><span>Giving conflicting instructions</span></li><li><strong>3</strong><span>Providing insufficient context</span></li><li><strong>4</strong><span>Asking for too much at once</span></li><li><strong>5</strong><span>Not specifying the audience</span></li><li><strong>6</strong><span>Not defining the output</span></li><li><strong>7</strong><span>Assuming AI knows your business</span></li><li><strong>8</strong><span>Reusing an old prompt unchecked</span></li><li><strong>9</strong><span>Not verifying the information</span></li><li><strong>10</strong><span>Treating the first response as final</span></li></ul><figcaption>The ten mistakes at a glance.</figcaption></figure>
+<figure class="fig cs-pullfig"><blockquote class="cs-pull"><p>One of the easiest ways to get a generic AI response is to make a generic request.</p></blockquote><figcaption>In short</figcaption></figure>
 
 ### 1. Being Too Vague
 

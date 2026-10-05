@@ -78,7 +78,7 @@ Homepages rank for broad, competitive terms. Service pages rank for specific int
 
 If your top service page is 5 clicks away from the homepage, Google will crawl it less often and treat it as less important. Pages that matter should be easy to reach.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Core pages</span></li><li><strong>2</strong><span>Support pages</span></li><li><strong>3</strong><span>Proof pages</span></li></ul><figcaption>The three page types in a simple structure.</figcaption></figure>
+<figure class="fig cs-pullfig"><blockquote class="cs-pull"><p>Internal linking is one of the few SEO levers you fully control.</p></blockquote><figcaption>In short</figcaption></figure>
 
 ## A Simple Internal Link Structure That Works for Most Businesses
 

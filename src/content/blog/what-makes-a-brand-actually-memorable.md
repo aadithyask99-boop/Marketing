@@ -48,7 +48,7 @@ What makes a brand memorable is a combination of:
 
 This is also why brand recall and brand recognition matter. Recognition is someone spotting you and thinking “I have seen them before.” Recall is them thinking of you without being prompted. Both are built by structure, not luck.
 
-<figure class="fig"><ul class="cs-chips cs-chips--num"><li><strong>1</strong><span>Clarity</span></li><li><strong>2</strong><span>Consistency</span></li><li><strong>3</strong><span>Cadence</span></li><li><strong>4</strong><span>Credibility</span></li><li><strong>5</strong><span>Cultural relevance</span></li></ul><figcaption>The five Cs of a memorable brand.</figcaption></figure>
+<figure class="fig cs-checkfig"><ol class="cs-check"><li>Clarity</li><li>Consistency</li><li>Cadence</li><li>Credibility</li><li>Cultural relevance</li></ol><figcaption>The five Cs of a memorable brand.</figcaption></figure>
 
 ## The 5 Cs of brand building that create memory
 
