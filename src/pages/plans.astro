@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import Proof from "../components/Proof.astro";
+import StickyCta from "../components/StickyCta.astro";
 import "../styles/starter.css";
 import "../styles/startup.css";
 import "../styles/plans.css";
@@ -45,7 +46,7 @@ const schema = [
 
 <BaseLayout title={PLANS_META.title} description={PLANS_META.description} schema={schema} footerTone="ink">
   <!-- 1. Hero (cream) with the client strip, then the journey in the same cream area -->
-  <section class="pl-hero" aria-labelledby="plans-h1">
+  <section class="pl-hero" aria-labelledby="plans-h1" data-hero>
     <div class="pl-hero-main">
       <h1 id="plans-h1" class="display pl-h1"><span data-xray>Plans that keep you</span> <span class="su-accent">found</span><span data-xray>, trusted and contacted</span></h1>
       <p class="pl-lede">{HERO.intro}</p>
@@ -249,6 +250,7 @@ const schema = [
 
   <!-- 8. Final call to action -->
   <ClosingCta tone="ink" title={FINAL_CTA.h2} lede={FINAL_CTA.body} service="Plans (not sure which fits)" />
+  <StickyCta label="Talk to us about a plan" preset="I'd like to talk about the Care and Growth plans" />
 </BaseLayout>
 
 <script>
