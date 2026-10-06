@@ -1,0 +1,260 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import Proof from "../components/Proof.astro";
+import "../styles/starter.css";
+import "../styles/startup.css";
+import "../styles/plans.css";
+import { url } from "../data/site";
+import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, SERVICES_SECTION, ADDONS, FAQ_SECTION, FINAL_CTA } from "../data/plans";
+import { webPage, breadcrumbs } from "../lib/schema";
+
+const plans = [PLANS.care, PLANS.growth];
+const o = Astro.site!.origin;
+const plain = (h: string) => h.replace(/<[^>]+>/g, "");
+const schema = [
+  webPage(o, "/plans", "WebPage", PLANS_META.title, PLANS_META.description),
+  {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: "Care and Growth plans",
+    itemListElement: plans.map((p) => ({
+      "@type": "Offer",
+      name: `${p.name} plan`,
+      description: `${p.summary} ${p.term} Price excludes VAT.`,
+      priceCurrency: "GBP",
+      priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.replace("£", ""), priceCurrency: "GBP", unitText: "MONTH", valueAddedTaxIncluded: false },
+      url: `${o}/plans/#${p.id}`,
+      seller: { "@id": `${o}/#organization` },
+    })),
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQ_SECTION.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: plain(f.a) } })) },
+  breadcrumbs(o, [{ name: "Plans", path: "/plans" }]),
+];
+---
+
+<BaseLayout title={PLANS_META.title} description={PLANS_META.description} schema={schema} footerTone="ink">
+  <!-- 1. Hero (cream) with the client strip, then the journey in the same cream area -->
+  <section class="pl-hero" aria-labelledby="plans-h1">
+    <div class="pl-hero-main">
+      <h1 id="plans-h1" class="display pl-h1"><span data-xray>Plans that keep you</span> <span class="su-accent">found</span><span data-xray>, trusted and contacted</span></h1>
+      <p class="pl-lede">{HERO.intro}</p>
+      <div class="pl-hero-cta">
+        <a class="st-pill" href={HERO.primary.href} data-cursor="Go">{HERO.primary.label} <i aria-hidden="true">↓</i></a>
+        <a class="su-link" href={url(HERO.secondary.href)} data-cursor="View">{HERO.secondary.label} <i aria-hidden="true">→</i></a>
+      </div>
+      <p class="pl-vat">{HERO.vat}</p>
+    </div>
+    <Proof tone="cream" />
+  </section>
+
+  <section class="pl-journey" aria-labelledby="journey-title">
+    <h2 id="journey-title" class="display pl-h2">{JOURNEY.h2}</h2>
+    <ol class="pl-rail" data-rail>
+      <span class="pl-rail-line" aria-hidden="true"><span></span></span>
+      {JOURNEY.steps.map((s) => (
+        <li class="pl-step">
+          <span class="pl-node" aria-hidden="true"></span>
+          <h3 class="pl-step-name">{s.name}</h3>
+          <p class="pl-step-price"><span>{s.price}</span>{s.unit && <small>{s.unit}</small>}</p>
+          <p class="pl-step-desc">{s.desc}</p>
+          {s.link && <a class="su-link" href={s.link.href} data-cursor="View">{s.link.label} <i aria-hidden="true">↗</i></a>}
+        </li>
+      ))}
+    </ol>
+    <p class="pl-helper">{JOURNEY.helper}</p>
+  </section>
+
+  <!-- 2. Plans: two stacking panels, no boxes -->
+  <div class="su-stack" id="plans" data-stack role="region" aria-label="Plans">
+    {plans.map((p, i) => (
+      <section class:list={["su-panel", "pl-panel", i === 0 && "su-panel--dark"]} id={p.id} data-panel style={`--z:${i + 1}`} aria-labelledby={`${p.id}-title`}>
+        <div class="pl-panel-grid">
+          <div class="pl-side">
+            {p.badge && <p class="su-tag">({p.badge})</p>}
+            <h2 id={`${p.id}-title`} class="display pl-plan-name su-rise"><span>{p.name}</span></h2>
+            <p class="pl-price"><span>{p.price}</span><small>{p.unit}</small></p>
+            <p class="pl-term">{p.term}</p>
+            <p class="pl-headline">{p.headline}</p>
+            <p class="pl-summary">{p.summary}</p>
+            <a class="st-pill pl-cta" href={p.cta.href} data-cursor="Go">{p.cta.label} <i aria-hidden="true">↗</i></a>
+          </div>
+          <div class="pl-body">
+            <h3 class="pl-listhead">{p.monthOne.title}</h3>
+            <ul class="pl-lines">{p.monthOne.items.map((t) => <li>{t}</li>)}</ul>
+            <h3 class="pl-listhead">{p.monthly.title}</h3>
+            <dl class="pl-rows">
+              {p.monthly.rows.map((r) => <div class="pl-row"><dt>({r.label})</dt><dd>{r.text}</dd></div>)}
+            </dl>
+            {p.note && <p class="pl-note">{p.note}</p>}
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <!-- 3. Comparison table -->
+  <section class="pl-sec pl-sec--ink" id="compare" aria-labelledby="compare-title">
+    <h2 id="compare-title" class="display pl-h2">{COMPARE.h2}</h2>
+    <div class="pl-tablewrap">
+      <table class="pl-table pl-compare">
+        <caption class="sr-only">{COMPARE.caption}</caption>
+        <thead>
+          <tr>
+            <th scope="col"><span class="sr-only">Feature</span></th>
+            <th scope="col">Care</th>
+            <th scope="col" class="pl-hot">Growth</th>
+          </tr>
+        </thead>
+        <tbody>
+          {COMPARE.rows.map((r, i) => (
+            <tr class:list={[i === 0 && "pl-pricerow"]}>
+              <th scope="row">{r[0]}</th>
+              <td>{r[1]}</td>
+              <td>{r[2]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. Services behind the plans -->
+  <section class="pl-sec pl-sec--cream" aria-labelledby="services-title">
+    <h2 id="services-title" class="display pl-h2">{SERVICES_SECTION.h2}</h2>
+    <p class="pl-intro">{SERVICES_SECTION.intro}</p>
+    <ul class="pl-svc" data-svc>
+      {SERVICES_SECTION.rows.map((r, i) => (
+        <li class:list={[i === 0 && "is-active"]}>
+          <a href={r.href} data-cursor="View">
+            <span class="pl-svc-name">{r.name}</span>
+            <span class="pl-svc-text">{r.text}</span>
+            <span class="pl-svc-go" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 5. Add-ons table -->
+  <section class="pl-sec pl-sec--ink" id="add-ons" aria-labelledby="addons-title">
+    <h2 id="addons-title" class="display pl-h2">{ADDONS.h2}</h2>
+    <p class="pl-intro">{ADDONS.intro}</p>
+    <div class="pl-tablewrap">
+      <table class="pl-table pl-addons" role="table">
+        <thead role="rowgroup">
+          <tr role="row">{ADDONS.head.map((h) => <th scope="col" role="columnheader">{h}</th>)}</tr>
+        </thead>
+        <tbody role="rowgroup">
+          {ADDONS.rows.map((r) => (
+            <tr role="row">
+              <th scope="row" role="rowheader" data-label={ADDONS.head[0]}>{r[0]}</th>
+              <td role="cell" data-label={ADDONS.head[1]}>{r[1]}</td>
+              <td role="cell" data-label={ADDONS.head[2]}>{r[2]}</td>
+              <td role="cell" data-label={ADDONS.head[3]}>{r[3]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="pl-more">{ADDONS.more.text} <a class="su-link" href={ADDONS.more.link.href} data-cursor="Go">{ADDONS.more.link.label} <i aria-hidden="true">↗</i></a></p>
+  </section>
+
+  <!-- 6. FAQ -->
+  <section class="pl-sec pl-sec--cream pl-faq" id="faq" aria-labelledby="faq-title">
+    <h2 id="faq-title" class="display pl-h2">{FAQ_SECTION.h2}</h2>
+    <div class="st-faq" data-faq>
+      {FAQ_SECTION.items.map((f, i) => (
+        <details>
+          <summary><span class="st-q-n">{String(i + 1).padStart(2, "0")}</span><span class="st-q">{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
+          <div class="st-faq-a"><p set:html={f.a} /></div>
+        </details>
+      ))}
+    </div>
+    <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
+  </section>
+
+  <!-- 7. Final call to action -->
+  <ClosingCta tone="ink" title={FINAL_CTA.h2} lede={FINAL_CTA.body} service="Plans (not sure which fits)" />
+</BaseLayout>
+
+<script>
+  import { initStack } from "../scripts/stackPanels";
+
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+  document.documentElement.classList.add("js-st");
+  const seen = (els: Iterable<Element>, cb: (el: Element) => void, threshold = 0.4) => {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { cb(e.target); io.unobserve(e.target); } }), { threshold });
+    for (const el of els) io.observe(el);
+  };
+  const onScroll = (fn: () => void) => {
+    let ticking = false;
+    const run = () => { ticking = false; fn(); };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } }, { passive: true });
+    window.addEventListener("resize", run);
+    run();
+  };
+
+  // Stacking plan panels
+  const stack = document.querySelector<HTMLElement>("[data-stack]");
+  if (stack) initStack(stack);
+  seen(document.querySelectorAll(".su-rise"), (el) => el.classList.add("is-in"), 0.3);
+
+  // Journey rail: the line fills as you scroll and each stop lights in turn
+  const rail = document.querySelector<HTMLElement>("[data-rail]");
+  if (rail) {
+    const steps = [...rail.querySelectorAll<HTMLElement>(".pl-step")];
+    onScroll(() => {
+      let prog = 1;
+      if (!calm) {
+        const r = rail.getBoundingClientRect();
+        prog = clamp((window.innerHeight * 0.78 - r.top) / (r.height + window.innerHeight * 0.05));
+      }
+      rail.style.setProperty("--p", prog.toFixed(3));
+      steps.forEach((s, i) => s.classList.toggle("is-lit", prog >= i / (steps.length - 1) - 0.001));
+    });
+  }
+
+  // Services rows: the row nearest the middle of the screen darkens
+  const svc = document.querySelector<HTMLElement>("[data-svc]");
+  if (svc) {
+    const rows = [...svc.querySelectorAll<HTMLElement>("li")];
+    onScroll(() => {
+      const mid = window.innerHeight * 0.5;
+      let best = 0, d = Infinity;
+      rows.forEach((r, i) => {
+        const b = r.getBoundingClientRect();
+        const dist = Math.abs(b.top + b.height / 2 - mid);
+        if (dist < d) { d = dist; best = i; }
+      });
+      rows.forEach((r, i) => r.classList.toggle("is-active", i === best));
+    });
+  }
+
+  // FAQ: one open at a time, smooth height
+  const faq = document.querySelector<HTMLElement>("[data-faq]");
+  if (faq) {
+    const items = [...faq.querySelectorAll<HTMLDetailsElement>("details")];
+    const animate = (d: HTMLDetailsElement, open: boolean) => {
+      const body = d.querySelector<HTMLElement>(".st-faq-a")!;
+      if (calm) { d.open = open; return; }
+      const h = body.scrollHeight;
+      if (open) {
+        d.open = true;
+        body.animate({ height: ["0px", `${h}px`], opacity: [0, 1] }, { duration: 280, easing: "ease-out" });
+      } else {
+        const a = body.animate({ height: [`${h}px`, "0px"], opacity: [1, 0] }, { duration: 220, easing: "ease-in" });
+        a.onfinish = () => (d.open = false);
+      }
+    };
+    items.forEach((d) => {
+      d.querySelector("summary")!.addEventListener("click", (e) => {
+        e.preventDefault();
+        const willOpen = !d.open;
+        items.forEach((o) => { if (o !== d && o.open) animate(o, false); });
+        animate(d, willOpen);
+      });
+    });
+  }
+</script>

@@ -1,5 +1,5 @@
-// Copy for /website-for-startups. First drafts: wording to be signed off by the client (see HANDOVER.md).
-// Everything here restates facts already on /website-starter or in the published Bakwa case study.
+// Copy for /plans/starter. First drafts: wording to be signed off by the client (see HANDOVER.md).
+// Everything here restates facts already on the plans pages or in the published Bakwa case study.
 
 export const panelCopy: Record<string, { statement: string; cta: string }> = {
   Understand: { statement: "Know your market before a single page is designed, so every pound goes where it counts.", cta: "Start with the plan" },
@@ -25,12 +25,11 @@ export const teamNote = {
   sign: "The Maximus Mediascape team",
 };
 
-// Retainer plans shown after the FAQ ("Signature Programs" pattern). PLACEHOLDERS: the user will supply the real plan details.
-// Care plan and Growth plan copy comes from /website-starter; Social plan comes from the Social Media Management service. No prices.
+// Monthly plans shown after the FAQ. Copy and prices come from the plans page (src/data/plans.ts); no other plans exist.
+import { PLANS } from "./plans";
 export const programs = [
-  { title: "Care plan", tag: "(Keep it safe)", text: "Hosting, security and updates handled for you, so the site stays fast and safe.", ask: "I'd like to hear about the care plan", art: "care", label: "Care" },
-  { title: "Growth plan", tag: "(Keep it growing)", text: "Monthly SEO and content that builds on your 90-day plan.", ask: "I'd like to hear about the monthly growth plan", art: "growth", label: "Growth" },
-  { title: "Social plan", tag: "(Keep it visible)", text: "A content calendar, the assets and the posting handled for you, with monthly insight on what is working.", ask: "I'd like to hear about the social media plan", art: "social", label: "Social" },
+  { title: "Care", price: "£599 a month, plus VAT", tag: "(Three month minimum)", text: PLANS.care.summary, href: "/plans#care", art: "care", label: "Care" },
+  { title: "Growth", price: "£999 a month, plus VAT", tag: "(Six month minimum)", text: PLANS.growth.summary, href: "/plans#growth", art: "growth", label: "Growth" },
 ];
 
 // Website designs from the portfolio (ids in DESIGN_WALL, src/data/design.ts), shown with the price

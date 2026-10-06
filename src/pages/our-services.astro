@@ -5,7 +5,7 @@ import Proof from "../components/Proof.astro";
 import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
 import "../styles/services.css";
-import { SERVICES_INTRO } from "../data/site";
+import { SERVICES_INTRO, url } from "../data/site";
 import { webPage, breadcrumbs, serviceList } from "../lib/schema";
 const o = Astro.site!.origin;
 const schema = [
@@ -25,6 +25,7 @@ const schema = [
       <span data-xray>All the ways we</span> <span class="svc-hero-accent" data-xray>grow brands</span>
     </h1>
     <p class="lede">{SERVICES_INTRO}</p>
+    <p class="svc-plans"><a href={url("/plans")} data-cursor="View">See how these come together in our plans <span aria-hidden="true">↗</span></a></p>
   </section>
 
   <ServiceBlocks />

@@ -44,6 +44,7 @@ export interface NavItem { href: string; label: string; children?: { href: strin
 export const NAV: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/our-services", label: "Services" },
+  { href: "/plans", label: "Plans" },
   { href: "/work", label: "Work", children: [{ href: "/work/portfolio", label: "Portfolio", note: "Brand identity, websites, apps and Instagram grids" }] },
   { href: "/blogs", label: "Blog" },
   { href: "/about-us", label: "About" },

@@ -17,7 +17,7 @@ Read this first, then `DESIGN.md` (design system, patterns, conventions). Last u
 - Not committed (recreate if needed): the one-off WordPress converter (`convert.py`, used `beautifulsoup4` and `markdownify`), the figure generators and the screenshot scripts.
 
 ## 3. What exists now (map)
-- **Pages** (`src/pages`): home, `our-services`, `work`, `work/portfolio`, `blogs/` (index and `[slug]`), `about-us`, `contact-us`, `website-starter` (campaign landing page, not linked from the nav yet), `website-for-startups` (stacking-panel version of the same offer for startups and SMEs; `noindex`, not in the sitemap; DESIGN.md section 21), `privacy`, `terms`, `404`, `sitemap.xml.ts`, `robots.txt.ts`.
+- **Pages** (`src/pages`): home, `our-services`, `work`, `work/portfolio`, `blogs/` (index and `[slug]`), `about-us`, `contact-us`, `plans` (retainer pricing, Care and Growth; DESIGN.md section 22), `plans/starter` (Starter plan for startups and SMEs, the stacking-panel page; section 21; the old `website-starter` page was deleted), `privacy`, `terms`, `404`, `sitemap.xml.ts`, `robots.txt.ts`.
 - **URLs match the old WordPress site** (trailing slashes, `/blogs/`, `/our-services/`, `/about-us/`, `/contact-us/`); old addresses redirect through `vercel.json`. See DESIGN.md sections 15 and 20.
 - **Blog:** 42 posts (3 case studies, 39 migrated). Editorial header, black-and-white heroes, Show more paging, Keep reading carousel, automatic related posts (`src/lib/related.ts`), guide figures (`cs-` classes), phone Contents pill. See sections 13 to 17.
 - **Phone pills** that swap places with the header: blog (`ArticleTocMobile.astro`) and portfolio (`DesignPageNavMobile.astro`). Section 18.
@@ -35,12 +35,12 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 - **Branch note:** this session's tool branch `claude/beautiful-clarke-ekdeq8` was identical to the Vercel branch at the start. Vercel only deploys `claude/fervent-clarke-uctw7x`; ask the user before pushing there if the session names a different branch.
 
 ## 4. Open items (waiting on the user or client)
-**Copy to sign off** (first drafts, wording unchanged, code notes removed). New on `/website-for-startups` (`src/data/startup.ts`): panel statements, the three "Built for your budget" cards, the "Who it's for" list and two extra FAQs (new business with no brand; start small and add later). Also: process timings and step copy (`PROCESS`), the About page copy (`ABOUT`), portfolio brand stories, sector labels and FAQ (`src/data/design.ts`), "Workplace software" label.
+**Copy to sign off** (first drafts, wording unchanged, code notes removed). New on `/plans/starter` (`src/data/startup.ts`): panel statements, the three "Built for your budget" cards, the "Who it's for" list and two extra FAQs (new business with no brand; start small and add later). Also: process timings and step copy (`PROCESS`), the About page copy (`ABOUT`), portfolio brand stories, sector labels and FAQ (`src/data/design.ts`), "Workplace software" label.
 
 **Claims to verify before launch:**
 - Client logo strip ("Clients across our team portfolio": Panasonic, Siemens, WHO, Shell Orbit, Apple, OpenAI, Microsoft, Sony and others). Check the label and permission.
 - Starter page: £999, 50/50 payment, 90-day plan, weekly timeline.
-- Client-reported figures (also shown on `/website-for-startups`): Bakwa 3,000+ enquiries, 5.3K+ followers, revenue and AI Overview visibility (no screenshots); iAudit 5,000 AI citations (supplied by the user).
+- Client-reported figures (also shown on `/plans/starter`): Bakwa 3,000+ enquiries, 5.3K+ followers, revenue and AI Overview visibility (no screenshots); iAudit 5,000 AI citations (supplied by the user).
 - Privacy and Terms wording and the "1 October 2026" dates; office addresses and phone numbers (UK Woking, UAE Ras Al Khaimah; About mentions an India office that is not listed).
 - A migrated post mentions a "Crowborough partnership"; several posts share near-identical paragraphs (possible duplicate-content issue).
 
@@ -51,23 +51,23 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **SEO and links:**
 - The old location addresses are linked from 17 posts and redirect to `/our-services/` on purpose; decide whether to build real pages at them.
-- `/website-starter/` is an orphan page until the campaign is decided; link it from the nav, footer and relevant posts when it is.
+- The Starter page now lives at `/plans/starter/` and is linked from `/plans/`.
 - After launch: run jev-seo (`github.com/AgriciDaniel/jev-seo`; Python, needs a TypeSafe key and a live domain) as an independent audit; export indexed URLs from Search Console and check the old WordPress URL list for 404s.
 - External links to click by hand (the sandbox cannot reach them): `bakwa.in`, `flowergrid.co.uk`, `www.iaudit.global`, the Instagram links, and the OpenAI, Neil Patel and Search Engine Land articles.
 
-**Testing gaps:** nothing has been tested on a real phone or in Safari: the sticky stacking panels on `/website-for-startups` (especially the iOS address-bar resize), the Contents pill flip, the portfolio pill, the Work dropdown and the carousel touch drag.
+**Testing gaps:** nothing has been tested on a real phone or in Safari: the sticky stacking panels on `/plans/starter` (especially the iOS address-bar resize), the Contents pill flip, the portfolio pill, the Work dropdown and the carousel touch drag.
 
-**Retainer plans (waiting on the user):** the three cards after the FAQ on `/website-for-startups` (Care, Growth, Social; `programs` in `src/data/startup.ts`) are placeholders. The user will send the real plan names, contents and any pricing; replace the array. Care and Growth copy comes from `/website-starter`; Social comes from the Social Media Management service. Also to approve: the three portfolio design captions in the price section, and that testimonials include two undisclosed clients (as on the home page).
+**Retainer plans:** the Starter page's plan cards now show the real Care and Growth plans from `src/data/plans.ts`; the invented Social plan was removed. Also to approve: the three portfolio design captions in the price section, and that testimonials include two undisclosed clients (as on the home page).
 
-**Proof and work on `/website-for-startups` (round 5):** the proof section is now the iAudit Global case study, using client-reported figures from the case study (80+ pages, about 40 articles, 129 countries, 1.6K Copilot AI citations in three months, 872 organic LinkedIn followers). The iAudit logo is only about 500px at source, so ask for a larger one. Featured work was tried on this page and removed; `FeaturedWork` now imports its own stylesheet so it works on any page.
+**Proof and work on `/plans/starter` (round 5):** the proof section is now the iAudit Global case study, using client-reported figures from the case study (80+ pages, about 40 articles, 129 countries, 1.6K Copilot AI citations in three months, 872 organic LinkedIn followers). The iAudit logo is only about 500px at source, so ask for a larger one. Featured work was tried on this page and removed; `FeaturedWork` now imports its own stylesheet so it works on any page.
 
 **Added in round 4, to approve:** the "Not a fit?" strip, and the **note from the team**, now inside the plans intro (`teamNote` in `src/data/startup.ts`, first draft written without a founder name or photo; "we will say so" is the one new commitment). When you have a founder name and photo, change the signature and add the photo.
 
 **Ideas offered, not built:** a "What we need from you" strip; shorten "Who it's for" to three rows.
 
-**Check before launch:** Bakwa revenue shows as £30K* (purchasing-power estimate of ₹10 lakh+) on `/website-for-startups` and the case study. The £30K figure is the user's; I could not confirm India's exact purchasing-power factor (my rough estimate was nearer £30K, the user first guessed £20K). The same ₹10 lakh claim still appears in rupees only in `why-brand-mentions-matter-more-than-backlinks.md` (line 149): align it if wanted.
+**Check before launch:** Bakwa revenue shows as £30K* (purchasing-power estimate of ₹10 lakh+) on `/plans/starter` and the case study. The £30K figure is the user's; I could not confirm India's exact purchasing-power factor (my rough estimate was nearer £30K, the user first guessed £20K). The same ₹10 lakh claim still appears in rupees only in `why-brand-mentions-matter-more-than-backlinks.md` (line 149): align it if wanted.
 
-**Decide:** keep `/website-starter/` or `/website-for-startups/` (or merge). Then drop `noindex`, add to `sitemap.xml.ts` and link it, and either redirect or retire the other to avoid duplicate content. The startup page's Bakwa proof is client-reported (see below) and is labelled as not being the Starter package.
+**Plans pages (done, to approve):** `/plans/` carries the client's copy verbatim in `src/data/plans.ts`; `/plans/starter/` is the Starter plan page. Both are indexable, in the sitemap, and linked from the nav, services, work, home and blog posts. The service links in the plans page's section 5 point to the existing `/our-services/#slug` anchors (the client's "section 4" list was not supplied: confirm). Client logos appear on `/plans/` at the client's request; the logo label and permission are still unverified (see below). The startup page's Bakwa proof is client-reported (see below) and is labelled as not being the Starter package.
 
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 

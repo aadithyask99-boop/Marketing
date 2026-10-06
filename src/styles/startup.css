@@ -1,4 +1,4 @@
-/* Starter website for startups and SMEs (/website-for-startups).
+/* Starter website for startups and SMEs (/plans/starter).
    Stacking panels: each panel is sticky and the next one slides over it; the covered one dims. Shared bits (pills, price, FAQ, timeline, carousel) come from starter.css. */
 .su-accent { font-family: var(--accent); font-style: italic; font-weight: 400; font-size: 1.05em; text-transform: none; letter-spacing: 0; color: var(--red); }
 .su-tag { margin: 0; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; }
@@ -277,3 +277,8 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 
 /* Light seal after the price */
 .su-price--light .st-seal { background: color-mix(in srgb, #fff 60%, var(--cream)); color: var(--ink); border: 2px solid var(--ink); }
+
+/* Two real plans (Care, Growth) on the Starter page */
+@media (min-width: 800px) { .su-cards--two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.su-card-price { flex: none; font-size: 0.85rem; font-weight: 600; text-align: right; opacity: 0.8; }
+.su-card-top h3 { font-size: clamp(1.6rem, 2.4vw, 2.1rem); }

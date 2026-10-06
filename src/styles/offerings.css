@@ -125,3 +125,5 @@
   .offer-title { font-size: clamp(2rem, 8.4vw, 3.2rem); }
   .offer-pills span { font-size: 1rem; }
 }
+
+.offer-more--plans { margin-top: 0.75rem; }

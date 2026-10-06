@@ -116,7 +116,7 @@ Data lives in `src/data/site.ts` (`SITE`, `NAV`, `SERVICES`, `CATEGORIES`, `CLIE
 6. Add the page to `NAV` in `site.ts` if it belongs in the menu, and always add its path to the hardcoded `PAGES` list in `src/pages/sitemap.xml.ts`.
 7. Test at 390px and 1440px. Check reduced motion. Make sure the headline fits at 390px (use `clamp`/`vw`). Never let a decorative element cover text (the Starter hero badge did).
 
-## 9. The Starter page (`/website-starter`) as a variant
+## 9. The old Starter page (removed; see sections 21 and 22)
 
 A campaign landing page built on the same system with a few deliberate differences: `landing` header (logo plus one "Get started" button), `footerTone="red"`, its own `starter.css` (`st-` prefix), pill buttons with a circle arrow (`.st-pill`), a green £999 badge sticker, pinned scroll scenes (statement and "how it works" on desktop; the statement is also pinned on mobile), stage tabs, a payment path, an impact carousel, glow-edged plan cards, an FAQ with one-open-at-a-time, and a sticky mobile CTA. It does **not** use the Boska accent in its headlines, which is the main place it drifts from the rest of the site; add one if you want it to feel closer to the main pages.
 
@@ -248,9 +248,9 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Meta descriptions: 50 to 170 characters. For posts this is the `excerpt`, so keep it short.
 - No em dashes anywhere in copy, including migrated posts (use commas or full stops).
 
-## 21. Stacking panels: `/website-for-startups`
-A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It is `noindex`, not in the sitemap or nav, and sits beside `/website-starter/` until the client picks one.
-- **Files:** `src/pages/website-for-startups.astro`, `src/styles/startup.css` (prefix `su-`; also loads `starter.css` for pills, price, timeline, carousel and FAQ), `src/scripts/stackPanels.ts`, `src/data/startup.ts` (new copy). Shared Starter content (stages, steps, included lists, FAQ, CTA presets) lives in `src/data/starter.ts` and is used by both pages.
+## 21. Stacking panels: the Starter plan, `/plans/starter`
+A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It replaced the earlier `/website-starter` page (deleted; no redirects needed because it was never live) and is now indexable and in the sitemap.
+- **Files:** `src/pages/plans/starter.astro`, `src/styles/startup.css` (prefix `su-`; also loads `starter.css` for pills, price, timeline, carousel and FAQ), `src/scripts/stackPanels.ts`, `src/data/startup.ts` (new copy). Shared Starter content (stages, steps, included lists, FAQ, CTA presets) lives in `src/data/starter.ts` and is used by both pages.
 - **Stack:** `.su-stack` holds `.su-panel` sections. Each is `position: sticky; top: 0` with a rising `--z`, so the next panel slides over it. `initStack` writes `--cover` (0 to 1) on a panel as the next one covers it; CSS turns that into a dim overlay (ink on cream panels, black on ink panels) and a small upward drift of `.su-body`. No scaling. Panels taller than the screen get `top: -(height - viewport)` so their bottom sticks and all content scrolls past first. Panels alternate ink and cream; the first panel follows the cream hero.
 - **Panel anatomy:** hairline, title row (stage name left, number right), statement, two-column item list, underlined link, small line illustration. Titles rise out of a mask once (`.su-rise`).
 - **Reduced motion:** `is-live` is never added, so panels are ordinary stacked sections; the marquee stops and headlines show at once. The stack works the same on phones (smaller type, one column).
@@ -264,3 +264,15 @@ A second version of the Starter offer, written for startups and SMEs with a smal
 - **x-ray:** `data-xray` flattens its element's text, so put it on plain-text spans only, never around the accent word. On cream, override `--xr-base` to ink.
 - **Hero (phones):** On phones (below 900px) the £999 sticker sits beside the button (not by the headline), headline line height is 0.95, the lede is 1.0625rem at 1.6, and blocks are 1.75rem apart. Keep tag, headline, lede and buttons each on their own breathing line; never put a sticker on the same row as the tag.
 - **Who it's for** ends with a `(Not a fit?)` strip (`notFit`), only restating what is not included. **A note from the team** (`teamNote`) sits on cream right after the testimonials; it is signed by the team until a founder name and photo exist.
+
+## 22. The plans page: `/plans`
+Retainer pricing (Care and Growth). **No boxes:** no bordered or filled cards, tiles or badge shapes. Structure comes only from big type, hairline rules, whitespace and alternating cream and ink bands (hero and journey cream, Care ink, Growth cream, comparison ink, services cream, add-ons ink, FAQ cream, closing CTA ink).
+- **Files:** `src/pages/plans.astro`, `src/styles/plans.css` (prefix `pl-`; also loads `startup.css` for the stacking panels and `starter.css` for pills and the FAQ), `src/data/plans.ts` (all copy, verbatim from the client; the single source of truth, also read by the Starter page's plan section).
+- **Copy rules (from the client):** British English, no em or en dashes as punctuation, prices and terms exactly as written, prices exclude VAT (stated), no testimonials, statistics or case-study figures, no invented plans, features or discounts, no promises about rankings, AI citations, links or press. Client logos are shown by the client's request (shared `Proof` strip, same status as on the home page).
+- **Hero:** the H1 is auto x-rayed by the layout, so plain text parts carry `data-xray` and the accent word does not; base colour is ink (`.pl-h1 [data-xray]`).
+- **Journey:** a rail (dotted line fills on scroll) with four stops and giant prices, no cards.
+- **Plans:** two stacking panels (`stackPanels.ts`): left the name, giant price, term, headline, summary and button; right hairline rows ("Month one" lines, then "Every month" rows with bracketed labels).
+- **Tables:** real `<table>`s with rules only. The add-ons table reflows below 760px into stacked labelled rows (`data-label`), keeping table roles.
+- **Services rows:** the row nearest the middle of the screen darkens, each row links to its `/our-services/#anchor`.
+- **Contact links:** `/contact-us/?service=Care%20Plan` etc. work as-is; `ClosingCta` pre-fills the message with "I'd like to talk about: Care Plan".
+- **Interlinking:** "Plans" is in `NAV` (header, mobile menu, footer); links from the services hero, work hero, home Offerings, every blog post footer, and the Starter page; `/plans/` and `/plans/starter/` are in the sitemap.

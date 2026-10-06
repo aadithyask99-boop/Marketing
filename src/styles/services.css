@@ -99,3 +99,7 @@
   .svcs.is-enhanced .svc-included li { opacity: 1; transform: none; }
   .svcs.is-enhanced .count-roll span { transform: none; }
 }
+
+.svc-plans { margin: 1.25rem 0 0; }
+.svc-plans a { color: var(--cream); font-weight: 600; text-decoration: underline; text-underline-offset: 0.25em; transition: color 0.2s ease; }
+.svc-plans a:hover { color: var(--red); }
