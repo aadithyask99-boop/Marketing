@@ -82,13 +82,28 @@
 .su-sec--cream .su-sechead { border-top-color: rgba(23, 9, 10, 0.2); }
 .su-sechead h2 { margin: 0; font-size: clamp(3rem, 9vw, 8rem); line-height: 0.92; }
 
+.su-cardsbar { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .su-cards { display: grid; gap: 1rem; }
-@media (min-width: 800px) { .su-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; } }
-.su-card { display: flex; flex-direction: column; gap: 1rem; min-height: 17rem; padding: clamp(1.25rem, 2.5vw, 2rem); border: 1px solid rgba(245, 239, 232, 0.2); border-radius: 1.5rem; transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-.su-card:hover { background: rgba(245, 239, 232, 0.06); border-color: rgba(245, 239, 232, 0.5); transform: translateY(-0.25rem); }
-.su-card .su-n { font-family: var(--display); font-size: 1.4rem; color: var(--red); }
-.su-card h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(2.2rem, 3.6vw, 3.25rem); line-height: 0.95; text-transform: uppercase; }
-.su-card p { margin: auto 0 0; max-width: 24rem; opacity: 0.8; }
+@media (min-width: 800px) { .su-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; } }
+.su-card { display: flex; flex-direction: column; min-height: 22rem; padding: 0 clamp(1.25rem, 2vw, 1.75rem) clamp(1.25rem, 2vw, 1.75rem); border-radius: 1.25rem; background: var(--cream); color: var(--ink); transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease; }
+@media (min-width: 800px) { .su-card { min-height: 26rem; } }
+.su-card:hover { transform: translateY(-0.35rem); box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.35); }
+.su-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 1.25rem 0 0.9rem; border-bottom: 1px solid rgba(23, 9, 10, 0.18); }
+.su-card-top h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(2rem, 3vw, 2.75rem); line-height: 1; text-transform: uppercase; }
+.su-card .su-n { font-family: var(--display); font-size: 1.3rem; color: var(--red); }
+.su-card-mid { margin: auto 0; padding: 1.5rem 0; }
+.su-card-tag { margin: 0 0 0.75rem; font-size: 0.85rem; font-weight: 600; }
+.su-card-text { margin: 0; max-width: 22rem; font-size: 0.95rem; line-height: 1.5; opacity: 0.72; }
+.su-card .su-link { align-self: flex-start; }
+
+/* Tile that follows the cursor over the budget cards (mouse only; created in the page script) */
+.su-peek { position: fixed; left: 0; top: 0; z-index: 60; display: none; pointer-events: none; will-change: transform; }
+@media (hover: hover) and (pointer: fine) { .su-peek { display: block; } }
+.su-peek-card { display: grid; place-items: center; width: 7.5rem; aspect-ratio: 1; border-radius: 0.9rem; background: var(--cream); box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.4); opacity: 0; transform: scale(0.6); transition: opacity 0.25s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.su-peek-card svg { width: 80%; height: 80%; }
+.su-peek-label { position: absolute; left: 0.5rem; bottom: -0.9rem; padding: 0.25rem 0.7rem; border-radius: 999px; background: var(--ink); color: var(--cream); font-size: 0.75rem; font-weight: 600; opacity: 0; transition: opacity 0.25s ease; }
+.su-peek.is-on .su-peek-card { opacity: 1; transform: none; }
+.su-peek.is-on .su-peek-label { opacity: 1; }
 
 .su-who { list-style: none; margin: 0; padding: 0; }
 .su-who li { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 0.5rem 1.5rem; padding: clamp(0.9rem, 1.8vw, 1.4rem) 0; border-top: 1px solid rgba(23, 9, 10, 0.18); color: rgba(23, 9, 10, 0.35); transition: color 0.4s ease; }
@@ -125,7 +140,6 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-note { max-width: 46rem; margin: 1.5rem 0 0; padding-inline: var(--gutter); font-size: 0.9rem; opacity: 0.7; }
 .su-bk .st-big-n { color: var(--cream); }
 .su-bk .st-big-n small { font-size: 0.55em; color: var(--red); }
-.su-bk .st-big-n small.su-long { display: block; margin-top: 0.35rem; font-size: 0.3em; letter-spacing: 0.04em; }
 .su-bk .st-card--red .st-big-n small { color: var(--cream); }
 .su-bk .st-card { min-height: 22rem; }
 .su-bk .st-card .st-card-text { margin-top: auto; }
@@ -146,3 +160,29 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
   .su-rise > span, .su-items li, .su-art, .su-card, .su-who p, .su-who .su-wn, .su-link i { transition: none; }
   .su-stack .su-body { transform: none; }
 }
+
+/* Price on a light background */
+.su-price--light { background: var(--cream); color: var(--ink); }
+.su-price--light .st-rings { color: var(--ink); opacity: 0.08; }
+.su-price--light .st-pound { color: var(--red); }
+.su-price--light .st-pill--cream { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+.su-price--light .st-pill--cream i { background: var(--red); color: var(--cream); }
+.su-price--light .st-pill--cream:hover { background: var(--red); border-color: var(--red); }
+.su-price--light .st-pill--cream:hover i { background: var(--ink); }
+.su-price--light .st-pill--line { background: transparent; border-color: var(--ink); color: var(--ink); }
+.su-price--light .st-pill--line i { background: var(--ink); color: var(--cream); }
+.su-price--light .st-pill--line:hover { background: var(--ink); color: var(--cream); }
+.su-price--light .st-pill--line:hover i { background: var(--red); color: var(--cream); }
+.su-price--light .st-pay-line { border-top-color: rgba(23, 9, 10, 0.35); }
+.su-price--light .st-pay-line span { background: var(--red); }
+.su-price--light .st-pay-node i { border-color: var(--ink); background: var(--cream); }
+.su-price--light .st-pay.is-in .st-pay-node i { background: var(--red); border-color: var(--red); }
+.su-price--light .st-yesno li { border-top-color: rgba(23, 9, 10, 0.25); }
+.su-price--light .st-yesno li:last-child { border-bottom-color: rgba(23, 9, 10, 0.25); }
+.su-price--light .st-yes { background: var(--ink); color: var(--cream); }
+.su-price--light .st-x { border-color: rgba(23, 9, 10, 0.6); }
+
+/* Asterisk after an estimated figure */
+.su-star { position: relative; top: -0.1em; margin-left: 0.04em; font-family: var(--body); font-size: 0.4em; font-weight: 600; vertical-align: top; color: var(--cream); }
+.su-bk .st-card--red .su-star { color: var(--cream); }
+.su-price--light .st-seal { color: var(--cream); }

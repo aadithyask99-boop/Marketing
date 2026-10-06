@@ -1,12 +1,12 @@
 ---
 title: "How we built Bakwa with a one-page website and zero ad spend"
-excerpt: "Three months, a one-page website and no ad spend: 5.3K+ organic Instagram followers, 3,000+ enquiries and ₹10 lakh+ in revenue, plus press coverage."
+excerpt: "Three months, a one-page website and no ad spend: 5.3K+ organic Instagram followers, 3,000+ enquiries and ₹10 lakh+ (£30K*) in revenue, plus press coverage."
 category: case-studies
 author: Maximus Mediascape
 date: 2026-10-05
 readMins: 6
 draft: false
-tldr: "Bakwa, a Kerala brand making bottles from plant-based materials, had a limited budget. We built a single-page website with one enquiry form, grew an Instagram audience organically, and gave publications a real story to tell. In three months that meant 5.3K+ followers, 3,000+ enquiries and ₹10 lakh+ in revenue, with ₹0 spent on advertising."
+tldr: "Bakwa, a Kerala brand making bottles from plant-based materials, had a limited budget. We built a single-page website with one enquiry form, grew an Instagram audience organically, and gave publications a real story to tell. In three months that meant 5.3K+ followers, 3,000+ enquiries and ₹10 lakh+ (£30K*) in revenue, with £0 spent on advertising."
 tags: ["Case study", "Brand building", "Social media", "Content distribution", "PR", "Sustainability"]
 logo: ../../assets/blog/logo-bakwa.png
 logoAlt: "Bakwa logo: It's not water. It's a movement."
@@ -25,7 +25,8 @@ faq:
 ---
 
 <dl class="fig-meta"><div><dt>Client</dt><dd><a href="https://www.instagram.com/bakwa.official" target="_blank" rel="noopener">Bakwa</a></dd></div><div><dt>Industry</dt><dd>Sustainable packaging, Kerala</dd></div><div><dt>Campaign</dt><dd>One-page website, social content and story distribution</dd></div><div><dt>Period</dt><dd>3 months</dd></div></dl>
-<ul class="fig-stats" aria-label="Headline results"><li><strong>5.3K+</strong><span>Instagram followers, organically</span></li><li><strong>3,000+</strong><span>Enquiries generated</span></li><li><strong>₹10 lakh+</strong><span>Revenue generated</span></li><li><strong>600K+</strong><span>Views on The Better India reel</span></li><li><strong>200+</strong><span>Web and social reposts</span></li><li><strong>₹0</strong><span>Spent on paid advertising</span></li></ul>
+<ul class="fig-stats" aria-label="Headline results"><li><strong>5.3K+</strong><span>Instagram followers, organically</span></li><li><strong>3,000+</strong><span>Enquiries generated</span></li><li><strong>£30K*</strong><span>Revenue generated</span></li><li><strong>600K+</strong><span>Views on The Better India reel</span></li><li><strong>200+</strong><span>Web and social reposts</span></li><li><strong>£0</strong><span>Spent on paid advertising</span></li></ul>
+<p class="fig-note">* Bakwa reported ₹10 lakh+ in revenue. £30K is our estimate of what that is worth in UK buying power (a purchasing-power equivalent), not a currency conversion.</p>
 
 ## The starting point
 
@@ -97,9 +98,9 @@ This is where building a brand differs from building backlinks. We were not chas
 
 The campaign ran for three months.
 
-<figure class="fig cs-linefig"><ol class="cs-line cs-line--num" style="--n:4"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span><div><p class="cs-step">Spend</p><h4 class="cs-name">₹0</h4><p class="cs-text">Paid advertising.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 8a3 3 0 0 1 0 6M21 20c0-2.5-1.5-4.5-4-5.5"/></svg></span><div><p class="cs-step">Audience</p><h4 class="cs-name">5.3K+</h4><p class="cs-text">Instagram followers, organically.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></span><div><p class="cs-step">Demand</p><h4 class="cs-name">3,000+</h4><p class="cs-text">Enquiries.</p></div></li><li style="--i:3"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span><div><p class="cs-step">Outcome</p><h4 class="cs-name">₹10 lakh+</h4><p class="cs-text">Revenue.</p></div></li></ol><figcaption>Three months, from a one-page website and no paid advertising. Figures as reported by the client.</figcaption></figure>
+<figure class="fig cs-linefig"><ol class="cs-line cs-line--num" style="--n:4"><li style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg></span><div><p class="cs-step">Spend</p><h4 class="cs-name">£0</h4><p class="cs-text">Paid advertising.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M17 8a3 3 0 0 1 0 6M21 20c0-2.5-1.5-4.5-4-5.5"/></svg></span><div><p class="cs-step">Audience</p><h4 class="cs-name">5.3K+</h4><p class="cs-text">Instagram followers, organically.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg></span><div><p class="cs-step">Demand</p><h4 class="cs-name">3,000+</h4><p class="cs-text">Enquiries.</p></div></li><li style="--i:3"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M12 20V4M19 20v-7"/></svg></span><div><p class="cs-step">Outcome</p><h4 class="cs-name">£30K*</h4><p class="cs-text">Revenue.</p></div></li></ol><figcaption>Three months, from a one-page website and no paid advertising. Figures as reported by the client. * Bakwa reported ₹10 lakh+ in revenue; £30K is our purchasing-power estimate of that, not a currency conversion.</figcaption></figure>
 
-<figure class="fig cs-ledger-fig"><ul class="cs-ledger"><li><strong>5.3K+</strong><span>Instagram followers gained organically</span></li><li><strong>3,000+</strong><span>enquiries generated</span></li><li><strong>₹10 lakh+</strong><span>revenue generated</span></li><li><strong>600K+</strong><span>views on The Better India reel</span></li><li><strong>31K+</strong><span>likes on the reel</span></li><li><strong>550+</strong><span>comments on the reel</span></li><li><strong>76K+</strong><span>Facebook video views</span></li><li><strong>200+</strong><span>web and social reposts</span></li><li><strong>₹0</strong><span>spent on paid advertising</span></li></ul><figcaption>Three-month campaign. Figures as reported by the client and by the platforms named.</figcaption></figure>
+<figure class="fig cs-ledger-fig"><ul class="cs-ledger"><li><strong>5.3K+</strong><span>Instagram followers gained organically</span></li><li><strong>3,000+</strong><span>enquiries generated</span></li><li><strong>£30K*</strong><span>revenue generated</span></li><li><strong>600K+</strong><span>views on The Better India reel</span></li><li><strong>31K+</strong><span>likes on the reel</span></li><li><strong>550+</strong><span>comments on the reel</span></li><li><strong>76K+</strong><span>Facebook video views</span></li><li><strong>200+</strong><span>web and social reposts</span></li><li><strong>£0</strong><span>spent on paid advertising</span></li></ul><figcaption>Three-month campaign. Figures as reported by the client and by the platforms named. * Bakwa reported ₹10 lakh+ in revenue. £30K is our estimate of what that is worth in UK buying power (a purchasing-power equivalent), not a currency conversion.</figcaption></figure>
 
 The numbers tell one part of the story. The other part is where they came from: a single-page website, an enquiry form, consistent social content, a clear position, a product with a genuine point of difference and a story publications wanted to tell.
 
@@ -117,7 +118,7 @@ Most importantly, we did not spend money simply because we had a budget. We made
 
 ## The next phase
 
-The first phase was never about building the final version of Bakwa's digital presence. It was about proving what was possible, and it worked. In three months, a brand with a minimal website and no paid advertising built an audience, generated thousands of enquiries, earned coverage from major publications and generated more than ₹10 lakh in revenue.
+The first phase was never about building the final version of Bakwa's digital presence. It was about proving what was possible, and it worked. In three months, a brand with a minimal website and no paid advertising built an audience, generated thousands of enquiries, earned coverage from major publications and generated more than ₹10 lakh (£30K*) in revenue.
 
 Now the business has moved forward, and so has the website. We are working with Bakwa on its next one, including design and development. This time we have more to build on: we know what people responded to, which parts of the story attracted attention and which audiences engaged, and we know there is real demand behind the brand.
 

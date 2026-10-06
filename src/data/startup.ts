@@ -9,9 +9,9 @@ export const panelCopy: Record<string, { statement: string; cta: string }> = {
 };
 
 export const budget = [
-  { n: "01", title: "One fixed price", text: "From £999, one-time. 50% to start and 50% on launch, with no surprises along the way." },
-  { n: "02", title: "Made for you", text: "Bespoke, not a template. Up to 5 pages and 2 rounds of revisions, with extras quoted before we start." },
-  { n: "03", title: "You own it", text: "Once the final payment is made, the website and its content are yours." },
+  { n: "01", title: "One fixed price", tag: "(Fixed price)", text: "From £999, one-time. 50% to start and 50% on launch, with no surprises along the way.", link: "See the price", href: "#price", art: "price", label: "£999" },
+  { n: "02", title: "Made for you", tag: "(Built for you)", text: "Bespoke, not a template. Up to 5 pages and 2 rounds of revisions, with extras quoted before we start.", link: "See what's included", href: "#included", art: "site", label: "Bespoke" },
+  { n: "03", title: "You own it", tag: "(Yours to keep)", text: "Once the final payment is made, the website and its content are yours.", link: "Read the questions", href: "#faq-title", art: "key", label: "Yours" },
 ];
 
 export const audience = [
@@ -22,13 +22,15 @@ export const audience = [
   { name: "Growing small businesses", text: "Your current site is slow or dated and you want a fresh start, with a plan to grow." },
 ];
 
-// Bakwa: client-reported figures from the published case study (/blogs/bakwa-brand-from-scratch)
+// Bakwa: client-reported figures from the published case study (/blogs/bakwa-brand-from-scratch).
+// The pound revenue figure is a purchasing-power estimate of the rupee figure Bakwa reported, marked with an asterisk (see BAKWA_NOTE).
 export const bakwa = [
   { label: "Organic Instagram followers", to: 5.3, dec: 1, suffix: "K+", text: "in three months, with no paid follower growth." },
   { label: "Enquiries generated", to: 3000, dec: 0, suffix: "+", text: "through one page and one enquiry form." },
-  { label: "Revenue generated", prefix: "₹", to: 10, dec: 0, suffix: " lakh+", text: "from a limited budget." },
-  { label: "Spent on advertising", prefix: "₹", to: 0, dec: 0, suffix: "", text: "no paid advertising behind the campaign." },
+  { label: "Revenue generated", prefix: "£", to: 30, dec: 0, suffix: "K", star: true, text: "from a limited budget." },
+  { label: "Spent on advertising", prefix: "£", to: 0, dec: 0, suffix: "", text: "no paid advertising behind the campaign." },
 ];
+export const BAKWA_NOTE = "* Bakwa reported ₹10 lakh+ in revenue. £30K is our estimate of what that is worth in UK buying power (a purchasing-power equivalent), not a currency conversion.";
 
 // Two extra questions for startups, added to the shared starter FAQ
 export const extraFaq = [

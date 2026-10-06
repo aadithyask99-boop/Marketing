@@ -360,6 +360,7 @@
 @media (min-width: 900px) { .fig-meta { grid-template-columns: 1fr 1fr 2fr 1fr; } }
 
 .fig-stats { display: grid; gap: 0.75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 1.5rem 0 0; padding: 0; list-style: none; }
+.fig-note { margin: 0.9rem 0 0; font-size: 0.85rem; line-height: 1.45; opacity: 0.7; }
 .fig-stats li { display: flex; flex-direction: column; justify-content: space-between; gap: 0.6rem; margin: 0; padding: 1.1rem 1.15rem; border-radius: 1.25rem; background: var(--ink); color: var(--cream); transition: transform 0.3s ease, background 0.3s ease; }
 .fig-stats li:nth-child(1), .fig-stats li:nth-child(4) { background: var(--red); }
 .fig-stats li:hover { transform: translateY(-0.25rem); background: var(--royal); }

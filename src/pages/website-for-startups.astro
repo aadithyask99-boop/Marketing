@@ -9,10 +9,15 @@ import bakwaLogo from "../assets/blog/logo-bakwa.png";
 import bakwaGrid from "../assets/design/wall/ig-bakwa.webp";
 import { SITE, url } from "../data/site";
 import { START, CHECK, stages, steps, included, notIncluded, faq as baseFaq } from "../data/starter";
-import { panelCopy, budget, audience, bakwa, extraFaq, marquee } from "../data/startup";
+import { panelCopy, budget, audience, bakwa, BAKWA_NOTE, extraFaq, marquee } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const faq = [...baseFaq, ...extraFaq];
+const ARTS: Record<string, string> = {
+  price: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="#064a2a"/><text x="60" y="52" text-anchor="middle" font-family="Mulish, sans-serif" font-size="9" font-weight="600" letter-spacing="1.5" fill="#f5efe8">FROM</text><text x="60" y="82" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="34" fill="#f5efe8">£999</text></svg>`,
+  site: `<svg viewBox="0 0 120 120"><rect x="12" y="24" width="96" height="72" rx="8" fill="#f5efe8" stroke="#17090a" stroke-width="2.4"/><path d="M12 42h96" stroke="#17090a" stroke-width="2.4"/><circle cx="24" cy="33" r="3" fill="#e10600"/><rect x="24" y="54" width="40" height="26" rx="5" fill="#17090a"/><path d="M74 58h22M74 68h16" stroke="#17090a" stroke-width="2.4" stroke-linecap="round"/><circle cx="44" cy="67" r="6" fill="#e10600"/></svg>`,
+  key: `<svg viewBox="0 0 120 120"><circle cx="40" cy="60" r="22" fill="#e10600"/><circle cx="40" cy="60" r="8" fill="#f5efe8"/><path d="M62 60h46M92 60v16M104 60v10" stroke="#17090a" stroke-width="5" stroke-linecap="round"/></svg>`,
+};
 const toneOf = (i: number) => (i % 2 === 0 ? "dark" : "cream");
 
 const o = Astro.site!.origin;
@@ -37,7 +42,7 @@ const schema = [
   title="Starter website for startups and small businesses from £999"
   description="A fast, mobile-friendly website for startups and small businesses without an agency budget. From £999, with strategy, a bespoke build, a 90-day plan and training."
   schema={schema}
-  footerTone="red"
+  footerTone="ink"
   noindex
   landing
 >
@@ -108,17 +113,25 @@ const schema = [
   <section class="su-sec su-sec--ink" aria-labelledby="budget-title">
     <div class="su-sechead">
       <h2 id="budget-title" class="display">Built for your <span class="su-accent">budget</span></h2>
-      <p class="su-tag">(Why startups pick this)</p>
     </div>
-    <div class="su-cards">
+    <div class="su-cardsbar">
+      <p class="su-tag">(What you get)</p>
+      <a class="su-link" href="#price">See the price <i aria-hidden="true">↓</i></a>
+    </div>
+    <div class="su-cards" data-cards>
       {budget.map((b) => (
-        <article class="su-card">
-          <span class="su-n">{b.n}</span>
-          <h3>{b.title}</h3>
-          <p>{b.text}</p>
+        <article class="su-card" data-peek={b.label} data-art={b.art}>
+          <div class="su-card-top"><h3>{b.title}</h3><span class="su-n" aria-hidden="true">{b.n}</span></div>
+          <div class="su-card-mid">
+            <p class="su-card-tag">{b.tag}</p>
+            <p class="su-card-text">{b.text}</p>
+          </div>
+          <a class="su-link" href={b.href}>{b.link} <i aria-hidden="true">↗</i></a>
+          <template><div class="su-peek-art" set:html={ARTS[b.art]} /></template>
         </article>
       ))}
     </div>
+    <div class="su-peek" data-peek-box aria-hidden="true"><div class="su-peek-card"></div><span class="su-peek-label"></span></div>
   </section>
 
   <!-- 6. Who it is for -->
@@ -160,7 +173,7 @@ const schema = [
   </section>
 
   <!-- 8. Price -->
-  <section class="st-sec st-red st-price su-price" id="price" aria-labelledby="price-title">
+  <section class="st-sec st-cream st-price su-price su-price--light" id="price" aria-labelledby="price-title">
     <svg class="st-rings" viewBox="0 0 800 800" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="400" cy="400" r="120"/><circle cx="400" cy="400" r="210"/><circle cx="400" cy="400" r="300"/><circle cx="400" cy="400" r="390"/></g></svg>
     <div class="st-wrap">
       <h2 id="price-title" class="sr-only">Price</h2>
@@ -223,9 +236,9 @@ const schema = [
         </a>
       </article>
       {bakwa.map((b) => (
-        <article class:list={["st-card", b.suffix === "K+" || b.prefix === "₹" ? "st-card--red" : ""]}>
+        <article class:list={["st-card", b.suffix === "K+" || b.star ? "st-card--red" : ""]}>
           <p class="st-card-label">{b.label}</p>
-          <p class="st-big-n">{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b><small class:list={[b.suffix.length > 3 && "su-long"]}>{b.suffix}</small></p>
+          <p class="st-big-n">{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b><small>{b.suffix}</small>{b.star && <sup class="su-star" aria-hidden="true">*</sup>}</p>
           <p class="st-card-text">{b.text}</p>
         </article>
       ))}
@@ -233,7 +246,7 @@ const schema = [
         <Image src={bakwaGrid} alt="Complete Instagram profile and grid design for a sustainable packaging brand" widths={[480, 800]} sizes="22rem" loading="lazy" />
       </article>
     </div>
-    <p class="su-note">Figures reported by Bakwa. Bakwa's campaign was a one-page website with social content and PR, not our Starter package. It shows what a lean site can do when the budget goes into the right places.</p>
+    <p class="su-note">{BAKWA_NOTE} Figures reported by Bakwa. Bakwa's campaign was a one-page website with social content and PR, not our Starter package. It shows what a lean site can do when the budget goes into the right places.</p>
   </section>
 
   <!-- 10. Questions -->
@@ -260,7 +273,7 @@ const schema = [
   </section>
 
   <div class="su-closer">
-    <ClosingCta tone="red" title="Let's build yours." lede="Tell us about your business and we'll come back with a clear plan and a start date." service="Starter website (£999)" />
+    <ClosingCta tone="ink" title="Let's build yours." lede="Tell us about your business and we'll come back with a clear plan and a start date." service="Starter website (£999)" />
   </div>
   <StickyCta label="Get started · £999" preset={START} />
 </BaseLayout>
@@ -377,6 +390,32 @@ const schema = [
     });
     window.addEventListener("pointerup", () => { down = false; track.classList.remove("is-drag"); });
     track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  }
+
+  // Budget cards: a small tilted tile follows the cursor, as on the reference (mouse only)
+  const cardsWrap = document.querySelector<HTMLElement>("[data-cards]");
+  const peek = document.querySelector<HTMLElement>("[data-peek-box]");
+  if (cardsWrap && peek && fine && !calm) {
+    const tile = peek.querySelector<HTMLElement>(".su-peek-card")!;
+    const lab = peek.querySelector<HTMLElement>(".su-peek-label")!;
+    let tx = 0, ty = 0, x = 0, y = 0, on = false, raf = 0;
+    const loop = () => {
+      x += (tx - x) * 0.2; y += (ty - y) * 0.2;
+      const tilt = Math.max(-10, Math.min(10, (tx - x) * 0.4));
+      peek.style.transform = `translate(${x}px, ${y}px) rotate(${(-6 + tilt).toFixed(1)}deg)`;
+      raf = on || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(loop) : 0;
+    };
+    cardsWrap.querySelectorAll<HTMLElement>("[data-peek]").forEach((c) => {
+      c.addEventListener("pointerenter", (e) => {
+        tile.innerHTML = c.querySelector("template")?.innerHTML ?? "";
+        lab.textContent = c.dataset.peek ?? "";
+        tx = x = e.clientX; ty = y = e.clientY;
+        on = true; peek.classList.add("is-on");
+        if (!raf) raf = requestAnimationFrame(loop);
+      });
+      c.addEventListener("pointermove", (e) => { tx = e.clientX + 18; ty = e.clientY + 18; });
+      c.addEventListener("pointerleave", () => { on = false; peek.classList.remove("is-on"); });
+    });
   }
 
   // Hero sticker leans toward the cursor
