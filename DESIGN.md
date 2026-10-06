@@ -240,7 +240,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - **Testimonials** are real (see Voices).
 
 ## 20. Conventions
-- British English, no em dashes, plain wording. Push every change to both `claude/eloquent-mayer-pkvp3u` and `claude/fervent-clarke-uctw7x` (Vercel deploys the second). No pull requests.
+- British English, no em dashes, plain wording. Work and push only on `claude/fervent-clarke-uctw7x` (the branch Vercel deploys); do not create or push other branches. No pull requests.
 - Use `url()` for every internal link; all internal URLs end in a slash; never hard-code old paths.
 - Verify before saying done: `npm run build`, preview, screenshot at 390px and 1440px, run the built-site link crawl (no missing targets, no dead anchors). Never claim a deploy is confirmed until the live URL has been checked.
 - Client facts are never invented. Ask first, label client-reported figures.
