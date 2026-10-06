@@ -1,0 +1,421 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ClosingCta from "../components/ClosingCta.astro";
+import StickyCta from "../components/StickyCta.astro";
+import "../styles/starter.css";
+import "../styles/startup.css";
+import { Image } from "astro:assets";
+import bakwaLogo from "../assets/blog/logo-bakwa.png";
+import bakwaGrid from "../assets/design/wall/ig-bakwa.webp";
+import { SITE, url } from "../data/site";
+import { START, CHECK, stages, steps, included, notIncluded, faq as baseFaq } from "../data/starter";
+import { panelCopy, budget, audience, bakwa, extraFaq, marquee } from "../data/startup";
+import { webPage, breadcrumbs } from "../lib/schema";
+
+const faq = [...baseFaq, ...extraFaq];
+const toneOf = (i: number) => (i % 2 === 0 ? "dark" : "cream");
+
+const o = Astro.site!.origin;
+const schema = [
+  webPage(o, "/website-for-startups", "WebPage", "Starter website for startups and small businesses from £999", "A fast, mobile-friendly, local-SEO-ready website for startups and small businesses, from £999, with market analysis, strategy, bespoke build, a 90-day plan and training."),
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Starter website package for startups and small businesses",
+    serviceType: "Website design and local SEO",
+    description: "Market and competitor analysis, website strategy and design, bespoke development, mobile-optimised and local-SEO-ready build, 90-day implementation plan, and training and handover.",
+    provider: { "@id": `${o}/#organization` },
+    areaServed: ["United Kingdom"],
+    offers: { "@type": "Offer", price: "999", priceCurrency: "GBP", url: `${o}/website-for-startups`, availability: "https://schema.org/InStock" },
+  },
+  { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
+  breadcrumbs(o, [{ name: "Starter website for startups", path: "/website-for-startups" }]),
+];
+---
+
+<BaseLayout
+  title="Starter website for startups and small businesses from £999"
+  description="A fast, mobile-friendly website for startups and small businesses without an agency budget. From £999, with strategy, a bespoke build, a 90-day plan and training."
+  schema={schema}
+  footerTone="red"
+  noindex
+  landing
+>
+  <!-- 0. Hero (light) -->
+  <section class="su-hero" data-hero>
+    <div class="su-hero-main">
+      <p class="su-tag">(Starter website for startups and SMEs)</p>
+      <h1 class="display su-title"><span data-xray>A website that looks the part,</span> <span class="su-accent">without</span> <span data-xray>the agency price.</span></h1>
+      <p class="lede">You need to get online and the budget is tight, but quality still matters. We analyse your market, then design and build a fast, mobile-friendly site made to be found. One-time fee, about two months, and you own it.</p>
+      <div class="su-hero-cta">
+        <a class="st-pill" href="#start" data-preset={START} data-cursor="Go">Get started <i aria-hidden="true">↗</i></a>
+        <a class="su-link" href="#included">See what's included <i aria-hidden="true">↓</i></a>
+      </div>
+      <a class="st-badge" href="#price" aria-label="From £999, see the price" data-badge>
+        <span class="st-badge-from">From</span>
+        <span class="st-badge-price">£999</span>
+        <span class="st-badge-note">one-time</span>
+      </a>
+    </div>
+    <div class="su-marq" aria-hidden="true">
+      <div class="su-marq-in">
+        {[0, 1].map(() => (
+          <div class="su-marq-set">
+            {marquee.map((w) => <><span>{w}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"></path></svg></>)}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 1 to 4. The stack: what's included, one stage per panel -->
+  <div class="su-stack" id="included" data-stack role="region" aria-label="What's included">
+    {stages.map((s, i) => (
+      <section class:list={["su-panel", toneOf(i) === "dark" && "su-panel--dark"]} data-panel style={`--z:${i + 1}`} aria-labelledby={`stage-${i}`}>
+        <div class="su-row">
+          <h2 id={`stage-${i}`} class="display su-rise"><span>{s.name}</span></h2>
+          <p class="su-num su-rise" aria-hidden="true"><span>0{i + 1}</span></p>
+        </div>
+        <div class="su-body">
+          <div>
+            <p class="su-statement">{panelCopy[s.name].statement}</p>
+            <ul class="su-items">
+              {s.items.map(([t, d]) => <li><b>{t}</b><span>{d}</span></li>)}
+            </ul>
+            <a class="su-link" href="#start" data-preset={START} data-cursor="Go">{panelCopy[s.name].cta} <i aria-hidden="true">↗</i></a>
+            {i === stages.length - 1 && <p class="su-foot">* Some items, such as business email, domain and hosting, have separate running costs charged by the provider.</p>}
+          </div>
+          <div class="su-art" aria-hidden="true">
+            {i === 0 && (
+              <svg viewBox="0 0 200 200"><rect class="su-a su-f" x="38" y="124" width="22" height="40" rx="4"/><rect class="su-a su-f" x="70" y="104" width="22" height="60" rx="4"/><rect class="su-a su-f" x="102" y="84" width="22" height="80" rx="4"/><circle class="su-a" cx="124" cy="82" r="38"/><path class="su-a" d="M152 110l24 24"/><circle class="su-r" cx="124" cy="82" r="8"/></svg>
+            )}
+            {i === 1 && (
+              <svg viewBox="0 0 200 200"><rect class="su-a" x="28" y="42" width="144" height="116" rx="12"/><path class="su-a" d="M28 70h144"/><circle class="su-r" cx="44" cy="56" r="4"/><circle class="su-a" cx="58" cy="56" r="4"/><rect class="su-a su-f" x="44" y="84" width="62" height="38" rx="8"/><path class="su-a" d="M120 92h36M120 106h28"/><rect class="su-a" x="44" y="134" width="112" height="12" rx="6"/><circle class="su-r" cx="75" cy="103" r="9"/></svg>
+            )}
+            {i === 2 && (
+              <svg viewBox="0 0 200 200"><ellipse class="su-a" cx="100" cy="164" rx="62" ry="14"/><ellipse class="su-a" cx="100" cy="164" rx="34" ry="8"/><path class="su-a su-f" d="M100 36c-25 0-44 19-44 44 0 32 44 80 44 80s44-48 44-80c0-25-19-44-44-44z"/><circle class="su-r" cx="100" cy="80" r="16"/></svg>
+            )}
+            {i === 3 && (
+              <svg viewBox="0 0 200 200"><circle class="su-a su-f" cx="66" cy="100" r="30"/><circle class="su-r" cx="66" cy="100" r="9"/><path class="su-a" d="M96 100h76M142 100v24M160 100v16"/><path class="su-a" d="M40 156h120"/></svg>
+            )}
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <!-- 5. Built for your budget -->
+  <section class="su-sec su-sec--ink" aria-labelledby="budget-title">
+    <div class="su-sechead">
+      <h2 id="budget-title" class="display">Built for your <span class="su-accent">budget</span></h2>
+      <p class="su-tag">(Why startups pick this)</p>
+    </div>
+    <div class="su-cards">
+      {budget.map((b) => (
+        <article class="su-card">
+          <span class="su-n">{b.n}</span>
+          <h3>{b.title}</h3>
+          <p>{b.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 6. Who it is for -->
+  <section class="su-sec su-sec--cream" aria-labelledby="who-title">
+    <div class="su-sechead">
+      <h2 id="who-title" class="display">Who it's <span class="su-accent">for</span></h2>
+      <p class="su-tag">(Areas of focus)</p>
+    </div>
+    <ul class="su-who" data-who>
+      {audience.map((a, i) => (
+        <li class:list={[i === 0 && "is-active"]}>
+          <h3>{a.name}</h3>
+          <span class="su-wn" aria-hidden="true">0{i + 1}</span>
+          <p>{a.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 7. Timeline -->
+  <section class="su-sec su-sec--ink" aria-labelledby="how-title">
+    <div class="su-sechead">
+      <h2 id="how-title" class="display">How it <span class="su-accent">works</span></h2>
+      <p class="su-tag">(About two months)</p>
+    </div>
+    <ol class="st-flow" data-flow>
+      <span class="st-flow-line" aria-hidden="true"><span></span></span>
+      {steps.map(([when, t, d, get], i) => (
+        <li style={`--i:${i}`}>
+          <p class="st-when"><span>{when}</span></p>
+          <span class="st-node" aria-hidden="true">{i + 1}</span>
+          <h3>{t}</h3>
+          <p class="st-flow-text">{d}</p>
+          <p class="st-get"><span>You get</span>{get}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
+  </section>
+
+  <!-- 8. Price -->
+  <section class="st-sec st-red st-price su-price" id="price" aria-labelledby="price-title">
+    <svg class="st-rings" viewBox="0 0 800 800" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="400" cy="400" r="120"/><circle cx="400" cy="400" r="210"/><circle cx="400" cy="400" r="300"/><circle cx="400" cy="400" r="390"/></g></svg>
+    <div class="st-wrap">
+      <h2 id="price-title" class="sr-only">Price</h2>
+      <div class="st-amountrow">
+        <p class="st-amount" data-odo aria-label="From £999">
+          <span class="st-from" aria-hidden="true">From</span>
+          <span class="st-pound" aria-hidden="true">£</span>
+          <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+          <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+          <span class="odo-col" aria-hidden="true" style="--d:9"><span>0123456789</span></span>
+        </p>
+        <p class="st-seal" aria-hidden="true"><span>Fixed price</span><span>no surprises</span></p>
+      </div>
+      <div class="st-pricegrid">
+        <div class="st-payblock">
+          <p class="st-terms">One-time fee. About two months to launch.</p>
+          <div class="st-pay" data-pay role="group" aria-label="Payment plan">
+            <span class="st-pay-line" aria-hidden="true"><span></span></span>
+            <p class="st-pay-node" tabindex="0"><i aria-hidden="true"></i><b>Start</b><span>50% · £499.50</span></p>
+            <p class="st-pay-node" tabindex="0"><i aria-hidden="true"></i><b>Launch</b><span>50% · £499.50</span></p>
+          </div>
+          <div class="st-actions">
+            <a class="st-pill st-pill--cream" href="#start" data-preset={START} data-cursor="Go">Get started <i aria-hidden="true">↗</i></a>
+            <a class="st-pill st-pill--line" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check <i aria-hidden="true">↗</i></a>
+          </div>
+        </div>
+        <div class="st-yesno">
+          <div>
+            <h3>Included</h3>
+            <ul>{included.map((t) => <li><i class="st-yes" aria-hidden="true">✓</i>{t}</li>)}</ul>
+          </div>
+          <div class="st-no">
+            <h3>Not included</h3>
+            <ul>{notIncluded.map((t) => <li><i class="st-x" aria-hidden="true">✕</i><span>{t}</span></li>)}</ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Proof: Bakwa -->
+  <section class="st-sec st-ink st-impact su-proof su-bk" aria-labelledby="impact-title">
+    <div class="st-wrap">
+      <div class="st-impact-head">
+        <div>
+          <h2 id="impact-title" class="display st-h2">A small budget, a <span class="su-accent">real</span> result</h2>
+          <p class="st-sub">Bakwa, a Kerala brand making bottles from plant-based materials, launched with a one-page website and no ad spend.</p>
+        </div>
+        <div class="st-arrows">
+          <button type="button" class="st-arrow" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
+          <button type="button" class="st-arrow" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="st-track" data-track data-cursor="Drag" tabindex="0" aria-label="Bakwa results, scroll sideways">
+      <article class="st-card su-card-logo">
+        <a href={url("/blogs/bakwa-brand-from-scratch")} data-cursor="Read">
+          <Image src={bakwaLogo} alt="Bakwa logo on a green tile: It's not water. It's a movement." widths={[480, 800]} sizes="26rem" loading="lazy" />
+          <span class="st-card-cap"><b>Bakwa</b><span>One-page website, social content and PR</span><i>Read the case study →</i></span>
+        </a>
+      </article>
+      {bakwa.map((b) => (
+        <article class:list={["st-card", b.suffix === "K+" || b.prefix === "₹" ? "st-card--red" : ""]}>
+          <p class="st-card-label">{b.label}</p>
+          <p class="st-big-n">{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b><small class:list={[b.suffix.length > 3 && "su-long"]}>{b.suffix}</small></p>
+          <p class="st-card-text">{b.text}</p>
+        </article>
+      ))}
+      <article class="st-card su-card-ig">
+        <Image src={bakwaGrid} alt="Complete Instagram profile and grid design for a sustainable packaging brand" widths={[480, 800]} sizes="22rem" loading="lazy" />
+      </article>
+    </div>
+    <p class="su-note">Figures reported by Bakwa. Bakwa's campaign was a one-page website with social content and PR, not our Starter package. It shows what a lean site can do when the budget goes into the right places.</p>
+  </section>
+
+  <!-- 10. Questions -->
+  <section class="st-sec su-faq" aria-labelledby="faq-title">
+    <div class="st-wrap st-faqgrid">
+      <div class="st-faqside">
+        <h2 id="faq-title" class="display st-h2">Questions</h2>
+        <p>Still unsure? Ask us anything. We reply within one working day.</p>
+        <ul class="st-ask">
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a></li>
+        </ul>
+        <a class="st-pill st-pill--cream" href="#start" data-preset={CHECK} data-cursor="Go">Free 15-minute website check <i aria-hidden="true">↗</i></a>
+      </div>
+      <div class="st-faq" data-faq>
+        {faq.map((f, i) => (
+          <details>
+            <summary><span class="st-q-n">{String(i + 1).padStart(2, "0")}</span><span class="st-q">{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
+            <div class="st-faq-a"><p>{f.a}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="su-closer">
+    <ClosingCta tone="red" title="Let's build yours." lede="Tell us about your business and we'll come back with a clear plan and a start date." service="Starter website (£999)" />
+  </div>
+  <StickyCta label="Get started · £999" preset={START} />
+</BaseLayout>
+
+<script>
+  import { initStack } from "../scripts/stackPanels";
+
+  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));
+  document.documentElement.classList.add("js-st");
+  const seen = (els: Iterable<Element>, cb: (el: Element) => void, threshold = 0.4) => {
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { cb(e.target); io.unobserve(e.target); } }), { threshold });
+    for (const el of els) io.observe(el);
+  };
+  const onScroll = (fn: () => void) => {
+    let ticking = false;
+    const run = () => { ticking = false; fn(); };
+    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } }, { passive: true });
+    window.addEventListener("resize", run);
+    run();
+  };
+
+  // Stacking panels
+  const stack = document.querySelector<HTMLElement>("[data-stack]");
+  if (stack) initStack(stack);
+
+  // Headlines rise out of their mask once their panel is on screen
+  seen(document.querySelectorAll(".su-rise"), (el) => el.classList.add("is-in"), 0.3);
+
+  // Who it is for: the row nearest the middle of the screen lights up
+  const who = document.querySelector<HTMLElement>("[data-who]");
+  if (who) {
+    const rows = [...who.querySelectorAll<HTMLElement>("li")];
+    onScroll(() => {
+      const mid = window.innerHeight * 0.5;
+      let best = 0, d = Infinity;
+      rows.forEach((r, i) => {
+        const b = r.getBoundingClientRect();
+        const dist = Math.abs(b.top + b.height / 2 - mid);
+        if (dist < d) { d = dist; best = i; }
+      });
+      rows.forEach((r, i) => r.classList.toggle("is-active", i === best));
+    });
+  }
+
+  // Timeline: the line fills and each step lights in turn
+  const flow = document.querySelector<HTMLElement>("[data-flow]");
+  if (flow) {
+    const items = [...flow.querySelectorAll<HTMLElement>("li")];
+    onScroll(() => {
+      let prog = 1;
+      if (!calm) {
+        const r = flow.getBoundingClientRect();
+        prog = clamp((window.innerHeight * 0.75 - r.top) / (r.height + window.innerHeight * 0.1));
+      }
+      flow.style.setProperty("--p", prog.toFixed(3));
+      let current = 0;
+      items.forEach((li, i) => {
+        const lit = prog >= i / (items.length - 1) - 0.001;
+        li.classList.toggle("is-lit", lit);
+        if (lit) current = i;
+      });
+      items.forEach((li, i) => li.classList.toggle("is-current", !calm && i === current));
+    });
+  }
+
+  // Price: digits roll once; payment path fills
+  const odo = document.querySelector<HTMLElement>("[data-odo]");
+  if (odo && !calm) {
+    odo.classList.add("is-armed");
+    seen([odo], () => requestAnimationFrame(() => odo.classList.add("is-rolled")), 0.5);
+  }
+  document.querySelectorAll<HTMLElement>("[data-pay]").forEach((el) => seen([el], () => el.classList.add("is-in"), 0.6));
+
+  // Bakwa figures count up once
+  document.querySelectorAll<HTMLElement>("[data-to]").forEach((b) => {
+    const to = Number(b.dataset.to), dec = Number(b.dataset.dec ?? 0);
+    const fmt = (n: number) => n.toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec });
+    if (calm || to === 0) return;
+    b.textContent = fmt(0);
+    seen([b], () => {
+      const t0 = performance.now();
+      const tick = (t: number) => {
+        const k = Math.min(1, (t - t0) / 1100);
+        b.textContent = fmt(to * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, 0.8);
+  });
+
+  // Carousel: arrows, keys and mouse drag
+  const track = document.querySelector<HTMLElement>("[data-track]");
+  if (track) {
+    const step = () => (track.querySelector<HTMLElement>(".st-card")?.offsetWidth ?? 320) + 16;
+    document.querySelectorAll<HTMLButtonElement>(".st-arrow").forEach((b) =>
+      b.addEventListener("click", () => track.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: calm ? "auto" : "smooth" })),
+    );
+    track.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") track.scrollBy({ left: step(), behavior: "smooth" });
+      if (e.key === "ArrowLeft") track.scrollBy({ left: -step(), behavior: "smooth" });
+    });
+    let down = false, x0 = 0, s0 = 0, moved = false;
+    track.addEventListener("pointerdown", (e) => {
+      if (e.pointerType !== "mouse") return;
+      down = true; moved = false; x0 = e.clientX; s0 = track.scrollLeft;
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!down) return;
+      const dx = e.clientX - x0;
+      if (Math.abs(dx) > 4) { moved = true; track.classList.add("is-drag"); }
+      track.scrollLeft = s0 - dx;
+    });
+    window.addEventListener("pointerup", () => { down = false; track.classList.remove("is-drag"); });
+    track.addEventListener("click", (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+  }
+
+  // Hero sticker leans toward the cursor
+  const badge = document.querySelector<HTMLElement>("[data-badge]");
+  const hero = document.querySelector<HTMLElement>("[data-hero]");
+  if (badge && hero && fine && !calm) {
+    hero.addEventListener("pointermove", (e) => {
+      const r = badge.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      const dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      badge.style.setProperty("--tx", `${(dx * 14).toFixed(1)}px`);
+      badge.style.setProperty("--ty", `${(dy * 14).toFixed(1)}px`);
+      badge.style.setProperty("--rot", `${(-8 + dx * 10).toFixed(1)}deg`);
+    });
+  }
+
+  // FAQ: one open at a time, smooth height
+  const faq = document.querySelector<HTMLElement>("[data-faq]");
+  if (faq) {
+    const items = [...faq.querySelectorAll<HTMLDetailsElement>("details")];
+    const animate = (d: HTMLDetailsElement, open: boolean) => {
+      const body = d.querySelector<HTMLElement>(".st-faq-a")!;
+      if (calm) { d.open = open; return; }
+      const h = body.scrollHeight;
+      if (open) {
+        d.open = true;
+        body.animate({ height: ["0px", `${h}px`], opacity: [0, 1] }, { duration: 280, easing: "ease-out" });
+      } else {
+        const a = body.animate({ height: [`${h}px`, "0px"], opacity: [1, 0] }, { duration: 220, easing: "ease-in" });
+        a.onfinish = () => (d.open = false);
+      }
+    };
+    items.forEach((d) => {
+      d.querySelector("summary")!.addEventListener("click", (e) => {
+        e.preventDefault();
+        const willOpen = !d.open;
+        items.forEach((o) => { if (o !== d && o.open) animate(o, false); });
+        animate(d, willOpen);
+      });
+    });
+  }
+</script>

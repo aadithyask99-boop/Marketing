@@ -18,7 +18,8 @@
 /* Pills (button with an arrow in a circle) */
 .st-pill { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.4rem 0.4rem 0.4rem 1.25rem; border: 2px solid transparent; border-radius: 999px; background: var(--cream); color: var(--ink); font-size: 0.95rem; font-weight: 600; transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease; }
 .st-pill i { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--ink); color: var(--cream); font-style: normal; transition: transform 0.3s ease, background 0.25s ease; }
-.st-pill--cream:hover i, 
+.st-pill:hover i { transform: rotate(45deg); }
+.st-pill--cream:hover i { background: var(--red); }
 .st-pill--line { background: transparent; border-color: var(--cream); color: var(--cream); padding: 0.4rem 0.4rem 0.4rem 1.25rem; }
 .st-pill--line i { background: var(--cream); color: var(--red); }
 .st-pill--line:hover { background: var(--cream); color: var(--ink); }

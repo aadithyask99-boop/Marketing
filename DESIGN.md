@@ -247,3 +247,12 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Long unbroken strings (bare URLs in post bodies) must wrap: `.prose a` uses `overflow-wrap: anywhere`. Check any new page for horizontal scroll at 390px.
 - Meta descriptions: 50 to 170 characters. For posts this is the `excerpt`, so keep it short.
 - No em dashes anywhere in copy, including migrated posts (use commas or full stops).
+
+## 21. Stacking panels: `/website-for-startups`
+A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It is `noindex`, not in the sitemap or nav, and sits beside `/website-starter/` until the client picks one.
+- **Files:** `src/pages/website-for-startups.astro`, `src/styles/startup.css` (prefix `su-`; also loads `starter.css` for pills, price, timeline, carousel and FAQ), `src/scripts/stackPanels.ts`, `src/data/startup.ts` (new copy). Shared Starter content (stages, steps, included lists, FAQ, CTA presets) lives in `src/data/starter.ts` and is used by both pages.
+- **Stack:** `.su-stack` holds `.su-panel` sections. Each is `position: sticky; top: 0` with a rising `--z`, so the next panel slides over it. `initStack` writes `--cover` (0 to 1) on a panel as the next one covers it; CSS turns that into a dim overlay (ink on cream panels, black on ink panels) and a small upward drift of `.su-body`. No scaling. Panels taller than the screen get `top: -(height - viewport)` so their bottom sticks and all content scrolls past first. Panels alternate ink and cream; the first panel follows the cream hero.
+- **Panel anatomy:** hairline, title row (stage name left, number right), statement, two-column item list, underlined link, small line illustration. Titles rise out of a mask once (`.su-rise`).
+- **Reduced motion:** `is-live` is never added, so panels are ordinary stacked sections; the marquee stops and headlines show at once. The stack works the same on phones (smaller type, one column).
+- **Other pieces:** hero marquee with asterisks; "Who it's for" list where the row nearest the middle of the screen darkens and expands; timeline on ink (reuses `.st-flow`); Bakwa proof carousel (client-reported figures, labelled; the case study is not the Starter package and the page says so).
+- **x-ray:** `data-xray` flattens its element's text, so put it on plain-text spans only, never around the accent word. On cream, override `--xr-base` to ink.
