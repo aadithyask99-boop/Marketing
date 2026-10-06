@@ -7,17 +7,20 @@ import "../styles/startup.css";
 import { Image } from "astro:assets";
 import bakwaLogo from "../assets/blog/logo-bakwa.png";
 import bakwaGrid from "../assets/design/wall/ig-bakwa.webp";
+import Voices from "../components/Voices.astro";
+import { DESIGN_WALL } from "../data/design";
 import { SITE, url } from "../data/site";
-import { START, CHECK, stages, steps, included, notIncluded, faq as baseFaq } from "../data/starter";
-import { panelCopy, budget, audience, bakwa, BAKWA_NOTE, extraFaq, marquee } from "../data/startup";
+import { START, CHECK, stages, included, notIncluded, faq as baseFaq } from "../data/starter";
+import { panelCopy, programs, designPicks, audience, bakwa, BAKWA_NOTE, extraFaq, marquee } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const faq = [...baseFaq, ...extraFaq];
 const ARTS: Record<string, string> = {
-  price: `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="#064a2a"/><text x="60" y="52" text-anchor="middle" font-family="Mulish, sans-serif" font-size="9" font-weight="600" letter-spacing="1.5" fill="#f5efe8">FROM</text><text x="60" y="82" text-anchor="middle" font-family="Bebas Neue, sans-serif" font-size="34" fill="#f5efe8">£999</text></svg>`,
-  site: `<svg viewBox="0 0 120 120"><rect x="12" y="24" width="96" height="72" rx="8" fill="#f5efe8" stroke="#17090a" stroke-width="2.4"/><path d="M12 42h96" stroke="#17090a" stroke-width="2.4"/><circle cx="24" cy="33" r="3" fill="#e10600"/><rect x="24" y="54" width="40" height="26" rx="5" fill="#17090a"/><path d="M74 58h22M74 68h16" stroke="#17090a" stroke-width="2.4" stroke-linecap="round"/><circle cx="44" cy="67" r="6" fill="#e10600"/></svg>`,
-  key: `<svg viewBox="0 0 120 120"><circle cx="40" cy="60" r="22" fill="#e10600"/><circle cx="40" cy="60" r="8" fill="#f5efe8"/><path d="M62 60h46M92 60v16M104 60v10" stroke="#17090a" stroke-width="5" stroke-linecap="round"/></svg>`,
+  care: `<svg viewBox="0 0 120 120"><path d="M60 14l38 14v28c0 24-16 42-38 50-22-8-38-26-38-50V28z" fill="#f5efe8" stroke="#17090a" stroke-width="2.6" stroke-linejoin="round"/><path d="M42 60l13 13 24-26" fill="none" stroke="#e10600" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  growth: `<svg viewBox="0 0 120 120"><rect x="16" y="68" width="20" height="34" rx="4" fill="#17090a"/><rect x="50" y="48" width="20" height="54" rx="4" fill="#17090a"/><rect x="84" y="24" width="20" height="78" rx="4" fill="#e10600"/><path d="M18 52l30-18 22 10 32-28" fill="none" stroke="#17090a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  social: `<svg viewBox="0 0 120 120"><rect x="14" y="16" width="64" height="64" rx="14" fill="#f5efe8" stroke="#17090a" stroke-width="2.6"/><circle cx="46" cy="48" r="14" fill="none" stroke="#17090a" stroke-width="3"/><circle cx="68" cy="28" r="4" fill="#e10600"/><path d="M60 88h36a10 10 0 0 0 10-10V58a10 10 0 0 0-10-10H86" fill="#e10600"/><path d="M78 96l-8-8h30v8z" fill="#e10600"/></svg>`,
 };
+const designs = designPicks.map((id) => DESIGN_WALL.find((w) => w.id === id)!);
 const toneOf = (i: number) => (i % 2 === 0 ? "dark" : "cream");
 
 const o = Astro.site!.origin;
@@ -109,33 +112,8 @@ const schema = [
     ))}
   </div>
 
-  <!-- 5. Built for your budget -->
-  <section class="su-sec su-sec--ink" aria-labelledby="budget-title">
-    <div class="su-sechead">
-      <h2 id="budget-title" class="display">Built for your <span class="su-accent">budget</span></h2>
-    </div>
-    <div class="su-cardsbar">
-      <p class="su-tag">(What you get)</p>
-      <a class="su-link" href="#price">See the price <i aria-hidden="true">↓</i></a>
-    </div>
-    <div class="su-cards" data-cards>
-      {budget.map((b) => (
-        <article class="su-card" data-peek={b.label} data-art={b.art}>
-          <div class="su-card-top"><h3>{b.title}</h3><span class="su-n" aria-hidden="true">{b.n}</span></div>
-          <div class="su-card-mid">
-            <p class="su-card-tag">{b.tag}</p>
-            <p class="su-card-text">{b.text}</p>
-          </div>
-          <a class="su-link" href={b.href}>{b.link} <i aria-hidden="true">↗</i></a>
-          <template><div class="su-peek-art" set:html={ARTS[b.art]} /></template>
-        </article>
-      ))}
-    </div>
-    <div class="su-peek" data-peek-box aria-hidden="true"><div class="su-peek-card"></div><span class="su-peek-label"></span></div>
-  </section>
-
   <!-- 6. Who it is for -->
-  <section class="su-sec su-sec--cream" aria-labelledby="who-title">
+  <section class="su-sec su-sec--ink su-who-sec" aria-labelledby="who-title">
     <div class="su-sechead">
       <h2 id="who-title" class="display">Who it's <span class="su-accent">for</span></h2>
       <p class="su-tag">(Areas of focus)</p>
@@ -151,32 +129,12 @@ const schema = [
     </ul>
   </section>
 
-  <!-- 7. Timeline -->
-  <section class="su-sec su-sec--ink" aria-labelledby="how-title">
-    <div class="su-sechead">
-      <h2 id="how-title" class="display">How it <span class="su-accent">works</span></h2>
-      <p class="su-tag">(About two months)</p>
-    </div>
-    <ol class="st-flow" data-flow>
-      <span class="st-flow-line" aria-hidden="true"><span></span></span>
-      {steps.map(([when, t, d, get], i) => (
-        <li style={`--i:${i}`}>
-          <p class="st-when"><span>{when}</span></p>
-          <span class="st-node" aria-hidden="true">{i + 1}</span>
-          <h3>{t}</h3>
-          <p class="st-flow-text">{d}</p>
-          <p class="st-get"><span>You get</span>{get}</p>
-        </li>
-      ))}
-    </ol>
-    <p class="st-foot">Timelines are a guide and can extend depending on your requirements.</p>
-  </section>
-
-  <!-- 8. Price -->
+  <!-- 8. Price and designs -->
   <section class="st-sec st-cream st-price su-price su-price--light" id="price" aria-labelledby="price-title">
     <svg class="st-rings" viewBox="0 0 800 800" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="400" cy="400" r="120"/><circle cx="400" cy="400" r="210"/><circle cx="400" cy="400" r="300"/><circle cx="400" cy="400" r="390"/></g></svg>
     <div class="st-wrap">
       <h2 id="price-title" class="sr-only">Price</h2>
+      <p class="su-tag">(The Starter website)</p>
       <div class="st-amountrow">
         <p class="st-amount" data-odo aria-label="From £999">
           <span class="st-from" aria-hidden="true">From</span>
@@ -209,6 +167,30 @@ const schema = [
             <h3>Not included</h3>
             <ul>{notIncluded.map((t) => <li><i class="st-x" aria-hidden="true">✕</i><span>{t}</span></li>)}</ul>
           </div>
+        </div>
+      </div>
+      <ul class="su-chips" aria-label="Jump to what's included">
+        {stages.map((s, i) => <li><a href={`#stage-${i}`}><span>0{i + 1}</span>{s.name}</a></li>)}
+      </ul>
+
+      <div class="su-designs">
+        <div class="su-designs-head">
+          <p class="su-tag">(Recent website designs)</p>
+          <a class="su-link" href={url("/work/portfolio")} data-cursor="View">Portfolio <i aria-hidden="true">↗</i></a>
+        </div>
+        <ul class="su-shots">
+          {designs.map((d, i) => (
+            <li class="su-shot" style={`--r:${i === 1 ? 1.2 : -1.2}deg; --y:${i === 1 ? "2.5rem" : "0rem"}`}>
+              <a href={url("/work/portfolio")} data-cursor="View" aria-label={`${d.sector} website design, see the portfolio`}>
+                <span class="su-frame"><span class="su-bar"><i></i><i></i><i></i></span><Image src={d.src} alt={d.alt} widths={[480, 800, 1100]} sizes="(min-width: 900px) 30vw, 80vw" loading="lazy" /></span>
+                <span class="su-cap">{d.sector}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="su-designs-cta">
+          <p>Your Starter site is designed the same way, in your brand.</p>
+          <a class="st-pill" href={url("/work/portfolio")} data-cursor="View">See the portfolio <i aria-hidden="true">↗</i></a>
         </div>
       </div>
     </div>
@@ -249,8 +231,11 @@ const schema = [
     <p class="su-note">{BAKWA_NOTE} Figures reported by Bakwa. Bakwa's campaign was a one-page website with social content and PR, not our Starter package. It shows what a lean site can do when the budget goes into the right places.</p>
   </section>
 
+  <!-- 9b. Testimonials -->
+  <Voices tone="cream" />
+
   <!-- 10. Questions -->
-  <section class="st-sec su-faq" aria-labelledby="faq-title">
+  <section class="st-sec st-ink su-faq" aria-labelledby="faq-title">
     <div class="st-wrap st-faqgrid">
       <div class="st-faqside">
         <h2 id="faq-title" class="display st-h2">Questions</h2>
@@ -270,6 +255,33 @@ const schema = [
         ))}
       </div>
     </div>
+  </section>
+
+  <!-- 11. Retainer plans (Signature Programs pattern) -->
+  <section class="su-sec su-sec--cream su-programs" aria-labelledby="programs-title">
+    <div class="su-sechead">
+      <h2 id="programs-title" class="display">Keep it <span class="su-accent">going</span></h2>
+    </div>
+    <div class="su-cardsbar">
+      <p class="su-tag">(Retainer plans, after launch)</p>
+      <a class="su-link" href="#start" data-preset="I'd like to hear about your monthly plans" data-cursor="Go">Ask about a plan <i aria-hidden="true">↗</i></a>
+    </div>
+    <div class="su-cards" data-cards>
+      {programs.map((b) => (
+        <article class="su-card" data-peek={b.label}>
+          <div class="su-card-top"><h3>{b.title}</h3><span class="su-n" aria-hidden="true">{b.n}</span></div>
+          <div class="su-card-mid">
+            <p class="su-card-tag">{b.tag}</p>
+            <p class="su-card-text">{b.text}</p>
+            <ul class="su-card-points">{b.points.map((t) => <li>{t}</li>)}</ul>
+          </div>
+          <a class="su-link" href="#start" data-preset={b.ask} data-cursor="Go">Ask about it <i aria-hidden="true">↗</i></a>
+          <template><div class="su-peek-art" set:html={ARTS[b.art]} /></template>
+        </article>
+      ))}
+    </div>
+    <p class="su-foot">Optional, after launch, and quoted separately.</p>
+    <div class="su-peek" data-peek-box aria-hidden="true"><div class="su-peek-card"></div><span class="su-peek-label"></span></div>
   </section>
 
   <div class="su-closer">
@@ -317,27 +329,6 @@ const schema = [
         if (dist < d) { d = dist; best = i; }
       });
       rows.forEach((r, i) => r.classList.toggle("is-active", i === best));
-    });
-  }
-
-  // Timeline: the line fills and each step lights in turn
-  const flow = document.querySelector<HTMLElement>("[data-flow]");
-  if (flow) {
-    const items = [...flow.querySelectorAll<HTMLElement>("li")];
-    onScroll(() => {
-      let prog = 1;
-      if (!calm) {
-        const r = flow.getBoundingClientRect();
-        prog = clamp((window.innerHeight * 0.75 - r.top) / (r.height + window.innerHeight * 0.1));
-      }
-      flow.style.setProperty("--p", prog.toFixed(3));
-      let current = 0;
-      items.forEach((li, i) => {
-        const lit = prog >= i / (items.length - 1) - 0.001;
-        li.classList.toggle("is-lit", lit);
-        if (lit) current = i;
-      });
-      items.forEach((li, i) => li.classList.toggle("is-current", !calm && i === current));
     });
   }
 

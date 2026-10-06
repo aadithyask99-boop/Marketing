@@ -8,11 +8,16 @@ export const panelCopy: Record<string, { statement: string; cta: string }> = {
   "Hand over": { statement: "You leave ready to run it, with a plan for the first 90 days.", cta: "Start your project" },
 };
 
-export const budget = [
-  { n: "01", title: "One fixed price", tag: "(Fixed price)", text: "From £999, one-time. 50% to start and 50% on launch, with no surprises along the way.", link: "See the price", href: "#price", art: "price", label: "£999" },
-  { n: "02", title: "Made for you", tag: "(Built for you)", text: "Bespoke, not a template. Up to 5 pages and 2 rounds of revisions, with extras quoted before we start.", link: "See what's included", href: "#included", art: "site", label: "Bespoke" },
-  { n: "03", title: "You own it", tag: "(Yours to keep)", text: "Once the final payment is made, the website and its content are yours.", link: "Read the questions", href: "#faq-title", art: "key", label: "Yours" },
+// Retainer plans shown after the FAQ ("Signature Programs" pattern). PLACEHOLDERS: the user will supply the real plan details.
+// Care plan and Growth plan copy comes from /website-starter; Social plan comes from the Social Media Management service. No prices.
+export const programs = [
+  { n: "01", title: "Care plan", tag: "(Keep it safe)", text: "Hosting, security and updates handled for you, so the site stays fast and safe.", points: ["Updates and backups", "Uptime and security checks", "Small changes each month"], ask: "I'd like to hear about the care plan", art: "care", label: "Care" },
+  { n: "02", title: "Growth plan", tag: "(Keep it growing)", text: "Monthly SEO and content that builds on your 90-day plan.", points: ["Local and AI-search content", "Monthly report and review", "Ongoing improvements"], ask: "I'd like to hear about the monthly growth plan", art: "growth", label: "Growth" },
+  { n: "03", title: "Social plan", tag: "(Keep it visible)", text: "A content calendar, the assets and the posting handled for you, with monthly insight on what is working.", points: ["Graphics and visual assets", "Content calendar and scheduling", "Monthly performance insight"], ask: "I'd like to hear about the social media plan", art: "social", label: "Social" },
 ];
+
+// Website designs from the portfolio (ids in DESIGN_WALL, src/data/design.ts), shown with the price
+export const designPicks = ["web-bakwa", "web-diagramx", "web-flowergrid"];
 
 export const audience = [
   { name: "New startups", text: "You have an idea and need a credible home online before you launch." },

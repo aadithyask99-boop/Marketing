@@ -57,6 +57,10 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Testing gaps:** nothing has been tested on a real phone or in Safari: the sticky stacking panels on `/website-for-startups` (especially the iOS address-bar resize), the Contents pill flip, the portfolio pill, the Work dropdown and the carousel touch drag.
 
+**Retainer plans (waiting on the user):** the three cards after the FAQ on `/website-for-startups` (Care, Growth, Social; `programs` in `src/data/startup.ts`) are placeholders. The user will send the real plan names, contents and any pricing; replace the array. Care and Growth copy comes from `/website-starter`; Social comes from the Social Media Management service. Also to approve: the three portfolio design captions in the price section, and that testimonials include two undisclosed clients (as on the home page).
+
+**Ideas offered, not built:** one-line Bakwa proof under the hero CTA, a "What we need from you" strip, a "Not a fit?" line, a founder note with a photo; shorten the hero marquee on phones and trim "Who it's for" to three rows.
+
 **Check before launch:** Bakwa revenue shows as £30K* (purchasing-power estimate of ₹10 lakh+) on `/website-for-startups` and the case study. The £30K figure is the user's; I could not confirm India's exact purchasing-power factor (my rough estimate was nearer £30K, the user first guessed £20K). The same ₹10 lakh claim still appears in rupees only in `why-brand-mentions-matter-more-than-backlinks.md` (line 149): align it if wanted.
 
 **Decide:** keep `/website-starter/` or `/website-for-startups/` (or merge). Then drop `noindex`, add to `sitemap.xml.ts` and link it, and either redirect or retire the other to avoid duplicate content. The startup page's Bakwa proof is client-reported (see below) and is labelled as not being the Starter package.
