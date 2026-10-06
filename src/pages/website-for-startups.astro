@@ -11,7 +11,7 @@ import Voices from "../components/Voices.astro";
 import { DESIGN_WALL } from "../data/design";
 import { SITE, url } from "../data/site";
 import { START, CHECK, stages, included, notIncluded, faq as baseFaq } from "../data/starter";
-import { panelCopy, programs, designPicks, audience, bakwa, BAKWA_NOTE, extraFaq, marquee, heroProof, notFit, teamNote } from "../data/startup";
+import { panelCopy, programs, designPicks, audience, bakwa, BAKWA_NOTE, extraFaq, marquee, notFit, teamNote } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const faq = [...baseFaq, ...extraFaq];
@@ -64,10 +64,6 @@ const schema = [
           <span class="st-badge-note">one-time</span>
         </a>
       </div>
-      <a class="su-proofline" href="#voices-title">
-        <span class="su-proofline-q">&ldquo;{heroProof.quote}&rdquo;</span>
-        <span class="su-proofline-by">{heroProof.name}, {heroProof.detail}</span>
-      </a>
     </div>
     <div class="su-marq" aria-hidden="true">
       <div class="su-marq-in">

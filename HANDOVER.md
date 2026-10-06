@@ -59,7 +59,7 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Retainer plans (waiting on the user):** the three cards after the FAQ on `/website-for-startups` (Care, Growth, Social; `programs` in `src/data/startup.ts`) are placeholders. The user will send the real plan names, contents and any pricing; replace the array. Care and Growth copy comes from `/website-starter`; Social comes from the Social Media Management service. Also to approve: the three portfolio design captions in the price section, and that testimonials include two undisclosed clients (as on the home page).
 
-**Added in round 4, to approve:** hero proof line (verbatim Bakwa quote), the "Not a fit?" strip, and the **note from the team** (`teamNote` in `src/data/startup.ts`, first draft written without a founder name or photo; "we will say so" is the one new commitment). When you have a founder name and photo, change the signature and add the photo.
+**Added in round 4, to approve:** the "Not a fit?" strip, and the **note from the team** (`teamNote` in `src/data/startup.ts`, first draft written without a founder name or photo; "we will say so" is the one new commitment). When you have a founder name and photo, change the signature and add the photo.
 
 **Ideas offered, not built:** a "What we need from you" strip; shorten "Who it's for" to three rows.
 

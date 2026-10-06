@@ -8,16 +8,6 @@ export const panelCopy: Record<string, { statement: string; cta: string }> = {
   "Hand over": { statement: "You leave ready to run it, with a plan for the first 90 days.", cta: "Start your project" },
 };
 
-import { TESTIMONIALS } from "./site";
-
-// Hero proof line: a verbatim sentence from the Bakwa testimonial (TESTIMONIALS[1]), so it cannot drift from the original.
-const bakwaQuote = TESTIMONIALS[1];
-export const heroProof = {
-  quote: bakwaQuote.quote.split(". ").find((x) => x.includes("featured by The Better India"))!.concat("."),
-  name: bakwaQuote.name,
-  detail: bakwaQuote.detail,
-};
-
 // "Not a fit?" lines: only what the page already says is not included
 export const notFit = [
   "You need an online shop or a booking system: we quote those separately.",
