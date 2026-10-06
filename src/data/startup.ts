@@ -28,9 +28,9 @@ export const teamNote = {
 // Retainer plans shown after the FAQ ("Signature Programs" pattern). PLACEHOLDERS: the user will supply the real plan details.
 // Care plan and Growth plan copy comes from /website-starter; Social plan comes from the Social Media Management service. No prices.
 export const programs = [
-  { n: "01", title: "Care plan", tag: "(Keep it safe)", text: "Hosting, security and updates handled for you, so the site stays fast and safe.", points: ["Updates and backups", "Uptime and security checks", "Small changes each month"], ask: "I'd like to hear about the care plan", art: "care", label: "Care" },
-  { n: "02", title: "Growth plan", tag: "(Keep it growing)", text: "Monthly SEO and content that builds on your 90-day plan.", points: ["Local and AI-search content", "Monthly report and review", "Ongoing improvements"], ask: "I'd like to hear about the monthly growth plan", art: "growth", label: "Growth" },
-  { n: "03", title: "Social plan", tag: "(Keep it visible)", text: "A content calendar, the assets and the posting handled for you, with monthly insight on what is working.", points: ["Graphics and visual assets", "Content calendar and scheduling", "Monthly performance insight"], ask: "I'd like to hear about the social media plan", art: "social", label: "Social" },
+  { title: "Care plan", tag: "(Keep it safe)", text: "Hosting, security and updates handled for you, so the site stays fast and safe.", ask: "I'd like to hear about the care plan", art: "care", label: "Care" },
+  { title: "Growth plan", tag: "(Keep it growing)", text: "Monthly SEO and content that builds on your 90-day plan.", ask: "I'd like to hear about the monthly growth plan", art: "growth", label: "Growth" },
+  { title: "Social plan", tag: "(Keep it visible)", text: "A content calendar, the assets and the posting handled for you, with monthly insight on what is working.", ask: "I'd like to hear about the social media plan", art: "social", label: "Social" },
 ];
 
 // Website designs from the portfolio (ids in DESIGN_WALL, src/data/design.ts), shown with the price
@@ -44,15 +44,16 @@ export const audience = [
   { name: "Growing small businesses", text: "Your current site is slow or dated and you want a fresh start, with a plan to grow." },
 ];
 
-// Bakwa: client-reported figures from the published case study (/blogs/bakwa-brand-from-scratch).
-// The pound revenue figure is a purchasing-power estimate of the rupee figure Bakwa reported, marked with an asterisk (see BAKWA_NOTE).
-export const bakwa = [
-  { label: "Organic Instagram followers", to: 5.3, dec: 1, suffix: "K+", text: "in three months, with no paid follower growth." },
-  { label: "Enquiries generated", to: 3000, dec: 0, suffix: "+", text: "through one page and one enquiry form." },
-  { label: "Revenue generated", prefix: "£", to: 30, dec: 0, suffix: "K", star: true, text: "from a limited budget." },
-  { label: "Spent on advertising", prefix: "£", to: 0, dec: 0, suffix: "", text: "no paid advertising behind the campaign." },
+// iAudit Global: client-reported figures from the published case study (/blogs/iaudit-global-organic-growth).
+// The AI citations figure is the Microsoft Copilot count from the Bing Webmaster Tools screenshot in the case study (3 months), not an all-time total.
+export const auditProof = [
+  { label: "Website pages", to: 80, dec: 0, suffix: "+", text: "built from scratch.", red: true },
+  { label: "SEO-led articles", prefix: "~", to: 40, dec: 0, suffix: "", text: "published and growing." },
+  { label: "Countries", to: 129, dec: 0, suffix: "", text: "with website impressions.", red: true },
+  { label: "AI citations", to: 1.6, dec: 1, suffix: "K", text: "from Microsoft Copilot in three months.", red: false },
+  { label: "Organic LinkedIn followers", to: 872, dec: 0, suffix: "", text: "with no paid spend.", red: true },
 ];
-export const BAKWA_NOTE = "* Bakwa reported ₹10 lakh+ in revenue. £30K is our estimate of what that is worth in UK buying power (a purchasing-power equivalent), not a currency conversion.";
+export const AUDIT_NOTE = "Figures reported by iAudit Global and the platforms named. This was a 12-month engagement, not the Starter package; it shows what steady, organic work builds.";
 
 // Two extra questions for startups, added to the shared starter FAQ
 export const extraFaq = [

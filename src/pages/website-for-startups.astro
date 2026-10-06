@@ -5,13 +5,13 @@ import StickyCta from "../components/StickyCta.astro";
 import "../styles/starter.css";
 import "../styles/startup.css";
 import { Image } from "astro:assets";
-import bakwaLogo from "../assets/blog/logo-bakwa.png";
-import bakwaGrid from "../assets/design/wall/ig-bakwa.webp";
+import auditLogo from "../assets/blog/logo-iaudit.png";
+import FeaturedWork from "../components/FeaturedWork.astro";
 import Voices from "../components/Voices.astro";
 import { DESIGN_WALL } from "../data/design";
 import { SITE, url } from "../data/site";
 import { START, CHECK, stages, included, notIncluded, faq as baseFaq } from "../data/starter";
-import { panelCopy, programs, designPicks, audience, bakwa, BAKWA_NOTE, extraFaq, marquee, notFit, teamNote } from "../data/startup";
+import { panelCopy, programs, designPicks, audience, auditProof, AUDIT_NOTE, extraFaq, marquee, notFit, teamNote } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const faq = [...baseFaq, ...extraFaq];
@@ -201,13 +201,13 @@ const schema = [
     </div>
   </section>
 
-  <!-- 9. Proof: Bakwa -->
-  <section class="st-sec st-ink st-impact su-proof su-bk" aria-labelledby="impact-title">
+  <!-- 9. Proof: iAudit Global -->
+  <section class="st-sec st-ink st-impact su-proof su-proof--audit" aria-labelledby="impact-title">
     <div class="st-wrap">
       <div class="st-impact-head">
         <div>
-          <h2 id="impact-title" class="display st-h2">A small budget, a <span class="su-accent">real</span> result</h2>
-          <p class="st-sub">Bakwa, a Kerala brand making bottles from plant-based materials, launched with a one-page website and no ad spend.</p>
+          <h2 id="impact-title" class="display st-h2">What <span class="su-accent">organic</span> growth looks like</h2>
+          <p class="st-sub">iAudit Global, a B2B audit software brand, started with nothing online. Twelve months in: a new website, a content library and a growing audience, with no paid spend.</p>
         </div>
         <div class="st-arrows">
           <button type="button" class="st-arrow" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
@@ -215,29 +215,30 @@ const schema = [
         </div>
       </div>
     </div>
-    <div class="st-track" data-track data-cursor="Drag" tabindex="0" aria-label="Bakwa results, scroll sideways">
+    <div class="st-track" data-track data-cursor="Drag" tabindex="0" aria-label="iAudit Global results, scroll sideways">
       <article class="st-card su-card-logo">
-        <a href={url("/blogs/bakwa-brand-from-scratch")} data-cursor="Read">
-          <Image src={bakwaLogo} alt="Bakwa logo on a green tile: It's not water. It's a movement." widths={[480, 800]} sizes="26rem" loading="lazy" />
-          <span class="st-card-cap"><b>Bakwa</b><span>One-page website, social content and PR</span><i>Read the case study →</i></span>
+        <a href={url("/blogs/iaudit-global-organic-growth")} data-cursor="Read">
+          <Image src={auditLogo} alt="iAudit Global logo" widths={[480, 800]} sizes="26rem" loading="lazy" />
+          <span class="st-card-cap"><b>iAudit Global</b><span>Website, SEO, content and LinkedIn</span><i>Read the case study →</i></span>
         </a>
       </article>
-      {bakwa.map((b) => (
-        <article class:list={["st-card", b.suffix === "K+" || b.star ? "st-card--red" : ""]}>
+      {auditProof.map((b) => (
+        <article class:list={["st-card", b.red && "st-card--red"]}>
           <p class="st-card-label">{b.label}</p>
-          <p class="st-big-n">{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b><small>{b.suffix}</small>{b.star && <sup class="su-star" aria-hidden="true">*</sup>}</p>
+          <p class="st-big-n">{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b><small>{b.suffix}</small></p>
           <p class="st-card-text">{b.text}</p>
         </article>
       ))}
-      <article class="st-card su-card-ig">
-        <Image src={bakwaGrid} alt="Complete Instagram profile and grid design for a sustainable packaging brand" widths={[480, 800]} sizes="22rem" loading="lazy" />
-      </article>
     </div>
-    <p class="su-note">{BAKWA_NOTE} Figures reported by Bakwa. Bakwa's campaign was a one-page website with social content and PR, not our Starter package. It shows what a lean site can do when the budget goes into the right places.</p>
+    <p class="su-note">{AUDIT_NOTE}</p>
   </section>
 
+  <!-- 9a. Featured work -->
+  <FeaturedWork />
+  <p class="su-featnote">* Figure reported by the client.</p>
+
   <!-- 9b. Testimonials -->
-  <Voices tone="cream" />
+  <Voices tone="ink" />
 
   <section class="su-note-sec" aria-labelledby="note-title">
     <p class="su-tag">(A note from the team)</p>
@@ -273,28 +274,31 @@ const schema = [
 
   <!-- 11. Retainer plans (Signature Programs pattern) -->
   <section class="su-sec su-sec--cream su-programs" aria-labelledby="programs-title">
-    <div class="su-sechead">
-      <h2 id="programs-title" class="display">Keep it <span class="su-accent">going</span></h2>
+    <div class="su-progintro">
+      <p class="su-tag">(Pick your path to progress)</p>
+      <div>
+        <h2 id="programs-title" class="su-progline">Three monthly plans that keep your site safe, growing and visible after launch.</h2>
+        <p class="su-progsub">Optional, and quoted separately.</p>
+        <a class="su-link" href="#programs-cards">See the plans <i aria-hidden="true">↓</i></a>
+      </div>
     </div>
-    <div class="su-cardsbar">
-      <p class="su-tag">(Retainer plans, after launch)</p>
+    <div class="su-cardsbar" id="programs-cards">
+      <p class="su-tag">(Retainer plans)</p>
       <a class="su-link" href="#start" data-preset="I'd like to hear about your monthly plans" data-cursor="Go">Ask about a plan <i aria-hidden="true">↗</i></a>
     </div>
     <div class="su-cards" data-cards>
       {programs.map((b) => (
         <article class="su-card" data-peek={b.label}>
-          <div class="su-card-top"><h3>{b.title}</h3><span class="su-n" aria-hidden="true">{b.n}</span></div>
+          <div class="su-card-top"><h3>{b.title}</h3></div>
           <div class="su-card-mid">
             <p class="su-card-tag">{b.tag}</p>
             <p class="su-card-text">{b.text}</p>
-            <ul class="su-card-points">{b.points.map((t) => <li>{t}</li>)}</ul>
           </div>
           <a class="su-link" href="#start" data-preset={b.ask} data-cursor="Go">Ask about it <i aria-hidden="true">↗</i></a>
           <template><div class="su-peek-art" set:html={ARTS[b.art]} /></template>
         </article>
       ))}
     </div>
-    <p class="su-foot">Optional, after launch, and quoted separately.</p>
     <div class="su-peek" data-peek-box aria-hidden="true"><div class="su-peek-card"></div><span class="su-peek-label"></span></div>
   </section>
 
@@ -354,7 +358,7 @@ const schema = [
   }
   document.querySelectorAll<HTMLElement>("[data-pay]").forEach((el) => seen([el], () => el.classList.add("is-in"), 0.6));
 
-  // Bakwa figures count up once
+  // Proof figures count up once
   document.querySelectorAll<HTMLElement>("[data-to]").forEach((b) => {
     const to = Number(b.dataset.to), dec = Number(b.dataset.dec ?? 0);
     const fmt = (n: number) => n.toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec });
