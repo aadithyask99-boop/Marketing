@@ -127,19 +127,8 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 /* Price and proof reuse starter.css; spacing tweaks */
 .su-price { z-index: 5; }
 .su-proof { z-index: 5; }
-.su-proof--audit { background: var(--ink); }
-.su-card-logo { padding: 0; background: var(--cream); }
-.su-card-logo a { position: absolute; inset: 0; display: block; }
-.su-card-logo img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center 40%; padding: 2.5rem 2rem 7rem; transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); -webkit-user-drag: none; }
-.su-card-logo:hover img { transform: scale(1.04); }
-.su-card-logo .st-card-cap { color: var(--ink); }
 
 .su-note { max-width: 46rem; margin: 1.5rem 0 0; padding-inline: var(--gutter); font-size: 0.9rem; opacity: 0.7; }
-.su-proof--audit .st-big-n { color: var(--cream); }
-.su-proof--audit .st-big-n small { font-size: 0.55em; color: var(--red); }
-.su-proof--audit .st-card--red .st-big-n small { color: var(--cream); }
-.su-proof--audit .st-card { min-height: 22rem; }
-.su-proof--audit .st-card .st-card-text { margin-top: auto; }
 
 /* FAQ on cream */
 .su-faq { z-index: 5; }
@@ -175,7 +164,6 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-price--light .st-x { border-color: rgba(23, 9, 10, 0.6); }
 
 /* Asterisk after an estimated figure */
-.su-proof--audit .st-card--red .su-price--light .st-seal { color: var(--cream); }
 
 /* Stage chips under the price: jump back up to a panel */
 .su-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: clamp(1.75rem, 3vw, 2.5rem) 0 0; padding: 0; list-style: none; }
@@ -208,7 +196,7 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-designs-cta .st-pill { background: var(--ink); color: var(--cream); }
 .su-designs-cta .st-pill i { background: var(--red); }
 .su-programs .su-foot { margin-top: 1.5rem; }
-@media (prefers-reduced-motion: reduce) { .su-shot a, .su-chips a { transition: none; } .su-shot a:hover { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .su-shot a, .su-chips a, .su-tile-go, .su-tile-vis--logo img { transition: none; } .su-shot a:hover { transform: none; } }
 .su-price .su-tag { margin-bottom: 1.25rem; }
 .su-price .st-pill { max-width: 100%; }
 @media (max-width: 479px) { .su-price .st-pill { font-size: 0.88rem; padding-left: 1rem; } .su-price .st-pill i { flex: none; } }
@@ -238,14 +226,6 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-notfit li { position: relative; padding-left: 1.5rem; line-height: 1.45; opacity: 0.85; }
 .su-notfit li::before { content: "\2715"; position: absolute; left: 0; top: 0.05em; font-size: 0.8em; color: var(--red); }
 
-/* Note from the team */
-.su-note-sec { position: relative; z-index: 5; padding: clamp(1rem, 3vw, 2rem) var(--gutter) clamp(3.5rem, 8vw, 7rem); background: var(--cream); color: var(--ink); }
-.su-note-sec > * { max-width: 62rem; margin-inline: auto; }
-.su-note-title { margin-block: 1rem 2rem; font-size: clamp(2.6rem, 7vw, 5.5rem); line-height: 0.95; }
-.su-note-body { display: grid; gap: 1.25rem; max-width: 40rem; margin-left: 0; font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.65; }
-.su-note-body p { margin: 0; }
-@media (min-width: 900px) { .su-note-sec > * { margin-left: max(0px, calc((100% - 62rem) / 2)); } .su-note-body { margin-left: max(0px, calc((100% - 62rem) / 2 + 12rem)); } }
-.su-note-body .su-sign { margin-top: 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(23, 9, 10, 0.2); font-weight: 600; }
 @media (prefers-reduced-motion: reduce) { }
 
 @media (min-width: 900px) { .su-marq-set { font-size: clamp(3.5rem, 8vw, 7rem); } }
@@ -259,5 +239,41 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-programs .su-cardsbar .su-link { font-weight: 400; opacity: 0.7; }
 .su-programs { padding-bottom: clamp(4rem, 9vw, 8rem); }
 
-.su-featnote { margin: 0; padding: 0 var(--gutter) clamp(2.5rem, 5vw, 4rem); background: var(--cream); color: var(--ink); font-size: 0.85rem; text-align: center; opacity: 1; }
-.su-featnote { position: relative; z-index: 5; }
+
+/* Proof, from the reference's "Recent work": big borderless tiles, one giant numeral each, captions underneath */
+.su-proof { position: relative; z-index: 5; padding: clamp(3rem, 7vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem); background: var(--ink); color: var(--cream); overflow: hidden; }
+.su-proofhead, .su-proofsub, .su-proof .su-note { padding-inline: var(--gutter); }
+.su-proofhead { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; flex-wrap: wrap; }
+.su-proofhead h2 { margin: 0; font-size: clamp(3.25rem, 9vw, 8rem); line-height: 0.92; }
+.su-proofhead .su-link { margin-bottom: 0.5rem; }
+.su-proofsub { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; margin-top: 1.25rem; }
+.su-proofsub p { margin: 0; max-width: 34rem; font-size: 0.95rem; line-height: 1.5; opacity: 0.75; }
+.su-tiles { gap: 0.75rem; margin-top: clamp(1.75rem, 4vw, 3rem); padding: 0 var(--gutter) 0.5rem; }
+.su-tile { flex: none; width: min(80vw, 26rem); margin: 0; scroll-snap-align: start; }
+@media (min-width: 900px) { .su-tile { width: calc((100vw - 2 * var(--gutter) - 1.5rem) / 3); max-width: 34rem; } }
+.su-tile-vis { position: relative; display: grid; align-items: end; aspect-ratio: 4 / 5; overflow: hidden; container-type: inline-size; }
+.su-tile-vis--cream { background: var(--cream); color: var(--ink); }
+.su-tile-vis--ink { background: #241314; color: var(--cream); }
+.su-tile-vis--red { background: var(--red); color: var(--cream); }
+.su-tile-vis--logo { display: grid; place-items: center; background: var(--cream); }
+.su-tile-vis--logo img { display: block; width: 70%; height: auto; max-height: 60%; object-fit: contain; transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); -webkit-user-drag: none; }
+.su-tile-vis--logo:hover img { transform: scale(1.05); }
+.su-tile-go { position: absolute; top: 1rem; right: 1rem; display: grid; place-items: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: #fff; color: var(--ink); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.su-tile-go svg { width: 1.4rem; height: 1.4rem; }
+.su-tile-vis--logo:hover .su-tile-go { transform: scale(1.1) rotate(-45deg); }
+/* the numeral is the whole visual and is cropped a little by the tile edge, as in the reference */
+.su-numeral { display: block; margin: 0 0 -0.06em -0.03em; font-family: var(--display); font-size: calc(232cqw / var(--n, 3)); line-height: 0.8; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.su-tile figcaption { display: flex; justify-content: space-between; gap: 1rem; margin-top: 0.75rem; font-size: 0.85rem; line-height: 1.35; }
+.su-tile figcaption b { display: block; font-weight: 600; }
+.su-tile-tag { flex: none; }
+.su-proof .su-note { max-width: none; margin-top: 1.5rem; }
+.su-proof .st-arrows { flex: none; }
+
+/* Plans intro now carries the note from the team */
+.su-progline { margin: 0; max-width: 40rem; font-size: clamp(1.7rem, 3.4vw, 2.75rem); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; }
+.su-progbody { display: grid; gap: 1rem; max-width: 36rem; margin: 1.5rem 0 1.75rem; font-size: 0.95rem; line-height: 1.6; }
+.su-progbody p { margin: 0; opacity: 0.75; }
+.su-progbody .su-sign { margin-top: 0.5rem; padding-top: 1rem; border-top: 1px solid rgba(23, 9, 10, 0.2); font-weight: 600; opacity: 1; }
+
+/* Light seal after the price */
+.su-price--light .st-seal { background: color-mix(in srgb, #fff 60%, var(--cream)); color: var(--ink); border: 2px solid var(--ink); }

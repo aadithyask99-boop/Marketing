@@ -6,7 +6,6 @@ import "../styles/starter.css";
 import "../styles/startup.css";
 import { Image } from "astro:assets";
 import auditLogo from "../assets/blog/logo-iaudit.png";
-import FeaturedWork from "../components/FeaturedWork.astro";
 import Voices from "../components/Voices.astro";
 import { DESIGN_WALL } from "../data/design";
 import { SITE, url } from "../data/site";
@@ -201,53 +200,42 @@ const schema = [
     </div>
   </section>
 
-  <!-- 9. Proof: iAudit Global -->
-  <section class="st-sec st-ink st-impact su-proof su-proof--audit" aria-labelledby="impact-title">
-    <div class="st-wrap">
-      <div class="st-impact-head">
-        <div>
-          <h2 id="impact-title" class="display st-h2">What <span class="su-accent">organic</span> growth looks like</h2>
-          <p class="st-sub">iAudit Global, a B2B audit software brand, started with nothing online. Twelve months in: a new website, a content library and a growing audience, with no paid spend.</p>
-        </div>
+  <!-- 9. Proof: iAudit Global (Recent work pattern: big borderless tiles, giant numerals, captions underneath) -->
+  <section class="su-proof su-proof--audit" aria-labelledby="impact-title">
+    <div class="su-proofhead">
+      <h2 id="impact-title" class="display">What <span class="su-accent">organic</span> growth looks like</h2>
+      <a class="su-link" href={url("/blogs/iaudit-global-organic-growth")} data-cursor="Read">Read the case study <i aria-hidden="true">↗</i></a>
+    </div>
+    <div class="su-proofsub">
+      <p>iAudit Global, a B2B audit software brand, started with nothing online. Twelve months in: a new website, a content library and a growing audience, with no paid spend.</p>
         <div class="st-arrows">
           <button type="button" class="st-arrow" data-dir="-1" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"></path></svg></button>
           <button type="button" class="st-arrow" data-dir="1" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
         </div>
-      </div>
     </div>
-    <div class="st-track" data-track data-cursor="Drag" tabindex="0" aria-label="iAudit Global results, scroll sideways">
-      <article class="st-card su-card-logo">
-        <a href={url("/blogs/iaudit-global-organic-growth")} data-cursor="Read">
-          <Image src={auditLogo} alt="iAudit Global logo" widths={[480, 800]} sizes="26rem" loading="lazy" />
-          <span class="st-card-cap"><b>iAudit Global</b><span>Website, SEO, content and LinkedIn</span><i>Read the case study →</i></span>
+    <div class="st-track su-tiles" data-track data-cursor="Drag" tabindex="0" aria-label="iAudit Global results, scroll sideways">
+      <figure class="su-tile">
+        <a class="su-tile-vis su-tile-vis--logo" href={url("/blogs/iaudit-global-organic-growth")} data-cursor="Read" aria-label="Read the iAudit Global case study">
+          <Image src={auditLogo} alt="iAudit Global logo" widths={[480, 800]} sizes="(min-width: 900px) 34vw, 80vw" loading="lazy" />
+          <span class="su-tile-go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></span>
         </a>
-      </article>
+        <figcaption><span><b>iAudit Global</b>Website, SEO, content and LinkedIn</span><span class="su-tile-tag">(Case study)</span></figcaption>
+      </figure>
       {auditProof.map((b) => (
-        <article class:list={["st-card", b.red && "st-card--red"]}>
-          <p class="st-card-label">{b.label}</p>
-          <p class="st-big-n">{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b><small>{b.suffix}</small></p>
-          <p class="st-card-text">{b.text}</p>
-        </article>
+        <figure class="su-tile">
+          <div class={`su-tile-vis su-tile-vis--${b.tone}`} aria-hidden="true">
+            <span class="su-numeral" style={`--n:${b.n}`}>{b.prefix}<b data-to={b.to} data-dec={b.dec}>{b.to.toLocaleString("en-GB", { minimumFractionDigits: b.dec, maximumFractionDigits: b.dec })}</b>{b.suffix}</span>
+          </div>
+          <figcaption><span><b>{b.name}</b>{b.desc}</span><span class="su-tile-tag">{b.tag}</span></figcaption>
+          <span class="sr-only">{b.prefix}{b.to}{b.suffix} {b.name}, {b.desc}</span>
+        </figure>
       ))}
     </div>
     <p class="su-note">{AUDIT_NOTE}</p>
   </section>
 
-  <!-- 9a. Featured work -->
-  <FeaturedWork />
-  <p class="su-featnote">* Figure reported by the client.</p>
-
   <!-- 9b. Testimonials -->
-  <Voices tone="ink" />
-
-  <section class="su-note-sec" aria-labelledby="note-title">
-    <p class="su-tag">(A note from the team)</p>
-    <h2 id="note-title" class="display su-note-title">A good website should <span class="su-accent">not</span> need an agency budget.</h2>
-    <div class="su-note-body">
-      {teamNote.paras.map((t) => <p>{t}</p>)}
-      <p class="su-sign">{teamNote.sign}</p>
-    </div>
-  </section>
+  <Voices tone="cream" />
 
   <!-- 10. Questions -->
   <section class="st-sec st-ink su-faq" aria-labelledby="faq-title">
@@ -275,15 +263,18 @@ const schema = [
   <!-- 11. Retainer plans (Signature Programs pattern) -->
   <section class="su-sec su-sec--cream su-programs" aria-labelledby="programs-title">
     <div class="su-progintro">
-      <p class="su-tag">(Pick your path to progress)</p>
+      <p class="su-tag">(A note from the team)</p>
       <div>
-        <h2 id="programs-title" class="su-progline">Three monthly plans that keep your site safe, growing and visible after launch.</h2>
-        <p class="su-progsub">Optional, and quoted separately.</p>
+        <h2 id="programs-title" class="su-progline">A good website should not need an agency budget.</h2>
+        <div class="su-progbody">
+          {teamNote.paras.map((t) => <p>{t}</p>)}
+          <p class="su-sign">{teamNote.sign}</p>
+        </div>
         <a class="su-link" href="#programs-cards">See the plans <i aria-hidden="true">↓</i></a>
       </div>
     </div>
     <div class="su-cardsbar" id="programs-cards">
-      <p class="su-tag">(Retainer plans)</p>
+      <p class="su-tag">(Pick your path to progress)</p>
       <a class="su-link" href="#start" data-preset="I'd like to hear about your monthly plans" data-cursor="Go">Ask about a plan <i aria-hidden="true">↗</i></a>
     </div>
     <div class="su-cards" data-cards>
@@ -299,6 +290,7 @@ const schema = [
         </article>
       ))}
     </div>
+    <p class="su-foot">Retainer plans are optional, after launch, and quoted separately.</p>
     <div class="su-peek" data-peek-box aria-hidden="true"><div class="su-peek-card"></div><span class="su-peek-label"></span></div>
   </section>
 
@@ -364,7 +356,7 @@ const schema = [
     const fmt = (n: number) => n.toLocaleString("en-GB", { minimumFractionDigits: dec, maximumFractionDigits: dec });
     if (calm || to === 0) return;
     b.textContent = fmt(0);
-    seen([b], () => {
+    seen([b.closest(".su-tile") ?? b], () => {
       const t0 = performance.now();
       const tick = (t: number) => {
         const k = Math.min(1, (t - t0) / 1100);
@@ -372,13 +364,13 @@ const schema = [
         if (k < 1) requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
-    }, 0.8);
+    }, 0.55);
   });
 
   // Carousel: arrows, keys and mouse drag
   const track = document.querySelector<HTMLElement>("[data-track]");
   if (track) {
-    const step = () => (track.querySelector<HTMLElement>(".st-card")?.offsetWidth ?? 320) + 16;
+    const step = () => (track.querySelector<HTMLElement>(".st-card, .su-tile")?.offsetWidth ?? 320) + 16;
     document.querySelectorAll<HTMLButtonElement>(".st-arrow").forEach((b) =>
       b.addEventListener("click", () => track.scrollBy({ left: Number(b.dataset.dir) * step(), behavior: calm ? "auto" : "smooth" })),
     );

@@ -47,11 +47,11 @@ export const audience = [
 // iAudit Global: client-reported figures from the published case study (/blogs/iaudit-global-organic-growth).
 // The AI citations figure is the Microsoft Copilot count from the Bing Webmaster Tools screenshot in the case study (3 months), not an all-time total.
 export const auditProof = [
-  { label: "Website pages", to: 80, dec: 0, suffix: "+", text: "built from scratch.", red: true },
-  { label: "SEO-led articles", prefix: "~", to: 40, dec: 0, suffix: "", text: "published and growing." },
-  { label: "Countries", to: 129, dec: 0, suffix: "", text: "with website impressions.", red: true },
-  { label: "AI citations", to: 1.6, dec: 1, suffix: "K", text: "from Microsoft Copilot in three months.", red: false },
-  { label: "Organic LinkedIn followers", to: 872, dec: 0, suffix: "", text: "with no paid spend.", red: true },
+  { name: "Website pages", desc: "Built from scratch", tag: "(Website)", prefix: "", to: 80, dec: 0, suffix: "+", tone: "cream", n: 3 },
+  { name: "SEO-led articles", desc: "Published and growing", tag: "(Content)", prefix: "~", to: 40, dec: 0, suffix: "", tone: "ink", n: 3 },
+  { name: "Countries", desc: "With website impressions", tag: "(Reach)", prefix: "", to: 129, dec: 0, suffix: "", tone: "red", n: 3 },
+  { name: "AI citations", desc: "Microsoft Copilot, 3 months", tag: "(AI search)", prefix: "", to: 1.6, dec: 1, suffix: "K", tone: "cream", n: 3.4 },
+  { name: "Organic LinkedIn followers", desc: "With no paid spend", tag: "(LinkedIn)", prefix: "", to: 872, dec: 0, suffix: "", tone: "ink", n: 3 },
 ];
 export const AUDIT_NOTE = "Figures reported by iAudit Global and the platforms named. This was a 12-month engagement, not the Starter package; it shows what steady, organic work builds.";
 
