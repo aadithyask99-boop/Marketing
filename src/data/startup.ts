@@ -17,6 +17,7 @@ export const notFit = [
 
 // Note from the team. First draft for sign-off; no founder name or photo yet.
 export const teamNote = {
+  statement: "A good website should not need an agency budget.",
   paras: [
     "If you are starting out, or running a small business on a tight budget, you do not need a big retainer to get a good website. You need a clear plan, a site that loads fast on a phone, and someone who tells you plainly what it costs and what it does not.",
     "That is what the Starter package is. We look at your market first, then design and build the site around your customers, set it up to be found on Google and in AI search, and hand it over so you can run it yourself. The price is fixed, you own the result, and anything outside the package is quoted before we start.",

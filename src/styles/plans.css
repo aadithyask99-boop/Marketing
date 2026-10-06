@@ -170,26 +170,6 @@
 .pl-faq .st-h2 { font-size: clamp(2.75rem, 5.5vw, 5rem); }
 .pl-faq > .pl-small { max-width: 90rem; margin: clamp(2rem, 4vw, 3rem) auto 0; }
 
-/* Note from the team and the path to the plans: ruled rows, no boxes */
-.pl-note, .pl-path { max-width: 90rem; margin: clamp(3rem, 6vw, 5.5rem) auto 0; padding-top: 1rem; border-top: 1px solid rgba(23, 9, 10, 0.2); }
-.pl-path ul { margin: 1rem 0 0; padding: 0; list-style: none; }
-.pl-path li { border-top: 1px solid rgba(23, 9, 10, 0.2); }
-.pl-path li:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
-.pl-path a:hover .pl-path-name { color: var(--red); }
-.pl-note { display: grid; gap: 1.25rem; }
-@media (min-width: 900px) { .pl-note { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 3rem; } }
-.pl-note-line { margin: 0; max-width: 34rem; font-family: var(--body); font-size: clamp(1.7rem, 3.2vw, 2.6rem); font-weight: 500; line-height: 1.12; letter-spacing: -0.02em; text-transform: none; }
-.pl-note-body { display: grid; gap: 1rem; max-width: 36rem; margin-top: 1.5rem; font-size: 0.95rem; line-height: 1.6; }
-.pl-note-body p { margin: 0; opacity: 0.78; }
-.pl-note-body .pl-sign { margin-top: 0.5rem; padding-top: 1rem; border-top: 1px solid rgba(23, 9, 10, 0.2); font-weight: 600; opacity: 1; }
-.pl-path a { display: grid; align-items: baseline; gap: 0.35rem 2rem; padding: clamp(1rem, 2vw, 1.5rem) 0; color: var(--ink); }
-@media (min-width: 800px) { .pl-path a { grid-template-columns: minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 1.2fr) 11rem; } .pl-path-link { justify-self: end; } }
-.pl-path-name { font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; transition: color 0.2s ease; }
-.pl-path-price { font-family: var(--display); font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1; }
-.pl-path-text { max-width: 28rem; font-size: 0.9rem; line-height: 1.45; opacity: 0.75; }
-.pl-path-link { font-size: 0.9rem; font-weight: 600; text-decoration: underline; text-underline-offset: 0.25em; }
-@media (prefers-reduced-motion: reduce) { .pl-path-name { transition: none; } }
-
 /* Third plan panel, "Want everything?": red, same layout as Care and Growth */
 .su-panel--red { background: var(--red); color: var(--cream); }
 .pl-plan-name--q { font-size: clamp(3.5rem, 8vw, 7rem); line-height: 0.88; }
@@ -199,10 +179,13 @@
 .pl-panel.su-panel--red .pl-cta { background: var(--cream); color: var(--ink); }
 .pl-panel.su-panel--red .pl-cta i { background: var(--ink); color: var(--cream); }
 
-/* How to choose: written content on cream, heading sticky at the left */
-.pl-choose .pl-splitside .pl-h2 { font-size: clamp(2.75rem, 6vw, 5.5rem); }
-.pl-choose-body { display: grid; gap: clamp(1.25rem, 2.5vw, 2rem); max-width: 44rem; padding-top: 0.25rem; }
-.pl-choose-body p { margin: 0; font-size: clamp(1.15rem, 1.9vw, 1.55rem); line-height: 1.45; letter-spacing: -0.01em; }
-.pl-choose-body strong { font-weight: 700; }
-.pl-choose-body a { color: var(--red); text-decoration: underline; text-underline-offset: 0.2em; }
-.pl-choose-body a:hover { color: var(--ink); }
+/* Who it's for: the Starter pattern on cream */
+.pl-who .su-who li { border-top-color: rgba(23, 9, 10, 0.2); color: rgba(23, 9, 10, 0.35); }
+.pl-who .su-who li:last-child { border-bottom-color: rgba(23, 9, 10, 0.2); }
+.pl-who .su-who li.is-active { color: var(--ink); }
+html:not(.js-st) .pl-who .su-who li { color: var(--ink); }
+
+/* Note from the team and the Starter plan card: the Starter page pattern, joined to the FAQ above by a hairline */
+.pl-programs { border-top: 1px solid rgba(23, 9, 10, 0.2); }
+.su-cards--one { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 800px) { .su-cards--one { grid-template-columns: minmax(0, 26rem); } }

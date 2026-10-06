@@ -6,7 +6,8 @@ import "../styles/starter.css";
 import "../styles/startup.css";
 import "../styles/plans.css";
 import { url, SITE } from "../data/site";
-import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, EVERYTHING, CHOOSE, ADDONS, FAQ_SECTION, FAQ_SIDE, NOTE, PATH, FINAL_CTA } from "../data/plans";
+import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA } from "../data/plans";
+import { teamNote } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const plans = [PLANS.care, PLANS.growth];
@@ -125,17 +126,21 @@ const schema = [
     </div>
   </section>
 
-  <!-- 4. How to choose: written content, cream, heading left -->
-  <section class="pl-sec pl-sec--cream pl-choose" aria-labelledby="choose-title">
-    <div class="pl-split">
-      <div class="pl-splitside">
-        <p class="su-tag">({CHOOSE.label})</p>
-        <h2 id="choose-title" class="display pl-h2 pl-h2--plain">{CHOOSE.h2}</h2>
-      </div>
-      <div class="pl-choose-body">
-        {CHOOSE.paras.map((t) => <p set:html={t} />)}
-      </div>
+  <!-- 4. Who it is for: Starter page pattern, on cream so it sits between the two ink bands -->
+  <section class="su-sec su-sec--cream su-who-sec pl-who" aria-labelledby="who-title">
+    <div class="su-sechead">
+      <h2 id="who-title" class="display">Who it's <span class="su-accent">for</span></h2>
+      <p class="su-tag">({WHO.tag})</p>
     </div>
+    <ul class="su-who" data-who>
+      {WHO.rows.map((a, i) => (
+        <li class:list={[i === 0 && "is-active"]}>
+          <h3>{a.name}</h3>
+          <span class="su-wn" aria-hidden="true">0{i + 1}</span>
+          <p>{a.text}</p>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <!-- 5. Add-ons: "Awarded by the best" table, sticky heading left, price tile follows the cursor -->
@@ -201,35 +206,38 @@ const schema = [
     </div>
     <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
 
-    <div class="pl-note">
-      <p class="su-tag">({NOTE.label})</p>
-      <div>
-        <h2 class="pl-note-line">{NOTE.statement}</h2>
-        <div class="pl-note-body">
-          {NOTE.paras.map((t) => <p>{t}</p>)}
-          <p class="pl-sign">{NOTE.sign}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pl-path">
-      <p class="su-tag">({PATH.label})</p>
-      <ul>
-        {PATH.rows.map((r) => (
-          <li>
-            <a href={r.href.startsWith("#") ? r.href : r.href} data-cursor="Go">
-              <span class="pl-path-name">{r.name}</span>
-              <span class="pl-path-price">{r.price}</span>
-              <span class="pl-path-text">{r.text}</span>
-              <span class="pl-path-link">{r.link} <i aria-hidden="true">↗</i></span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
   </section>
 
-  <!-- 7. Final call to action -->
+  <!-- 7. Note from the team and the path to the Starter plan (Starter page pattern) -->
+  <section class="su-sec su-sec--cream su-programs pl-programs" aria-labelledby="programs-title">
+    <div class="su-progintro">
+      <p class="su-tag">(A note from the team)</p>
+      <div>
+        <h2 id="programs-title" class="su-progline">{teamNote.statement}</h2>
+        <div class="su-progbody">
+          {teamNote.paras.map((t) => <p>{t}</p>)}
+          <p class="su-sign">{teamNote.sign}</p>
+        </div>
+        <a class="su-link" href="#programs-cards">See the Starter plan <i aria-hidden="true">↓</i></a>
+      </div>
+    </div>
+    <div class="su-cardsbar" id="programs-cards">
+      <p class="su-tag">({PATH.label})</p>
+    </div>
+    <div class="su-cards su-cards--one">
+      <article class="su-card">
+        <div class="su-card-top"><h3>{PATH.card.title}</h3><span class="su-card-price">{PATH.card.price}</span></div>
+        <div class="su-card-mid">
+          <p class="su-card-tag">{PATH.card.tag}</p>
+          <p class="su-card-text">{PATH.card.text}</p>
+        </div>
+        <a class="su-link" href={PATH.card.href} data-cursor="View">{PATH.card.link} <i aria-hidden="true">↗</i></a>
+      </article>
+    </div>
+    <p class="su-foot">{PATH.foot}</p>
+  </section>
+
+  <!-- 8. Final call to action -->
   <ClosingCta tone="ink" title={FINAL_CTA.h2} lede={FINAL_CTA.body} service="Plans (not sure which fits)" />
 </BaseLayout>
 
@@ -268,6 +276,22 @@ const schema = [
       }
       rail.style.setProperty("--p", prog.toFixed(3));
       steps.forEach((s, i) => s.classList.toggle("is-lit", prog >= i / (steps.length - 1) - 0.001));
+    });
+  }
+
+  // Who it is for: the row nearest the middle of the screen lights up
+  const who = document.querySelector<HTMLElement>("[data-who]");
+  if (who) {
+    const rows = [...who.querySelectorAll<HTMLElement>("li")];
+    onScroll(() => {
+      const mid = window.innerHeight * 0.5;
+      let best = 0, d = Infinity;
+      rows.forEach((r, i) => {
+        const b = r.getBoundingClientRect();
+        const dist = Math.abs(b.top + b.height / 2 - mid);
+        if (dist < d) { d = dist; best = i; }
+      });
+      rows.forEach((r, i) => r.classList.toggle("is-active", i === best));
     });
   }
 

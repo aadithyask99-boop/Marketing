@@ -151,7 +151,7 @@ export const COMPARE = {
     ["SEO and GEO articles", "2 a month", "4 a month"],
     ["Social posts and stories", "4 a month", "8 a month"],
     ["Paid ads", "Add on", "1 managed campaign included"],
-    ["Email", "Add on", "1 campaign a month"],
+    ["Email and SMS", "Add on", "1 email campaign a month, SMS as an add on"],
     ["AI chatbot and CRM", "Add on", "Included"],
     ["Authority building and digital PR", "Not included", "Included"],
     ["Reporting", "Monthly report", "Monthly report"],
@@ -159,14 +159,15 @@ export const COMPARE = {
   ],
 };
 
-// Content section after the comparison: how to choose. Draft written from the plan copy, for sign-off.
-export const CHOOSE = {
-  label: "Choosing a plan",
-  h2: "Which plan is right for you?",
-  paras: [
-    `Choose <strong>Care</strong> if the business is doing well and you want to stay found. We keep your Google Business Profile, listings, articles and social posts up to date, and report each month on how you appear on Google, on maps and in AI answers.`,
-    `Choose <strong>Growth</strong> if you want more calls and forms. It adds local pages, a managed Google or Meta campaign, a chatbot and email follow up, and we report in enquiries and cost per lead.`,
-    `Both are built from the services we run day to day: <a href="/our-services/#ai-search">AI search and visibility</a>, <a href="/our-services/#seo-content">SEO and content</a>, <a href="/our-services/#advertising">paid advertising</a>, <a href="/our-services/#ai-automation">automation and chatbots</a>, <a href="/our-services/#website-design">websites</a> and <a href="/our-services/#social-media">social media</a>. You can move from Care to Growth at any time, and add only what you need.`,
+// "Who it's for", same pattern as the Starter plan page, tailored to Care and Growth. Draft for sign-off, written from the plan copy.
+export const WHO = {
+  tag: "Care and Growth",
+  rows: [
+    { name: "Local businesses", text: "Care. You want to show up on Google, on the map and in AI answers when people nearby look for you." },
+    { name: "Busy owners", text: "Care. You are running the business and want a steady, done for you presence that keeps you visible." },
+    { name: "Ready for more enquiries", text: "Growth. You are already visible and want that turned into calls and forms." },
+    { name: "Ads and follow up", text: "Growth. You want local search, AI visibility, ads and follow up working as one system." },
+    { name: "Larger or multi location", text: "Add each extra location, or ask for a custom plan built around your business." },
   ],
 };
 
@@ -213,23 +214,9 @@ export const FINAL_CTA = {
 
 export const FAQ_SIDE = { line: "Still unsure? Ask us anything.", cta: { label: "Talk to us", href: "/contact-us/" } };
 
-// First draft for sign-off, built from the client's own phrases
-export const NOTE = {
-  label: "A note from the team",
-  statement: "You do not have to buy everything at once.",
-  paras: [
-    "Start with the foundation, then add monthly help when you are ready. Care keeps you visible while you run the business. Growth turns that visibility into enquiries. If you already have a website, you can start straight on Care or Growth.",
-    "If it is not the right fit, we will say so. Tell us what you want to be found for and we will come back with a real plan, not a sales pitch.",
-  ],
-  sign: "The Maximus Mediascape team",
-};
-
+// Closing path: the Starter plan card, same pattern as the Starter page's "Pick your path to progress"
 export const PATH = {
   label: "Pick your path to progress",
-  rows: [
-    { name: "Starter plan", price: "from £999, one off", text: "A fast, search ready five page website, built as the foundation for everything else.", link: "See the Starter plan", href: STARTER_HREF },
-    { name: "Care", price: "£599 a month", text: "Stay visible while you run the business.", link: "See Care", href: "#care" },
-    { name: "Growth", price: "£999 a month", text: "Turn visibility into enquiries.", link: "See Growth", href: "#growth" },
-    { name: "Everything", price: "Quoted", text: "For larger or multi location businesses.", link: "See Everything", href: "#everything" },
-  ],
+  foot: "Already have a website? You can start straight on Care or Growth. Prices exclude VAT.",
+  card: { title: "Starter plan", price: "from £999, one off", tag: "(Website)", text: "A fast, search ready five page website, built as the foundation for everything else.", link: "See the Starter plan", href: STARTER_HREF },
 };
