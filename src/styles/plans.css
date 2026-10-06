@@ -187,5 +187,3 @@ html:not(.js-st) .pl-who .su-who li { color: var(--ink); }
 
 /* Note from the team and the Starter plan card: the Starter page pattern, joined to the FAQ above by a hairline */
 .pl-programs { border-top: 1px solid rgba(23, 9, 10, 0.2); }
-.su-cards--one { grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 800px) { .su-cards--one { grid-template-columns: minmax(0, 26rem); } }

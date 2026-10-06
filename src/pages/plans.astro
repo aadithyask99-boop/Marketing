@@ -224,15 +224,17 @@ const schema = [
     <div class="su-cardsbar" id="programs-cards">
       <p class="su-tag">({PATH.label})</p>
     </div>
-    <div class="su-cards su-cards--one">
-      <article class="su-card">
-        <div class="su-card-top"><h3>{PATH.card.title}</h3><span class="su-card-price">{PATH.card.price}</span></div>
-        <div class="su-card-mid">
-          <p class="su-card-tag">{PATH.card.tag}</p>
-          <p class="su-card-text">{PATH.card.text}</p>
-        </div>
-        <a class="su-link" href={PATH.card.href} data-cursor="View">{PATH.card.link} <i aria-hidden="true">↗</i></a>
-      </article>
+    <div class="su-cards">
+      {PATH.cards.map((c) => (
+        <article class="su-card">
+          <div class="su-card-top"><h3>{c.title}</h3><span class="su-card-price">{c.price}</span></div>
+          <div class="su-card-mid">
+            <p class="su-card-tag">{c.tag}</p>
+            <p class="su-card-text">{c.text}</p>
+          </div>
+          <a class="su-link" href={c.href} data-cursor="View">{c.link} <i aria-hidden="true">↗</i></a>
+        </article>
+      ))}
     </div>
     <p class="su-foot">{PATH.foot}</p>
   </section>
