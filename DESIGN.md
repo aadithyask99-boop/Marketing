@@ -244,3 +244,6 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Use `url()` for every internal link; all internal URLs end in a slash; never hard-code old paths.
 - Verify before saying done: `npm run build`, preview, screenshot at 390px and 1440px, run the built-site link crawl (no missing targets, no dead anchors). Never claim a deploy is confirmed until the live URL has been checked.
 - Client facts are never invented. Ask first, label client-reported figures.
+- Long unbroken strings (bare URLs in post bodies) must wrap: `.prose a` uses `overflow-wrap: anywhere`. Check any new page for horizontal scroll at 390px.
+- Meta descriptions: 50 to 170 characters. For posts this is the `excerpt`, so keep it short.
+- No em dashes anywhere in copy, including migrated posts (use commas or full stops).

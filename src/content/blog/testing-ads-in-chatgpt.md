@@ -70,7 +70,7 @@ However, OpenAI has made it clear that they see an opportunity for businesses of
 
 One of the biggest concerns with testing ads in ChatGPT is privacy. We have all had that experience where we talk about something and then see an ad for it five minutes later on social media.
 
-OpenAI is taking a different approach. Advertisers do not have access to your individual chats, chat history, or personal details. They only receive "aggregate" information—meaning they can see how many people clicked an ad, but they don't know who those people are.
+OpenAI is taking a different approach. Advertisers do not have access to your individual chats, chat history, or personal details. They only receive "aggregate" information, meaning they can see how many people clicked an ad, but they don't know who those people are.
 
 Furthermore, users have a fair amount of control. You can:
 

@@ -1,6 +1,6 @@
 # Handover: Maximus Mediascape website
 
-Read this first, then `DESIGN.md` (design system, patterns, conventions). Last updated 6 Oct 2026.
+Read this first, then `DESIGN.md` (design system, patterns, conventions). Last updated 6 Oct 2026 (full-site audit).
 
 ## 1. Project and rules
 - **What it is:** the marketing site for Maximus Mediascape. Astro static site (`astro.config.mjs`), plain CSS (no Tailwind), a markdown content collection for the blog (`src/content/blog`, schema in `src/content.config.ts`), data in `src/data/site.ts` and `src/data/design.ts`. Brand: red `#e10600`, cream `#f5efe8`, ink `#17090a`, Bebas Neue, Mulish, Boska italic accent word.
@@ -23,6 +23,16 @@ Read this first, then `DESIGN.md` (design system, patterns, conventions). Last u
 - **Phone pills** that swap places with the header: blog (`ArticleTocMobile.astro`) and portfolio (`DesignPageNavMobile.astro`). Section 18.
 - **Nav:** Work dropdown with Portfolio (desktop glass panel, phone menu sub-row, footer). Section 19.
 - **Recent changes in order:** removed the 7 oldest posts; Bakwa and iAudit case studies with logo heroes; editorial article header; blog index redesign; migrated 39 WordPress posts and renamed URLs; sharper heroes, Show more, figures and photos; mobile Contents (mascot tried, replaced by pill); varied figure formats; portfolio phone pill and Work dropdown; untinted blog images; Featured work and results; real testimonials; contact boxes cream; internal linking (related, Related guides); Keep reading carousel and click fix; broken-link fixes; About and Portfolio hero clean-ups.
+
+## 3b. Full-site audit (6 Oct 2026)
+Checked on a fresh build (53 pages), served with `astro preview`, at 390px touch and 1440px:
+- **Links:** no missing pages, no dead `#fragment`s. The one link not in `dist` (`/locations/...surrey/`) is covered by the `vercel.json` wildcard redirect.
+- **Images and alt text:** no `<img>` without an `alt` attribute (decorative ones use an empty alt on purpose); no broken images; no console errors or failed requests on any page.
+- **Head:** every page has a title, canonical and one `<h1>`; meta descriptions are 50 to 170 characters.
+- **Fixed in the audit:** em dashes removed from two posts (house rule: none); three over-long descriptions shortened (Bakwa, iAudit, London lead-gen post); Contact page description written (was 37 characters); a bare Instagram URL in the Search Console social post overflowed phones by 15px (`.prose a` now wraps, `src/styles/blog.css`).
+- **Capture tip:** full-page screenshots mislead on the home page because its sections draw on scroll. Scroll in viewport steps and shoot each step instead.
+- **Still untested:** real phone and Safari (see section 4).
+- **Branch note:** this session's tool branch `claude/beautiful-clarke-ekdeq8` was identical to the Vercel branch at the start. Vercel only deploys `claude/fervent-clarke-uctw7x`; ask the user before pushing there if the session names a different branch.
 
 ## 4. Open items (waiting on the user or client)
 **Copy to sign off** (first drafts, wording unchanged, code notes removed): process timings and step copy (`PROCESS`), the About page copy (`ABOUT`), portfolio brand stories, sector labels and FAQ (`src/data/design.ts`), "Workplace software" label.

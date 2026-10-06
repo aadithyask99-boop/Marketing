@@ -1,6 +1,6 @@
 ---
 title: "Lead Generation Strategies for Small Businesses in London (and the UK)"
-excerpt: "Discover the most effective lead generation strategies for small businesses in London. Scale your enquiries, fix your tracking, and improve ROI today. Request a free audit."
+excerpt: "Discover the most effective lead generation strategies for small businesses in London. Scale your enquiries, fix your tracking and improve ROI."
 category: seo-content
 author: Maximus Mediascape
 date: 2026-04-08T11:11:43

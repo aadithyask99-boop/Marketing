@@ -336,7 +336,7 @@
   line-height: 1.15;
 }
 .prose blockquote p { margin: 0; }
-.prose a { color: var(--red); text-decoration: underline; }
+.prose a { color: var(--red); text-decoration: underline; overflow-wrap: anywhere; }
 .related-title { max-width: 78rem; margin: 0 auto 1.5rem; font-size: clamp(2.2rem, 5vw, 3.5rem); }
 .related .blog-grid { max-width: 78rem; margin-inline: auto; }
 .blog-list .blog-grid { max-width: none; margin-inline: auto; gap: 1rem; }
