@@ -81,7 +81,7 @@ Scale (all fluid with `clamp`):
 
 `src/layouts/BaseLayout.astro` wraps every page and provides: skip link, `Header` (floating glass pill nav that hides on scroll down, WhatsApp QR hover card on "Talk to us", mobile `MenuOverlay`), `Footer` (cream rounded card on ink or red, with newsletter, links, giant wordmark, legal), `ScrollTop`, `Cursor`, SEO and JSON-LD.
 
-Props: `title`, `description`, `footerTone="ink" | "red"` (set it to match the colour of the last section), `schema` (extra JSON-LD), `noindex`, `image`, and `landing` (minimal header with a single CTA, no menu: used for campaign pages like the Starter page).
+Props: `title`, `description`, `footerTone="ink" | "red"` (set it to match the colour of the last section), `schema` (extra JSON-LD), `noindex`, `image`, and `landing` (minimal header with a single CTA, no menu, for campaign pages; no page uses it now, the Starter plan page switched back to the normal header and menu).
 
 Reusable sections:
 
