@@ -102,7 +102,7 @@ export const PLANS: { care: Plan; growth: Plan } = {
         { label: "Get trusted", text: "Entity and brand mention work, authority building on relevant third party platforms such as Medium, Substack and industry communities, link opportunities and digital PR outreach" },
         { label: "Get leads", text: "1 managed Google or Meta campaign with setup and management included, 1 email campaign with lead nurturing, and your chatbot and CRM kept running" },
         { label: "Social", text: "8 posts and stories (2 in the founder's voice), replies to comments and messages within one working day, and reviews and local wins turned into posts" },
-        { label: "Reporting", text: "A monthly report on enquiries, calls, forms, cost per lead and AI share of answers, with a short video walkthrough, plus a monthly strategy call" },
+        { label: "Reporting", text: "A monthly report on enquiries, calls, forms, cost per lead and AI share of answers, plus a monthly strategy call" },
       ],
     },
     note: "Ad spend is paid separately. We recommend at least £500 a month, with £300 as the minimum.",
@@ -125,7 +125,7 @@ export const COMPARE = {
     ["Email", "Add on", "1 campaign a month"],
     ["AI chatbot and CRM", "Add on", "Included"],
     ["Authority building and digital PR", "Not included", "Included"],
-    ["Reporting", "Monthly report", "Monthly report with video walkthrough"],
+    ["Reporting", "Monthly report", "Monthly report"],
     ["Strategy call", "Quarterly", "Monthly"],
   ],
 };
@@ -134,32 +134,30 @@ export const SERVICES_SECTION = {
   h2: "Built from the services you already know",
   intro: "Every line in these plans comes from a service we run day to day. Explore any of them in more detail.",
   rows: [
-    { name: "AI search and visibility", text: "Get recommended by ChatGPT, Gemini, Perplexity and Google's AI answers.", href: "/our-services/#ai-search" },
-    { name: "SEO and content", text: "Local pages, articles and technical fixes that win the click and get quoted.", href: "/our-services/#seo-content" },
-    { name: "Paid advertising", text: "Google and Meta campaigns tracked from click to enquiry.", href: "/our-services/#advertising" },
-    { name: "AI, automation and chatbots", text: "Answer visitors instantly and pass warm leads to your team.", href: "/our-services/#ai-automation" },
-    { name: "Websites", text: "The foundation every plan builds on, starting with the Website Starter.", href: "/our-services/#website-design" },
-    { name: "Social media and brand", text: "Consistent content that keeps you visible and recognisable.", href: "/our-services/#social-media" },
+    { name: "AI search and visibility", text: "Get recommended by ChatGPT, Gemini, Perplexity and Google's AI answers.", inPlans: "Care: a baseline report across Google, maps, ChatGPT, Gemini and Perplexity, GEO and AEO foundations and AI visibility checks. Growth also reports your AI share of answers.", href: "/our-services/#ai-search" },
+    { name: "SEO and content", text: "Local pages, articles and technical fixes that win the click and get quoted.", inPlans: "Care: 2 SEO and GEO articles a month and schema fixes. Growth: 4 articles and 1 local SEO page a month.", href: "/our-services/#seo-content" },
+    { name: "Paid advertising", text: "Google and Meta campaigns tracked from click to enquiry.", inPlans: "Growth: 1 managed Google or Meta campaign a month, setup and management included. Care: add on.", href: "/our-services/#advertising" },
+    { name: "AI, automation and chatbots", text: "Answer visitors instantly and pass warm leads to your team.", inPlans: "Growth: AI lead chatbot and CRM set up and kept running. Care: add on.", href: "/our-services/#ai-automation" },
+    { name: "Websites", text: "The foundation every plan builds on, starting with the Website Starter.", inPlans: "Care: website updates, plus speed and security checks. The Website Starter is the foundation.", href: "/our-services/#website-design" },
+    { name: "Social media and brand", text: "Consistent content that keeps you visible and recognisable.", inPlans: "Care: 4 posts and stories a month. Growth: 8, with 2 in the founder's voice.", href: "/our-services/#social-media" },
   ],
 };
 
-export const ADDONS = {
+export interface Addon { cells: [string, string, string, string]; sub?: [string, string, string, string]; subLabel?: string }
+export const ADDONS: { h2: string; intro: string; head: string[]; rows: Addon[]; more: { text: string; link: { label: string; href: string } } } = {
   h2: "Add what you need",
   intro: "Add or remove add-ons month by month. Prices are per month unless stated, excluding VAT.",
   head: ["Add-on", "What it does", "Price", "Available on"],
   rows: [
-    ["Paid ads (Google or Meta)", "Start getting enquiries from paid search or social", "£199 a month, plus £149 setup", "Care"],
-    ["Second campaign or platform", "Reach more of your market", "£149 a month", "Growth"],
-    ["Additional local SEO page", "A new service, town or area page", "£100", "Care, Growth"],
-    ["Email marketing", "One campaign a month to follow up leads and bring customers back", "£129 a month", "Care"],
-    ["Extra email campaign", "One more campaign", "£99 each", "Care, Growth"],
-    ["SMS", "Text campaigns, messages charged at cost", "£59 a month", "Care, Growth"],
-    ["AI lead chatbot", "Answers visitors and captures leads around the clock", "£299 setup, plus £39 a month", "Care"],
-    ["Review automation", "Automated review requests and follow ups", "£59 a month", "Care"],
-    ["Extra location", "Google Business Profile, listings and reviews for each extra location", "From £149 a month", "Care, Growth"],
-    ["Extra SEO and GEO article", "One more article", "£99", "Care, Growth"],
-    ["Short form video", "A Reel edited from your own clips", "£75 each", "Care, Growth"],
-    ["Digital PR campaign", "Earn mentions that build trust and AI visibility. Placements cannot be guaranteed.", "From £299", "Care, Growth"],
+    { cells: ["Paid ads (Google or Meta)", "Start getting enquiries from paid search or social", "£250 a month, plus £149 setup", "Care"], sub: ["Second campaign or platform", "Reach more of your market", "£149 a month", "Growth"] },
+    { cells: ["Email and SMS", "One email campaign a month to follow up leads and bring customers back, plus text campaigns, messages charged at cost", "£250 a month", "Care"], sub: ["Extra campaign", "One more campaign", "£99 each", "Care, Growth"] },
+    { cells: ["Additional local SEO page", "A new service, town or area page", "£150", "Care, Growth"] },
+    { cells: ["AI lead chatbot", "Answers visitors and captures leads around the clock", "£299 setup, plus £39 a month", "Care"] },
+    { cells: ["Review automation", "Automated review requests and follow ups", "£59 a month", "Care"] },
+    { cells: ["Extra location", "Google Business Profile, listings and reviews for each extra location", "From £149 a month", "Care, Growth"] },
+    { cells: ["Extra SEO and GEO article", "One more article", "£99", "Care, Growth"] },
+    { cells: ["Short form video", "A Reel edited from your own clips", "£75 each", "Care, Growth"] },
+    { cells: ["Digital PR campaign", "Earn mentions that build trust and AI visibility. Placements cannot be guaranteed.", "From £299", "Care, Growth"] },
   ],
   more: { text: "Need something else? We build custom plans for larger or multi location businesses.", link: { label: "Talk to us", href: CUSTOM_HREF } },
 };
@@ -184,4 +182,33 @@ export const FAQ_SECTION = {
 export const FINAL_CTA = {
   h2: "Not sure which plan fits?",
   body: "Tell us what you want to be found for and we will come back with a real plan, not a sales pitch.",
+};
+
+export const FAQ_SIDE = { line: "Still unsure? Ask us anything.", cta: { label: "Talk to us", href: "/contact-us/" } };
+
+// Existing blog posts shown under the FAQ (title and excerpt are read from the blog collection)
+export const RELATED_GUIDES = [
+  "how-to-get-your-business-recommended-by-chatgpt",
+  "google-business-profile-checklist-for-small-businesses-in-surrey",
+  "how-people-search-in-chatgpt-vs-google",
+];
+
+// First draft for sign-off, built from the client's own phrases
+export const NOTE = {
+  label: "A note from the team",
+  statement: "You do not have to buy everything at once.",
+  paras: [
+    "Start with the foundation, then add monthly help when you are ready. Care keeps you visible while you run the business. Growth turns that visibility into enquiries. If you already have a website, you can start straight on Care or Growth.",
+    "If it is not the right fit, we will say so. Tell us what you want to be found for and we will come back with a real plan, not a sales pitch.",
+  ],
+  sign: "The Maximus Mediascape team",
+};
+
+export const PATH = {
+  label: "Pick your path to progress",
+  rows: [
+    { name: "Starter plan", price: "from £999, one off", text: "A fast, search ready five page website, built as the foundation for everything else.", link: "See the Starter plan", href: STARTER_HREF },
+    { name: "Care", price: "£599 a month", text: "Stay visible while you run the business.", link: "See Care", href: "#care" },
+    { name: "Growth", price: "£999 a month", text: "Turn visibility into enquiries.", link: "See Growth", href: "#growth" },
+  ],
 };

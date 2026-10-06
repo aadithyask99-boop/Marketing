@@ -5,11 +5,14 @@ import Proof from "../components/Proof.astro";
 import "../styles/starter.css";
 import "../styles/startup.css";
 import "../styles/plans.css";
-import { url } from "../data/site";
-import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, SERVICES_SECTION, ADDONS, FAQ_SECTION, FINAL_CTA } from "../data/plans";
+import { getCollection } from "astro:content";
+import { url, SITE } from "../data/site";
+import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, SERVICES_SECTION, ADDONS, FAQ_SECTION, FAQ_SIDE, RELATED_GUIDES, NOTE, PATH, FINAL_CTA } from "../data/plans";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const plans = [PLANS.care, PLANS.growth];
+const allPosts = await getCollection("blog");
+const guides = RELATED_GUIDES.map((id) => allPosts.find((p) => p.id === id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
 const PLAIN_ROWS = ["Minimum term", "Best for"];
 const NOT_IN = ["Add on", "Not included"];
 const o = Astro.site!.origin;
@@ -133,7 +136,7 @@ const schema = [
         <li class:list={[i === 0 && "is-active"]}>
           <a href={r.href} data-cursor="View">
             <span class="pl-svc-name">{r.name}</span>
-            <span class="pl-svc-text">{r.text}</span>
+            <span class="pl-svc-body"><span class="pl-svc-text">{r.text}</span><span class="pl-svc-plans"><b>In your plans</b> {r.inPlans}</span></span>
             <span class="pl-svc-go" aria-hidden="true">↗</span>
           </a>
         </li>
@@ -156,12 +159,22 @@ const schema = [
           </thead>
           <tbody role="rowgroup">
             {ADDONS.rows.map((r) => (
-              <tr role="row" data-price={r[2]}>
-                <th scope="row" role="rowheader" data-label={ADDONS.head[0]}>{r[0]}</th>
-                <td role="cell" data-label={ADDONS.head[1]}>{r[1]}</td>
-                <td role="cell" class="pl-price-cell" data-label={ADDONS.head[2]}>{r[2]}</td>
-                <td role="cell" data-label={ADDONS.head[3]}>{r[3]}</td>
-              </tr>
+              <>
+                <tr role="row" data-price={r.cells[2]} class:list={[r.sub && "pl-has-sub"]} tabindex={r.sub ? 0 : undefined}>
+                  <th scope="row" role="rowheader" data-label={ADDONS.head[0]}>{r.cells[0]}</th>
+                  <td role="cell" data-label={ADDONS.head[1]}>{r.cells[1]}</td>
+                  <td role="cell" class="pl-price-cell" data-label={ADDONS.head[2]}>{r.cells[2]}</td>
+                  <td role="cell" data-label={ADDONS.head[3]}>{r.cells[3]}</td>
+                </tr>
+                {r.sub && (
+                  <tr role="row" class="pl-subrow" data-price={r.sub[2]}>
+                    <th scope="row" role="rowheader" data-label={ADDONS.head[0]}><span class="pl-sub-in">{r.sub[0]}</span></th>
+                    <td role="cell" data-label={ADDONS.head[1]}><span class="pl-sub-in">{r.sub[1]}</span></td>
+                    <td role="cell" class="pl-price-cell" data-label={ADDONS.head[2]}><span class="pl-sub-in">{r.sub[2]}</span></td>
+                    <td role="cell" data-label={ADDONS.head[3]}><span class="pl-sub-in">{r.sub[3]}</span></td>
+                  </tr>
+                )}
+              </>
             ))}
           </tbody>
         </table>
@@ -171,24 +184,69 @@ const schema = [
     <div class="pl-peek" data-peek aria-hidden="true"><div class="pl-peek-card"></div></div>
   </section>
 
-  <!-- 6. FAQ: "Why serious is good?" list, heading left, answers visible on desktop, tap to open on phones -->
+  <!-- 6. FAQ, aligned with the Starter plan page: heading and contact side left, numbered accordion right -->
   <section class="pl-sec pl-sec--cream pl-faq" id="faq" aria-labelledby="faq-title">
-    <div class="pl-split pl-split--faq">
-      <div class="pl-splitside">
-        <h2 id="faq-title" class="display pl-h2 pl-h2--plain">{FAQ_SECTION.h2}</h2>
+    <div class="st-wrap st-faqgrid">
+      <div class="st-faqside">
+        <h2 id="faq-title" class="display st-h2">{FAQ_SECTION.h2}</h2>
+        <p>{FAQ_SIDE.line}</p>
+        <ul class="st-ask">
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><a href={SITE.whatsapp} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a></li>
+        </ul>
+        <a class="st-pill pl-faqcta" href={FAQ_SIDE.cta.href} data-cursor="Go">{FAQ_SIDE.cta.label} <i aria-hidden="true">↗</i></a>
       </div>
-      <div class="pl-splitmain">
-        <ol class="pl-qlist" data-qlist>
-          {FAQ_SECTION.items.map((f, i) => (
-            <li class="pl-q">
-              <span class="pl-qn" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-              <h3 class="pl-qt"><button type="button" class="pl-qbtn" aria-expanded="false" aria-controls={`qa-${i}`}><span>{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></h3>
-              <div class="pl-qa" id={`qa-${i}`}><p set:html={f.a} /></div>
-            </li>
-          ))}
-        </ol>
-        <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
+      <div class="st-faq" data-faq>
+        {FAQ_SECTION.items.map((f, i) => (
+          <details>
+            <summary><span class="st-q-n">{String(i + 1).padStart(2, "0")}</span><span class="st-q">{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
+            <div class="st-faq-a"><p set:html={f.a} /></div>
+          </details>
+        ))}
       </div>
+    </div>
+    <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
+
+    <div class="pl-guides">
+      <p class="su-tag">(Related guides)</p>
+      <ul>
+        {guides.map((g) => (
+          <li>
+            <a href={url(`/blogs/${g.id}`)} data-cursor="Read">
+              <span class="pl-guide-title">{g.data.title}</span>
+              <span class="pl-guide-text">{g.data.excerpt}</span>
+              <span class="pl-svc-go" aria-hidden="true">↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="pl-note">
+      <p class="su-tag">({NOTE.label})</p>
+      <div>
+        <h2 class="pl-note-line">{NOTE.statement}</h2>
+        <div class="pl-note-body">
+          {NOTE.paras.map((t) => <p>{t}</p>)}
+          <p class="pl-sign">{NOTE.sign}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="pl-path">
+      <p class="su-tag">({PATH.label})</p>
+      <ul>
+        {PATH.rows.map((r) => (
+          <li>
+            <a href={r.href.startsWith("#") ? r.href : r.href} data-cursor="Go">
+              <span class="pl-path-name">{r.name}</span>
+              <span class="pl-path-price">{r.price}</span>
+              <span class="pl-path-text">{r.text}</span>
+              <span class="pl-path-link">{r.link} <i aria-hidden="true">↗</i></span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -262,7 +320,7 @@ const schema = [
       peek.style.transform = `translate(${x}px, ${y}px) rotate(${(-5 + tilt).toFixed(1)}deg)`;
       raf = on || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(loop) : 0;
     };
-    addons.querySelectorAll<HTMLElement>("tbody tr").forEach((row) => {
+    addons.querySelectorAll<HTMLElement>("tbody tr[data-price]").forEach((row) => {
       row.addEventListener("pointerenter", (e) => {
         card.textContent = row.dataset.price ?? "";
         tx = x = e.clientX + 20; ty = y = e.clientY + 20;
@@ -274,25 +332,29 @@ const schema = [
     });
   }
 
-  // FAQ: answers are always visible on wide screens; on phones each row taps open
-  const qlist = document.querySelector<HTMLElement>("[data-qlist]");
-  if (qlist) {
-    const wide = window.matchMedia("(min-width: 900px)");
-    const rows = [...qlist.querySelectorAll<HTMLElement>(".pl-q")];
-    const sync = () => rows.forEach((r) => {
-      const btn = r.querySelector<HTMLButtonElement>(".pl-qbtn")!;
-      btn.disabled = wide.matches;
-      if (wide.matches) { r.classList.remove("is-open"); btn.removeAttribute("aria-expanded"); }
-      else btn.setAttribute("aria-expanded", String(r.classList.contains("is-open")));
+  // FAQ: one open at a time, smooth height (same as the Starter plan page)
+  const faq = document.querySelector<HTMLElement>("[data-faq]");
+  if (faq) {
+    const items = [...faq.querySelectorAll<HTMLDetailsElement>("details")];
+    const animate = (d: HTMLDetailsElement, open: boolean) => {
+      const body = d.querySelector<HTMLElement>(".st-faq-a")!;
+      if (calm) { d.open = open; return; }
+      const h = body.scrollHeight;
+      if (open) {
+        d.open = true;
+        body.animate({ height: ["0px", `${h}px`], opacity: [0, 1] }, { duration: 280, easing: "ease-out" });
+      } else {
+        const a = body.animate({ height: [`${h}px`, "0px"], opacity: [1, 0] }, { duration: 220, easing: "ease-in" });
+        a.onfinish = () => (d.open = false);
+      }
+    };
+    items.forEach((d) => {
+      d.querySelector("summary")!.addEventListener("click", (e) => {
+        e.preventDefault();
+        const willOpen = !d.open;
+        items.forEach((o) => { if (o !== d && o.open) animate(o, false); });
+        animate(d, willOpen);
+      });
     });
-    rows.forEach((r) => r.querySelector(".pl-qbtn")!.addEventListener("click", () => {
-      if (wide.matches) return;
-      const open = !r.classList.contains("is-open");
-      rows.forEach((o) => { o.classList.remove("is-open"); });
-      r.classList.toggle("is-open", open);
-      sync();
-    }));
-    wide.addEventListener("change", sync);
-    sync();
   }
 </script>

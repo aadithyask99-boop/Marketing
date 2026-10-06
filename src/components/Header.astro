@@ -23,7 +23,7 @@ const qr = await QRCode.toString(SITE.whatsapp, { type: "svg", margin: 0, color:
         links.map((item) => (
           <a
             href={url(item.href)}
-            aria-current={path === item.href || path.startsWith(`${item.href}/`) ? "page" : undefined}
+            aria-current={[item.href, ...(item.children?.map((c) => c.href) ?? [])].some((h) => path === h || path.startsWith(`${h}/`)) ? "page" : undefined}
             {...(item.children ? { "data-sub": item.href, "aria-haspopup": "true", "aria-expanded": "false", "aria-controls": `sub-${item.label.toLowerCase()}` } : {})}
           >
             {item.label}
