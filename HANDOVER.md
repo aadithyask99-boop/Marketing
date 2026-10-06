@@ -59,7 +59,9 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Retainer plans (waiting on the user):** the three cards after the FAQ on `/website-for-startups` (Care, Growth, Social; `programs` in `src/data/startup.ts`) are placeholders. The user will send the real plan names, contents and any pricing; replace the array. Care and Growth copy comes from `/website-starter`; Social comes from the Social Media Management service. Also to approve: the three portfolio design captions in the price section, and that testimonials include two undisclosed clients (as on the home page).
 
-**Ideas offered, not built:** one-line Bakwa proof under the hero CTA, a "What we need from you" strip, a "Not a fit?" line, a founder note with a photo; shorten the hero marquee on phones and trim "Who it's for" to three rows.
+**Added in round 4, to approve:** hero proof line (verbatim Bakwa quote), the "Not a fit?" strip, and the **note from the team** (`teamNote` in `src/data/startup.ts`, first draft written without a founder name or photo; "we will say so" is the one new commitment). When you have a founder name and photo, change the signature and add the photo.
+
+**Ideas offered, not built:** a "What we need from you" strip; shorten "Who it's for" to three rows.
 
 **Check before launch:** Bakwa revenue shows as £30K* (purchasing-power estimate of ₹10 lakh+) on `/website-for-startups` and the case study. The £30K figure is the user's; I could not confirm India's exact purchasing-power factor (my rough estimate was nearer £30K, the user first guessed £20K). The same ₹10 lakh claim still appears in rupees only in `why-brand-mentions-matter-more-than-backlinks.md` (line 149): align it if wanted.
 

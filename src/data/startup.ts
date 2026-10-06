@@ -8,6 +8,33 @@ export const panelCopy: Record<string, { statement: string; cta: string }> = {
   "Hand over": { statement: "You leave ready to run it, with a plan for the first 90 days.", cta: "Start your project" },
 };
 
+import { TESTIMONIALS } from "./site";
+
+// Hero proof line: a verbatim sentence from the Bakwa testimonial (TESTIMONIALS[1]), so it cannot drift from the original.
+const bakwaQuote = TESTIMONIALS[1];
+export const heroProof = {
+  quote: bakwaQuote.quote.split(". ").find((x) => x.includes("featured by The Better India"))!.concat("."),
+  name: bakwaQuote.name,
+  detail: bakwaQuote.detail,
+};
+
+// "Not a fit?" lines: only what the page already says is not included
+export const notFit = [
+  "You need an online shop or a booking system: we quote those separately.",
+  "You need extensive copywriting or photography: we quote those separately.",
+  "You need a full brand identity first: tell us and we will quote it.",
+];
+
+// Note from the team. First draft for sign-off; no founder name or photo yet.
+export const teamNote = {
+  paras: [
+    "If you are starting out, or running a small business on a tight budget, you do not need a big retainer to get a good website. You need a clear plan, a site that loads fast on a phone, and someone who tells you plainly what it costs and what it does not.",
+    "That is what the Starter package is. We look at your market first, then design and build the site around your customers, set it up to be found on Google and in AI search, and hand it over so you can run it yourself. The price is fixed, you own the result, and anything outside the package is quoted before we start.",
+    "If it is not the right fit, we will say so. Tell us what you are building and we will come back with an honest plan and a start date.",
+  ],
+  sign: "The Maximus Mediascape team",
+};
+
 // Retainer plans shown after the FAQ ("Signature Programs" pattern). PLACEHOLDERS: the user will supply the real plan details.
 // Care plan and Growth plan copy comes from /website-starter; Social plan comes from the Social Media Management service. No prices.
 export const programs = [

@@ -26,8 +26,7 @@
 .su-hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
 .su-hero .st-pill { background: var(--ink); color: var(--cream); }
 .su-hero .st-pill i { background: var(--red); }
-.su-hero .st-badge { top: 0; bottom: auto; right: 0; }
-@media (min-width: 900px) { .su-hero .st-badge { top: auto; bottom: 0; } }
+@media (min-width: 900px) { .su-hero .st-badge { position: absolute; top: auto; bottom: 0; right: 0; } }
 .su-marq { position: relative; margin-inline: calc(var(--gutter) * -1); border-top: 1px solid rgba(23, 9, 10, 0.2); overflow: hidden; }
 .su-marq-in { display: flex; width: max-content; animation: su-marq 48s linear infinite; }
 .su-marq-set { display: flex; flex: none; align-items: center; gap: clamp(1.25rem, 3vw, 3rem); padding: 0.4rem clamp(0.625rem, 1.5vw, 1.5rem); font-family: var(--display); font-size: clamp(3.5rem, 11vw, 9.5rem); line-height: 1; text-transform: uppercase; white-space: nowrap; }
@@ -223,3 +222,44 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 @media (max-width: 479px) { .su-price .st-pill { font-size: 0.88rem; padding-left: 1rem; } .su-price .st-pill i { flex: none; } }
 .su-price { grid-template-columns: minmax(0, 1fr); }
 .su-price .st-wrap { min-width: 0; }
+
+/* Hero proof line (verbatim client words, links to the testimonials) */
+.su-proofline { display: grid; gap: 0.35rem; max-width: 34rem; padding-left: 1rem; border-left: 3px solid var(--red); color: var(--ink); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+.su-proofline:hover { transform: translateX(0.3rem); }
+.su-proofline-q { font-size: 0.98rem; font-weight: 600; line-height: 1.4; }
+.su-proofline-by { font-size: 0.85rem; opacity: 0.7; }
+
+/* Phones: more air in the hero. The sticker leaves the text flow and sits above the marquee. */
+@media (max-width: 899px) {
+  .su-hero { padding-top: calc(var(--header-h) + 1.75rem); }
+  .su-hero-main { gap: 1.75rem; padding-bottom: 3rem; }
+  .su-title { line-height: 0.95; }
+  .su-hero .lede { font-size: 1.0625rem; line-height: 1.6; max-width: 32rem; }
+  .su-hero-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 1rem 1rem; }
+  .su-hero-cta .st-pill { justify-self: start; }
+  .su-hero-cta .su-link { grid-column: 1; justify-self: start; }
+  .su-hero-cta .su-link { padding-block: 0.6rem; }
+  .su-hero .st-badge { position: relative; inset: auto; grid-column: 2; grid-row: 1 / span 2; width: 5.5rem; margin-right: 0.25rem; }
+  .su-hero .st-badge-price { font-size: 1.7rem; }
+  .su-marq-set { font-size: clamp(2.5rem, 12vw, 4rem); }
+}
+@media (max-width: 380px) { .su-title { font-size: min(13.2vw, 6.5rem); } }
+
+/* "Not a fit?" under Who it's for */
+.su-notfit { display: grid; gap: 1rem; margin-top: clamp(2rem, 4vw, 3.5rem); padding-top: 1.25rem; border-top: 1px solid rgba(245, 239, 232, 0.2); }
+@media (min-width: 900px) { .su-notfit { grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: 1rem 3rem; } .su-notfit .su-link { grid-column: 2; justify-self: start; } }
+.su-notfit ul { display: grid; gap: 0.6rem; margin: 0; padding: 0; list-style: none; max-width: 40rem; }
+.su-notfit li { position: relative; padding-left: 1.5rem; line-height: 1.45; opacity: 0.85; }
+.su-notfit li::before { content: "\2715"; position: absolute; left: 0; top: 0.05em; font-size: 0.8em; color: var(--red); }
+
+/* Note from the team */
+.su-note-sec { position: relative; z-index: 5; padding: clamp(1rem, 3vw, 2rem) var(--gutter) clamp(3.5rem, 8vw, 7rem); background: var(--cream); color: var(--ink); }
+.su-note-sec > * { max-width: 62rem; margin-inline: auto; }
+.su-note-title { margin-block: 1rem 2rem; font-size: clamp(2.6rem, 7vw, 5.5rem); line-height: 0.95; }
+.su-note-body { display: grid; gap: 1.25rem; max-width: 40rem; margin-left: 0; font-size: clamp(1.05rem, 1.5vw, 1.2rem); line-height: 1.65; }
+.su-note-body p { margin: 0; }
+@media (min-width: 900px) { .su-note-sec > * { margin-left: max(0px, calc((100% - 62rem) / 2)); } .su-note-body { margin-left: max(0px, calc((100% - 62rem) / 2 + 12rem)); } }
+.su-note-body .su-sign { margin-top: 0.75rem; padding-top: 1rem; border-top: 1px solid rgba(23, 9, 10, 0.2); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .su-proofline { transition: none; } .su-proofline:hover { transform: none; } }
+
+@media (min-width: 900px) { .su-marq-set { font-size: clamp(3.5rem, 8vw, 7rem); } }
