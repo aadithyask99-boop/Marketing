@@ -10,6 +10,8 @@ import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, SERVICES_SECTION, ADDONS, FA
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const plans = [PLANS.care, PLANS.growth];
+const PLAIN_ROWS = ["Minimum term", "Best for"];
+const NOT_IN = ["Add on", "Not included"];
 const o = Astro.site!.origin;
 const plain = (h: string) => h.replace(/<[^>]+>/g, "");
 const schema = [
@@ -93,25 +95,28 @@ const schema = [
     ))}
   </div>
 
-  <!-- 3. Comparison table -->
-  <section class="pl-sec pl-sec--ink" id="compare" aria-labelledby="compare-title">
-    <h2 id="compare-title" class="display pl-h2">{COMPARE.h2}</h2>
+  <!-- 3. Comparison table: giant sticky column titles, tall ruled rows (serious.business reference) -->
+  <section class="pl-sec pl-sec--ink pl-cmp" id="compare" aria-labelledby="compare-title">
+    <div class="pl-cmp-head">
+      <p class="su-tag">(Care and Growth compared)</p>
+      <h2 id="compare-title" class="display pl-h2 pl-h2--plain">{COMPARE.h2}</h2>
+    </div>
     <div class="pl-tablewrap">
       <table class="pl-table pl-compare">
         <caption class="sr-only">{COMPARE.caption}</caption>
         <thead>
           <tr>
             <th scope="col"><span class="sr-only">Feature</span></th>
-            <th scope="col">Care</th>
-            <th scope="col" class="pl-hot">Growth</th>
+            <th scope="col" class="pl-colhead"><span class="pl-colname">Care</span><span class="pl-colprice">{COMPARE.rows[0][1]}</span></th>
+            <th scope="col" class="pl-colhead pl-hot"><span class="pl-colname">Growth</span><span class="pl-colprice">{COMPARE.rows[0][2]}</span></th>
           </tr>
         </thead>
         <tbody>
-          {COMPARE.rows.map((r, i) => (
-            <tr class:list={[i === 0 && "pl-pricerow"]}>
+          {COMPARE.rows.slice(1).map((r) => (
+            <tr class:list={[PLAIN_ROWS.includes(r[0]) && "pl-plainrow"]}>
               <th scope="row">{r[0]}</th>
-              <td>{r[1]}</td>
-              <td>{r[2]}</td>
+              <td class:list={[NOT_IN.includes(r[1]) && "pl-no"]}>{r[1]}</td>
+              <td class:list={[!PLAIN_ROWS.includes(r[0]) && "pl-gain"]}>{r[2]}</td>
             </tr>
           ))}
         </tbody>
@@ -136,42 +141,55 @@ const schema = [
     </ul>
   </section>
 
-  <!-- 5. Add-ons table -->
-  <section class="pl-sec pl-sec--ink" id="add-ons" aria-labelledby="addons-title">
-    <h2 id="addons-title" class="display pl-h2">{ADDONS.h2}</h2>
-    <p class="pl-intro">{ADDONS.intro}</p>
-    <div class="pl-tablewrap">
-      <table class="pl-table pl-addons" role="table">
-        <thead role="rowgroup">
-          <tr role="row">{ADDONS.head.map((h) => <th scope="col" role="columnheader">{h}</th>)}</tr>
-        </thead>
-        <tbody role="rowgroup">
-          {ADDONS.rows.map((r) => (
-            <tr role="row">
-              <th scope="row" role="rowheader" data-label={ADDONS.head[0]}>{r[0]}</th>
-              <td role="cell" data-label={ADDONS.head[1]}>{r[1]}</td>
-              <td role="cell" data-label={ADDONS.head[2]}>{r[2]}</td>
-              <td role="cell" data-label={ADDONS.head[3]}>{r[3]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <!-- 5. Add-ons: "Awarded by the best" table, sticky heading left, price tile follows the cursor -->
+  <section class="pl-sec pl-sec--ink pl-add" id="add-ons" aria-labelledby="addons-title">
+    <div class="pl-split">
+      <div class="pl-splitside">
+        <p class="su-tag">(Add-ons)</p>
+        <h2 id="addons-title" class="display pl-h2 pl-h2--plain">{ADDONS.h2}</h2>
+        <p class="pl-intro">{ADDONS.intro}</p>
+      </div>
+      <div class="pl-splitmain">
+        <table class="pl-table pl-addons" role="table" data-addons>
+          <thead role="rowgroup">
+            <tr role="row">{ADDONS.head.map((h) => <th scope="col" role="columnheader">{h}</th>)}</tr>
+          </thead>
+          <tbody role="rowgroup">
+            {ADDONS.rows.map((r) => (
+              <tr role="row" data-price={r[2]}>
+                <th scope="row" role="rowheader" data-label={ADDONS.head[0]}>{r[0]}</th>
+                <td role="cell" data-label={ADDONS.head[1]}>{r[1]}</td>
+                <td role="cell" class="pl-price-cell" data-label={ADDONS.head[2]}>{r[2]}</td>
+                <td role="cell" data-label={ADDONS.head[3]}>{r[3]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="pl-more">{ADDONS.more.text} <a class="su-link" href={ADDONS.more.link.href} data-cursor="Go">{ADDONS.more.link.label} <i aria-hidden="true">↗</i></a></p>
+      </div>
     </div>
-    <p class="pl-more">{ADDONS.more.text} <a class="su-link" href={ADDONS.more.link.href} data-cursor="Go">{ADDONS.more.link.label} <i aria-hidden="true">↗</i></a></p>
+    <div class="pl-peek" data-peek aria-hidden="true"><div class="pl-peek-card"></div></div>
   </section>
 
-  <!-- 6. FAQ -->
+  <!-- 6. FAQ: "Why serious is good?" list, heading left, answers visible on desktop, tap to open on phones -->
   <section class="pl-sec pl-sec--cream pl-faq" id="faq" aria-labelledby="faq-title">
-    <h2 id="faq-title" class="display pl-h2">{FAQ_SECTION.h2}</h2>
-    <div class="st-faq" data-faq>
-      {FAQ_SECTION.items.map((f, i) => (
-        <details>
-          <summary><span class="st-q-n">{String(i + 1).padStart(2, "0")}</span><span class="st-q">{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></summary>
-          <div class="st-faq-a"><p set:html={f.a} /></div>
-        </details>
-      ))}
+    <div class="pl-split pl-split--faq">
+      <div class="pl-splitside">
+        <h2 id="faq-title" class="display pl-h2 pl-h2--plain">{FAQ_SECTION.h2}</h2>
+      </div>
+      <div class="pl-splitmain">
+        <ol class="pl-qlist" data-qlist>
+          {FAQ_SECTION.items.map((f, i) => (
+            <li class="pl-q">
+              <span class="pl-qn" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="pl-qt"><button type="button" class="pl-qbtn" aria-expanded="false" aria-controls={`qa-${i}`}><span>{f.q}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></h3>
+              <div class="pl-qa" id={`qa-${i}`}><p set:html={f.a} /></div>
+            </li>
+          ))}
+        </ol>
+        <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
+      </div>
     </div>
-    <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
   </section>
 
   <!-- 7. Final call to action -->
@@ -232,29 +250,49 @@ const schema = [
     });
   }
 
-  // FAQ: one open at a time, smooth height
-  const faq = document.querySelector<HTMLElement>("[data-faq]");
-  if (faq) {
-    const items = [...faq.querySelectorAll<HTMLDetailsElement>("details")];
-    const animate = (d: HTMLDetailsElement, open: boolean) => {
-      const body = d.querySelector<HTMLElement>(".st-faq-a")!;
-      if (calm) { d.open = open; return; }
-      const h = body.scrollHeight;
-      if (open) {
-        d.open = true;
-        body.animate({ height: ["0px", `${h}px`], opacity: [0, 1] }, { duration: 280, easing: "ease-out" });
-      } else {
-        const a = body.animate({ height: [`${h}px`, "0px"], opacity: [1, 0] }, { duration: 220, easing: "ease-in" });
-        a.onfinish = () => (d.open = false);
-      }
+  // Add-ons: a small price tile follows the cursor over a row (mouse only)
+  const addons = document.querySelector<HTMLElement>("[data-addons]");
+  const peek = document.querySelector<HTMLElement>("[data-peek]");
+  if (addons && peek && !calm && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    const card = peek.querySelector<HTMLElement>(".pl-peek-card")!;
+    let tx = 0, ty = 0, x = 0, y = 0, on = false, raf = 0;
+    const loop = () => {
+      x += (tx - x) * 0.22; y += (ty - y) * 0.22;
+      const tilt = Math.max(-8, Math.min(8, (tx - x) * 0.35));
+      peek.style.transform = `translate(${x}px, ${y}px) rotate(${(-5 + tilt).toFixed(1)}deg)`;
+      raf = on || Math.abs(tx - x) > 0.5 ? requestAnimationFrame(loop) : 0;
     };
-    items.forEach((d) => {
-      d.querySelector("summary")!.addEventListener("click", (e) => {
-        e.preventDefault();
-        const willOpen = !d.open;
-        items.forEach((o) => { if (o !== d && o.open) animate(o, false); });
-        animate(d, willOpen);
+    addons.querySelectorAll<HTMLElement>("tbody tr").forEach((row) => {
+      row.addEventListener("pointerenter", (e) => {
+        card.textContent = row.dataset.price ?? "";
+        tx = x = e.clientX + 20; ty = y = e.clientY + 20;
+        on = true; peek.classList.add("is-on");
+        if (!raf) raf = requestAnimationFrame(loop);
       });
+      row.addEventListener("pointermove", (e) => { tx = e.clientX + 20; ty = e.clientY + 20; });
+      row.addEventListener("pointerleave", () => { on = false; peek.classList.remove("is-on"); });
     });
+  }
+
+  // FAQ: answers are always visible on wide screens; on phones each row taps open
+  const qlist = document.querySelector<HTMLElement>("[data-qlist]");
+  if (qlist) {
+    const wide = window.matchMedia("(min-width: 900px)");
+    const rows = [...qlist.querySelectorAll<HTMLElement>(".pl-q")];
+    const sync = () => rows.forEach((r) => {
+      const btn = r.querySelector<HTMLButtonElement>(".pl-qbtn")!;
+      btn.disabled = wide.matches;
+      if (wide.matches) { r.classList.remove("is-open"); btn.removeAttribute("aria-expanded"); }
+      else btn.setAttribute("aria-expanded", String(r.classList.contains("is-open")));
+    });
+    rows.forEach((r) => r.querySelector(".pl-qbtn")!.addEventListener("click", () => {
+      if (wide.matches) return;
+      const open = !r.classList.contains("is-open");
+      rows.forEach((o) => { o.classList.remove("is-open"); });
+      r.classList.toggle("is-open", open);
+      sync();
+    }));
+    wide.addEventListener("change", sync);
+    sync();
   }
 </script>
