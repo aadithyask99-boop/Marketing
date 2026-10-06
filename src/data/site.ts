@@ -44,9 +44,8 @@ export interface NavItem { href: string; label: string; children?: { href: strin
 export const NAV: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/our-services", label: "Services", children: [
-    { href: "/our-services", label: "All services", note: "AI search, SEO, ads, automation, websites and social" },
-    { href: "/plans", label: "Plans", note: "Care and Growth monthly plans" },
-    { href: "/plans/starter", label: "Starter plan", note: "Website, one off, from £999" },
+    { href: "/plans/starter", label: "Starter Plan", note: "Website, one off, from £999" },
+    { href: "/plans", label: "Care and Growth Plans", note: "Monthly plans from £599" },
   ] },
   { href: "/work", label: "Work", children: [{ href: "/work/portfolio", label: "Portfolio", note: "Brand identity, websites, apps and Instagram grids" }] },
   { href: "/blogs", label: "Blog" },
