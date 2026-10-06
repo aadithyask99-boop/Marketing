@@ -5,14 +5,12 @@ import Proof from "../components/Proof.astro";
 import "../styles/starter.css";
 import "../styles/startup.css";
 import "../styles/plans.css";
-import { getCollection } from "astro:content";
 import { url, SITE } from "../data/site";
-import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, SERVICES_SECTION, ADDONS, FAQ_SECTION, FAQ_SIDE, RELATED_GUIDES, NOTE, PATH, FINAL_CTA } from "../data/plans";
+import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, EVERYTHING, CHOOSE, ADDONS, FAQ_SECTION, FAQ_SIDE, NOTE, PATH, FINAL_CTA } from "../data/plans";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const plans = [PLANS.care, PLANS.growth];
-const allPosts = await getCollection("blog");
-const guides = RELATED_GUIDES.map((id) => allPosts.find((p) => p.id === id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
+const panels = [...plans, EVERYTHING];
 const PLAIN_ROWS = ["Minimum term", "Best for"];
 const NOT_IN = ["Add on", "Not included"];
 const o = Astro.site!.origin;
@@ -70,14 +68,14 @@ const schema = [
     <p class="pl-helper">{JOURNEY.helper}</p>
   </section>
 
-  <!-- 2. Plans: two stacking panels, no boxes -->
+  <!-- 2. Plans: three stacking panels (Care, Growth, Everything), no boxes -->
   <div class="su-stack" id="plans" data-stack role="region" aria-label="Plans">
-    {plans.map((p, i) => (
-      <section class:list={["su-panel", "pl-panel", i === 0 && "su-panel--dark"]} id={p.id} data-panel style={`--z:${i + 1}`} aria-labelledby={`${p.id}-title`}>
+    {panels.map((p, i) => (
+      <section class:list={["su-panel", "pl-panel", p.id === "care" && "su-panel--dark", p.id === "everything" && "su-panel--red"]} id={p.id} data-panel style={`--z:${i + 1}`} aria-labelledby={`${p.id}-title`}>
         <div class="pl-panel-grid">
           <div class="pl-side">
             {p.badge && <p class="su-tag">({p.badge})</p>}
-            <h2 id={`${p.id}-title`} class="display pl-plan-name su-rise"><span>{p.name}</span></h2>
+            <h2 id={`${p.id}-title`} class:list={["display", "pl-plan-name", "su-rise", p.id === "everything" && "pl-plan-name--q"]}><span>{p.name}</span></h2>
             <p class="pl-price"><span>{p.price}</span><small>{p.unit}</small></p>
             <p class="pl-term">{p.term}</p>
             <p class="pl-headline">{p.headline}</p>
@@ -127,21 +125,17 @@ const schema = [
     </div>
   </section>
 
-  <!-- 4. Services behind the plans -->
-  <section class="pl-sec pl-sec--cream" aria-labelledby="services-title">
-    <h2 id="services-title" class="display pl-h2">{SERVICES_SECTION.h2}</h2>
-    <p class="pl-intro">{SERVICES_SECTION.intro}</p>
-    <ul class="pl-svc" data-svc>
-      {SERVICES_SECTION.rows.map((r, i) => (
-        <li class:list={[i === 0 && "is-active"]}>
-          <a href={r.href} data-cursor="View">
-            <span class="pl-svc-name">{r.name}</span>
-            <span class="pl-svc-body"><span class="pl-svc-text">{r.text}</span><span class="pl-svc-plans"><b>In your plans</b> {r.inPlans}</span></span>
-            <span class="pl-svc-go" aria-hidden="true">↗</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+  <!-- 4. How to choose: written content, cream, heading left -->
+  <section class="pl-sec pl-sec--cream pl-choose" aria-labelledby="choose-title">
+    <div class="pl-split">
+      <div class="pl-splitside">
+        <p class="su-tag">({CHOOSE.label})</p>
+        <h2 id="choose-title" class="display pl-h2 pl-h2--plain">{CHOOSE.h2}</h2>
+      </div>
+      <div class="pl-choose-body">
+        {CHOOSE.paras.map((t) => <p set:html={t} />)}
+      </div>
+    </div>
   </section>
 
   <!-- 5. Add-ons: "Awarded by the best" table, sticky heading left, price tile follows the cursor -->
@@ -206,21 +200,6 @@ const schema = [
       </div>
     </div>
     <p class="pl-small">{FAQ_SECTION.smallPrint}</p>
-
-    <div class="pl-guides">
-      <p class="su-tag">(Related guides)</p>
-      <ul>
-        {guides.map((g) => (
-          <li>
-            <a href={url(`/blogs/${g.id}`)} data-cursor="Read">
-              <span class="pl-guide-title">{g.data.title}</span>
-              <span class="pl-guide-text">{g.data.excerpt}</span>
-              <span class="pl-svc-go" aria-hidden="true">↗</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
 
     <div class="pl-note">
       <p class="su-tag">({NOTE.label})</p>
@@ -289,22 +268,6 @@ const schema = [
       }
       rail.style.setProperty("--p", prog.toFixed(3));
       steps.forEach((s, i) => s.classList.toggle("is-lit", prog >= i / (steps.length - 1) - 0.001));
-    });
-  }
-
-  // Services rows: the row nearest the middle of the screen darkens
-  const svc = document.querySelector<HTMLElement>("[data-svc]");
-  if (svc) {
-    const rows = [...svc.querySelectorAll<HTMLElement>("li")];
-    onScroll(() => {
-      const mid = window.innerHeight * 0.5;
-      let best = 0, d = Infinity;
-      rows.forEach((r, i) => {
-        const b = r.getBoundingClientRect();
-        const dist = Math.abs(b.top + b.height / 2 - mid);
-        if (dist < d) { d = dist; best = i; }
-      });
-      rows.forEach((r, i) => r.classList.toggle("is-active", i === best));
     });
   }
 
