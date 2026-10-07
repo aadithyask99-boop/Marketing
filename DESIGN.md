@@ -264,7 +264,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Do not give the html element and the overlay the same class: `.pre` on `html` once hid the whole page.
 
 ## 20d. Cookie bar and analytics
-- `ANALYTICS.gaId` in `src/data/site.ts` (or the `PUBLIC_GA_ID` build variable on Vercel) holds the Google Analytics 4 Measurement ID (`G-…`). **While it is empty the site adds no tracking, no cookie bar and no footer link.** Set it and push to switch everything on.
+- `ANALYTICS.gaId` in `src/data/site.ts` (or the `PUBLIC_GA_ID` build variable on Vercel) holds the Google Analytics 4 Measurement ID (`G-…`). **If it is emptied the site adds no tracking, no cookie bar and no footer link.** The ID is currently set. The Search Console verification meta tag is in `BaseLayout.astro`. Set it and push to switch everything on.
 - `src/components/Consent.astro` (styles `src/styles/consent.css`): a small cream bar, bottom left on desktop and above the sticky "Talk to us" bar on phones, with equal Decline and Accept buttons. The choice is kept in `localStorage["mm-consent"]` (`granted` or `denied`). **Google's script only loads after Accept**; Decline (or no answer) means no Google requests and no cookies, and declining after accepting clears the `_ga` cookies. It waits for the preloader to finish.
 - The footer shows "Cookie settings" (only when an ID is set) to reopen the choice. The privacy page's "Cookies and storage" text switches to describe Google Analytics when an ID is set.
 - It is not shown on noindex pages (404).

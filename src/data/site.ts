@@ -23,9 +23,9 @@ export const SITE = {
 // Set PUBLIC_LEAD_ENDPOINT at build time to override it.
 export const FORM_ENDPOINT: string = import.meta.env.PUBLIC_LEAD_ENDPOINT || "https://formspree.io/f/mkjgapej";
 
-// Google Analytics 4 Measurement ID (starts with G-). While this is empty the site adds no tracking and shows no cookie bar.
+// Google Analytics 4 Measurement ID (starts with G-). If this is ever emptied the site adds no tracking and shows no cookie bar.
 // Set it here, or at build time with PUBLIC_GA_ID. It only loads after a visitor presses Accept (see components/Consent.astro).
-export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "" };
+export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP" };
 
 export const LEAD = {
   heading: "Now it's your turn.",

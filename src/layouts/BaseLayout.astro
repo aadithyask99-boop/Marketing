@@ -58,6 +58,7 @@ const ld = [siteGraph(origin), ...schema];
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
     <link rel="canonical" href={canonical} />
+    <meta name="google-site-verification" content="7NpVOIIlDaZe5x1Lt0xuVqDvXw3CCgctdGneJlrFjuk" />
     {noindex && <meta name="robots" content="noindex" />}
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o).replace(/</g, "\\u003c")} />)}
     <script is:inline>
