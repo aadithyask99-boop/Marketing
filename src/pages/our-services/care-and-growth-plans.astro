@@ -7,7 +7,7 @@ import "../../styles/starter.css";
 import "../../styles/startup.css";
 import "../../styles/plans.css";
 import { url, SITE } from "../../data/site";
-import { PLANS_META, HERO, PLANS, COMPARE, STARTER_PANEL, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, FINAL_CTA, MARQUEE } from "../../data/plans";
+import { PLANS_META, HERO, PLANS, COMPARE, STARTER_PANEL, EVERYTHING, EVERYTHING_EXTRA, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, FINAL_CTA, MARQUEE } from "../../data/plans";
 import { teamNote } from "../../data/startup";
 import { webPage, breadcrumbs } from "../../lib/schema";
 
@@ -82,6 +82,14 @@ const schema = [
             <dl class="pl-rows">
               {p.monthly.rows.map((r) => <div class="pl-row"><dt>({r.label})</dt><dd>{r.text}</dd></div>)}
             </dl>
+            {p.id === "everything" && (
+              <>
+                <h3 class="pl-listhead">{EVERYTHING_EXTRA.title}</h3>
+                <dl class="pl-rows">
+                  {EVERYTHING_EXTRA.rows.map((r) => <div class="pl-row"><dt>({r.label})</dt><dd>{r.text}</dd></div>)}
+                </dl>
+              </>
+            )}
             {p.note && <p class="pl-note">{p.note}</p>}
           </div>
         </div>

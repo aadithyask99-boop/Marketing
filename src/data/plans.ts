@@ -209,6 +209,16 @@ export const ADDONS: { h2: string; intro: string; head: string[]; rows: Addon[];
   more: { text: "Need something else? We build custom plans for larger or multi location businesses.", link: { label: "Talk to us", href: CUSTOM_HREF } },
 };
 
+// Extra block on the "Want everything?" panel: the add-ons it mentions, with their prices, taken from the table above.
+const EVERYTHING_ADDON_NAMES = ["Paid ads (Google or Meta)", "Email and SMS", "Extra location", "AI lead chatbot", "Digital PR campaign"];
+export const EVERYTHING_EXTRA: { title: string; rows: PlanRow[] } = {
+  title: "Add-ons you can bring in",
+  rows: EVERYTHING_ADDON_NAMES.map((n) => ADDONS.rows.find((r) => r.cells[0] === n)!).map((r) => ({
+    label: r.cells[0].replace(/ \(.*\)$/, ""),
+    text: `${r.cells[2]}. ${r.cells[1]}`,
+  })),
+};
+
 export const FAQ_SECTION = {
   h2: "Questions people ask",
   items: [
