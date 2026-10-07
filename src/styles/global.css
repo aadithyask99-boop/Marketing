@@ -52,6 +52,13 @@ img, svg { display: block; max-width: 100%; }
 .sticker { width: 5rem; }
 h1, h2, h3, p { margin: 0; }
 
+/* Selected text (dragging over words) is brand red with cream text. On red surfaces red would vanish, so there it is a deeper red. */
+::selection { background: var(--red); color: var(--cream); }
+.page-hero ::selection, .hero ::selection, .legal-hero ::selection, .closer--red ::selection, .su-panel--red ::selection {
+  background: color-mix(in srgb, var(--red) 62%, var(--ink));
+  color: var(--cream);
+}
+
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .closer :focus-visible, .svcs :focus-visible, .manifesto :focus-visible, .proof--ink :focus-visible, .voices-section--ink :focus-visible, .site-footer--dark :focus-visible { outline-color: var(--cream); }
 

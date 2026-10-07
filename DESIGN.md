@@ -27,6 +27,7 @@ Rules seen across the site:
 - **Three surface colours alternate down a page: red, cream, ink.** Every page opens on red (the hero), then alternates cream and ink sections. The page ends on ink (or red for contact, 404 and Starter), then the footer card sits on that colour.
 - Text is cream on red and ink, and ink on cream. An accent word is red on cream, and ink or cream on red.
 - Translucent tints of the same two colours do the secondary work: `rgba(245,239,232,.x)` for borders and chips on dark/red, `rgba(23,9,10,.x)` for borders and shadows on light. No greys.
+- Selected text (dragging over words) is red with cream text (`::selection` in `global.css`); on red surfaces (page heroes, the red panel and closer) it is a deeper red so it stays visible.
 - Errors: soft pink `#ffb3ad` (border) and `#ffd0cb` (text) on dark or red. Success needs no colour.
 - Playful pastel blobs (`#cdebd6` mint, `#c9ceff` periwinkle, `#ffe6a3` butter, `#ffc9c2` blush, `#ffd3e6` pink) appear **only inside the line-art stickers** (`Sticker.astro`).
 - Selected-state, hover and focus colours are red on light surfaces, cream on dark surfaces. Focus ring: 3px `--ink` (cream on dark sections).
