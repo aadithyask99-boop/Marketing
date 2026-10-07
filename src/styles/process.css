@@ -203,6 +203,5 @@
 .fw--top .fw-img { bottom: auto; height: 62%; }
 .fw--top .fw-link::after { background: linear-gradient(180deg, rgba(23, 9, 10, 0) 38%, var(--ink) 62%); }
 
-.work-plans { margin: 1.25rem 0 0; }
-.work-plans a { color: var(--cream); font-weight: 600; text-decoration: underline; text-underline-offset: 0.25em; transition: color 0.2s ease; }
-.work-plans a:hover { color: var(--red); }
+.work-inline { color: inherit; font-weight: 600; text-decoration: none; transition: color 0.2s ease; }
+.work-inline:hover { color: var(--ink); }
