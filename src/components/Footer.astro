@@ -84,7 +84,8 @@ const ICONS: Record<string, string> = {
       <ul>
         <li><a href={url("/privacy")}>Privacy Policy</a></li>
         <li><a href={url("/terms")}>Terms &amp; conditions</a></li>
-        {ANALYTICS.gaId && ANALYTICS.consentBar && <li><button type="button" class="footer-cookie" data-consent-open>Cookie settings</button></li>}
+        {ANALYTICS.gaId && ANALYTICS.mode === "optin" && <li><button type="button" class="footer-cookie" data-consent-open>Cookie settings</button></li>}
+        {ANALYTICS.gaId && ANALYTICS.mode === "notice" && <li><a href={url("/privacy#cookies")}>Cookies</a></li>}
       </ul>
     </div>
   </div>

@@ -23,11 +23,12 @@ export const SITE = {
 // Set PUBLIC_LEAD_ENDPOINT at build time to override it.
 export const FORM_ENDPOINT: string = import.meta.env.PUBLIC_LEAD_ENDPOINT || "https://formspree.io/f/mkjgapej";
 
-// Google Analytics 4 Measurement ID (starts with G-). If this is ever emptied the site adds no tracking and shows no cookie bar.
-// Set it here, or at build time with PUBLIC_GA_ID. It only loads after a visitor presses Accept (see components/Consent.astro).
-// consentBar: false = no cookie bar and Google Analytics loads for every visitor on the real domain (current choice, to be revisited).
-// true = show the Accept / Necessary only bar and load Google only after Accept.
-export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP", consentBar: false };
+// Google Analytics 4 Measurement ID (starts with G-). If gaId is ever emptied the site adds no tracking and shows no cookie notice.
+// Set it here, or at build time with PUBLIC_GA_ID. mode:
+//   "notice" = a one-button notice ("Okay"); Google Analytics runs on the real domain unless the visitor switches it off on the privacy page (current choice).
+//   "optin"  = Accept / Necessary only bar; Google loads only after Accept (use this before remarketing or ads).
+//   "none"   = no notice, Google Analytics runs for everyone on the real domain.
+export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP", mode: "notice" as "none" | "notice" | "optin" };
 
 export const LEAD = {
   heading: "Now it's your turn.",

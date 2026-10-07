@@ -263,14 +263,18 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - The real header M is hidden (`html.pre-on .logo-m`) until the flying M lands. The flying M turns ink when the page under the logo is light: the header's colour sampling ignores the overlay (`[data-pre]`) and the preloader asks it to re-sample before flying.
 - Do not give the html element and the overlay the same class: `.pre` on `html` once hid the whole page.
 
-## 20d. Cookie bar and analytics
-- **Current state (7 Oct 2026): the cookie bar is OFF** (`ANALYTICS.consentBar = false` in `src/data/site.ts`) and Google Analytics loads for every visitor, but only on `maximusmediascape.com` (never on localhost, previews or the vercel.app test address). This was the owner's choice for now; before relying on the data decide between the consent bar (set the flag to `true`) and a UK notice-and-opt-out, and note EU visitors normally need consent. Never word any notice "essential cookies only" while Google Analytics runs.
-- The rest of this section describes the bar when the flag is `true`.
-- `ANALYTICS.gaId` in `src/data/site.ts` (or the `PUBLIC_GA_ID` build variable on Vercel) holds the Google Analytics 4 Measurement ID (`G-…`). **If it is emptied the site adds no tracking, no cookie bar and no footer link.** The ID is currently set. The Search Console verification meta tag is in `BaseLayout.astro`. Set it and push to switch everything on.
-- `src/components/Consent.astro` (styles `src/styles/consent.css`): a small cream bar, bottom left on desktop and above the sticky "Talk to us" bar on phones, with equal "Necessary only" and Accept buttons. The choice is kept in `localStorage["mm-consent"]` (`granted` or `denied`). **Google's script only loads after Accept**; "Necessary only" (or no answer) means no Google requests and no cookies, and choosing Necessary only after accepting clears the `_ga` cookies. It waits for the preloader to finish.
-- The footer shows "Cookie settings" (only when an ID is set) to reopen the choice. The privacy page's "Cookies and storage" text switches to describe Google Analytics when an ID is set.
-- It is not shown on noindex pages (404).
-- **Vercel Web Analytics** (`BaseLayout.astro`, production builds only) counts every visitor without cookies or personal data, whatever they choose on the bar, so "Necessary only" visitors are still counted. It needs Analytics switched on in the Vercel project (Analytics tab, Enable). Google Analytics adds the detailed view for people who press Accept.
+## 20d. Cookie notice and analytics
+- **Current state (7 Oct 2026): `ANALYTICS.mode = "notice"`** in `src/data/site.ts`. Google Analytics 4 runs on `maximusmediascape.com` only (never on localhost, previews or the vercel.app test address) and a small cream card with **one "Okay" button** tells visitors: "We use cookies to see how the site is used so we can improve it. You can switch this off any time in our Privacy Policy." Okay is remembered in `localStorage["mm-notice"]`.
+- Modes (`ANALYTICS.mode`):
+  - `notice` (current): the one-button card above. GA runs unless the visitor pressed **Switch off analytics** on `/privacy#cookies` (`localStorage["mm-ga-off"]`, which also clears the `_ga` cookies). Footer shows a "Cookies" link to that section.
+  - `optin`: the Accept / "Necessary only" bar (`localStorage["mm-consent"]`). Google's script only loads after Accept. Footer shows "Cookie settings" to reopen the choice. **Bring this back before running Google Ads.**
+  - `none`: no notice at all, GA runs for everyone on the real domain.
+- **Wording rule:** never say "we only use essential cookies" while Google Analytics runs. The notice covers analytics only, not advertising or remarketing; EU visitors normally need prior consent, so the `notice` mode is a risk the owner has accepted for now.
+- `ANALYTICS.gaId` (or the `PUBLIC_GA_ID` build variable on Vercel) holds the GA4 Measurement ID. **If it is emptied the site adds no tracking, no notice and no footer link.** The Search Console verification meta tag is in `BaseLayout.astro`.
+- `src/components/Consent.astro` (styles `src/styles/consent.css`): bottom left on desktop, above the sticky "Talk to us" bar on phones; waits for the preloader to finish; not shown on noindex pages (404). Consent Mode defaults grant `analytics_storage` and deny `ad_storage`, `ad_user_data`, `ad_personalization`.
+- The privacy page's "Cookies and storage" text and opt-out button follow the mode (draft wording, needs sign-off).
+- **Vercel Web Analytics** (`BaseLayout.astro`, production builds only) counts every visitor without cookies or personal data. It needs Analytics switched on in the Vercel project.
+
 
 ## 21. Stacking panels: the Starter plan, `/our-services/starter-plan`
 A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It replaced the earlier `/website-starter` page (deleted; no redirects needed because it was never live) and is now indexable and in the sitemap.

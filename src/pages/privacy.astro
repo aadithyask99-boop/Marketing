@@ -31,9 +31,14 @@ const schema = [webPage(o, "/privacy", "WebPage", "Privacy Policy", desc), bread
     <h2>Lawful basis</h2>
     <p>Under UK GDPR we rely on your consent (newsletter), taking steps at your request before a contract (enquiries and proposals) and our legitimate interest in running and improving our business.</p>
 
-    <h2>Cookies and storage</h2>
-    {ANALYTICS.gaId && !ANALYTICS.consentBar ? (
-      <p>We use Google Analytics to see how visitors use the site, such as which pages are viewed, the type of device and the approximate location. It sets cookies on your device and sends this information to Google. We also use Vercel Web Analytics, which counts visits without cookies. We do not use advertising cookies. The site also stores small preferences in your browser (for example whether a contents panel is open), which never leave your device. You can opt out of Google Analytics on every site with <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google's browser add-on</a>, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with any question.</p>
+    <h2 id="cookies">Cookies and storage</h2>
+    {ANALYTICS.gaId && ANALYTICS.mode !== "optin" ? (
+      <>
+      <p>We use Google Analytics to see how visitors use the site, such as which pages are viewed, the type of device and the approximate location. It sets cookies on your device and sends this information to Google. We also use Vercel Web Analytics, which counts visits without cookies. You can switch Google Analytics off at any time with the button below; your choice is remembered in this browser. We do not use advertising cookies. The site also stores small preferences in your browser (for example whether a contents panel is open), which never leave your device. You can opt out of Google Analytics on every site with <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google's browser add-on</a>, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with any question.</p>
+      {ANALYTICS.mode === "notice" && (
+        <p class="cookie-optout"><button type="button" class="btn" data-ga-optout aria-pressed="false">Switch off analytics</button> <span data-ga-optout-note aria-live="polite"></span></p>
+      )}
+      </>
     ) : ANALYTICS.gaId ? (
       <p>The site only needs a few necessary items in your browser, such as remembering your cookie choice. If you choose Accept on the cookie bar (the other choice is Necessary only), we also use Google Analytics to see how visitors use the site, such as which pages are viewed, the type of device and the approximate location. It sets cookies and sends this information to Google. It only loads after you accept, and you can change your mind at any time with Cookie settings in the footer. For every visitor, whatever you choose, we also use Vercel Web Analytics, which counts page views and visits without cookies, without storing anything on your device and without identifying you. We do not use advertising cookies. The site also stores small preferences in your browser (for example whether a contents panel is open), which never leave your device. You can also opt out of Google Analytics on every site with <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google's browser add-on</a>.</p>
     ) : (

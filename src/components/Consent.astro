@@ -5,11 +5,12 @@ import { ANALYTICS, url } from "../data/site";
 interface Props { noindex?: boolean }
 const { noindex = false } = Astro.props;
 const gaId = ANALYTICS.gaId;
-const bar = ANALYTICS.consentBar;
+const mode = ANALYTICS.mode;
+const on = !!gaId && !noindex;
 ---
 
 {
-  gaId && bar && !noindex && (
+  on && mode === "optin" && (
     <div class="consent" role="dialog" aria-label="Cookie choice" hidden data-consent data-ga={gaId}>
       <p class="consent-text">We use necessary cookies and storage to make the site work. Accept to also allow analytics cookies, which show us how the site is used so we can improve it. <a href={url("/privacy")}>Privacy Policy</a></p>
       <div class="consent-actions">
@@ -19,71 +20,106 @@ const bar = ANALYTICS.consentBar;
     </div>
   )
 }
-{gaId && !bar && !noindex && <div hidden data-ga-auto data-ga={gaId}></div>}
+{
+  on && mode === "notice" && (
+    <div class="consent consent--notice" role="dialog" aria-label="Cookie notice" hidden data-notice data-ga={gaId}>
+      <p class="consent-text">We use cookies to see how the site is used so we can improve it. You can switch this off any time in our <a href={url("/privacy#cookies")}>Privacy Policy</a>.</p>
+      <div class="consent-actions">
+        <button type="button" class="consent-btn consent-btn--yes" data-notice-ok>Okay</button>
+      </div>
+    </div>
+  )
+}
+{on && mode === "none" && <div hidden data-ga-auto data-ga={gaId}></div>}
 
 <script>
-  // Google Analytics. With the cookie bar on, nothing from Google loads until the visitor presses Accept.
-  // With the bar off (ANALYTICS.consentBar = false) it loads for every visitor, but only on the real domain,
-  // so test, preview and localhost visits never reach the data.
+  // Google Analytics. Three modes (ANALYTICS.mode in src/data/site.ts):
+  //   optin  : the Accept / Necessary only bar; nothing from Google loads until Accept.
+  //   notice : a one-button "Okay" notice; Google Analytics runs unless the visitor switched it off (button on the privacy page).
+  //   none   : no notice; Google Analytics runs for everyone.
+  // In notice and none modes it only loads on the real domain, so test, preview and localhost visits never reach the data.
   const el = document.querySelector<HTMLElement>("[data-consent]");
+  const notice = document.querySelector<HTMLElement>("[data-notice]");
   const auto = document.querySelector<HTMLElement>("[data-ga-auto]");
-  const host = el ?? auto;
-  if (host) {
-    const id = host.dataset.ga as string;
+  const root = document.documentElement;
+  const w = window as any;
+  const OFF = "mm-ga-off";
+  const store = {
+    get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k: string, v: string | null) => { try { if (v) localStorage.setItem(k, v); else localStorage.removeItem(k); } catch {} },
+  };
+  const realDomain = /(^|\.)maximusmediascape\.com$/.test(location.hostname);
+  const idFrom = (e: HTMLElement | null) => e?.dataset.ga as string;
+  let loaded = false;
+
+  const loadGA = (id: string) => {
+    if (loaded || !id) return;
+    loaded = true;
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () { w.dataLayer.push(arguments); };
+    w.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+    w.gtag("js", new Date());
+    w.gtag("config", id);
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+    document.head.appendChild(s);
+  };
+
+  const clearGA = () => {
+    if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied" });
+    document.cookie.split(";").forEach((c) => {
+      const name = c.split("=")[0].trim();
+      if (name === "_ga" || name.startsWith("_ga_")) {
+        document.cookie = `${name}=; Max-Age=0; path=/`;
+        document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
+        document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
+      }
+    });
+  };
+
+  const showBar = (bar: HTMLElement) => {
+    // Wait for the preloader to finish
+    if (root.classList.contains("pre-on")) { window.setTimeout(() => showBar(bar), 300); return; }
+    bar.hidden = false;
+    requestAnimationFrame(() => bar.classList.add("is-on"));
+  };
+  const hideBar = (bar: HTMLElement) => { bar.classList.remove("is-on"); window.setTimeout(() => { bar.hidden = true; }, 350); };
+
+  if (el) {
+    // Opt-in bar
     const KEY = "mm-consent";
-    const root = document.documentElement;
-    const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
-    const set = (v: string | null) => { try { if (v) localStorage.setItem(KEY, v); else localStorage.removeItem(KEY); } catch {} };
-    const w = window as any;
-    let loaded = false;
+    el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { store.set(KEY, "granted"); hideBar(el); loadGA(idFrom(el)); });
+    el.querySelector("[data-consent-decline]")?.addEventListener("click", () => { store.set(KEY, "denied"); hideBar(el); clearGA(); });
+    document.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("[data-consent-open]")) { store.set(KEY, null); showBar(el); }
+    });
+    const choice = store.get(KEY);
+    if (choice === "granted") loadGA(idFrom(el));
+    else if (choice !== "denied") showBar(el);
+  } else if (notice) {
+    // One-button notice: analytics runs unless switched off on the privacy page
+    if (realDomain && !store.get(OFF)) loadGA(idFrom(notice));
+    notice.querySelector("[data-notice-ok]")?.addEventListener("click", () => { store.set("mm-notice", "1"); hideBar(notice); });
+    if (!store.get("mm-notice")) showBar(notice);
+  } else if (auto) {
+    if (realDomain) loadGA(idFrom(auto));
+  }
 
-    const loadGA = () => {
-      if (loaded) return;
-      loaded = true;
-      w.dataLayer = w.dataLayer || [];
-      w.gtag = function () { w.dataLayer.push(arguments); };
-      w.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
-      w.gtag("js", new Date());
-      w.gtag("config", id);
-      const s = document.createElement("script");
-      s.async = true;
-      s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
-      document.head.appendChild(s);
+  // Privacy page: switch Google Analytics off or on (notice mode)
+  const optBtn = document.querySelector<HTMLButtonElement>("[data-ga-optout]");
+  if (optBtn) {
+    const note = document.querySelector<HTMLElement>("[data-ga-optout-note]");
+    const paint = () => {
+      const off = !!store.get(OFF);
+      optBtn.textContent = off ? "Switch analytics back on" : "Switch off analytics";
+      optBtn.setAttribute("aria-pressed", off ? "true" : "false");
+      if (note) note.textContent = off ? "Analytics is off in this browser." : "";
     };
-
-    if (auto) {
-      if (/(^|\.)maximusmediascape\.com$/.test(location.hostname)) loadGA();
-    } else if (el) {
-      const clearGA = () => {
-        if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied" });
-        document.cookie.split(";").forEach((c) => {
-          const name = c.split("=")[0].trim();
-          if (name === "_ga" || name.startsWith("_ga_")) {
-            document.cookie = `${name}=; Max-Age=0; path=/`;
-            document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
-            document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
-          }
-        });
-      };
-
-      const hide = () => { el.classList.remove("is-on"); window.setTimeout(() => { el.hidden = true; }, 350); };
-      const show = () => {
-        // Wait for the preloader to finish
-        if (root.classList.contains("pre-on")) { window.setTimeout(show, 300); return; }
-        el.hidden = false;
-        requestAnimationFrame(() => el.classList.add("is-on"));
-      };
-
-      el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { set("granted"); hide(); loadGA(); });
-      el.querySelector("[data-consent-decline]")?.addEventListener("click", () => { set("denied"); hide(); clearGA(); });
-      // Footer "Cookie settings" link: take the choice back and ask again
-      document.addEventListener("click", (e) => {
-        if ((e.target as HTMLElement).closest("[data-consent-open]")) { set(null); show(); }
-      });
-
-      const choice = get();
-      if (choice === "granted") loadGA();
-      else if (choice !== "denied") show();
-    }
+    optBtn.addEventListener("click", () => {
+      if (store.get(OFF)) { store.set(OFF, null); } else { store.set(OFF, "1"); clearGA(); }
+      paint();
+    });
+    paint();
   }
 </script>
