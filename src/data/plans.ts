@@ -238,7 +238,7 @@ export const PATH = {
   label: "Pick your path to progress",
   foot: "Already have a website? You can start straight on Care or Growth. Prices exclude VAT.",
   cards: [
-    { title: "Starter plan", price: "from £999, one off", tag: "(Website)", art: "starter", text: "A fast, search ready five page website, built as the foundation for everything else.", link: "See the Starter plan", href: STARTER_HREF },
+    { title: "Starter plan", price: "from £999, one off", tag: "(A complete package to get you started)", art: "starter", text: "A fast, search ready five page website, built as the foundation for everything else.", link: "See the Starter plan", href: STARTER_HREF },
     { title: "Care", price: "£599 a month, plus VAT", tag: "(Local presence and AI visibility)", art: "care", text: PLANS.care.summary, link: "See Care", href: "#care" },
     { title: "Growth", price: "£999 a month, plus VAT", tag: "(Enquiries, ads and follow up)", art: "growth", text: PLANS.growth.summary, link: "See Growth", href: "#growth" },
   ],
