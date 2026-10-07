@@ -1,13 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ClosingCta from "../components/ClosingCta.astro";
-import Proof from "../components/Proof.astro";
 import StickyCta from "../components/StickyCta.astro";
 import "../styles/starter.css";
 import "../styles/startup.css";
 import "../styles/plans.css";
 import { url, SITE } from "../data/site";
-import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA } from "../data/plans";
+import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA, MARQUEE } from "../data/plans";
 import { teamNote } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
@@ -56,7 +55,15 @@ const schema = [
       </div>
       <p class="pl-vat">{HERO.vat}</p>
     </div>
-    <Proof tone="cream" />
+    <div class="su-marq" aria-hidden="true">
+      <div class="su-marq-in">
+        {[0, 1].map(() => (
+          <div class="su-marq-set">
+            {MARQUEE.map((w) => <><span>{w}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9"></path></svg></>)}
+          </div>
+        ))}
+      </div>
+    </div>
   </section>
 
   <section class="pl-journey" aria-labelledby="journey-title">

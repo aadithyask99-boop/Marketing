@@ -224,3 +224,6 @@ export const PATH = {
     { title: "Growth", price: "£999 a month, plus VAT", tag: "(Six month minimum)", art: "growth", text: PLANS.growth.summary, link: "See Growth", href: "#growth" },
   ],
 };
+
+// Hero moving strip: the three headings used inside the Growth plan, plus the Care promise
+export const MARQUEE = ["Get found", "Get trusted", "Get leads", "Stay visible"];
