@@ -14,19 +14,10 @@ export const HERO = {
   vat: "All prices exclude VAT.",
 };
 
+import { stages as STARTER_STAGES, steps as STARTER_STEPS, notIncluded as STARTER_NOT } from "./starter";
+
 export const STARTER_HREF = "/plans/starter/";
 export const CUSTOM_HREF = "/contact-us/?service=Custom%20Plan";
-
-export const JOURNEY = {
-  h2: "Start with the foundation, then grow",
-  steps: [
-    { name: "Website Starter", price: "from £999", unit: "one off", desc: "A fast, search ready five page website, built as the foundation for everything else.", link: { label: "Website Starter", href: STARTER_HREF } },
-    { name: "Care", price: "£599", unit: "a month", desc: "Stay visible while you run the business." },
-    { name: "Growth", price: "£999", unit: "a month", desc: "Turn visibility into enquiries." },
-    { name: "Custom", price: "Quoted", unit: "", desc: "For larger or multi location businesses.", link: { label: "Talk to us", href: CUSTOM_HREF } },
-  ],
-  helper: "Already have a website? You can start straight on Care or Growth. We will work with what you have.",
-};
 
 export interface PlanRow { label: string; text: string }
 export interface Plan {
@@ -74,6 +65,7 @@ export const PLANS: { care: Plan; growth: Plan } = {
         { label: "Reporting", text: "A monthly report on rankings, profile views, calls, directions, reviews and AI visibility, plus a quarterly strategy call" },
       ],
     },
+    note: "Already have a website? You can start straight on Care or Growth. We will work with what you have.",
     cta: { label: "Start with Care", href: "/contact-us/?service=Care%20Plan" },
   },
   growth: {
@@ -108,6 +100,27 @@ export const PLANS: { care: Plan; growth: Plan } = {
     note: "Ad spend is paid separately. We recommend at least £500 a month, with £300 as the minimum.",
     cta: { label: "Start with Growth", href: "/contact-us/?service=Growth%20Plan" },
   },
+};
+
+// Third panel, between Growth and Everything. Built only from the Starter page's own content (src/data/starter.ts).
+export const STARTER_PANEL: Plan = {
+  id: "starter",
+  name: "Starter",
+  price: "from £999",
+  unit: "one off, plus VAT",
+  term: "About two months. 50% to start, 50% on launch.",
+  headline: "A website that looks the part, without the agency price.",
+  summary: "A fast, search ready five page website, built as the foundation for everything else.",
+  monthOne: {
+    title: "How it works",
+    items: STARTER_STEPS.map((st) => `${st[0]}: ${st[1]}`),
+  },
+  monthly: {
+    title: "What is included",
+    rows: STARTER_STAGES.map((g) => ({ label: g.name, text: g.items.map((it) => it[0].replace(/\*$/, "")).join(", ") })),
+  },
+  note: `Not included: ${STARTER_NOT.map((n) => n.charAt(0).toLowerCase() + n.slice(1)).join(", ")}.`,
+  cta: { label: "See the Starter plan", href: STARTER_HREF },
 };
 
 // Third panel, after Growth. Draft for sign-off: built from the existing Custom plan line ("larger or multi location businesses") and the add-ons.

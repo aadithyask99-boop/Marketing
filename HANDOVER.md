@@ -75,6 +75,8 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **7 Oct 2026 (later):** Only the star above the Featured work heading was removed (the section itself stays on `/work/`). Plans hero now uses the Starter page's moving word strip (Get found, Get trusted, Get leads, Stay visible; draft words for sign-off) instead of the client logo strip. Home page links "See everything we do" and "See our plans" now sit in a spaced row (`.offer-links`). **Standing rule from the user: always push every change live** (`git push origin HEAD:claude/fervent-clarke-uctw7x`).
 
+**Plans stack (7 Oct 2026):** the "Start with the foundation, then grow" rail is removed; Starter is now a fourth panel between Growth and Want everything? (ink, same layout, content taken from the Starter page data). The "Already have a website?" line moved to the Care panel note. Panel wording is a draft for sign-off.
+
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 
 ## 5. Prompt to paste into the new chat

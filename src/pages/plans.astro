@@ -6,12 +6,12 @@ import "../styles/starter.css";
 import "../styles/startup.css";
 import "../styles/plans.css";
 import { url, SITE } from "../data/site";
-import { PLANS_META, HERO, JOURNEY, PLANS, COMPARE, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA, MARQUEE } from "../data/plans";
+import { PLANS_META, HERO, PLANS, COMPARE, STARTER_PANEL, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA, MARQUEE } from "../data/plans";
 import { teamNote } from "../data/startup";
 import { webPage, breadcrumbs } from "../lib/schema";
 
 const plans = [PLANS.care, PLANS.growth];
-const panels = [...plans, EVERYTHING];
+const panels = [...plans, STARTER_PANEL, EVERYTHING];
 // Small drawings shown in the tile that follows the cursor over the path cards (same as the Starter page)
 const ARTS: Record<string, string> = {
   starter: `<svg viewBox="0 0 120 120"><rect x="14" y="22" width="92" height="76" rx="8" fill="#f5efe8" stroke="#17090a" stroke-width="2.6"/><path d="M14 40h92" stroke="#17090a" stroke-width="2.6"/><circle cx="26" cy="31" r="3.2" fill="#e10600"/><circle cx="37" cy="31" r="3.2" fill="#17090a"/><rect x="26" y="52" width="40" height="8" rx="3" fill="#17090a"/><rect x="26" y="68" width="68" height="6" rx="3" fill="#17090a" opacity="0.35"/><rect x="26" y="80" width="52" height="6" rx="3" fill="#17090a" opacity="0.35"/><rect x="74" y="50" width="20" height="12" rx="3" fill="#e10600"/></svg>`,
@@ -66,27 +66,10 @@ const schema = [
     </div>
   </section>
 
-  <section class="pl-journey" aria-labelledby="journey-title">
-    <h2 id="journey-title" class="display pl-h2">{JOURNEY.h2}</h2>
-    <ol class="pl-rail" data-rail>
-      <span class="pl-rail-line" aria-hidden="true"><span></span></span>
-      {JOURNEY.steps.map((s) => (
-        <li class="pl-step">
-          <span class="pl-node" aria-hidden="true"></span>
-          <h3 class="pl-step-name">{s.name}</h3>
-          <p class="pl-step-price"><span>{s.price}</span>{s.unit && <small>{s.unit}</small>}</p>
-          <p class="pl-step-desc">{s.desc}</p>
-          {s.link && <a class="su-link" href={s.link.href} data-cursor="View">{s.link.label} <i aria-hidden="true">↗</i></a>}
-        </li>
-      ))}
-    </ol>
-    <p class="pl-helper">{JOURNEY.helper}</p>
-  </section>
-
-  <!-- 2. Plans: three stacking panels (Care, Growth, Everything), no boxes -->
+  <!-- 2. Plans: three stacking panels (Care, Growth, Starter, Everything), no boxes -->
   <div class="su-stack" id="plans" data-stack role="region" aria-label="Plans">
     {panels.map((p, i) => (
-      <section class:list={["su-panel", "pl-panel", p.id === "care" && "su-panel--dark", p.id === "everything" && "su-panel--red"]} id={p.id} data-panel style={`--z:${i + 1}`} aria-labelledby={`${p.id}-title`}>
+      <section class:list={["su-panel", "pl-panel", (p.id === "care" || p.id === "starter") && "su-panel--dark", p.id === "everything" && "su-panel--red"]} id={p.id} data-panel style={`--z:${i + 1}`} aria-labelledby={`${p.id}-title`}>
         <div class="pl-panel-grid">
           <div class="pl-side">
             {p.badge && <p class="su-tag">({p.badge})</p>}
@@ -282,21 +265,6 @@ const schema = [
   const stack = document.querySelector<HTMLElement>("[data-stack]");
   if (stack) initStack(stack);
   seen(document.querySelectorAll(".su-rise"), (el) => el.classList.add("is-in"), 0.3);
-
-  // Journey rail: the line fills as you scroll and each stop lights in turn
-  const rail = document.querySelector<HTMLElement>("[data-rail]");
-  if (rail) {
-    const steps = [...rail.querySelectorAll<HTMLElement>(".pl-step")];
-    onScroll(() => {
-      let prog = 1;
-      if (!calm) {
-        const r = rail.getBoundingClientRect();
-        prog = clamp((window.innerHeight * 0.78 - r.top) / (r.height + window.innerHeight * 0.05));
-      }
-      rail.style.setProperty("--p", prog.toFixed(3));
-      steps.forEach((s, i) => s.classList.toggle("is-lit", prog >= i / (steps.length - 1) - 0.001));
-    });
-  }
 
   // Path cards: a small tilted tile follows the cursor (mouse only, same as the Starter page)
   const cardsWrap = document.querySelector<HTMLElement>("[data-cards]");
