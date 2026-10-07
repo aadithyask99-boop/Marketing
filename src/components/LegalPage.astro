@@ -9,7 +9,7 @@ const { title, accent, updated } = Astro.props;
 ---
 
 <header class="legal-hero page-top">
-  <h1 class="display legal-title">{title} <em>{accent}</em></h1>
+  <h1 class="display legal-title">{title} {accent}</h1>
   <p class="legal-meta">Last updated {updated}</p>
 </header>
 <article class="legal">

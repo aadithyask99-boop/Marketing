@@ -49,7 +49,7 @@ Scale (all fluid with `clamp`):
 - `.lede`: `clamp(1.05rem, 1.6vw, 1.4rem)`, max-width 40rem, under the headline.
 - Body 1rem / 1.5.
 
-**Headline pattern:** Bebas phrase + one Boska italic word (see above). Do not italicise more than one or two words.
+**Headline pattern:** page heroes (every `h1`) are plain Bebas with **no italic accent word**, so they all read the same (changed 7 Oct 2026). The Boska italic accent word is kept for section headings further down a page only; do not italicise more than one or two words there.
 
 **X-ray hover:** big headlines are marked `data-xray` and initialised with `initXray(el, radiusRem)` from `src/scripts/xray.ts`. Letters near the cursor flip colour (cream to ink on red). Desktop mouse only. Use it on page-hero headlines and the footer wordmark.
 
@@ -109,7 +109,7 @@ Data lives in `src/data/site.ts` (`SITE`, `NAV`, `SERVICES`, `CATEGORIES`, `CLIE
 ## 8. How to build a new page (recipe)
 
 1. Create `src/pages/<name>.astro` using `BaseLayout` with `title`, `description`, and `schema` from `src/lib/schema.ts` (`webPage(...)`, `breadcrumbs(...)`).
-2. **Hero:** `<section class="section page-top page-hero">` with `<h1 class="display …">` (Bebas phrase + `<span>` Boska accent word, `data-xray`), and `<p class="lede">`. Red background comes from `body`.
+2. **Hero:** `<section class="section page-top page-hero">` with `<h1 class="display …">` (one plain Bebas phrase in a `data-xray` span, no accent word), and `<p class="lede">`. Red background comes from `body`.
 3. **Body:** alternate cream (`.section--cream`) and ink sections. Put each page's CSS in `src/styles/<page>.css`, imported in the page, and scope it with a prefix (the Starter page uses `st-`). Reuse tokens only.
 4. Optional social proof: `Proof`, `Voices`.
 5. End with `<ClosingCta />` (ink) or `<ClosingCta tone="red" />`, and set `footerTone` to match.
@@ -236,7 +236,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - **Work dropdown:** `NAV` items can have `children` (Work > Portfolio). Desktop shows a chevron on Work and a liquid-glass panel (`.nav-sub`, a sibling of the pill because the pill clips) on hover or focus; ArrowDown enters it, Escape closes it. The phone menu and footer list Portfolio under Work.
 - **Featured work** (`/work/`, `FeaturedWork.astro`): three real cards (Bakwa case study, Luna wellness chat, Bakwa Instagram grid, showing the top of the profile screenshot) plus the "Shhh" card. The results strip (`RESULTS` in `site.ts`) holds three figures from the case studies, each naming its client; client-reported figures carry an asterisk.
 - **About hero:** the floating shapes were removed. **Portfolio hero:** the word strip and scroll cue were removed.
-- **Contact page:** the two address boxes are cream with ink text, matching the footer card, on the red section.
+- **Contact page:** now **ink** (changed 7 Oct 2026): the form is the hero (`ClosingCta tone="ink" hero heading="h1"`; the `hero` prop adds the page-top spacing and centring, `.closer--hero`), then the cream offices band with its two address boxes, then the ink footer. The red `ClosingCta` variant is now used only by the 404 page.
 - **Testimonials** are real (see Voices).
 
 ## 20. Conventions

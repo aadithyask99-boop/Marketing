@@ -125,8 +125,9 @@
   .closer .lead-chips button { width: 100%; justify-content: flex-start; border-radius: 1.5rem; }
 }
 
-/* Red variant (contact page) */
-.closer--red { background: var(--red); text-align: center; padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem)); padding-bottom: clamp(2rem, 5vw, 4rem); }
+/* Page-top variant (contact page): the form is the hero */
+.closer--hero { text-align: center; padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem)); padding-bottom: clamp(2rem, 5vw, 4rem); }
+.closer--red { background: var(--red); }
 .closer--red .closer-bar { box-shadow: 0 1.5rem 4rem rgba(23, 9, 10, 0.3); }
 .closer--red .closer-bar:focus-within { outline-color: var(--cream); }
 .closer--red .closer-input[aria-invalid="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }

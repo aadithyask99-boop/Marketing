@@ -1,5 +1,4 @@
 .svc-hero-title { font-size: clamp(3.5rem, 12vw, 10rem); }
-.svc-hero-accent { font-family: var(--accent); font-style: italic; font-weight: 400; text-transform: none; font-size: 1.05em; }
 .svc-hero [data-xray] { --xr-base: var(--cream); --xr-rev: var(--ink); }
 .svc-hero .lede { color: var(--cream); }
 

@@ -11,8 +11,9 @@ interface Props {
   title?: string;
   lede?: string;
   service?: string;
+  hero?: boolean;
 }
-const { tone = "ink", heading = "h2", eyebrow = "", title = LEAD.heading, lede = LEAD.lede, service = "" } = Astro.props;
+const { tone = "ink", heading = "h2", eyebrow = "", title = LEAD.heading, lede = LEAD.lede, service = "", hero = false } = Astro.props;
 const Heading = heading;
 const endpoint = FORM_ENDPOINT;
 const ICONS = [
@@ -24,7 +25,7 @@ const ICONS = [
 ---
 
 <section
-  class:list={["closer", tone === "red" && "closer--red page-top page-hero"]}
+  class:list={["closer", tone === "red" && "closer--red", (hero || tone === "red") && "closer--hero page-top page-hero"]}
   id="start"
   aria-labelledby="closer-title"
   data-endpoint={endpoint}
