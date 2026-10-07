@@ -41,7 +41,7 @@ export const PLANS: { care: Plan; growth: Plan } = {
     name: "Care",
     price: "£599",
     unit: "a month, plus VAT",
-    term: "Three month minimum, then rolling monthly.",
+    term: "A monthly report and a monthly strategy call.",
     headline: "Be the business people find: on Google, on the map and in AI answers.",
     summary: "A steady, done for you presence that keeps you visible while you run the business.",
     monthOne: {
@@ -62,7 +62,7 @@ export const PLANS: { care: Plan; growth: Plan } = {
         { label: "Search and AI", text: "2 SEO and GEO articles, GEO and AEO foundations, and AI visibility checks" },
         { label: "Social", text: "4 posts and stories, with a content calendar, scheduling and location tags. Good reviews become social posts." },
         { label: "Website", text: "Updates, plus speed and security checks" },
-        { label: "Reporting", text: "A monthly report on rankings, profile views, calls, directions, reviews and AI visibility, plus a quarterly strategy call" },
+        { label: "Reporting", text: "A monthly report on rankings, profile views, calls, directions, reviews and AI visibility, plus a monthly strategy call" },
       ],
     },
     note: "Already have a website? You can start straight on Care or Growth. We will work with what you have.",
@@ -73,7 +73,7 @@ export const PLANS: { care: Plan; growth: Plan } = {
     name: "Growth",
     price: "£999",
     unit: "a month, plus VAT",
-    term: "Six month minimum, then rolling monthly.",
+    term: "A monthly report and a monthly strategy call.",
     badge: "Most popular",
     headline: "Turn visibility into enquiries.",
     summary: "Local search, AI visibility, ads and follow up working as one system, reported in calls, forms and cost per lead.",
@@ -164,7 +164,7 @@ export const COMPARE = {
   head: ["", "Care", "Growth"],
   rows: [
     ["Price", "£599 a month", "£999 a month"],
-    ["Minimum term", "3 months", "6 months"],
+    ["Month one setup", "Visibility baseline, profile audit and a 90 day roadmap", "Care's setup, plus tracking, your first campaign and a chatbot and CRM"],
     ["Best for", "Staying visible locally and in AI answers", "Turning visibility into enquiries"],
     ["Local SEO page build", "Add on", "1 a month"],
     ["SEO and GEO articles", "2 a month", "4 a month"],
@@ -174,7 +174,7 @@ export const COMPARE = {
     ["AI chatbot and CRM", "Add on", "Included"],
     ["Authority building and digital PR", "Not included", "Included"],
     ["Reporting", "Monthly report", "Monthly report"],
-    ["Strategy call", "Quarterly", "Monthly"],
+    ["Strategy call", "Monthly", "Monthly"],
   ],
 };
 
@@ -212,7 +212,7 @@ export const ADDONS: { h2: string; intro: string; head: string[]; rows: Addon[];
 export const FAQ_SECTION = {
   h2: "Questions people ask",
   items: [
-    { q: "Can I start with Care and move to Growth later?", a: "Yes. You can upgrade at any time. The Growth minimum term starts from the month you move up." },
+    { q: "Can I start with Care and move to Growth later?", a: "Yes. You can upgrade at any time. Growth starts from the month you move up." },
     { q: "Do I need a new website first?", a: `Not necessarily. If your site is in good shape, we work with it. If it is not, our <a href="${STARTER_HREF}">Website Starter</a>, from £999, gives you a fast, search ready five page site to build on.` },
     { q: "What does ad spend look like?", a: "Ad spend is paid directly to Google or Meta and is separate from our fee. We recommend at least £500 a month, with £300 as the minimum. Platform charges and taxes are in addition." },
     { q: "Do you guarantee rankings or AI citations?", a: "No, and nobody honestly can. We report on the activity and the results we can measure, month by month." },
@@ -239,8 +239,8 @@ export const PATH = {
   foot: "Already have a website? You can start straight on Care or Growth. Prices exclude VAT.",
   cards: [
     { title: "Starter plan", price: "from £999, one off", tag: "(Website)", art: "starter", text: "A fast, search ready five page website, built as the foundation for everything else.", link: "See the Starter plan", href: STARTER_HREF },
-    { title: "Care", price: "£599 a month, plus VAT", tag: "(Three month minimum)", art: "care", text: PLANS.care.summary, link: "See Care", href: "#care" },
-    { title: "Growth", price: "£999 a month, plus VAT", tag: "(Six month minimum)", art: "growth", text: PLANS.growth.summary, link: "See Growth", href: "#growth" },
+    { title: "Care", price: "£599 a month, plus VAT", tag: "(Local presence and AI visibility)", art: "care", text: PLANS.care.summary, link: "See Care", href: "#care" },
+    { title: "Growth", price: "£999 a month, plus VAT", tag: "(Enquiries, ads and follow up)", art: "growth", text: PLANS.growth.summary, link: "See Growth", href: "#growth" },
   ],
 };
 

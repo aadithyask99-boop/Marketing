@@ -81,6 +81,8 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Services interlinking (7 Oct 2026):** a dark "Pick your path to progress" row (Starter plan, Care, Growth) now sits on `/our-services/` just before "Now it's your turn". It is the shared `PathCards` component, also used (cream) on the Care and Growth page.
 
+**Minimum terms removed (7 Oct 2026):** the site no longer mentions the 3 month (Care) and 6 month (Growth) minimums. The line under each price now reads "A monthly report and a monthly strategy call."; the comparison row "Minimum term" became "Month one setup"; the path card tags became "(Local presence and AI visibility)" and "(Enquiries, ads and follow up)". **Care's strategy call is now monthly (was quarterly) at the user's request: confirm this plan change with the client, and confirm whether the minimum terms still apply in the contract.**
+
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 
 ## 5. Prompt to paste into the new chat

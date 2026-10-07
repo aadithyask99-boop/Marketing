@@ -29,8 +29,8 @@ export const teamNote = {
 // Monthly plans shown after the FAQ. Copy and prices come from the plans page (src/data/plans.ts); no other plans exist.
 import { PLANS } from "./plans";
 export const programs = [
-  { title: "Care", price: "£599 a month, plus VAT", tag: "(Three month minimum)", text: PLANS.care.summary, href: "/our-services/care-and-growth-plans#care", art: "care", label: "Care" },
-  { title: "Growth", price: "£999 a month, plus VAT", tag: "(Six month minimum)", text: PLANS.growth.summary, href: "/our-services/care-and-growth-plans#growth", art: "growth", label: "Growth" },
+  { title: "Care", price: "£599 a month, plus VAT", tag: "(Local presence and AI visibility)", text: PLANS.care.summary, href: "/our-services/care-and-growth-plans#care", art: "care", label: "Care" },
+  { title: "Growth", price: "£999 a month, plus VAT", tag: "(Enquiries, ads and follow up)", text: PLANS.growth.summary, href: "/our-services/care-and-growth-plans#growth", art: "growth", label: "Growth" },
 ];
 
 // Website designs from the portfolio (ids in DESIGN_WALL, src/data/design.ts), shown with the price
