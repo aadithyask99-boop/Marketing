@@ -3,6 +3,7 @@ import "../styles/preloader.css";
 ---
 
 <div class="pre" aria-hidden="true" data-pre>
+  <div class="pre-bg"></div>
   <p class="pre-count"><span><span data-pre-n>0</span>%</span></p>
   <svg class="pre-m" viewBox="0 0 200 192" data-pre-m focusable="false"><path fill="currentColor" d="M0 0L55 0L100 77.5L145 0L200 0L200 191.2L145 139.5L145 99.5L100 170L55 99.5L55 139.5L0 191.2Z"></path></svg>
 </div>
@@ -11,7 +12,7 @@ import "../styles/preloader.css";
   // Timings (milliseconds). The count takes COUNT_MS but never shows 100 before the page has loaded.
   const COUNT_MS = 2100;
   const BEAT_MS = 350;
-  const FLY_MS = 1250;
+  const FLY_MS = 1600;
   const MAX_MS = 4500;
   const FAILSAFE_MS = 9000;
 
@@ -51,7 +52,8 @@ import "../styles/preloader.css";
       // Dark mark when the page under the logo is light (the header reports this in data-bg)
       const header = document.querySelector<HTMLElement>("[data-nav]");
       if (header?.dataset.bg === "light") m.style.color = "var(--ink)";
-      m.style.transform = `translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${to.width / from.width})`;
+      m.style.translate = `${to.left - from.left}px ${to.top - from.top}px`;
+      m.style.scale = String(to.width / from.width);
       window.setTimeout(() => { window.clearTimeout(failsafe); cleanup(); }, FLY_MS + 40);
     };
 
