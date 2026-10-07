@@ -87,6 +87,8 @@ const ld = [siteGraph(origin), ...schema];
         } catch (e) {}
       })();
     </script>
+    {import.meta.env.PROD && <script is:inline>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>}
+    {import.meta.env.PROD && <script is:inline defer src="/_vercel/insights/script.js"></script>}
     <slot name="head" />
     <link rel="icon" type="image/png" href={url("/favicon.png")} />
     <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />

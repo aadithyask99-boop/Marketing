@@ -268,6 +268,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - `src/components/Consent.astro` (styles `src/styles/consent.css`): a small cream bar, bottom left on desktop and above the sticky "Talk to us" bar on phones, with equal "Necessary only" and Accept buttons. The choice is kept in `localStorage["mm-consent"]` (`granted` or `denied`). **Google's script only loads after Accept**; "Necessary only" (or no answer) means no Google requests and no cookies, and choosing Necessary only after accepting clears the `_ga` cookies. It waits for the preloader to finish.
 - The footer shows "Cookie settings" (only when an ID is set) to reopen the choice. The privacy page's "Cookies and storage" text switches to describe Google Analytics when an ID is set.
 - It is not shown on noindex pages (404).
+- **Vercel Web Analytics** (`BaseLayout.astro`, production builds only) counts every visitor without cookies or personal data, whatever they choose on the bar, so "Necessary only" visitors are still counted. It needs Analytics switched on in the Vercel project (Analytics tab, Enable). Google Analytics adds the detailed view for people who press Accept.
 
 ## 21. Stacking panels: the Starter plan, `/our-services/starter-plan`
 A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It replaced the earlier `/website-starter` page (deleted; no redirects needed because it was never live) and is now indexable and in the sitemap.
