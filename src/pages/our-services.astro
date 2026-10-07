@@ -4,6 +4,7 @@ import ServiceBlocks from "../components/ServiceBlocks.astro";
 import Proof from "../components/Proof.astro";
 import Voices from "../components/Voices.astro";
 import ClosingCta from "../components/ClosingCta.astro";
+import PathCards from "../components/PathCards.astro";
 import "../styles/services.css";
 import { SERVICES_INTRO, url } from "../data/site";
 import { webPage, breadcrumbs, serviceList } from "../lib/schema";
@@ -31,6 +32,9 @@ const schema = [
   <ServiceBlocks />
   <Proof tone="ink" />
   <Voices tone="ink" />
+  <section class="svc-path" aria-label="Our plans">
+    <PathCards tone="ink" />
+  </section>
   <ClosingCta />
 </BaseLayout>
 

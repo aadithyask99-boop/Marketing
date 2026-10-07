@@ -79,6 +79,8 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **URLs and nav labels (7 Oct 2026):** the plan pages moved to `/our-services/starter-plan/` and `/our-services/care-and-growth-plans/` (files `src/pages/our-services/starter-plan.astro` and `care-and-growth-plans.astro`). The old `/plans/` addresses were never live, so there are no redirects and they now 404. Services and Work in the desktop nav show a cursor pill ("to services", "to work") like the logo's "to home", so visitors know the parent link is clickable even though a dropdown opens.
 
+**Services interlinking (7 Oct 2026):** a dark "Pick your path to progress" row (Starter plan, Care, Growth) now sits on `/our-services/` just before "Now it's your turn". It is the shared `PathCards` component, also used (cream) on the Care and Growth page.
+
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 
 ## 5. Prompt to paste into the new chat
