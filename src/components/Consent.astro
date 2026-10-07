@@ -5,6 +5,7 @@ import { ANALYTICS, url } from "../data/site";
 interface Props { noindex?: boolean }
 const { noindex = false } = Astro.props;
 const gaId = ANALYTICS.gaId;
+const adsId = ANALYTICS.adsId;
 const mode = ANALYTICS.mode;
 const on = !!gaId && !noindex;
 ---
@@ -22,8 +23,8 @@ const on = !!gaId && !noindex;
 }
 {
   on && mode === "notice" && (
-    <div class="consent consent--notice" role="dialog" aria-label="Cookie notice" hidden data-notice data-ga={gaId}>
-      <p class="consent-text">We use cookies to see how the site is used so we can improve it. You can switch this off any time in our <a href={url("/privacy#cookies")}>Privacy Policy</a>.</p>
+    <div class="consent consent--notice" role="dialog" aria-label="Cookie notice" hidden data-notice data-ga={gaId} data-ads={adsId}>
+      <p class="consent-text">We use cookies to see how the site is used and to show relevant ads. You can switch this off any time in our <a href={url("/privacy#cookies")}>Privacy Policy</a>.</p>
       <div class="consent-actions">
         <button type="button" class="consent-btn consent-btn--yes" data-notice-ok>Okay</button>
       </div>
@@ -36,6 +37,7 @@ const on = !!gaId && !noindex;
   // Google Analytics. Three modes (ANALYTICS.mode in src/data/site.ts):
   //   optin  : the Accept / Necessary only bar; nothing from Google loads until Accept.
   //   notice : a one-button "Okay" notice; Google Analytics runs unless the visitor switched it off (button on the privacy page).
+  //            Google Ads signals (ad storage, user data, personalisation) are granted only after the visitor presses Okay.
   //   none   : no notice; Google Analytics runs for everyone.
   // In notice and none modes it only loads on the real domain, so test, preview and localhost visits never reach the data.
   const el = document.querySelector<HTMLElement>("[data-consent]");
@@ -52,6 +54,13 @@ const on = !!gaId && !noindex;
   const idFrom = (e: HTMLElement | null) => e?.dataset.ga as string;
   let loaded = false;
 
+  let adsId = "";
+  const grantAds = () => {
+    if (!loaded || !adsId || !w.gtag) return;
+    w.gtag("consent", "update", { ad_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
+    w.gtag("config", adsId);
+  };
+
   const loadGA = (id: string) => {
     if (loaded || !id) return;
     loaded = true;
@@ -67,10 +76,10 @@ const on = !!gaId && !noindex;
   };
 
   const clearGA = () => {
-    if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied" });
+    if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     document.cookie.split(";").forEach((c) => {
       const name = c.split("=")[0].trim();
-      if (name === "_ga" || name.startsWith("_ga_")) {
+      if (name === "_ga" || name.startsWith("_ga_") || name.startsWith("_gcl_") || name === "_gac" || name.startsWith("_gac_")) {
         document.cookie = `${name}=; Max-Age=0; path=/`;
         document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
         document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
@@ -98,9 +107,16 @@ const on = !!gaId && !noindex;
     if (choice === "granted") loadGA(idFrom(el));
     else if (choice !== "denied") showBar(el);
   } else if (notice) {
-    // One-button notice: analytics runs unless switched off on the privacy page
-    if (realDomain && !store.get(OFF)) loadGA(idFrom(notice));
-    notice.querySelector("[data-notice-ok]")?.addEventListener("click", () => { store.set("mm-notice", "1"); hideBar(notice); });
+    // One-button notice: analytics runs unless switched off on the privacy page; ad signals follow Okay
+    adsId = notice.dataset.ads || "";
+    const active = realDomain && !store.get(OFF);
+    if (active) loadGA(idFrom(notice));
+    if (active && store.get("mm-notice")) grantAds();
+    notice.querySelector("[data-notice-ok]")?.addEventListener("click", () => {
+      store.set("mm-notice", "1");
+      hideBar(notice);
+      if (realDomain && !store.get(OFF)) { loadGA(idFrom(notice)); grantAds(); }
+    });
     if (!store.get("mm-notice")) showBar(notice);
   } else if (auto) {
     if (realDomain) loadGA(idFrom(auto));
@@ -112,12 +128,12 @@ const on = !!gaId && !noindex;
     const note = document.querySelector<HTMLElement>("[data-ga-optout-note]");
     const paint = () => {
       const off = !!store.get(OFF);
-      optBtn.textContent = off ? "Switch analytics back on" : "Switch off analytics";
+      optBtn.textContent = off ? "Switch analytics and ads back on" : "Switch off analytics and ads";
       optBtn.setAttribute("aria-pressed", off ? "true" : "false");
-      if (note) note.textContent = off ? "Analytics is off in this browser." : "";
+      if (note) note.textContent = off ? "Analytics and ads cookies are off in this browser." : "";
     };
     optBtn.addEventListener("click", () => {
-      if (store.get(OFF)) { store.set(OFF, null); } else { store.set(OFF, "1"); clearGA(); }
+      if (store.get(OFF)) { store.set(OFF, null); if (store.get("mm-notice")) location.reload(); } else { store.set(OFF, "1"); clearGA(); }
       paint();
     });
     paint();

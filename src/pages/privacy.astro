@@ -34,9 +34,11 @@ const schema = [webPage(o, "/privacy", "WebPage", "Privacy Policy", desc), bread
     <h2 id="cookies">Cookies and storage</h2>
     {ANALYTICS.gaId && ANALYTICS.mode !== "optin" ? (
       <>
-      <p>We use Google Analytics to see how visitors use the site, such as which pages are viewed, the type of device and the approximate location. It sets cookies on your device and sends this information to Google. We also use Vercel Web Analytics, which counts visits without cookies. You can switch Google Analytics off at any time with the button below; your choice is remembered in this browser. We do not use advertising cookies. The site also stores small preferences in your browser (for example whether a contents panel is open), which never leave your device. You can opt out of Google Analytics on every site with <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google's browser add-on</a>, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with any question.</p>
+      <p>We use Google Analytics to see how visitors use the site, such as which pages are viewed, the type of device and the approximate location. It sets cookies on your device and sends this information to Google. We also use Vercel Web Analytics, which counts visits without cookies.</p>
+      <p>We also use Google Ads to measure how our adverts perform and to show relevant ads to people who have visited the site. Advertising cookies and identifiers are only used after you press Okay on the cookie notice, and they are shared with Google. You can manage the ads you see in <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer">Google's ad settings</a>.</p>
+      <p>You can switch Google Analytics and the advertising cookies off at any time with the button below; your choice is remembered in this browser. The site also stores small preferences in your browser (for example whether a contents panel is open), which never leave your device. You can opt out of Google Analytics on every site with <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer">Google's browser add-on</a>, or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> with any question.</p>
       {ANALYTICS.mode === "notice" && (
-        <p class="cookie-optout"><button type="button" class="btn" data-ga-optout aria-pressed="false">Switch off analytics</button> <span data-ga-optout-note aria-live="polite"></span></p>
+        <p class="cookie-optout"><button type="button" class="btn" data-ga-optout aria-pressed="false">Switch off analytics and ads</button> <span data-ga-optout-note aria-live="polite"></span></p>
       )}
       </>
     ) : ANALYTICS.gaId ? (
