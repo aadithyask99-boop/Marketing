@@ -67,8 +67,11 @@
 .pl-table th, .pl-table td { padding: 1rem 1rem 1rem 0; vertical-align: top; font-size: 0.95rem; line-height: 1.45; }
 .pl-table tbody tr { border-top: 1px solid rgba(245, 239, 232, 0.2); transition: opacity 0.25s ease; }
 .pl-table tbody th { font-weight: 600; }
-.js-st .pl-table tbody:hover tr { opacity: 0.45; }
-.js-st .pl-table tbody tr:hover { opacity: 1; }
+/* Other rows fade while one is hovered: mouse only (on a touch screen "hover" sticks and would leave rows dimmed) */
+@media (hover: hover) and (pointer: fine) {
+  .js-st .pl-table tbody:hover tr { opacity: 0.45; }
+  .js-st .pl-table tbody tr:hover { opacity: 1; }
+}
 
 /* Comparison: same design as the add-ons table (sticky heading left, tall ruled rows right). Rules for the shared table are under "Add-ons". */
 .pl-addons.pl-compare th:nth-child(1) { width: 34%; } .pl-addons.pl-compare th:nth-child(2) { width: 33%; } .pl-addons.pl-compare th:nth-child(3) { width: 33%; }
@@ -98,10 +101,21 @@
   .pl-addons tbody th { font-size: 1.3rem; }
   .pl-addons td::before { content: attr(data-label) ": "; font-size: 0.8rem; opacity: 0.6; font-family: var(--body); }
   .pl-addons td:nth-of-type(1)::before { content: ""; }
+  .pl-addons .pl-price-cell { font-size: 1.4rem; }
+
+  /* Comparison on phones: the row name on top, then Care and Growth side by side, each with its own small label,
+     so the two plans can be read across at a glance. A red dot marks what Growth adds. */
+  .pl-addons.pl-compare tr { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.6rem 1.25rem; padding: 1.25rem 0; }
+  .pl-addons.pl-compare tbody th { grid-column: 1 / -1; font-size: 1.3rem; }
+  .pl-addons.pl-compare tbody td { display: grid; align-content: start; gap: 0.3rem; font-size: 0.98rem; line-height: 1.4; opacity: 1; }
+  .pl-addons.pl-compare td::before,
+  .pl-addons.pl-compare td:nth-of-type(1)::before { content: attr(data-label); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.6; }
   .pl-compare td.pl-gain { padding-left: 0; }
   .pl-compare td.pl-gain::after { display: none; }
-  .pl-addons.pl-compare td:nth-of-type(1)::before { content: attr(data-label) ": "; }
-  .pl-addons .pl-price-cell { font-size: 1.4rem; }
+  .pl-compare td.pl-gain::before { color: var(--cream); opacity: 1; }
+  .pl-compare td.pl-gain::before { background: none; }
+  .pl-compare td.pl-no { opacity: 0.5; }
+  .pl-addons.pl-compare .pl-price-cell { font-size: 1.6rem; }
 }
 .pl-peek { position: fixed; left: 0; top: 0; z-index: 60; display: none; pointer-events: none; will-change: transform; }
 @media (hover: hover) and (pointer: fine) { .pl-peek { display: block; } }
