@@ -104,4 +104,4 @@
 .svc-plans a:hover { color: var(--red); }
 
 /* Plan cards before the closing form (dark version of "Pick your path to progress") */
-.svc-path { padding: clamp(3rem, 7vw, 6rem) var(--gutter) clamp(4rem, 9vw, 8rem); background: var(--ink); color: var(--cream); border-top: 1px solid rgba(245, 239, 232, 0.2); }
+.svc-path { padding: 0 var(--gutter) clamp(4rem, 9vw, 8rem); background: var(--ink); color: var(--cream); }
