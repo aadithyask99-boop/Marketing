@@ -126,4 +126,5 @@
   .offer-pills span { font-size: 1rem; }
 }
 
-.offer-more--plans { margin-top: 0.75rem; }
+.offer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 2.5rem; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+.offer-links .offer-more { margin-top: 0; }
