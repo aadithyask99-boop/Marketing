@@ -23,7 +23,7 @@ const toneOf = (i: number) => (i % 2 === 0 ? "dark" : "cream");
 
 const o = Astro.site!.origin;
 const schema = [
-  webPage(o, "/plans/starter", "WebPage", "Starter plan for startups and SMEs, from £999", "A fast, mobile-friendly, local-SEO-ready website for startups and small businesses, from £999, with market analysis, strategy, bespoke build, a 90-day plan and training."),
+  webPage(o, "/our-services/starter-plan", "WebPage", "Starter plan for startups and SMEs, from £999", "A fast, mobile-friendly, local-SEO-ready website for startups and small businesses, from £999, with market analysis, strategy, bespoke build, a 90-day plan and training."),
   {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -32,10 +32,10 @@ const schema = [
     description: "Market and competitor analysis, website strategy and design, bespoke development, mobile-optimised and local-SEO-ready build, 90-day implementation plan, and training and handover.",
     provider: { "@id": `${o}/#organization` },
     areaServed: ["United Kingdom"],
-    offers: { "@type": "Offer", price: "999", priceCurrency: "GBP", url: `${o}/plans/starter`, availability: "https://schema.org/InStock" },
+    offers: { "@type": "Offer", price: "999", priceCurrency: "GBP", url: `${o}/our-services/starter-plan`, availability: "https://schema.org/InStock" },
   },
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
-  breadcrumbs(o, [{ name: "Plans", path: "/plans" }, { name: "Starter plan for startups and SMEs", path: "/plans/starter" }]),
+  breadcrumbs(o, [{ name: "Plans", path: "/our-services/care-and-growth-plans" }, { name: "Starter plan for startups and SMEs", path: "/our-services/starter-plan" }]),
 ];
 ---
 
@@ -272,7 +272,7 @@ const schema = [
     </div>
     <div class="su-cardsbar" id="programs-cards">
       <p class="su-tag">(Pick your path to progress)</p>
-      <a class="su-link" href={url("/plans")} data-cursor="View">Compare all plans <i aria-hidden="true">↗</i></a>
+      <a class="su-link" href={url("/our-services/care-and-growth-plans")} data-cursor="View">Compare all plans <i aria-hidden="true">↗</i></a>
     </div>
     <div class="su-cards su-cards--two" data-cards>
       {programs.map((b) => (

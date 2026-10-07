@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
 
-const PAGES = ["/", "/our-services/", "/work/", "/work/portfolio/", "/blogs/", "/about-us/", "/contact-us/", "/plans/", "/plans/starter/", "/privacy/", "/terms/"];
+const PAGES = ["/", "/our-services/", "/work/", "/work/portfolio/", "/blogs/", "/about-us/", "/contact-us/", "/our-services/care-and-growth-plans/", "/our-services/starter-plan/", "/privacy/", "/terms/"];
 
 export const GET: APIRoute = async ({ site }) => {
   const origin = (site ?? new URL("https://maximusmediascape.com")).origin;

@@ -1,14 +1,14 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import ClosingCta from "../components/ClosingCta.astro";
-import StickyCta from "../components/StickyCta.astro";
-import "../styles/starter.css";
-import "../styles/startup.css";
-import "../styles/plans.css";
-import { url, SITE } from "../data/site";
-import { PLANS_META, HERO, PLANS, COMPARE, STARTER_PANEL, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA, MARQUEE } from "../data/plans";
-import { teamNote } from "../data/startup";
-import { webPage, breadcrumbs } from "../lib/schema";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ClosingCta from "../../components/ClosingCta.astro";
+import StickyCta from "../../components/StickyCta.astro";
+import "../../styles/starter.css";
+import "../../styles/startup.css";
+import "../../styles/plans.css";
+import { url, SITE } from "../../data/site";
+import { PLANS_META, HERO, PLANS, COMPARE, STARTER_PANEL, EVERYTHING, WHO, ADDONS, FAQ_SECTION, FAQ_SIDE, PATH, FINAL_CTA, MARQUEE } from "../../data/plans";
+import { teamNote } from "../../data/startup";
+import { webPage, breadcrumbs } from "../../lib/schema";
 
 const plans = [PLANS.care, PLANS.growth];
 const panels = [...plans, STARTER_PANEL, EVERYTHING];
@@ -23,7 +23,7 @@ const NOT_IN = ["Add on", "Not included"];
 const o = Astro.site!.origin;
 const plain = (h: string) => h.replace(/<[^>]+>/g, "");
 const schema = [
-  webPage(o, "/plans", "WebPage", PLANS_META.title, PLANS_META.description),
+  webPage(o, "/our-services/care-and-growth-plans", "WebPage", PLANS_META.title, PLANS_META.description),
   {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
@@ -34,12 +34,12 @@ const schema = [
       description: `${p.summary} ${p.term} Price excludes VAT.`,
       priceCurrency: "GBP",
       priceSpecification: { "@type": "UnitPriceSpecification", price: p.price.replace("£", ""), priceCurrency: "GBP", unitText: "MONTH", valueAddedTaxIncluded: false },
-      url: `${o}/plans/#${p.id}`,
+      url: `${o}/our-services/care-and-growth-plans/#${p.id}`,
       seller: { "@id": `${o}/#organization` },
     })),
   },
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQ_SECTION.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: plain(f.a) } })) },
-  breadcrumbs(o, [{ name: "Plans", path: "/plans" }]),
+  breadcrumbs(o, [{ name: "Plans", path: "/our-services/care-and-growth-plans" }]),
 ];
 ---
 
@@ -242,7 +242,7 @@ const schema = [
 </BaseLayout>
 
 <script>
-  import { initStack } from "../scripts/stackPanels";
+  import { initStack } from "../../scripts/stackPanels";
 
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp = (n: number, a = 0, b = 1) => Math.min(b, Math.max(a, n));

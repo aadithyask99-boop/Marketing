@@ -1,4 +1,4 @@
-// Copy for /plans/starter. First drafts: wording to be signed off by the client (see HANDOVER.md).
+// Copy for /our-services/starter-plan. First drafts: wording to be signed off by the client (see HANDOVER.md).
 // Everything here restates facts already on the plans pages or in the published Bakwa case study.
 
 export const panelCopy: Record<string, { statement: string; cta: string }> = {
@@ -29,8 +29,8 @@ export const teamNote = {
 // Monthly plans shown after the FAQ. Copy and prices come from the plans page (src/data/plans.ts); no other plans exist.
 import { PLANS } from "./plans";
 export const programs = [
-  { title: "Care", price: "£599 a month, plus VAT", tag: "(Three month minimum)", text: PLANS.care.summary, href: "/plans#care", art: "care", label: "Care" },
-  { title: "Growth", price: "£999 a month, plus VAT", tag: "(Six month minimum)", text: PLANS.growth.summary, href: "/plans#growth", art: "growth", label: "Growth" },
+  { title: "Care", price: "£599 a month, plus VAT", tag: "(Three month minimum)", text: PLANS.care.summary, href: "/our-services/care-and-growth-plans#care", art: "care", label: "Care" },
+  { title: "Growth", price: "£999 a month, plus VAT", tag: "(Six month minimum)", text: PLANS.growth.summary, href: "/our-services/care-and-growth-plans#growth", art: "growth", label: "Growth" },
 ];
 
 // Website designs from the portfolio (ids in DESIGN_WALL, src/data/design.ts), shown with the price

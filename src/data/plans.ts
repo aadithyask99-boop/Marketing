@@ -1,4 +1,4 @@
-// Copy for /plans, supplied by the client and kept verbatim. British English, no dashes as punctuation.
+// Copy for /our-services/care-and-growth-plans, supplied by the client and kept verbatim. British English, no dashes as punctuation.
 // Prices exclude VAT. Do not add plans, features, discounts, statistics or promises about rankings, AI citations, links or press.
 
 export const PLANS_META = {
@@ -16,7 +16,7 @@ export const HERO = {
 
 import { stages as STARTER_STAGES, notIncluded as STARTER_NOT } from "./starter";
 
-export const STARTER_HREF = "/plans/starter/";
+export const STARTER_HREF = "/our-services/starter-plan/";
 export const CUSTOM_HREF = "/contact-us/?service=Custom%20Plan";
 
 export interface PlanRow { label: string; text: string }

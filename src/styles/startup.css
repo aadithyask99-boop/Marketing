@@ -1,4 +1,4 @@
-/* Starter website for startups and SMEs (/plans/starter).
+/* Starter website for startups and SMEs (/our-services/starter-plan).
    Stacking panels: each panel is sticky and the next one slides over it; the covered one dims. Shared bits (pills, price, FAQ, timeline, carousel) come from starter.css. */
 .su-accent { font-family: var(--accent); font-style: italic; font-weight: 400; font-size: 1.05em; text-transform: none; letter-spacing: 0; color: var(--red); }
 .su-tag { margin: 0; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; }

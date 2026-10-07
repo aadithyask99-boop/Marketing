@@ -1,4 +1,4 @@
-/* /plans: retainer pricing. No boxes: structure comes from type, hairline rules, whitespace and alternating cream and ink bands.
+/* /our-services/care-and-growth-plans: retainer pricing. No boxes: structure comes from type, hairline rules, whitespace and alternating cream and ink bands.
    Also loads startup.css (stacking panels) and starter.css (pills, FAQ) for shared pieces. */
 .pl-sec { position: relative; z-index: 5; padding: clamp(3.5rem, 8vw, 7rem) var(--gutter); }
 .pl-sec--ink { background: var(--ink); color: var(--cream); }

@@ -1,4 +1,4 @@
-// Starter package content, shared by /plans/starter
+// Starter package content, shared by /our-services/starter-plan
 export const START = "I'd like the Starter website package (from £999)";
 export const CHECK = "I'd like a free 15-minute website check";
 
