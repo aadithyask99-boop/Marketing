@@ -254,6 +254,13 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Tab titles stay within 60 characters: `BaseLayout` appends " | Maximus Mediascape" only when it fits. For a long post title add `seoTitle` to the post's frontmatter. Posts set `article` so the layout writes `og:type=article` and publish and modify times.
 - Every new page needs links to it from the body of at least a few other pages (not only the nav and footer). Link to `/our-services/`, never to the old location addresses.
 
+## 20c. Preloader
+- A red full-screen overlay with a small percentage counter (centred in the space above the M) and the cream **M** rising from the bottom edge. At 100% the M flies to the header logo's exact box and the red fades out. Reference: a client video (white screen, counter, huge logo rising, then moving to the top).
+- Files: `src/components/Preloader.astro` (markup, script, timings as constants at the top), `src/styles/preloader.css`, `public/logo-m.svg` (the M traced as a 13 point vector from the PNG, so it stays sharp at 26rem), an inline script in `BaseLayout.astro`'s head that adds `html.pre-on` before first paint.
+- Plays on the **first page of a session** only (`sessionStorage["mm-pre"]`). Never for `prefers-reduced-motion`, no JavaScript, or crawlers and Lighthouse (`navigator.webdriver`, bot or headless user agents). **Add `?pre=1` to any address to replay it.**
+- The real header M is hidden (`html.pre-on .logo-m`) until the flying M lands. The flying M turns ink when the page under the logo is light: the header's colour sampling ignores the overlay (`[data-pre]`) and the preloader asks it to re-sample before flying.
+- Do not give the html element and the overlay the same class: `.pre` on `html` once hid the whole page.
+
 ## 21. Stacking panels: the Starter plan, `/our-services/starter-plan`
 A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It replaced the earlier `/website-starter` page (deleted; no redirects needed because it was never live) and is now indexable and in the sitemap.
 - **Files:** `src/pages/our-services/starter-plan.astro`, `src/styles/startup.css` (prefix `su-`; also loads `starter.css` for pills, price, timeline, carousel and FAQ), `src/scripts/stackPanels.ts`, `src/data/startup.ts` (new copy). Shared Starter content (stages, steps, included lists, FAQ, CTA presets) lives in `src/data/starter.ts` and is used by both pages.

@@ -6,6 +6,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import MenuOverlay from "../components/MenuOverlay.astro";
 import Cursor from "../components/Cursor.astro";
+import Preloader from "../components/Preloader.astro";
 import ScrollTop from "../components/ScrollTop.astro";
 import Footer from "../components/Footer.astro";
 import { SITE, url } from "../data/site";
@@ -58,11 +59,25 @@ const ld = [siteGraph(origin), ...schema];
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o).replace(/</g, "\\u003c")} />)}
+    <script is:inline>
+      // Preloader: first visit of the session only, never for reduced motion or crawlers. Add ?pre=1 to any address to replay it.
+      (function () {
+        try {
+          var d = document.documentElement;
+          if (location.search.indexOf("pre=1") > -1) { d.classList.add("pre-on"); return; }
+          if (sessionStorage.getItem("mm-pre")) return;
+          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          if (navigator.webdriver || /bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent)) return;
+          d.classList.add("pre-on");
+        } catch (e) {}
+      })();
+    </script>
     <slot name="head" />
     <link rel="icon" type="image/png" href={url("/favicon.png")} />
     <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />
   </head>
   <body>
+    <Preloader />
     <a class="skip-link" href="#main">Skip to content</a>
     <Header minimal={landing} />
     {!landing && <MenuOverlay />}

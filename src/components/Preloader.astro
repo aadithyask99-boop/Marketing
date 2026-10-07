@@ -1,0 +1,78 @@
+---
+import "../styles/preloader.css";
+---
+
+<div class="pre" aria-hidden="true" data-pre>
+  <p class="pre-count"><span><span data-pre-n>0</span>%</span></p>
+  <svg class="pre-m" viewBox="0 0 200 192" data-pre-m focusable="false"><path fill="currentColor" d="M0 0L55 0L100 77.5L145 0L200 0L200 191.2L145 139.5L145 99.5L100 170L55 99.5L55 139.5L0 191.2Z"></path></svg>
+</div>
+
+<script>
+  // Timings (milliseconds). The count takes COUNT_MS but never shows 100 before the page has loaded.
+  const COUNT_MS = 1600;
+  const BEAT_MS = 300;
+  const FLY_MS = 950;
+  const MAX_MS = 3500;
+  const FAILSAFE_MS = 7000;
+
+  const root = document.documentElement;
+  const overlay = document.querySelector<HTMLElement>("[data-pre]");
+  const num = document.querySelector<HTMLElement>("[data-pre-n]");
+  const m = document.querySelector<SVGElement>("[data-pre-m]");
+
+  const cleanup = () => {
+    root.classList.remove("pre-on");
+    overlay?.remove();
+    window.dispatchEvent(new Event("scroll"));
+  };
+
+  if (root.classList.contains("pre-on") && overlay && num && m) {
+    try { sessionStorage.setItem("mm-pre", "1"); } catch {}
+    const failsafe = window.setTimeout(cleanup, FAILSAFE_MS);
+
+    const fly = async () => {
+      const logo = document.querySelector<HTMLElement>(".site-header .logo-m");
+      if (!logo) { cleanup(); return; }
+      // Let the header re-read the page colour under its logo (it ignores this overlay), so the M lands in the right colour
+      window.dispatchEvent(new Event("scroll"));
+      await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+      const from = m.getBoundingClientRect();
+      const to = logo.getBoundingClientRect();
+      // Switch to pixel positioning at the current spot, then animate a transform to the header logo's box
+      m.style.transition = "none";
+      m.style.left = `${from.left}px`;
+      m.style.top = `${from.top}px`;
+      m.style.bottom = "auto";
+      m.style.width = `${from.width}px`;
+      m.style.transform = "none";
+      void m.getBoundingClientRect();
+      m.style.transition = "";
+      overlay.classList.add("pre-fly");
+      // Dark mark when the page under the logo is light (the header reports this in data-bg)
+      const header = document.querySelector<HTMLElement>("[data-nav]");
+      if (header?.dataset.bg === "light") m.style.color = "var(--ink)";
+      m.style.transform = `translate(${to.left - from.left}px, ${to.top - from.top}px) scale(${to.width / from.width})`;
+      window.setTimeout(() => { window.clearTimeout(failsafe); cleanup(); }, FLY_MS + 40);
+    };
+
+    const start = performance.now();
+    requestAnimationFrame(() => overlay.classList.add("pre-in"));
+    const ease = (t: number) => 1 - Math.pow(1 - t, 2.2);
+    const tick = (now: number) => {
+      const t = Math.max(0, Math.min(1, (now - start) / COUNT_MS));
+      const loaded = document.readyState === "complete" || now - start > MAX_MS;
+      const n = Math.round(ease(t) * 100);
+      num.textContent = String(loaded ? n : Math.min(n, 99));
+      if (t >= 1 && loaded) {
+        num.textContent = "100";
+        overlay.classList.add("pre-counted");
+        window.setTimeout(fly, BEAT_MS);
+        return;
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  } else {
+    cleanup();
+  }
+</script>

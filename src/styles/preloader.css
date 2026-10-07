@@ -1,0 +1,56 @@
+/* Preloader: a red screen, a small percentage counter, and the cream M rising from the bottom edge.
+   When the count reaches 100 the M flies to the header logo and the red fades away (see components/Preloader.astro).
+   Only shown when the inline script in BaseLayout sets html.pre-on (first visit of the session, motion allowed). */
+.pre { display: none; }
+html.pre-on { overflow: hidden; }
+html.pre-on .pre {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: block;
+  overflow: hidden;
+  background: var(--red);
+  color: var(--cream);
+  transition: background 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.pre-on .pre.pre-fly { background: transparent; }
+
+/* The counter is centred in the space above the M */
+.pre-count {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(100svh - clamp(11rem, 34vw, 26rem) * 0.96 - clamp(1rem, 2.5vw, 2rem));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font: 600 1rem/1 var(--body);
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  transition: opacity 0.3s ease;
+}
+.pre.pre-counted .pre-count { opacity: 0; }
+
+.pre-m {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 2.5vw, 2rem);
+  width: clamp(11rem, 34vw, 26rem);
+  height: auto;
+  color: var(--cream);
+  transform: translate(-50%, 115%);
+  transform-origin: 0 0;
+  will-change: transform;
+}
+.pre.pre-in .pre-m { transform: translate(-50%, 0); transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+/* While flying, the script sets left/top/width in pixels and animates a transform to the header logo's box */
+.pre.pre-fly .pre-m { transition: transform 0.95s cubic-bezier(0.65, 0, 0.2, 1), color 0.6s ease; }
+
+/* The real header logo waits until the flying M lands on it */
+html.pre-on .logo-m { visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pre { display: none !important; }
+  html.pre-on { overflow: auto; }
+  html.pre-on .logo-m { visibility: visible; }
+}
