@@ -71,7 +71,7 @@ Scale (all fluid with `clamp`):
 - **Shadows** are rare and soft: `0 1.5rem 4rem rgba(23,9,10,.3)` on floating bars/panels. Otherwise flat.
 - **Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` for movement and reveals, `cubic-bezier(0.34, 1.56, 0.64, 1)` for springy hover and tap, `cubic-bezier(0.2, 0.7, 0.2, 1)` for slow count/roll effects. Hover transitions 0.2 to 0.35s.
 - **Always honour `prefers-reduced-motion`**: every animated component has a reduce block and pinned/scroll scenes fall back to static.
-- **Custom cursor** (`Cursor.astro`, mouse only): cream arrow with ink outline; add `data-cursor="Go"` to links and buttons to show a pill label.
+- **Custom cursor** (`Cursor.astro`, mouse only; layer 400, above the preloader at 300 and the cookie bar at 250, so the pointer is never hidden under a fixed panel): cream arrow with ink outline; add `data-cursor="Go"` to links and buttons to show a pill label.
 - **Scroll-driven moments** (signature of the site): pinned horizontal headline with stickers (home), typed search demo (home), sticky category sidebar with progress line (services), dotted S-curve process path (work), year-by-year story (about), word-by-word light-up statements.
 - **Decorative geometry** (`OfferShape.astro`): concentric rings, spiral, grid of circles, stacked ellipses, in cream/red. Used as hero ornaments and illustration in lists.
 - **Stickers** (`Sticker.astro`): hand-drawn 3.5px ink line-art icons on a pastel blob: thumb, magnifier, chart, chat, megaphone, phone, heart.

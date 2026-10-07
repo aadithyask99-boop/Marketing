@@ -338,7 +338,7 @@ a.row:hover .row-name { color: var(--red); transform: translateX(0.1em); }
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 200;
+  z-index: 400; /* above the preloader (300) and the cookie bar (250) so the pointer is never hidden */
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s ease;
