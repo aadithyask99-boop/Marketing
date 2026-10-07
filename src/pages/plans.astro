@@ -96,30 +96,28 @@ const schema = [
 
   <!-- 3. Comparison table: giant sticky column titles, tall ruled rows (serious.business reference) -->
   <section class="pl-sec pl-sec--ink pl-cmp" id="compare" aria-labelledby="compare-title">
-    <div class="pl-cmp-head">
-      <p class="su-tag">(Care and Growth compared)</p>
-      <h2 id="compare-title" class="display pl-h2 pl-h2--plain">{COMPARE.h2}</h2>
-    </div>
-    <div class="pl-tablewrap">
-      <table class="pl-table pl-compare">
-        <caption class="sr-only">{COMPARE.caption}</caption>
-        <thead>
-          <tr>
-            <th scope="col"><span class="sr-only">Feature</span></th>
-            <th scope="col" class="pl-colhead"><span class="pl-colname">Care</span><span class="pl-colprice">{COMPARE.rows[0][1]}</span></th>
-            <th scope="col" class="pl-colhead pl-hot"><span class="pl-colname">Growth</span><span class="pl-colprice">{COMPARE.rows[0][2]}</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          {COMPARE.rows.slice(1).map((r) => (
-            <tr class:list={[PLAIN_ROWS.includes(r[0]) && "pl-plainrow"]}>
-              <th scope="row">{r[0]}</th>
-              <td class:list={[NOT_IN.includes(r[1]) && "pl-no"]}>{r[1]}</td>
-              <td class:list={[!PLAIN_ROWS.includes(r[0]) && "pl-gain"]}>{r[2]}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div class="pl-split">
+      <div class="pl-splitside">
+        <p class="su-tag">(Care and Growth compared)</p>
+        <h2 id="compare-title" class="display pl-h2 pl-h2--plain">{COMPARE.h2}</h2>
+      </div>
+      <div class="pl-splitmain">
+        <table class="pl-table pl-addons pl-compare" role="table">
+          <caption class="sr-only">{COMPARE.caption}</caption>
+          <thead role="rowgroup">
+            <tr role="row">{["What changes", "Care", "Growth"].map((h) => <th scope="col" role="columnheader">{h}</th>)}</tr>
+          </thead>
+          <tbody role="rowgroup">
+            {COMPARE.rows.map((r) => (
+              <tr role="row" class:list={[PLAIN_ROWS.includes(r[0]) && "pl-plainrow"]}>
+                <th scope="row" role="rowheader" data-label="What changes">{r[0]}</th>
+                <td role="cell" data-label="Care" class:list={[NOT_IN.includes(r[1]) && "pl-no", r[0] === "Price" && "pl-price-cell"]}>{r[1]}</td>
+                <td role="cell" data-label="Growth" class:list={[!PLAIN_ROWS.includes(r[0]) && r[0] !== "Price" && "pl-gain", r[0] === "Price" && "pl-price-cell"]}>{r[2]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 

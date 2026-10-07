@@ -59,10 +59,8 @@
 
 /* Section heads in the reference style: small label, plain heading, no rule above */
 .pl-h2--plain { padding-top: 0; border-top: 0; }
-.pl-cmp-head { display: grid; gap: 0.75rem; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
 
 /* Tables: rules only, no cell borders or fills */
-.pl-tablewrap { max-width: 82rem; }
 .pl-table { width: 100%; border-collapse: collapse; text-align: left; }
 .pl-table th, .pl-table td { padding: 1rem 1rem 1rem 0; vertical-align: top; font-size: 0.95rem; line-height: 1.45; }
 .pl-table tbody tr { border-top: 1px solid rgba(245, 239, 232, 0.2); transition: opacity 0.25s ease; }
@@ -70,25 +68,11 @@
 .js-st .pl-table tbody:hover tr { opacity: 0.45; }
 .js-st .pl-table tbody tr:hover { opacity: 1; }
 
-/* Comparison: giant sticky column titles, tall rows */
-.pl-compare th:first-child { width: 36%; }
-.pl-compare thead th { position: sticky; top: calc(var(--header-h) - 0.5rem); z-index: 4; padding: 1rem 1rem 0.9rem 0; background: var(--ink); border-bottom: 1px solid rgba(245, 239, 232, 0.35); vertical-align: bottom; }
-.pl-colname { display: block; font-family: var(--display); font-weight: 400; font-size: clamp(2.6rem, 8vw, 7rem); line-height: 0.85; text-transform: uppercase; }
-.pl-colprice { display: block; margin-top: 0.5rem; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.02em; }
-.pl-compare th.pl-hot { box-shadow: inset 0 -3px 0 var(--red); }
-.pl-compare tbody th, .pl-compare tbody td { padding-block: clamp(1.1rem, 2vw, 1.6rem); }
-.pl-compare tbody th { font-size: clamp(1rem, 1.7vw, 1.35rem); line-height: 1.2; letter-spacing: -0.01em; }
-.pl-compare td { font-size: clamp(0.9rem, 1.3vw, 1.05rem); }
+/* Comparison: same design as the add-ons table (sticky heading left, tall ruled rows right). Rules for the shared table are under "Add-ons". */
+.pl-addons.pl-compare th:nth-child(1) { width: 34%; } .pl-addons.pl-compare th:nth-child(2) { width: 33%; } .pl-addons.pl-compare th:nth-child(3) { width: 33%; }
 .pl-compare td.pl-no { opacity: 0.4; }
-.pl-compare td.pl-gain::before { content: ""; display: inline-block; width: 0.5rem; height: 0.5rem; margin-right: 0.55rem; border-radius: 50%; background: var(--red); vertical-align: 0.08em; }
-@media (max-width: 599px) {
-  .pl-compare th:first-child { width: 33%; }
-  .pl-compare thead th { padding-right: 0.4rem; }
-  .pl-compare tbody th, .pl-compare tbody td { padding-right: 0.5rem; font-size: 0.85rem; }
-  .pl-compare tbody th { font-size: 0.95rem; }
-  .pl-colname { font-size: 2.4rem; }
-  .pl-colprice { font-size: 0.75rem; }
-}
+.pl-compare td.pl-gain { position: relative; padding-left: 1.05rem; }
+.pl-compare td.pl-gain::after { content: ""; position: absolute; left: 0; top: calc(clamp(1.2rem, 2.2vw, 1.8rem) + 0.45em); width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--red); }
 
 /* Two-column sections: sticky heading left, list right */
 .pl-split { display: grid; gap: 2rem; }
@@ -112,6 +96,9 @@
   .pl-addons tbody th { font-size: 1.3rem; }
   .pl-addons td::before { content: attr(data-label) ": "; font-size: 0.8rem; opacity: 0.6; font-family: var(--body); }
   .pl-addons td:nth-of-type(1)::before { content: ""; }
+  .pl-compare td.pl-gain { padding-left: 0; }
+  .pl-compare td.pl-gain::after { display: none; }
+  .pl-addons.pl-compare td:nth-of-type(1)::before { content: attr(data-label) ": "; }
   .pl-addons .pl-price-cell { font-size: 1.4rem; }
 }
 .pl-peek { position: fixed; left: 0; top: 0; z-index: 60; display: none; pointer-events: none; will-change: transform; }
