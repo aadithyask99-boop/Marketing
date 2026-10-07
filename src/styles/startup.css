@@ -19,8 +19,9 @@
 /* 0. Hero (light) */
 .su-hero { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; min-height: 100svh; padding: calc(var(--header-h) + clamp(1.5rem, 4vw, 3.5rem)) var(--gutter) 0; background: var(--cream); color: var(--ink); overflow: hidden; }
 .su-hero-main { position: relative; display: grid; gap: 1.5rem; padding-bottom: clamp(2rem, 4vw, 3.5rem); }
-.su-title { margin: 0; font-size: min(7.6vw, 7rem, 14svh); }
-@media (max-width: 899px) { .su-title { font-size: min(14vw, 6.5rem); } }
+/* Same size and width as the Care and Growth hero title (.pl-h1), so the two heroes match */
+.su-title { margin: 0; max-width: 18ch; font-size: min(8.2vw, 8.5rem); line-height: 0.92; }
+@media (max-width: 899px) { .su-title { font-size: min(13.5vw, 6rem); } }
 .su-title [data-xray] { --xr-base: var(--ink); --xr-rev: var(--red); }
 .su-hero .lede { max-width: 38rem; margin: 0; color: var(--ink); }
 .su-hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
@@ -217,7 +218,6 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
   .su-hero .st-badge-price { font-size: 1.7rem; }
   .su-marq-set { font-size: clamp(2.5rem, 12vw, 4rem); }
 }
-@media (max-width: 380px) { .su-title { font-size: min(13.2vw, 6.5rem); } }
 
 /* "Not a fit?" under Who it's for */
 .su-notfit { display: grid; gap: 1rem; margin-top: clamp(2rem, 4vw, 3.5rem); padding-top: 1.25rem; border-top: 1px solid rgba(245, 239, 232, 0.2); }
