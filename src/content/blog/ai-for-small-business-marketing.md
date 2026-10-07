@@ -1,5 +1,6 @@
 ---
 title: "How To Use AI For Small Business Marketing: Practical Ways To Start"
+seoTitle: "How to Use AI for Small Business Marketing"
 excerpt: "AI for small business marketing does not need to be complex. Discover 7 simple ways to save time, improve content and understand your data using AI."
 category: web-automation
 author: Maximus Mediascape

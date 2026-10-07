@@ -85,7 +85,7 @@ export function serviceList(origin: string) {
         "@type": "Service",
         name: s.name,
         description: s.summary,
-        url: `${origin}/services#${s.slug}`,
+        url: `${origin}/our-services/#${s.slug}`,
         provider: { "@id": orgId(origin) },
       },
     })),

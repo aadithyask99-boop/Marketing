@@ -1,5 +1,6 @@
 ---
 title: "Awareness Stage of the Customer Journey: What Every Business Should Do Before Investing in Marketing"
+seoTitle: "Awareness Stage of the Customer Journey"
 excerpt: "Learn what the Awareness Stage of the Customer Journey means and discover what every business should do before investing in digital marketing."
 category: brand-social
 author: Maximus Mediascape
@@ -32,7 +33,7 @@ The awareness stage of the customer journey  is where potential customers first
 
 We've worked with businesses that have invested heavily in SEO, paid advertising and social media, only to realise their website, branding or customer experience was holding them back. Before you spend your marketing budget, it's worth making sure your business is ready to attract and convert the right audience.
 
-If you're looking for guidance from an experienced [Digital Marketing Agency in London, understanding the awareness stage of the customer journey is the ideal place to begin.](/digital-marketing-agency-in-london/)
+If you're looking for guidance from an experienced [Digital Marketing Agency in London, understanding the awareness stage of the customer journey is the ideal place to begin.](/our-services/)
 
 <figure class="fig cs-linefig"><ol class="cs-line" style="--n:4"><li class="is-here" style="--i:0"><span class="cs-node cs-node--start"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4"/></svg></span><div><p class="cs-step">Stage 1</p><h4 class="cs-name"><a href="/blogs/awareness-stage-of-the-customer-journey/">Awareness</a></h4><p class="cs-text">Customers recognise a problem or need.</p></div></li><li style="--i:1"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h7M9 17h5"/></svg></span><div><p class="cs-step">Stage 2</p><h4 class="cs-name"><a href="/blogs/consideration-stage-of-the-customer-journey/">Consideration</a></h4><p class="cs-text">They compare solutions before they buy.</p></div></li><li style="--i:2"><span class="cs-node"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h2l2 10h9l2-7H7M10 19a1 1 0 1 0 0 .1M17 19a1 1 0 1 0 0 .1"/></svg></span><div><p class="cs-step">Stage 3</p><h4 class="cs-name"><a href="/blogs/decision-stage-of-the-customer-journey/">Decision</a></h4><p class="cs-text">Key factors that influence the purchase.</p></div></li><li style="--i:3"><span class="cs-node cs-node--end"><svg class="cs-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z"/></svg></span><div><p class="cs-step">Stage 4</p><h4 class="cs-name"><a href="/blogs/retention-stage-of-the-customer-journey/">Retention</a></h4><p class="cs-text">First-time buyers become loyal customers.</p></div></li></ol><figcaption>The four stages of the customer journey. Each stage links to its own guide.</figcaption></figure>
 
@@ -116,4 +117,4 @@ Our team will review your website, branding, user experience, SEO opportunities 
 
 Whether you're looking to improve your website, strengthen your brand, increase your online visibility or develop a complete digital marketing strategy, we're here to help.
 
-[Get started by speaking with our team at our Digital Marketing Agency in London](/digital-marketing-agency-in-london/) and discover how a solid foundation during the **awareness stage of the customer journey** can lead to better marketing results and sustainable business growth.
+[Get started by speaking with our team at our Digital Marketing Agency in London](/our-services/) and discover how a solid foundation during the **awareness stage of the customer journey** can lead to better marketing results and sustainable business growth.

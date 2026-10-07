@@ -1,5 +1,6 @@
 ---
 title: "How to Track Social Media Performance in Google Search Console"
+seoTitle: "Track Social Media Performance in Google Search Console"
 excerpt: "Connect Instagram, TikTok, and YouTube to GSC. Learn how to track social media performance in Google Search Console to see which search queries drive traffic."
 category: seo-content
 author: Maximus Mediascape

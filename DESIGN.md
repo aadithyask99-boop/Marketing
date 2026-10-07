@@ -249,6 +249,10 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Meta descriptions: 50 to 170 characters. For posts this is the `excerpt`, so keep it short.
 - No em dashes anywhere in copy, including migrated posts (use commas or full stops).
 
+## 20b. Titles and links (SEO)
+- Tab titles stay within 60 characters: `BaseLayout` appends " | Maximus Mediascape" only when it fits. For a long post title add `seoTitle` to the post's frontmatter. Posts set `article` so the layout writes `og:type=article` and publish and modify times.
+- Every new page needs links to it from the body of at least a few other pages (not only the nav and footer). Link to `/our-services/`, never to the old location addresses.
+
 ## 21. Stacking panels: the Starter plan, `/our-services/starter-plan`
 A second version of the Starter offer, written for startups and SMEs with a small budget. Inspired by wearemotto.com/services (studied from a screen recording, not its code). It replaced the earlier `/website-starter` page (deleted; no redirects needed because it was never live) and is now indexable and in the sitemap.
 - **Files:** `src/pages/our-services/starter-plan.astro`, `src/styles/startup.css` (prefix `su-`; also loads `starter.css` for pills, price, timeline, carousel and FAQ), `src/scripts/stackPanels.ts`, `src/data/startup.ts` (new copy). Shared Starter content (stages, steps, included lists, FAQ, CTA presets) lives in `src/data/starter.ts` and is used by both pages.

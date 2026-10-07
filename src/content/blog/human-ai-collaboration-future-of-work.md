@@ -1,5 +1,6 @@
 ---
 title: "The Future of Work: How Human AI Collaboration is Transforming Business"
+seoTitle: "Human AI Collaboration: The Future of Work"
 excerpt: "Discover how human AI collaboration is reshaping the workplace. Learn practical strategies for combining human intelligence with AI for maximum business impact."
 category: web-automation
 author: Maximus Mediascape

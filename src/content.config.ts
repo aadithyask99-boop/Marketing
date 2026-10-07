@@ -6,6 +6,8 @@ const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/blog" }),
   schema: ({ image }) => z.object({
     title: z.string(),
+    // Shorter text for the browser tab and search results when the title is over 60 characters.
+    seoTitle: z.string().optional(),
     excerpt: z.string(),
     category: z.enum(["case-studies", "ai-search", "seo-content", "web-automation", "brand-social"]),
     author: z.string().default("Maximus Mediascape"),

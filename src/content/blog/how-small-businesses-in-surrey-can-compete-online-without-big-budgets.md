@@ -1,5 +1,6 @@
 ---
 title: "How Small Businesses in Surrey Can Compete Online Without Big Budgets"
+seoTitle: "Small Businesses in Surrey: Compete Online on a Budget"
 excerpt: "Stop wasting money on random ads. This guide shows how small businesses in Surrey can compete online without big budgets, win local search and get more calls."
 category: seo-content
 author: Maximus Mediascape
@@ -214,7 +215,7 @@ By cutting out these money-wasting habits, your marketing becomes instantly more
 
 While it is entirely possible to handle some of this yourself, running a business takes up most of your day. Managing your website development, staying on top of Google algorithm changes and running paid ad campaigns can quickly become a full time job. This is where finding the right partner makes all the difference.
 
-If you are tired of trying to figure it all out alone, working with a [digital marketing agency in Surrey](/digital-marketing-agency-in-surrey/) levels the playing field. Having a team of experts handle your SEO, social media and lead generation means your marketing gets done properly and consistently. It allows you to step away from the laptop and focus on the parts of your business that you actually enjoy.
+If you are tired of trying to figure it all out alone, working with a [digital marketing agency in Surrey](/our-services/) levels the playing field. Having a team of experts handle your SEO, social media and lead generation means your marketing gets done properly and consistently. It allows you to step away from the laptop and focus on the parts of your business that you actually enjoy.
 
 ### A final thought on beating the big brands
 
@@ -230,6 +231,6 @@ We will look at your website, your local SEO and your current ads, and give you 
 
 Get in touch today and let's start making your marketing work harder for you.
 
-Visit [here](/full-stack-marketing-agency-london/) for free marketing audit:
+Visit [here](/our-services/) for free marketing audit:
 
 **Related guides:** [Google Business Profile Checklist for Small Businesses in Surrey](/blogs/google-business-profile-checklist-for-small-businesses-in-surrey/), [How to do a marketing audit for a small business in Tunbridge Wells](/blogs/how-to-do-a-marketing-audit-for-a-small-business-in-tunbridge-wells/), [Lead Generation Strategies for Small Businesses in London (and the UK)](/blogs/lead-generation-strategies-for-small-businesses-in-london/), [How to Select the Right Digital Marketing Agency in London](/blogs/how-to-select-the-right-digital-marketing-agency-in-london/).

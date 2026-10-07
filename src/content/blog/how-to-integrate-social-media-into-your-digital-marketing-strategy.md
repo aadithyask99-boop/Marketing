@@ -1,5 +1,6 @@
 ---
 title: "How to Integrate Social Media into Your Digital Marketing Strategy"
+seoTitle: "Integrate Social Media into Your Digital Marketing Strategy"
 excerpt: "Learn how to integrate social media into your digital marketing strategy to improve leads, SEO, and brand awareness. Get practical tips and a free marketing audit."
 category: brand-social
 author: Maximus Mediascape
@@ -21,7 +22,7 @@ faq:
   - q: "How do I measure the success of my social media integration?"
     a: "Move beyond vanity metrics like likes and followers. Instead, track “intent signals” such as website link clicks, profile visits, saved posts, and enquiry form submissions. Using proper tracking tools like GA4 and the Meta Pixel allows you to see exactly which social channels and topics are actually contributing to your revenue."
   - q: "How can I tell if my current social media strategy is actually working?"
-    a: "If you are posting regularly but not seeing a measurable increase in enquiries or bookings, your strategy is likely siloed. We offer a free marketing audit where we review your social presence, website journey, and tracking setup to identify the gaps in your integration. You can request your review here: https://maximusmediascape.com/digital-marketing-agency-in-london/"
+    a: "If you are posting regularly but not seeing a measurable increase in enquiries or bookings, your strategy is likely siloed. We offer a free marketing audit where we review your social presence, website journey, and tracking setup to identify the gaps in your integration. You can request your review here: https://maximusmediascape.com/our-services/"
 image: ../../assets/blog/how-to-integrate-social-media-into-your-digital-marketing-strategy.webp
 imageAlt: "A hand holding a smartphone showing a social media feed"
 ---
@@ -118,6 +119,6 @@ Finally, many businesses ignore follow up. If someone enquires and hears nothing
 
 If you want to **Integrate Social Media into Your Digital Marketing Strategy** but you are not sure where the gaps are, start with a clear audit. In many cases, the issue is not your posting frequency. It is the journey after someone clicks, the clarity of the offer, the tracking, or the follow up.
 
-At Maximus Mediascape, we offer a free marketing audit where we review your social presence, website journey, tracking, and lead capture. If you want us to map out what to fix first, request your free audit here: [Digital Marketing Agency in London](/digital-marketing-agency-in-london/)
+At Maximus Mediascape, we offer a free marketing audit where we review your social presence, website journey, tracking, and lead capture. If you want us to map out what to fix first, request your free audit here: [Digital Marketing Agency in London](/our-services/)
 
 **Related guides:** [What Makes a Brand Actually Memorable (And Why Most Brands Get Forgotten)](/blogs/what-makes-a-brand-actually-memorable/), [Niche Media Marketing Strategies for Small UK Businesses](/blogs/niche-media-marketing-strategies-for-small-uk-businesses/), [How AI is changing the way brands talk to customers](/blogs/how-ai-is-changing-the-way-brands-talk-to-customers/), [How To Use AI For Small Business Marketing: Practical Ways To Start](/blogs/ai-for-small-business-marketing/), [Mastering First-Party Data Strategy for Privacy-First Growth](/blogs/mastering-first-party-data-strategy-growth/).

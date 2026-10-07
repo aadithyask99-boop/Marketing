@@ -94,7 +94,7 @@ If you are tired of generic strategies and agencies that finish too early, it is
 
 ## Claim Your Free Marketing Audit
 
-We believe that every business deserves to know exactly how their marketing is performing without the guesswork. At Maximus Mediascape, we offer a free marketing audit to help you identify the gaps in your current strategy. Visit [Digital Marketing Agency in London](/digital-marketing-agency-in-london/) and fill out the form for a free marketing audit. We will review your website, your ads, and your local SEO, providing you with a clear list of what to fix first.
+We believe that every business deserves to know exactly how their marketing is performing without the guesswork. At Maximus Mediascape, we offer a free marketing audit to help you identify the gaps in your current strategy. Visit [Digital Marketing Agency in London](/our-services/) and fill out the form for a free marketing audit. We will review your website, your ads, and your local SEO, providing you with a clear list of what to fix first.
 
 Whether you are based in central London or looking for a digital marketing agency in Crowborough, we are ready to help you scale. Contact us today to request your free audit and let’s start building something great together.
 

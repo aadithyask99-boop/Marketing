@@ -135,7 +135,7 @@ If you are not sure where your brand stands in the era of AI search, or why you 
 
 We will show you exactly what is helping your brand and what is making you invisible to AI search models.
 
-Request your free audit here: [Digital Marketing Agency in London.](/digital-marketing-agency-in-london/)
+Request your free audit here: [Digital Marketing Agency in London.](/our-services/)
 
 Let's make sure your business is the one the AI recommends.
 

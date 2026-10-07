@@ -1,5 +1,6 @@
 ---
 title: "ChatGPT Ads in India: How Businesses Can Advertise on ChatGPT"
+seoTitle: "ChatGPT Ads in India: How to Advertise on ChatGPT"
 excerpt: "ChatGPT Ads in India are now available. Learn how ChatGPT advertising works, how to set up campaigns, costs, targeting and what businesses need to know."
 category: ai-search
 author: Maximus Mediascape

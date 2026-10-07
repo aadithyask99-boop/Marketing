@@ -1,5 +1,6 @@
 ---
 title: "ChatGPT Ads Expansion to the UK: What Businesses Need to Know"
+seoTitle: "ChatGPT Ads Expansion to the UK: What to Know"
 excerpt: "OpenAI has launched ChatGPT ads in the UK. Discover what the ChatGPT ads expansion UK means for your business and how multi-advertiser placements work."
 category: ai-search
 author: Maximus Mediascape
@@ -168,7 +169,7 @@ We also run the full campaign management if you decide to move forward, handling
 
 ### Request a Free Marketing Audit
 
-Request a free marketing audit here: [https://maximusmediascape.com/digital-marketing-agency-in-london/](/digital-marketing-agency-in-london/)
+Request a free marketing audit here: [https://maximusmediascape.com/our-services/](/our-services/)
 
 We will take a look at your current marketing, tell you if ChatGPT ads are a fit, and map out what channel to test first.
 

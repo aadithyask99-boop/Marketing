@@ -1,5 +1,6 @@
 ---
 title: "How to do a marketing audit for a small business in Tunbridge Wells"
+seoTitle: "Marketing Audit for a Small Business in Tunbridge Wells"
 excerpt: "How to do a marketing audit for a small business in Tunbridge Wells, step by step. Check Google Maps, SEO, website conversions and paid ads, with quick fix."
 category: seo-content
 author: Maximus Mediascape
@@ -98,6 +99,6 @@ We know that running a business takes up all your time and energy. Sitting down 
 
 At Maximus Mediascape, we are currently offering a free, no-obligation marketing audit for local businesses. We will look at your website speed, your search rankings, and your current ad setup. We will do the competitive research for you and find exactly where your budget is leaking.
 
-You will receive a clear, honest report written in plain English, with practical steps you can take to start getting better results immediately. If you are ready to stop guessing and start growing, visit our page to learn more about our [digital marketing agency in Tunbridge Wells](/digital-marketing-agency-in-tunbridge-wells/) and request your free audit today. Let us help you turn your online presence into a reliable source of new business.
+You will receive a clear, honest report written in plain English, with practical steps you can take to start getting better results immediately. If you are ready to stop guessing and start growing, visit our page to learn more about our [digital marketing agency in Tunbridge Wells](/our-services/) and request your free audit today. Let us help you turn your online presence into a reliable source of new business.
 
 **Related guides:** [How Small Businesses in Surrey Can Compete Online Without Big Budgets](/blogs/how-small-businesses-in-surrey-can-compete-online-without-big-budgets/), [Google Business Profile Checklist for Small Businesses in Surrey](/blogs/google-business-profile-checklist-for-small-businesses-in-surrey/), [Lead Generation Strategies for Small Businesses in London (and the UK)](/blogs/lead-generation-strategies-for-small-businesses-in-london/), [How to Select the Right Digital Marketing Agency in London](/blogs/how-to-select-the-right-digital-marketing-agency-in-london/).

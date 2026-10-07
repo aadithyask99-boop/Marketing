@@ -1,5 +1,6 @@
 ---
 title: "Lead Generation Strategies for Small Businesses in London (and the UK)"
+seoTitle: "Lead Generation Strategies for Small Businesses in London"
 excerpt: "Discover the most effective lead generation strategies for small businesses in London. Scale your enquiries, fix your tracking and improve ROI."
 category: seo-content
 author: Maximus Mediascape
@@ -146,6 +147,6 @@ If you have time, a clear offer, and the ability to test consistently, you can d
 
 At Maximus Mediascape, we help London and UK small businesses build lead generation systems that are measurable and practical, using SEO, Google Ads, Meta ads, landing pages, and automation.
 
-If you want a clear starting point, request a free marketing audit at [Digital Marketing Agency in London.](/digital-marketing-agency-in-london/) We will review your website, your tracking, and your current lead sources, then tell you what to fix first.
+If you want a clear starting point, request a free marketing audit at [Digital Marketing Agency in London.](/our-services/) We will review your website, your tracking, and your current lead sources, then tell you what to fix first.
 
 **Related guides:** [How Small Businesses in Surrey Can Compete Online Without Big Budgets](/blogs/how-small-businesses-in-surrey-can-compete-online-without-big-budgets/), [Google Business Profile Checklist for Small Businesses in Surrey](/blogs/google-business-profile-checklist-for-small-businesses-in-surrey/), [How to do a marketing audit for a small business in Tunbridge Wells](/blogs/how-to-do-a-marketing-audit-for-a-small-business-in-tunbridge-wells/), [How to Select the Right Digital Marketing Agency in London](/blogs/how-to-select-the-right-digital-marketing-agency-in-london/).

@@ -1,5 +1,6 @@
 ---
 title: "Consideration Stage of the Customer Journey: How Customers Compare Solutions Before They Buy"
+seoTitle: "Consideration Stage of the Customer Journey"
 excerpt: "Learn what the Consideration Stage of the Customer Journey is, how customers compare solutions and what businesses can do to build trust and win more sales."
 category: brand-social
 author: Maximus Mediascape

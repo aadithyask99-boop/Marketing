@@ -1,5 +1,6 @@
 ---
 title: "Testing ads in ChatGPT: What OpenAI’s Pilot Means for Marketers"
+seoTitle: "Testing Ads in ChatGPT: What OpenAI’s Pilot Means"
 excerpt: "Testing ads in ChatGPT: discover how the OpenAI pilot works and the best ways to prepare your business. Here is what we know so far and what is still unclear."
 category: ai-search
 author: Maximus Mediascape

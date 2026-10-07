@@ -1,5 +1,6 @@
 ---
 title: "Internal Linking Strategy Most Businesses Ignore (And Why It Hurts SEO)"
+seoTitle: "Internal Linking Strategy Most Businesses Ignore"
 excerpt: "Learn the internal linking strategy most businesses ignore. Improve SEO rankings and conversions with a simple structure. Free audit available."
 category: seo-content
 author: Maximus Mediascape
@@ -174,7 +175,7 @@ An internal linking strategy most businesses ignore is one of the quickest wins 
 
 Start by auditing your top pages. Add links from supporting content. Connect orphan pages. Build a simple hub structure around your core services.
 
-If you want a professional review of your internal linking and overall SEO setup, we can help. Request a free marketing audit here: [Digital Marketing Agency in London](/digital-marketing-agency-in-london/)
+If you want a professional review of your internal linking and overall SEO setup, we can help. Request a free marketing audit here: [Digital Marketing Agency in London](/our-services/)
 
 We will check your site structure, identify the biggest gaps, and send you clear next steps to improve rankings and enquiries.
 

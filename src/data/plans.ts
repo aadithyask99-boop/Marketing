@@ -2,7 +2,7 @@
 // Prices exclude VAT. Do not add plans, features, discounts, statistics or promises about rankings, AI citations, links or press.
 
 export const PLANS_META = {
-  title: "Care and Growth plans",
+  title: "Monthly Local SEO and AI Search Plans",
   description: "Monthly plans that keep your business visible on the map, in search and in AI answers. Care is £599 a month and Growth is £999 a month, plus VAT.",
 };
 

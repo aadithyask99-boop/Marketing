@@ -63,7 +63,7 @@ const schema = [
 ].filter(Boolean) as object[];
 ---
 
-<BaseLayout title={d.title} description={d.excerpt} schema={schema} image={postImage?.src}>
+<BaseLayout title={d.seoTitle ?? d.title} description={d.excerpt} schema={schema} image={postImage?.src} article={{ published: d.date }}>
   <div class="a-progress" aria-hidden="true"><span></span></div>
 
   <header class:list={["a-banner", d.logo ? "has-logo" : "has-photo", d.logoFill && "is-fill"]}>
@@ -107,7 +107,7 @@ const schema = [
     <Faq items={d.faq} />
     <div class="a-foot">
       <p class="a-tags"><span>In this article:</span>{d.tags.map((t) => <a href={`${url("/blogs")}?q=${encodeURIComponent(t)}`}>#{t}</a>)}</p>
-      <p class="a-geo">Want this handled for you every month? <a href={url("/our-services/care-and-growth-plans")}>See our Care and Growth plans</a>.</p>
+      <p class="a-geo">Want this handled for you every month? <a href={url("/our-services/care-and-growth-plans")}>See our Care and Growth plans</a>, start with the <a href={url("/our-services/starter-plan")}>Starter plan</a>, or <a href={url("/our-services")}>see all our services</a>. Curious who we are? Read <a href={url("/about-us")}>about us</a> and <a href={url("/work")}>how we work</a>.</p>
       <p class="a-geo">Built to be quoted by AI. This page ships with <a href={`${url("/our-services")}#ai-search`}>the same structured data we set up for clients</a>.</p>
     </div>
     </div>

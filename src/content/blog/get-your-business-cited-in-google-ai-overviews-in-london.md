@@ -1,5 +1,6 @@
 ---
 title: "How to Get Your Business Cited in Google AI Overviews in London"
+seoTitle: "Get Your Business Cited in Google AI Overviews in London"
 excerpt: "Learn how to get your business cited in Google AI Overviews in London with practical local SEO tips, stronger trust signals, clear content, and better site structure."
 category: ai-search
 author: Maximus Mediascape
@@ -192,6 +193,6 @@ The good news is that most of these issues are fixable.
 
 If you want a clearer picture of where your business stands, we offer a free marketing audit. We will review your website, Google Business Profile, and local SEO setup, then send you practical next steps to help improve your visibility.
 
-Visit [Digital Marketing Agency in London](/digital-marketing-agency-in-london/) for a free marketing audit.
+Visit [Digital Marketing Agency in London](/our-services/) for a free marketing audit.
 
 **Related guides:** [How Google AI Mode Is Changing SEO](/blogs/how-google-ai-mode-is-changing-seo/), [Why Brand Mentions Matter More Than Backlinks](/blogs/why-brand-mentions-matter-more-than-backlinks/), [How to Build Content AI Actually Understands](/blogs/how-to-build-content-ai-actually-understands/), [How people search in ChatGPT vs Google](/blogs/how-people-search-in-chatgpt-vs-google/).

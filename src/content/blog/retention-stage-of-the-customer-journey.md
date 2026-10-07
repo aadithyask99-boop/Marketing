@@ -1,5 +1,6 @@
 ---
 title: "Retention Stage of the Customer Journey: How to Turn First-Time Customers into Loyal Customers"
+seoTitle: "Retention Stage of the Customer Journey"
 excerpt: "Discover why the Retention Stage of the Customer Journey matters and explore practical ways to improve customer loyalty and encourage repeat customers."
 category: brand-social
 author: Maximus Mediascape

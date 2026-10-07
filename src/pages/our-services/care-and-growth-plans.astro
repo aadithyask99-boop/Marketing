@@ -34,7 +34,7 @@ const schema = [
     })),
   },
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: FAQ_SECTION.items.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: plain(f.a) } })) },
-  breadcrumbs(o, [{ name: "Plans", path: "/our-services/care-and-growth-plans" }]),
+  breadcrumbs(o, [{ name: "Services", path: "/our-services" }, { name: "Care and Growth plans", path: "/our-services/care-and-growth-plans" }]),
 ];
 ---
 

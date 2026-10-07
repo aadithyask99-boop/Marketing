@@ -111,7 +111,7 @@ When AI is built with intention and trained on your brand voice, it becomes an e
 
 At[Maximus Mediascape](/), we build AI communication tools that feel human, not robotic. From conversational chatbots to intelligent booking systems, we help businesses stay responsive without burning out their teams.
 
-If you want to explore how AI could fit into your customer journey, request a free marketing audit here: [Free Marketing Audit](/digital-marketing-agency-in-london/)
+If you want to explore how AI could fit into your customer journey, request a free marketing audit here: [Free Marketing Audit](/our-services/)
 
 We will review your current setup and show you where AI can make the biggest impact.
 

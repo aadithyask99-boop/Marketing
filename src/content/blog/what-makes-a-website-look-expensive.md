@@ -1,5 +1,6 @@
 ---
 title: "What Makes a Website Look Expensive (Without Actually Being Expensive)"
+seoTitle: "What Makes a Website Look Expensive"
 excerpt: "Learn what makes a website look expensive without a huge budget. Discover the design psychology and elements that create a premium feel."
 category: web-automation
 author: Maximus Mediascape
@@ -104,7 +105,7 @@ If the answer to any of those is "no," your site is likely losing credibility an
 
 If you want a clear picture of where your site stands and what to improve, we can help. At [Maximus Mediascape](/), we offer a free marketing audit that reviews your website journey, your messaging, and your overall digital presence. We will give you a clear list of what is helping your brand and what is making it feel less credible than it should.
 
-Request your free audit here: [Digital Marketing Agency in London](/digital-marketing-agency-in-london/)
+Request your free audit here: [Digital Marketing Agency in London](/our-services/)
 
 Let's make sure your website feels as professional as your service actually is.
 

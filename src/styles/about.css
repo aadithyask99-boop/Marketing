@@ -146,6 +146,12 @@
   .clock.is-open .clock-dot, .pin-pulse { animation: none; }
 }
 
+/* Closing links to the rest of the site, on the cream band under the offices */
+.about-more { padding-top: 0; }
+.about-more p { max-width: 46rem; margin: 0; font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.6; }
+.about-more a { font-weight: 600; text-decoration: underline; text-underline-offset: 0.25em; transition: color 0.2s ease; }
+.about-more a:hover { color: var(--red); }
+
 @media (min-width: 700px) and (max-width: 1199px) {
   .clock-city { font-size: 0.74rem; letter-spacing: 0.05em; gap: 0.45rem; }
   .clock-status { font-size: 0.62rem; padding: 0.12rem 0.45rem; }

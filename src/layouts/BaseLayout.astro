@@ -19,10 +19,13 @@ interface Props {
   noindex?: boolean;
   image?: string;
   landing?: boolean;
+  // Blog posts: sets og:type to article and adds published and modified times
+  article?: { published: Date; modified?: Date };
 }
 
-const { title, description = SITE.description, footerTone = "ink", schema = [], noindex = false, image, landing = false } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.name}` : `${SITE.name} | Marketing Agency`;
+const { title, description = SITE.description, footerTone = "ink", schema = [], noindex = false, image, landing = false, article } = Astro.props;
+// Keep the tab title within about 60 characters: the brand suffix is dropped when it would not fit.
+const pageTitle = title ? (title.length + SITE.name.length + 3 <= 60 ? `${title} | ${SITE.name}` : title) : `${SITE.name} | SEO, AI Search and Websites Agency`;
 const origin = (Astro.site ?? new URL(SITE.domain)).origin;
 const canonical = `${origin}${Astro.url.pathname}`;
 const ogImage = image ? new URL(image, origin).href : `${origin}/og.png`;
@@ -30,7 +33,7 @@ const ld = [siteGraph(origin), ...schema];
 ---
 
 <!doctype html>
-<html lang="en" data-footer={footerTone}>
+<html lang="en-GB" data-footer={footerTone}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -39,7 +42,9 @@ const ld = [siteGraph(origin), ...schema];
     <meta name="description" content={description} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={article ? "article" : "website"} />
+    {article && <meta property="article:published_time" content={article.published.toISOString()} />}
+    {article && <meta property="article:modified_time" content={(article.modified ?? article.published).toISOString()} />}
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />

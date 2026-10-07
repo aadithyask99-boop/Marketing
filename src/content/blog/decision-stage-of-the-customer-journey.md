@@ -1,5 +1,6 @@
 ---
 title: "Decision Stage of the Customer Journey: Key Factors That Influence Purchase Decisions"
+seoTitle: "Decision Stage of the Customer Journey"
 excerpt: "Learn how the Decision Stage of the Customer Journey influences buying decisions and discover the key factors that help customers choose with confidence."
 category: brand-social
 author: Maximus Mediascape
@@ -115,4 +116,4 @@ Companies that understand this stage can create better experiences for potential
 
 A successful customer journey is not about pushing people towards a purchase. It is about giving them enough clarity and confidence to make the right decision.
 
-If your business is looking to improve its digital presence and create better customer experiences, [you can speak with our team at Maximus Mediascape for a free consultation.](/digital-marketing-agency-in-london/)
+If your business is looking to improve its digital presence and create better customer experiences, [you can speak with our team at Maximus Mediascape for a free consultation.](/our-services/)

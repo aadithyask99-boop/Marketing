@@ -1,5 +1,6 @@
 ---
 title: "Stages of the Customer Journey: Understanding How Customers Make Buying Decisions"
+seoTitle: "Stages of the Customer Journey Explained"
 excerpt: "Explore the stages of the customer journey and understand how customers discover, compare, decide and build lasting relationships with businesses."
 category: brand-social
 author: Maximus Mediascape
@@ -245,4 +246,4 @@ Understanding the customer journey is the first step towards creating better cus
 
 If you're unsure where your business is losing potential customers, our team can help you identify opportunities and recommend practical improvements.
 
-[Book a free consultation with our Digital Marketing Agency in London to discuss your goals and explore strategies tailored to your business.](/digital-marketing-agency-in-london/)
+[Book a free consultation with our Digital Marketing Agency in London to discuss your goals and explore strategies tailored to your business.](/our-services/)

@@ -1,5 +1,6 @@
 ---
 title: "What Makes a Brand Actually Memorable (And Why Most Brands Get Forgotten)"
+seoTitle: "What Makes a Brand Actually Memorable"
 excerpt: "Learn what makes a brand actually memorable. Use the 5 Cs to improve clarity, consistency, credibility and brand recall, plus a free audit CTA."
 category: brand-social
 author: Maximus Mediascape
@@ -161,7 +162,7 @@ If you are not sure where your brand stands or why you are not getting the recal
 
 We offer a free marketing audit that reviews your website journey, your messaging, and your overall digital presence. We will give you a clear list of what is helping your brand and what is making you forgettable.
 
-Request your free audit here: [Digital Marketing Agency in London.](/digital-marketing-agency-in-london/)
+Request your free audit here: [Digital Marketing Agency in London.](/our-services/)
 
 Let's make sure your business is the one they remember.
 

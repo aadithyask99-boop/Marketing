@@ -1,5 +1,6 @@
 ---
 title: "How we built Bakwa with a one-page website and zero ad spend"
+seoTitle: "How We Built Bakwa with a One-Page Site and Zero Ad Spend"
 excerpt: "Three months, a one-page website and no ad spend: 5.3K+ organic Instagram followers, 3,000+ enquiries and ₹10 lakh+ (£30K*) in revenue, plus press coverage."
 category: case-studies
 author: Maximus Mediascape

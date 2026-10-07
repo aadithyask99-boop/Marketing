@@ -35,12 +35,12 @@ const schema = [
     offers: { "@type": "Offer", price: "999", priceCurrency: "GBP", url: `${o}/our-services/starter-plan`, availability: "https://schema.org/InStock" },
   },
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) },
-  breadcrumbs(o, [{ name: "Plans", path: "/our-services/care-and-growth-plans" }, { name: "Starter plan for startups and SMEs", path: "/our-services/starter-plan" }]),
+  breadcrumbs(o, [{ name: "Services", path: "/our-services" }, { name: "Starter plan for startups and SMEs", path: "/our-services/starter-plan" }]),
 ];
 ---
 
 <BaseLayout
-  title="Starter plan for startups and SMEs from £999"
+  title="Starter Website from £999 for Startups"
   description="A fast, mobile-friendly website for startups and small businesses without an agency budget. From £999, with strategy, a bespoke build, a 90-day plan and training."
   schema={schema}
   footerTone="ink"
@@ -190,7 +190,7 @@ const schema = [
           ))}
         </ul>
         <div class="su-designs-cta">
-          <p>Your Starter site is designed the same way, in your brand.</p>
+          <p>Your Starter site is designed the same way, in your brand. See more of <a href={url("/work")}>how we work</a> and our <a href={url("/blogs")}>guides</a>.</p>
           <a class="st-pill" href={url("/work/portfolio")} data-cursor="View">See the portfolio <i aria-hidden="true">↗</i></a>
         </div>
       </div>

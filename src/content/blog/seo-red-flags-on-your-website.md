@@ -1,5 +1,6 @@
 ---
 title: "SEO Red Flags on Your Website: A DIY Audit for Business Owners"
+seoTitle: "SEO Red Flags on Your Website: A DIY Audit"
 excerpt: "Learn how to spot SEO red flags on your website. Check indexing, speed, site structure, content intent, and trust signals, then fix what blocks rankings."
 category: seo-content
 author: Maximus Mediascape
@@ -180,6 +181,6 @@ Most SEO red flags on your website are fixable, but the order matters. If you wa
 
 At Maximus Mediascape, we offer a free marketing audit that reviews your website structure, indexing, speed, and content to identify what is costing you visibility and enquiries. We will give you a clear list of what to fix first.
 
-Request your free audit here: [Digital Marketing Agency in London](/digital-marketing-agency-in-london/)
+Request your free audit here: [Digital Marketing Agency in London](/our-services/)
 
 **Related guides:** [How to Improve Website Enquiry Forms So More People Enquire](/blogs/improve-website-enquiry-forms/), [How UX and CRO work together for lead generation: A simple guide](/blogs/how-ux-and-cro-work-together-for-lead-generation/), [What Makes a Website Look Expensive (Without Actually Being Expensive)](/blogs/what-makes-a-website-look-expensive/), [Internal Linking Strategy Most Businesses Ignore (And Why It Hurts SEO)](/blogs/internal-linking-strategy-most-businesses-ignore/).

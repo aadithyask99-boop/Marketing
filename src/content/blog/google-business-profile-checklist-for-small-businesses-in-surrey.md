@@ -1,5 +1,6 @@
 ---
 title: "Google Business Profile Checklist for Small Businesses in Surrey"
+seoTitle: "Google Business Profile Checklist for Surrey Businesses"
 excerpt: "Google Business Profile checklist for small businesses in Surrey. Improve local SEO, show up on Google Maps, and request a free Surrey marketing audit."
 category: seo-content
 author: Maximus Mediascape
@@ -114,6 +115,6 @@ Getting your Google Business Profile checklist for small businesses in Surrey ri
 
 Maximus Mediascape is currently offering a free marketing audit for local businesses in Surrey. We will review your Google Business Profile, your website, and your current digital marketing and send you a clear, practical report showing exactly where to focus your energy.
 
-Visit our [digital marketing agency in Surrey](/locations/digital-marketing-agency-in-surrey/) page to claim your free audit today.
+Visit our [digital marketing agency in Surrey](/our-services/) page to claim your free audit today.
 
 **Related guides:** [How Small Businesses in Surrey Can Compete Online Without Big Budgets](/blogs/how-small-businesses-in-surrey-can-compete-online-without-big-budgets/), [How to do a marketing audit for a small business in Tunbridge Wells](/blogs/how-to-do-a-marketing-audit-for-a-small-business-in-tunbridge-wells/), [Lead Generation Strategies for Small Businesses in London (and the UK)](/blogs/lead-generation-strategies-for-small-businesses-in-london/), [How to Select the Right Digital Marketing Agency in London](/blogs/how-to-select-the-right-digital-marketing-agency-in-london/).
