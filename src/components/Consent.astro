@@ -10,9 +10,9 @@ const gaId = ANALYTICS.gaId;
 {
   gaId && !noindex && (
     <div class="consent" role="dialog" aria-label="Cookie choice" hidden data-consent data-ga={gaId}>
-      <p class="consent-text">We use cookies to see how the site is used so we can improve it. Analytics only runs if you accept. <a href={url("/privacy")}>Privacy Policy</a></p>
+      <p class="consent-text">We use necessary cookies and storage to make the site work. Accept to also allow analytics cookies, which show us how the site is used so we can improve it. <a href={url("/privacy")}>Privacy Policy</a></p>
       <div class="consent-actions">
-        <button type="button" class="consent-btn" data-consent-decline>Decline</button>
+        <button type="button" class="consent-btn" data-consent-decline>Necessary only</button>
         <button type="button" class="consent-btn consent-btn--yes" data-consent-accept>Accept</button>
       </div>
     </div>
