@@ -150,9 +150,10 @@ export const EVERYTHING: Plan = {
   monthly: {
     title: "How we put it together",
     rows: [
-      { label: "Tell us", text: "What you want to be found for, where you work and how many locations you run" },
-      { label: "Your plan", text: "We come back with a plan and a price built around your business, not a fixed package" },
-      { label: "The price", text: "Quoted before we start. Prices exclude VAT." },
+      { label: "Tell us", text: "What you want to be found for, where you work and how many locations you run. Share your current website, Google Business Profile and any ads or email you already run, and we will work with what you have." },
+      { label: "Your plan", text: "We come back with a plan and a price built around your business, not a fixed package. It starts from Growth and adds what you need, such as extra locations, more campaigns and articles, video, email and SMS, or digital PR." },
+      { label: "The price", text: "Quoted before we start. Prices exclude VAT. You see what is included and what each add-on costs, and add-ons can be added or removed month by month." },
+      { label: "Your accounts", text: "Your ad accounts, analytics, content and website stay yours." },
     ],
   },
   cta: { label: "Talk to us about everything", href: CUSTOM_HREF },
@@ -207,16 +208,6 @@ export const ADDONS: { h2: string; intro: string; head: string[]; rows: Addon[];
     { cells: ["Digital PR campaign", "Earn mentions that build trust and AI visibility. Placements cannot be guaranteed.", "From £299", "Care, Growth"] },
   ],
   more: { text: "Need something else? We build custom plans for larger or multi location businesses.", link: { label: "Talk to us", href: CUSTOM_HREF } },
-};
-
-// Extra block on the "Want everything?" panel: the add-ons it mentions, with their prices, taken from the table above.
-const EVERYTHING_ADDON_NAMES = ["Paid ads (Google or Meta)", "Email and SMS", "Extra location", "AI lead chatbot", "Digital PR campaign"];
-export const EVERYTHING_EXTRA: { title: string; rows: PlanRow[] } = {
-  title: "Add-ons you can bring in",
-  rows: EVERYTHING_ADDON_NAMES.map((n) => ADDONS.rows.find((r) => r.cells[0] === n)!).map((r) => ({
-    label: r.cells[0].replace(/ \(.*\)$/, ""),
-    text: `${r.cells[2]}. ${r.cells[1]}`,
-  })),
 };
 
 export const FAQ_SECTION = {
