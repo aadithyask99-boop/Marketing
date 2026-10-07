@@ -61,25 +61,27 @@ const ld = [siteGraph(origin), ...schema];
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o).replace(/</g, "\\u003c")} />)}
     <script is:inline>
       // Preloader: first visit of the session only, never for reduced motion or crawlers. Add ?pre=1 to any address to replay it.
-      // "Seen" is remembered as soon as the loader is switched on (not when it finishes), in sessionStorage and in a
-      // session cookie as a backup (private modes can block storage), so clicking a link early never replays it.
+      // "Seen" is remembered as soon as the loader is switched on (not when it finishes), so clicking a link early never
+      // replays it. It lives in sessionStorage (each tab plays it once); a session cookie is used only when storage is
+      // blocked (some private modes). Refreshing the home page plays it again. A last-resort timer removes the overlay
+      // if the loader script never takes over (for example a failed download), so a visitor can never be stuck on it.
       (function () {
         var d = document.documentElement;
-        var seen = function () {
-          try { if (sessionStorage.getItem("mm-pre")) return true; } catch (e) {}
-          return document.cookie.indexOf("mm-pre=1") > -1;
-        };
-        var mark = function () {
-          try { sessionStorage.setItem("mm-pre", "1"); } catch (e) {}
-          try { document.cookie = "mm-pre=1; path=/; SameSite=Lax"; } catch (e) {}
-        };
-        try {
-          if (location.search.indexOf("pre=1") > -1) { d.classList.add("pre-on"); mark(); return; }
-          if (seen()) return;
-          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-          if (navigator.webdriver || /bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent)) return;
+        var storage = (function () { try { sessionStorage.setItem("mm-t", "1"); sessionStorage.removeItem("mm-t"); return true; } catch (e) { return false; } })();
+        var seen = function () { return storage ? !!sessionStorage.getItem("mm-pre") : document.cookie.indexOf("mm-pre=1") > -1; };
+        var mark = function () { if (storage) sessionStorage.setItem("mm-pre", "1"); else document.cookie = "mm-pre=1; path=/; SameSite=Lax"; };
+        var reloaded = function () { var n = performance.getEntriesByType && performance.getEntriesByType("navigation")[0]; return !!n && n.type === "reload"; };
+        var on = function () {
           d.classList.add("pre-on");
           mark();
+          setTimeout(function () { d.classList.remove("pre-on"); var o = document.querySelector("[data-pre]"); if (o) o.remove(); }, 12000);
+        };
+        try {
+          if (location.search.indexOf("pre=1") > -1) { on(); return; }
+          if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+          if (navigator.webdriver || /bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent)) return;
+          if (seen() && !(location.pathname === "/" && reloaded())) return;
+          on();
         } catch (e) {}
       })();
     </script>
