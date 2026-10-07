@@ -4,6 +4,7 @@ import "../styles/preloader.css";
 
 <div class="pre" aria-hidden="true" data-pre>
   <div class="pre-bg"></div>
+  <div class="pre-blur"></div>
   <p class="pre-count"><span><span data-pre-n>0</span>%</span></p>
   <svg class="pre-m" viewBox="0 0 200 192" data-pre-m focusable="false"><path fill="currentColor" d="M0 0L55 0L100 77.5L145 0L200 0L200 191.2L145 139.5L145 99.5L100 170L55 99.5L55 139.5L0 191.2Z"></path></svg>
 </div>
@@ -13,6 +14,7 @@ import "../styles/preloader.css";
   const COUNT_MS = 2100;
   const BEAT_MS = 350;
   const FLY_MS = 1600;
+  const CLEAR_MS = 2100; // the frosted blur over the page takes a little longer to clear than the M takes to land
   const MAX_MS = 4500;
   const FAILSAFE_MS = 9000;
 
@@ -54,7 +56,7 @@ import "../styles/preloader.css";
       if (header?.dataset.bg === "light") m.style.color = "var(--ink)";
       m.style.translate = `${to.left - from.left}px ${to.top - from.top}px`;
       m.style.scale = String(to.width / from.width);
-      window.setTimeout(() => { window.clearTimeout(failsafe); cleanup(); }, FLY_MS + 40);
+      window.setTimeout(() => { window.clearTimeout(failsafe); cleanup(); }, CLEAR_MS);
     };
 
     const start = performance.now();

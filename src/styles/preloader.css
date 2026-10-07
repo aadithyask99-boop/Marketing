@@ -13,7 +13,17 @@ html.pre-on .pre {
 }
 /* The red is its own layer so it can fade on the GPU (opacity) instead of repainting the page behind it */
 .pre-bg { position: absolute; inset: 0; background: var(--red); will-change: opacity; transition: opacity 1.6s cubic-bezier(0.4, 0, 0.2, 1); }
-.pre.pre-fly .pre-bg { opacity: 0; }
+.pre.pre-fly .pre-bg { opacity: 0; transition-duration: 1.5s; }
+/* Frosted glass between the red and the page: as the red clears, the hero shows through blurred and then comes into focus */
+.pre-blur {
+  position: absolute;
+  inset: 0;
+  -webkit-backdrop-filter: blur(26px) saturate(1.15);
+  backdrop-filter: blur(26px) saturate(1.15);
+  will-change: backdrop-filter, opacity;
+  transition: backdrop-filter 2s cubic-bezier(0.4, 0, 0.2, 1), -webkit-backdrop-filter 2s cubic-bezier(0.4, 0, 0.2, 1), opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pre.pre-fly .pre-blur { -webkit-backdrop-filter: blur(0px) saturate(1); backdrop-filter: blur(0px) saturate(1); opacity: 0; }
 
 /* Only the top half of the M shows (its lower half sits below the screen edge, as in the reference).
    The counter is centred in the space above it. */

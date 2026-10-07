@@ -259,6 +259,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Files: `src/components/Preloader.astro` (markup, script, timings as constants at the top), `src/styles/preloader.css`, `public/logo-m.svg` (the M traced as a 13 point vector from the PNG, so it stays sharp at 26rem), an inline script in `BaseLayout.astro`'s head that adds `html.pre-on` before first paint.
 - Plays on the **first page of a session** only (`sessionStorage["mm-pre"]`). Never for `prefers-reduced-motion`, no JavaScript, or crawlers and Lighthouse (`navigator.webdriver`, bot or headless user agents). **Add `?pre=1` to any address to replay it.**
 - The flight uses the separate CSS `translate` and `scale` properties on slightly different easing curves (a soft arc, about 1.6 seconds), and the red is its own `.pre-bg` layer that fades by opacity so the page behind is not repainted each frame.
+- A frosted layer (`.pre-blur`, `backdrop-filter: blur(26px)` easing to 0 over 2 seconds) sits between the red and the page, so the hero shows through softly blurred as the red clears and then comes into focus. The overlay is removed after `CLEAR_MS` (2.1 seconds).
 - The real header M is hidden (`html.pre-on .logo-m`) until the flying M lands. The flying M turns ink when the page under the logo is light: the header's colour sampling ignores the overlay (`[data-pre]`) and the preloader asks it to re-sample before flying.
 - Do not give the html element and the overlay the same class: `.pre` on `html` once hid the whole page.
 
