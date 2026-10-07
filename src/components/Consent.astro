@@ -5,10 +5,11 @@ import { ANALYTICS, url } from "../data/site";
 interface Props { noindex?: boolean }
 const { noindex = false } = Astro.props;
 const gaId = ANALYTICS.gaId;
+const bar = ANALYTICS.consentBar;
 ---
 
 {
-  gaId && !noindex && (
+  gaId && bar && !noindex && (
     <div class="consent" role="dialog" aria-label="Cookie choice" hidden data-consent data-ga={gaId}>
       <p class="consent-text">We use necessary cookies and storage to make the site work. Accept to also allow analytics cookies, which show us how the site is used so we can improve it. <a href={url("/privacy")}>Privacy Policy</a></p>
       <div class="consent-actions">
@@ -18,12 +19,17 @@ const gaId = ANALYTICS.gaId;
     </div>
   )
 }
+{gaId && !bar && !noindex && <div hidden data-ga-auto data-ga={gaId}></div>}
 
 <script>
-  // Cookie choice and Google Analytics. Nothing from Google loads until the visitor presses Accept.
+  // Google Analytics. With the cookie bar on, nothing from Google loads until the visitor presses Accept.
+  // With the bar off (ANALYTICS.consentBar = false) it loads for every visitor, but only on the real domain,
+  // so test, preview and localhost visits never reach the data.
   const el = document.querySelector<HTMLElement>("[data-consent]");
-  if (el) {
-    const id = el.dataset.ga as string;
+  const auto = document.querySelector<HTMLElement>("[data-ga-auto]");
+  const host = el ?? auto;
+  if (host) {
+    const id = host.dataset.ga as string;
     const KEY = "mm-consent";
     const root = document.documentElement;
     const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
@@ -45,35 +51,39 @@ const gaId = ANALYTICS.gaId;
       document.head.appendChild(s);
     };
 
-    const clearGA = () => {
-      if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied" });
-      document.cookie.split(";").forEach((c) => {
-        const name = c.split("=")[0].trim();
-        if (name === "_ga" || name.startsWith("_ga_")) {
-          document.cookie = `${name}=; Max-Age=0; path=/`;
-          document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
-          document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
-        }
+    if (auto) {
+      if (/(^|\.)maximusmediascape\.com$/.test(location.hostname)) loadGA();
+    } else if (el) {
+      const clearGA = () => {
+        if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied" });
+        document.cookie.split(";").forEach((c) => {
+          const name = c.split("=")[0].trim();
+          if (name === "_ga" || name.startsWith("_ga_")) {
+            document.cookie = `${name}=; Max-Age=0; path=/`;
+            document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
+            document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
+          }
+        });
+      };
+
+      const hide = () => { el.classList.remove("is-on"); window.setTimeout(() => { el.hidden = true; }, 350); };
+      const show = () => {
+        // Wait for the preloader to finish
+        if (root.classList.contains("pre-on")) { window.setTimeout(show, 300); return; }
+        el.hidden = false;
+        requestAnimationFrame(() => el.classList.add("is-on"));
+      };
+
+      el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { set("granted"); hide(); loadGA(); });
+      el.querySelector("[data-consent-decline]")?.addEventListener("click", () => { set("denied"); hide(); clearGA(); });
+      // Footer "Cookie settings" link: take the choice back and ask again
+      document.addEventListener("click", (e) => {
+        if ((e.target as HTMLElement).closest("[data-consent-open]")) { set(null); show(); }
       });
-    };
 
-    const hide = () => { el.classList.remove("is-on"); window.setTimeout(() => { el.hidden = true; }, 350); };
-    const show = () => {
-      // Wait for the preloader to finish
-      if (root.classList.contains("pre-on")) { window.setTimeout(show, 300); return; }
-      el.hidden = false;
-      requestAnimationFrame(() => el.classList.add("is-on"));
-    };
-
-    el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { set("granted"); hide(); loadGA(); });
-    el.querySelector("[data-consent-decline]")?.addEventListener("click", () => { set("denied"); hide(); clearGA(); });
-    // Footer "Cookie settings" link: take the choice back and ask again
-    document.addEventListener("click", (e) => {
-      if ((e.target as HTMLElement).closest("[data-consent-open]")) { set(null); show(); }
-    });
-
-    const choice = get();
-    if (choice === "granted") loadGA();
-    else if (choice !== "denied") show();
+      const choice = get();
+      if (choice === "granted") loadGA();
+      else if (choice !== "denied") show();
+    }
   }
 </script>

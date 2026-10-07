@@ -25,7 +25,9 @@ export const FORM_ENDPOINT: string = import.meta.env.PUBLIC_LEAD_ENDPOINT || "ht
 
 // Google Analytics 4 Measurement ID (starts with G-). If this is ever emptied the site adds no tracking and shows no cookie bar.
 // Set it here, or at build time with PUBLIC_GA_ID. It only loads after a visitor presses Accept (see components/Consent.astro).
-export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP" };
+// consentBar: false = no cookie bar and Google Analytics loads for every visitor on the real domain (current choice, to be revisited).
+// true = show the Accept / Necessary only bar and load Google only after Accept.
+export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP", consentBar: false };
 
 export const LEAD = {
   heading: "Now it's your turn.",
