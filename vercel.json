@@ -95,6 +95,26 @@
       "source": "/contact/",
       "destination": "/contact-us/",
       "permanent": true
+    },
+    {
+      "source": "/tag/:path*/",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/blogs/tag/:path*/",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/category/:path*/",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*/",
+      "destination": "/about-us/",
+      "permanent": true
     }
   ]
 }
