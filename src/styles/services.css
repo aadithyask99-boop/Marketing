@@ -99,7 +99,7 @@
   .svcs.is-enhanced .count-roll span { transform: none; }
 }
 
-.svc-inline { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 0.25em; transition: color 0.2s ease; }
+.svc-inline { color: inherit; font-weight: 600; text-decoration: none; transition: color 0.2s ease; }
 .svc-inline:hover { color: var(--ink); }
 
 /* Plan cards before the closing form (dark version of "Pick your path to progress") */
