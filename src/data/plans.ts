@@ -14,7 +14,7 @@ export const HERO = {
   vat: "All prices exclude VAT.",
 };
 
-import { stages as STARTER_STAGES, steps as STARTER_STEPS, notIncluded as STARTER_NOT } from "./starter";
+import { stages as STARTER_STAGES, notIncluded as STARTER_NOT } from "./starter";
 
 export const STARTER_HREF = "/plans/starter/";
 export const CUSTOM_HREF = "/contact-us/?service=Custom%20Plan";
@@ -102,7 +102,7 @@ export const PLANS: { care: Plan; growth: Plan } = {
   },
 };
 
-// Third panel, between Growth and Everything. Built only from the Starter page's own content (src/data/starter.ts).
+// Third panel, between Growth and Everything. Built from the Starter page's own content (src/data/starter.ts); the "Who is this for?" lines are draft copy for sign-off.
 export const STARTER_PANEL: Plan = {
   id: "starter",
   name: "Starter",
@@ -112,8 +112,14 @@ export const STARTER_PANEL: Plan = {
   headline: "A website that looks the part, without the agency price.",
   summary: "A fast, search ready five page website, built as the foundation for everything else.",
   monthOne: {
-    title: "How it works",
-    items: STARTER_STEPS.map((st) => `${st[0]}: ${st[1]}`),
+    title: "Who is this for?",
+    items: [
+      "Startups and new ventures that need a credible, quality website before they launch, without an agency sized budget.",
+      "Small and medium businesses whose current site is slow, dated or hard to find, and who want a fresh start.",
+      "Local service businesses that want to be found on maps, in local search and in AI answers.",
+      "Consultants, studios and professionals who need a site that says clearly what they do and makes it easy to get in touch.",
+      "Owners who want one clear price, a plan for the first 90 days and a site they own, with no surprises.",
+    ],
   },
   monthly: {
     title: "What is included",
