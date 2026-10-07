@@ -25,9 +25,9 @@ const schema = [
     <h1 class="display svc-hero-title">
       <span data-xray>All the ways we grow brands</span>
     </h1>
-    <p class="lede">{SERVICES_INTRO}</p>
-    <p class="svc-plans"><a href={url("/our-services/care-and-growth-plans")} data-cursor="View">See how these come together in our plans <span aria-hidden="true">↗</span></a></p>
-    <p class="svc-plans"><a href={url("/work")} data-cursor="View">See how we work <span aria-hidden="true">↗</span></a> · <a href={url("/about-us")} data-cursor="View">Meet the team <span aria-hidden="true">↗</span></a></p>
+    <p class="lede">
+      {SERVICES_INTRO} See how it all comes together in our <a class="svc-inline" href={url("/our-services/care-and-growth-plans")}>plans</a>, how we <a class="svc-inline" href={url("/work")}>work</a> with clients, or <a class="svc-inline" href={url("/about-us")}>meet the team</a>.
+    </p>
   </section>
 
   <ServiceBlocks />
