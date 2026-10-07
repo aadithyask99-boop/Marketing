@@ -87,7 +87,7 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Want everything? panel (7 Oct 2026):** it had empty space, so the add-ons list was tried and removed (the add-ons table sits below it). Instead "How we put it together" has a short borderless description (`monthly.intro`, `.pl-blurb`) and fuller rows and a fourth row, "Your accounts"; wording is a draft for sign-off, built from the plans page's own FAQ and add-ons intro.
 
-**Preloader (7 Oct 2026):** red screen, percentage counter, the cream M rises from the bottom then flies to the header logo (about 2.8 seconds). First page of a session only; add `?pre=1` to any address to replay it. Skipped for reduced motion and crawlers. It adds about 2.8 seconds before a first-time visitor can use the page and the hero's own animations run underneath it, so shorten the timings in `Preloader.astro` if that feels long. Not tested on a real phone or Safari.
+**Preloader (7 Oct 2026):** red screen, percentage counter, the cream M rises from the bottom then flies to the header logo (about 3.7 seconds; only the top half of the M shows while counting). First page of a session only; add `?pre=1` to any address to replay it. Skipped for reduced motion and crawlers. It adds about 3.7 seconds before a first-time visitor can use the page and the hero's own animations run underneath it, so shorten the timings in `Preloader.astro` if that feels long. Not tested on a real phone or Safari.
 
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 

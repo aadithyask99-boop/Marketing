@@ -11,15 +11,17 @@ html.pre-on .pre {
   overflow: hidden;
   background: var(--red);
   color: var(--cream);
-  transition: background 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 html.pre-on .pre.pre-fly { background: transparent; }
 
-/* The counter is centred in the space above the M */
+/* Only the top half of the M shows (its lower half sits below the screen edge, as in the reference).
+   The counter is centred in the space above it. */
+.pre { --pre-w: clamp(13rem, 42vw, 32rem); }
 .pre-count {
   position: absolute;
   inset: 0 0 auto 0;
-  height: calc(100svh - clamp(11rem, 34vw, 26rem) * 0.96 - clamp(1rem, 2.5vw, 2rem));
+  height: calc(100svh - var(--pre-w) * 0.48);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,17 +36,17 @@ html.pre-on .pre.pre-fly { background: transparent; }
 .pre-m {
   position: absolute;
   left: 50%;
-  bottom: clamp(1rem, 2.5vw, 2rem);
-  width: clamp(11rem, 34vw, 26rem);
+  bottom: calc(var(--pre-w) * -0.48);
+  width: var(--pre-w);
   height: auto;
   color: var(--cream);
   transform: translate(-50%, 115%);
   transform-origin: 0 0;
   will-change: transform;
 }
-.pre.pre-in .pre-m { transform: translate(-50%, 0); transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.pre.pre-in .pre-m { transform: translate(-50%, 0); transition: transform 2s cubic-bezier(0.22, 1, 0.36, 1); }
 /* While flying, the script sets left/top/width in pixels and animates a transform to the header logo's box */
-.pre.pre-fly .pre-m { transition: transform 0.95s cubic-bezier(0.65, 0, 0.2, 1), color 0.6s ease; }
+.pre.pre-fly .pre-m { transition: transform 1.25s cubic-bezier(0.65, 0, 0.2, 1), color 0.8s ease; }
 
 /* The real header logo waits until the flying M lands on it */
 html.pre-on .logo-m { visibility: hidden; }
