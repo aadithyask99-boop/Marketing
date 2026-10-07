@@ -73,7 +73,7 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Heroes and Contact (7 Oct 2026):** the italic Boska accent word is removed from every page hero (Services, Portfolio, Blog, Work, Plans, Starter plan, Terms, Privacy, and the 404 title), so each reads as plain Bebas; section headings keep the accent. The Contact page is now fully ink and seamless: form, offices as dark outline-only boxes, then the ink footer.
 
-**7 Oct 2026 (later):** Featured work removed from `/work/`. Plans hero client strip now matches the Starter hero strip (full width along the bottom, desktop and phone). Home page links "See everything we do" and "See our plans" now sit in a spaced row (`.offer-links`). **Standing rule from the user: always push every change live** (`git push origin HEAD:claude/fervent-clarke-uctw7x`).
+**7 Oct 2026 (later):** Only the star above the Featured work heading was removed (the section itself stays on `/work/`). Plans hero client strip now matches the Starter hero strip (full width along the bottom, desktop and phone). Home page links "See everything we do" and "See our plans" now sit in a spaced row (`.offer-links`). **Standing rule from the user: always push every change live** (`git push origin HEAD:claude/fervent-clarke-uctw7x`).
 
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 
