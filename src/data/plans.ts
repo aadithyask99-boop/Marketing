@@ -11,7 +11,6 @@ export const HERO = {
   intro: "Buyers now ask ChatGPT and Google before they ask you. Our plans keep your business visible on the map, in search and in AI answers, then turn that visibility into enquiries.",
   primary: { label: "Compare plans", href: "#plans" },
   secondary: { label: "See everything we do", href: "/our-services/" },
-  vat: "All prices exclude VAT.",
 };
 
 import { stages as STARTER_STAGES, notIncluded as STARTER_NOT } from "./starter";
