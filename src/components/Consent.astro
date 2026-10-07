@@ -1,0 +1,79 @@
+---
+import "../styles/consent.css";
+import { ANALYTICS, url } from "../data/site";
+
+interface Props { noindex?: boolean }
+const { noindex = false } = Astro.props;
+const gaId = ANALYTICS.gaId;
+---
+
+{
+  gaId && !noindex && (
+    <div class="consent" role="dialog" aria-label="Cookie choice" hidden data-consent data-ga={gaId}>
+      <p class="consent-text">We use cookies to see how the site is used so we can improve it. Analytics only runs if you accept. <a href={url("/privacy")}>Privacy Policy</a></p>
+      <div class="consent-actions">
+        <button type="button" class="consent-btn" data-consent-decline>Decline</button>
+        <button type="button" class="consent-btn consent-btn--yes" data-consent-accept>Accept</button>
+      </div>
+    </div>
+  )
+}
+
+<script>
+  // Cookie choice and Google Analytics. Nothing from Google loads until the visitor presses Accept.
+  const el = document.querySelector<HTMLElement>("[data-consent]");
+  if (el) {
+    const id = el.dataset.ga as string;
+    const KEY = "mm-consent";
+    const root = document.documentElement;
+    const get = () => { try { return localStorage.getItem(KEY); } catch { return null; } };
+    const set = (v: string | null) => { try { if (v) localStorage.setItem(KEY, v); else localStorage.removeItem(KEY); } catch {} };
+    const w = window as any;
+    let loaded = false;
+
+    const loadGA = () => {
+      if (loaded) return;
+      loaded = true;
+      w.dataLayer = w.dataLayer || [];
+      w.gtag = function () { w.dataLayer.push(arguments); };
+      w.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+      w.gtag("js", new Date());
+      w.gtag("config", id);
+      const s = document.createElement("script");
+      s.async = true;
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+      document.head.appendChild(s);
+    };
+
+    const clearGA = () => {
+      if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied" });
+      document.cookie.split(";").forEach((c) => {
+        const name = c.split("=")[0].trim();
+        if (name === "_ga" || name.startsWith("_ga_")) {
+          document.cookie = `${name}=; Max-Age=0; path=/`;
+          document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
+          document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
+        }
+      });
+    };
+
+    const hide = () => { el.classList.remove("is-on"); window.setTimeout(() => { el.hidden = true; }, 350); };
+    const show = () => {
+      // Wait for the preloader to finish
+      if (root.classList.contains("pre-on")) { window.setTimeout(show, 300); return; }
+      el.hidden = false;
+      requestAnimationFrame(() => el.classList.add("is-on"));
+    };
+
+    el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { set("granted"); hide(); loadGA(); });
+    el.querySelector("[data-consent-decline]")?.addEventListener("click", () => { set("denied"); hide(); clearGA(); });
+    // Footer "Cookie settings" link: take the choice back and ask again
+    document.addEventListener("click", (e) => {
+      if ((e.target as HTMLElement).closest("[data-consent-open]")) { set(null); show(); }
+    });
+
+    const choice = get();
+    if (choice === "granted") loadGA();
+    else if (choice !== "denied") show();
+  }
+</script>

@@ -1,6 +1,6 @@
 ---
 import "../styles/footer.css";
-import { FORM_ENDPOINT, NAV, SITE, SERVICES, SOCIALS, url } from "../data/site";
+import { ANALYTICS, FORM_ENDPOINT, NAV, SITE, SERVICES, SOCIALS, url } from "../data/site";
 
 const { tone = "ink" } = Astro.props;
 const endpoint = FORM_ENDPOINT;
@@ -84,6 +84,7 @@ const ICONS: Record<string, string> = {
       <ul>
         <li><a href={url("/privacy")}>Privacy Policy</a></li>
         <li><a href={url("/terms")}>Terms &amp; conditions</a></li>
+        {ANALYTICS.gaId && <li><button type="button" class="footer-cookie" data-consent-open>Cookie settings</button></li>}
       </ul>
     </div>
   </div>

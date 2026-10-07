@@ -89,6 +89,8 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 
 **Preloader (7 Oct 2026):** red screen, percentage counter, the cream M rises from the bottom then flies to the header logo (about 4.5 seconds, with a blurred-to-sharp reveal of the hero; only the top half of the M shows while counting). Plays once per tab session and again when the home page is refreshed; add `?pre=1` to any address to replay it. A head-script timer removes it after 12 seconds if the loader script ever fails. Skipped for reduced motion and crawlers. It adds about 4.5 seconds before a first-time visitor can use the page and the hero's own animations run underneath it, so shorten the timings in `Preloader.astro` if that feels long. Not tested on a real phone or Safari.
 
+**Cookie bar and analytics (7 Oct 2026):** built and live but **switched off until the Google Analytics 4 Measurement ID is set** (`ANALYTICS.gaId` in `src/data/site.ts`; find it in Analytics, Admin, Data streams). Then the accept or decline bar, the footer "Cookie settings" link and the privacy wording appear, and Google loads only after Accept. Privacy wording is a draft for sign-off. Search Console needs no code: verify the existing property with a DNS TXT record at MilesWeb and submit `sitemap.xml`.
+
 **Ideas not built:** automatic "Related guides" (currently hand-added), a site-wide phone menu pill, real pages for the old location URLs.
 
 ## 5. Prompt to paste into the new chat

@@ -1,0 +1,49 @@
+/* Cookie choice bar: a small cream card, bottom left on desktop, full width at the bottom on phones. */
+.consent {
+  position: fixed;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 250;
+  width: min(26rem, calc(100vw - var(--gutter) * 2));
+  padding: 1.1rem 1.25rem 1.25rem;
+  border-radius: 1.25rem;
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 0 1.5rem 4rem rgba(23, 9, 10, 0.3);
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.consent[hidden] { display: none; }
+.consent.is-on { opacity: 1; transform: none; }
+.consent-text { margin: 0 0 1rem; font-size: 0.92rem; line-height: 1.5; }
+.consent-text a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.consent-text a:hover { color: var(--red); }
+.consent-actions { display: flex; gap: 0.6rem; }
+.consent-btn {
+  flex: 1;
+  min-height: 2.75rem;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: 600 0.95rem/1 var(--body);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.consent-btn:hover { background: var(--ink); color: var(--cream); }
+.consent-btn--yes { border-color: var(--red); background: var(--red); color: var(--cream); }
+.consent-btn--yes:hover { background: var(--ink); border-color: var(--ink); }
+.consent :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+
+/* Phones: sit above the "Talk to us about a plan" bar when it is showing */
+@media (max-width: 899px) {
+  .consent { left: 0.75rem; right: 0.75rem; width: auto; bottom: 0.75rem; }
+  body:has(.sticky-cta.is-on) .consent { bottom: 5.5rem; }
+}
+@media (prefers-reduced-motion: reduce) { .consent { transition: none; } }
+
+/* Footer "Cookie settings" looks like the other legal links */
+.footer-cookie { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.footer-cookie:hover { text-decoration: underline; text-underline-offset: 4px; }
