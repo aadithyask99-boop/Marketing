@@ -55,6 +55,46 @@
       "source": "/blog/:slug/",
       "destination": "/blogs/:slug/",
       "permanent": true
+    },
+    {
+      "source": "/category/:path*",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/author/:path*",
+      "destination": "/about-us/",
+      "permanent": true
+    },
+    {
+      "source": "/feed/",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/comments/feed/",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/page/:n/",
+      "destination": "/blogs/",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/about-us/",
+      "permanent": true
+    },
+    {
+      "source": "/contact/",
+      "destination": "/contact-us/",
+      "permanent": true
     }
   ]
 }
