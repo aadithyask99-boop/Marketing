@@ -61,14 +61,25 @@ const ld = [siteGraph(origin), ...schema];
     {ld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o).replace(/</g, "\\u003c")} />)}
     <script is:inline>
       // Preloader: first visit of the session only, never for reduced motion or crawlers. Add ?pre=1 to any address to replay it.
+      // "Seen" is remembered as soon as the loader is switched on (not when it finishes), in sessionStorage and in a
+      // session cookie as a backup (private modes can block storage), so clicking a link early never replays it.
       (function () {
+        var d = document.documentElement;
+        var seen = function () {
+          try { if (sessionStorage.getItem("mm-pre")) return true; } catch (e) {}
+          return document.cookie.indexOf("mm-pre=1") > -1;
+        };
+        var mark = function () {
+          try { sessionStorage.setItem("mm-pre", "1"); } catch (e) {}
+          try { document.cookie = "mm-pre=1; path=/; SameSite=Lax"; } catch (e) {}
+        };
         try {
-          var d = document.documentElement;
-          if (location.search.indexOf("pre=1") > -1) { d.classList.add("pre-on"); return; }
-          if (sessionStorage.getItem("mm-pre")) return;
+          if (location.search.indexOf("pre=1") > -1) { d.classList.add("pre-on"); mark(); return; }
+          if (seen()) return;
           if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
           if (navigator.webdriver || /bot|crawl|spider|lighthouse|headless/i.test(navigator.userAgent)) return;
           d.classList.add("pre-on");
+          mark();
         } catch (e) {}
       })();
     </script>
