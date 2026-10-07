@@ -18,5 +18,10 @@
 .offices--red .office:hover { background: #fff; border-color: var(--ink); }
 .offices--red .office-links a { text-decoration-color: rgba(23, 9, 10, 0.35); }
 .offices--red .office-links a:hover { color: var(--red); text-decoration-color: var(--red); }
+/* Ink variant (contact page): continues the dark form above; skeleton boxes, outline only */
+.offices--ink { background: var(--ink); color: var(--cream); padding-top: clamp(0.5rem, 2vw, 1.5rem); }
+.offices--ink .office { background: transparent; border-color: rgba(245, 239, 232, 0.3); }
+.offices--ink .office:hover { background: rgba(245, 239, 232, 0.04); border-color: var(--red); }
+.offices--ink .office-links a { text-decoration-color: rgba(245, 239, 232, 0.4); }
 @media (min-width: 700px) { .offices-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
 @media (prefers-reduced-motion: reduce) { .office { transition: none; } .office:hover { transform: none; } }
