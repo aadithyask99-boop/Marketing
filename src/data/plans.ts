@@ -30,7 +30,7 @@ export interface Plan {
   headline: string;
   summary: string;
   monthOne: { title: string; items: string[] };
-  monthly: { title: string; rows: PlanRow[] };
+  monthly: { title: string; intro?: string; rows: PlanRow[] };
   note?: string;
   cta: { label: string; href: string };
 }
@@ -149,6 +149,7 @@ export const EVERYTHING: Plan = {
   },
   monthly: {
     title: "How we put it together",
+    intro: "Every larger or multi location business needs a slightly different mix, so there is no fixed package here. We start from what Growth includes, learn how your business works, and build the plan and the price around it. You only pay for what you will use.",
     rows: [
       { label: "Tell us", text: "What you want to be found for, where you work and how many locations you run. Share your current website, Google Business Profile and any ads or email you already run, and we will work with what you have." },
       { label: "Your plan", text: "We come back with a plan and a price built around your business, not a fixed package. It starts from Growth and adds what you need, such as extra locations, more campaigns and articles, video, email and SMS, or digital PR." },

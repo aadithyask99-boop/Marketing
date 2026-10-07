@@ -79,6 +79,7 @@ const schema = [
             <h3 class="pl-listhead">{p.monthOne.title}</h3>
             <ul class="pl-lines">{p.monthOne.items.map((t) => <li>{t}</li>)}</ul>
             <h3 class="pl-listhead">{p.monthly.title}</h3>
+            {p.monthly.intro && <p class="pl-blurb">{p.monthly.intro}</p>}
             <dl class="pl-rows">
               {p.monthly.rows.map((r) => <div class="pl-row"><dt>({r.label})</dt><dd>{r.text}</dd></div>)}
             </dl>

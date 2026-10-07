@@ -48,6 +48,8 @@
 .pl-lines li:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
 .su-panel--dark .pl-lines li:last-child { border-bottom-color: rgba(245, 239, 232, 0.2); }
 .pl-rows { margin: 0; }
+/* Short description under a list heading: plain text, no rule */
+.pl-blurb { max-width: 46rem; margin: 0 0 1.25rem; font-size: 0.95rem; line-height: 1.55; opacity: 0.85; }
 .pl-row { display: grid; gap: 0.25rem 1.5rem; padding: 0.9rem 0; border-top: 1px solid rgba(23, 9, 10, 0.2); }
 .su-panel--dark .pl-row { border-top-color: rgba(245, 239, 232, 0.2); }
 .pl-row:last-child { border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
