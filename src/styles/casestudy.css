@@ -283,3 +283,79 @@
 .cs-pull::before { content: ""; position: absolute; top: 0; left: 0; width: 3.5rem; border-top: 3px solid var(--red); }
 .cs-pull p { margin: 0; font: italic 500 clamp(1.4rem, 3.6vw, 2.2rem)/1.25 var(--accent); }
 .prose .cs-pullfig figcaption { margin-top: 1rem; font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.7; }
+
+/* ---------- Prompting guide figures (8 Oct 2026): one new design per post, never the same layout twice ---------- */
+
+/* Mixer: five faders. The hollow ring is the first answer, the red knob is where one follow-up moves it. */
+.prose .fig.cs-mixerfig { padding: clamp(1rem, 3vw, 1.75rem) clamp(0.6rem, 3vw, 1.75rem) clamp(1rem, 3vw, 1.5rem); background: var(--ink); color: var(--cream); }
+.prose .cs-mixer { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(0.2rem, 2vw, 1rem); margin: 0; padding: 0; list-style: none; }
+.prose .cs-mixer > li { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; margin: 0; padding: 0; text-align: center; }
+.cs-mx-name { font: 400 clamp(1.05rem, 4.2vw, 1.6rem)/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+.cs-mx-track { position: relative; display: block; flex: none; width: 0.5rem; height: 9.5rem; border-radius: 999px; background: rgba(245, 239, 232, 0.2); }
+.cs-mx-fill { position: absolute; left: 0; right: 0; bottom: 0; height: var(--to); border-radius: 999px; background: var(--red); transition: height 1s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.12s); }
+.cs-mx-ghost, .cs-mx-knob { position: absolute; left: 50%; width: 1.5rem; height: 1.5rem; margin: 0 0 -0.75rem -0.75rem; border-radius: 50%; }
+.cs-mx-ghost { bottom: var(--from); border: 2px dashed rgba(245, 239, 232, 0.6); }
+.cs-mx-knob { bottom: var(--to); border: 3px solid var(--cream); background: var(--red); box-shadow: 0 0.2rem 0.6rem rgba(0, 0, 0, 0.4); transition: bottom 1s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.12s); }
+.cs-mx-fix { font-size: clamp(0.72rem, 2.6vw, 0.9rem); line-height: 1.25; color: rgba(245, 239, 232, 0.85); }
+.prose .cs-mixerfig figcaption { display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; margin-top: 1.1rem; padding-top: 0.9rem; border-top: 1px solid rgba(245, 239, 232, 0.2); opacity: 1; color: rgba(245, 239, 232, 0.8); }
+.cs-mx-key::before { content: ""; display: inline-block; width: 0.8rem; height: 0.8rem; margin-right: 0.45rem; vertical-align: -0.1rem; border-radius: 50%; border: 2px dashed rgba(245, 239, 232, 0.7); }
+.cs-mx-key--on::before { border: 0; background: var(--red); }
+
+/* Marked-up prompt: a real prompt on ink with each part highlighted and tagged. */
+.prose .fig.cs-annofig { padding: clamp(1.1rem, 3vw, 2rem); background: var(--ink); color: var(--cream); }
+.prose .cs-anno { margin: 0; padding: 1.4rem 0 0; font: 500 clamp(1rem, 3.4vw, 1.3rem)/2.7 var(--body); }
+.cs-an { position: relative; padding: 0.05em 0.15em; background: linear-gradient(rgba(225, 6, 0, 0.62), rgba(225, 6, 0, 0.62)) no-repeat left 100% / 100% 0.5em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.cs-an:nth-of-type(even) { background-image: linear-gradient(rgba(245, 239, 232, 0.3), rgba(245, 239, 232, 0.3)); }
+.cs-an::before { content: attr(data-k); position: absolute; left: 0; top: -1.25em; padding: 0.15em 0.6em; border-radius: 999px; background: var(--cream); color: var(--ink); font: 600 0.58rem/1.5 var(--body); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+.prose .cs-annofig figcaption { margin-top: 1rem; color: var(--cream); opacity: 0.75; }
+
+/* Two-way board: what a role changes (left, ink) against what it does not (right, dashed). */
+.prose .fig.cs-twowayfig { padding: 0; background: transparent; overflow: visible; }
+.cs-twoway { position: relative; display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); }
+.cs-tw-col { display: block; padding: 1.4rem 1.25rem 0.6rem; border-radius: 1.5rem; }
+.prose .cs-tw-list { display: grid; margin: 0; padding: 0; list-style: none; }
+.cs-tw-col--yes { background: var(--ink); color: var(--cream); }
+.cs-tw-col--no { border: 2px dashed rgba(23, 9, 10, 0.4); }
+.cs-tw-head { display: block; padding-bottom: 0.7rem; font: 400 1.7rem/1 var(--display); text-transform: uppercase; }
+.cs-tw-col--yes .cs-tw-head { color: var(--red); }
+.prose .cs-tw-list > li { display: flex; align-items: center; gap: 0.9rem; margin: 0; padding: 0.8rem 0; border-top: 1px solid rgba(128, 128, 128, 0.3); font-weight: 600; line-height: 1.3; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.1s), opacity 0.6s ease calc(var(--i, 0) * 0.1s); }
+.cs-tw-list > li::before { flex: none; display: grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; font: 600 0.9rem/1 var(--body); }
+.cs-tw-col--yes .cs-tw-list > li::before { content: "\2713"; background: var(--red); color: var(--cream); }
+.cs-tw-col--no .cs-tw-list > li { opacity: 0.8; }
+.cs-tw-col--no .cs-tw-list > li::before { content: "\00D7"; border: 2px solid var(--ink); font-size: 1.1rem; }
+.cs-tw-list > li small { display: block; margin-top: 0.1rem; font-weight: 400; font-size: 0.82rem; opacity: 0.75; }
+@media (min-width: 700px) { .cs-twoway { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; } }
+.prose .cs-twowayfig figcaption { margin-top: 0.9rem; padding-inline: 0.25rem; }
+
+/* Staircase: each part of a prompt adds a step. Rises left to right on wide screens, grows in width on phones. */
+.prose .fig.cs-stairfig { padding: 0; background: transparent; overflow: visible; }
+.cs-stair { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.prose .cs-stair > li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); column-gap: 0.8rem; align-content: center; width: calc(52% + var(--i) * 9.6%); min-width: 15rem; max-width: 100%; margin: 0; padding: 0.7rem 1rem; border: 2px solid var(--ink); border-radius: 1rem; background: var(--cream); transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.1s), opacity 0.6s ease calc(var(--i, 0) * 0.1s); }
+.prose .cs-stair > li:last-child { background: var(--red); border-color: var(--red); color: var(--cream); }
+.cs-st-n { grid-row: 1 / span 2; align-self: center; font: 400 2rem/1 var(--display); color: var(--red); }
+.cs-stair > li:last-child .cs-st-n { color: var(--cream); }
+.cs-st-t { font: 400 1.35rem/1 var(--display); text-transform: uppercase; }
+.cs-st-d { font-size: 0.88rem; line-height: 1.3; opacity: 0.85; }
+@media (min-width: 800px) {
+  .cs-stair { grid-template-columns: repeat(6, minmax(0, 1fr)); align-items: end; gap: 0.5rem; }
+  .prose .cs-stair > li { display: flex; flex-direction: column; justify-content: flex-end; gap: 0.3rem; width: auto; min-width: 0; min-height: calc(7.5rem + var(--i) * 2.6rem); padding: 0.9rem 0.8rem 1rem; }
+  .cs-st-n { grid-row: auto; align-self: auto; }
+}
+.prose .cs-stairfig figcaption { margin-top: 0.9rem; padding-inline: 0.25rem; }
+
+/* ---------- Draw-in for the prompting figures ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-fig .cs-mx-fill { height: var(--from); }
+  .js-fig .cs-mx-knob { bottom: var(--from); }
+  .js-fig .fig.is-in .cs-mx-fill { height: var(--to); }
+  .js-fig .fig.is-in .cs-mx-knob { bottom: var(--to); }
+  .js-fig .cs-an { background-size: 0 0.5em; transition: background-size 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.25s); }
+  .js-fig .fig.is-in .cs-an { background-size: 100% 0.5em; }
+  .js-fig .cs-tw-col--yes .cs-tw-list > li { opacity: 0; transform: translateX(-1rem); }
+  .js-fig .cs-tw-col--no .cs-tw-list > li { opacity: 0; transform: translateX(1rem); }
+  .js-fig .fig.is-in .cs-tw-col--yes .cs-tw-list > li, .js-fig .fig.is-in .cs-tw-col--no .cs-tw-list > li { transform: none; }
+  .js-fig .fig.is-in .cs-tw-col--yes .cs-tw-list > li { opacity: 1; }
+  .js-fig .fig.is-in .cs-tw-col--no .cs-tw-list > li { opacity: 0.8; }
+  .js-fig .cs-stair > li { opacity: 0; transform: translateY(1rem); }
+  .js-fig .fig.is-in .cs-stair > li { opacity: 1; transform: none; }
+}
