@@ -33,6 +33,13 @@ const items = await Promise.all(
     },
   })),
 );
+// Image license details (Google Images): who made it, who owns it, where to ask about using it
+const imageRights = {
+  creditText: "Maximus Mediascape",
+  copyrightNotice: "Designed by Maximus Mediascape for our clients. Shown in our portfolio with permission; the work belongs to the respective owners.",
+  license: `${o}/terms/`,
+  acquireLicensePage: `${o}/contact-us/`,
+};
 const wallItems = await Promise.all(
   DESIGN_WALL.map(async (t, i) => ({
     "@type": "ListItem",
@@ -43,6 +50,7 @@ const wallItems = await Promise.all(
       description: t.alt,
       contentUrl: new URL((await getImage({ src: t.src, width: 1200, format: "webp" })).src, o).href,
       creator: { "@id": `${o}/#organization` },
+      ...imageRights,
     },
   })),
 );
