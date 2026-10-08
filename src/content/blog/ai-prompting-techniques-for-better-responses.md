@@ -299,4 +299,4 @@ The goal is not simply to use AI more often. It is to give it better direction a
 
 When you understand how different prompting techniques work, AI becomes a more practical tool for tackling everyday business tasks.
 
-**Related guides:** [Common AI Prompting Mistakes and How to Fix Them](/blogs/common-ai-prompting-mistakes/).
+**Related guides:** [What Is an AI Prompt? A Beginner's Guide](/blogs/how-to-write-a-really-good-ai-prompt/), [Role Prompting and Prompt Length: What Actually Helps](/blogs/role-prompting-and-prompt-length/), [How to Improve an AI Response When the First Answer Misses](/blogs/how-to-improve-ai-responses-with-follow-up-prompts/), [10 Common AI Prompting Mistakes and How to Fix Them](/blogs/common-ai-prompting-mistakes/).
