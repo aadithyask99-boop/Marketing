@@ -359,3 +359,121 @@
   .js-fig .cs-stair > li { opacity: 0; transform: translateY(1rem); }
   .js-fig .fig.is-in .cs-stair > li { opacity: 1; transform: none; }
 }
+
+/* ---------- Claude Motion article figures (8 Oct 2026): film strip, data in/out, access dots, step ruler, spectrum ---------- */
+
+/* Wide click-to-load video (16:9) */
+.prose .cs-embed--wide .cs-embed-stage { max-width: none; aspect-ratio: 16 / 9; }
+.cs-embed--wide .cs-embed-play { min-height: 0; height: 100%; }
+.cs-embed--wide .cs-embed-stage iframe { height: 100%; }
+.prose .cs-embed--wide figcaption { max-width: none; text-align: left; }
+
+/* Film strip: four frames between sprocket holes. Vertical on phones, horizontal from 760px. */
+.prose .fig.cs-filmfig { padding: 0; background: transparent; overflow: visible; }
+.prose .fig .cs-film { position: relative; display: grid; gap: 0.6rem; margin: 0; padding: 0.9rem 1.7rem; list-style: none; border-radius: 0.6rem; background: var(--ink); color: var(--cream); }
+.cs-film::before, .cs-film::after { content: ""; position: absolute; top: 0.6rem; bottom: 0.6rem; width: 0.5rem; background: repeating-linear-gradient(180deg, var(--cream) 0 0.7rem, transparent 0.7rem 1.35rem); border-radius: 2px; opacity: 0.85; }
+.cs-film::before { left: 0.6rem; }
+.cs-film::after { right: 0.6rem; }
+.prose .cs-film > li { display: grid; grid-template-columns: 3rem minmax(0, 1fr); column-gap: 0.8rem; align-items: center; margin: 0; padding: 0.8rem 0.9rem; border-radius: 0.5rem; background: var(--cream); color: var(--ink); transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.14s), opacity 0.6s ease calc(var(--i, 0) * 0.14s); }
+.prose .cs-film > li:last-child { background: var(--red); color: var(--cream); }
+.cs-fm-n { grid-row: 1 / span 2; font: 400 2rem/1 var(--display); color: var(--red); }
+.cs-film > li:last-child .cs-fm-n { color: var(--cream); }
+.cs-fm-t { font: 400 1.4rem/1 var(--display); text-transform: uppercase; }
+.cs-fm-d { font-size: 0.88rem; line-height: 1.3; opacity: 0.85; }
+@media (min-width: 760px) {
+  .prose .fig .cs-film { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; padding: 1.7rem 0.9rem; }
+  .cs-film::before, .cs-film::after { top: auto; bottom: auto; left: 0.7rem; right: 0.7rem; width: auto; height: 0.5rem; background: repeating-linear-gradient(90deg, var(--cream) 0 0.7rem, transparent 0.7rem 1.35rem); }
+  .cs-film::before { top: 0.6rem; }
+  .cs-film::after { bottom: 0.6rem; }
+  .prose .cs-film > li { grid-template-columns: minmax(0, 1fr); row-gap: 0.35rem; align-content: start; min-height: 9rem; }
+  .cs-fm-n { grid-row: auto; }
+}
+.prose .cs-filmfig figcaption { margin-top: 0.9rem; padding-inline: 0.25rem; }
+
+/* Data in, dashboards out: sources on the left, Claude in the middle, destinations on the right. */
+.prose .fig.cs-iofig { padding: clamp(1.1rem, 3vw, 2rem); background: transparent; border: 2px solid var(--ink); }
+.cs-io { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); align-items: center; justify-items: center; text-align: center; }
+.cs-io-col { width: 100%; }
+.cs-io-head { display: block; margin-bottom: 0.7rem; font: 600 0.75rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); }
+.prose .cs-io-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
+.prose .cs-io-list > li { margin: 0; padding: 0.4rem 0.85rem; border: 2px solid var(--ink); border-radius: 999px; font: 600 0.85rem/1 var(--body); transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.07s), opacity 0.5s ease calc(var(--i, 0) * 0.07s); }
+.prose .cs-io-list > li.is-soon { border-style: dashed; opacity: 0.6; }
+.prose .cs-io-core { position: relative; display: grid; place-items: center; width: 6.2rem; height: 6.2rem; margin: 0; border-radius: 50%; background: var(--red); color: var(--cream); font: 400 1.25rem/1 var(--display); text-transform: uppercase; }
+.cs-io-core::before, .cs-io-core::after { content: ""; position: absolute; left: 50%; height: 1.4rem; border-left: 2px solid var(--red); }
+.cs-io-core::before { bottom: 100%; }
+.cs-io-core::after { top: 100%; }
+@media (min-width: 860px) {
+  .cs-io { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 2.4rem; }
+  .cs-io-col { text-align: left; }
+  .prose .cs-io-list { justify-content: flex-start; }
+  .cs-io-core::before, .cs-io-core::after { top: 50%; bottom: auto; height: 0; width: 2.4rem; border-left: 0; border-top: 2px solid var(--red); }
+  .cs-io-core::before { right: 100%; left: auto; }
+  .cs-io-core::after { left: 100%; }
+}
+.prose .cs-iofig figcaption { margin-top: 1.1rem; }
+
+/* Access dots: which feature is on which plan, exactly as Anthropic states it. */
+.prose .fig.cs-accessfig { padding: clamp(0.8rem, 3vw, 1.5rem); background: transparent; border: 2px solid var(--ink); }
+.prose .cs-ac { width: 100%; margin: 0; border-collapse: collapse; font-size: clamp(0.8rem, 2.6vw, 0.95rem); }
+.prose .cs-ac th, .prose .cs-ac td { padding: 0.75rem 0.3rem; border: 0; border-top: 1px solid rgba(23, 9, 10, 0.18); text-align: center; vertical-align: middle; background: none; }
+.prose .cs-ac thead th { padding-top: 0; border-top: 0; font: 600 0.68rem/1.25 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); }
+.prose .cs-ac tbody th { text-align: left; font-weight: 600; line-height: 1.25; }
+.cs-ac small { display: block; margin-top: 0.15rem; font-weight: 400; font-size: 0.75em; opacity: 0.7; }
+.cs-dot { display: inline-block; width: 1.25rem; height: 1.25rem; border: 2px solid rgba(23, 9, 10, 0.3); border-radius: 50%; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 0.08s); }
+.cs-dot.is-on { border-color: var(--red); background: var(--red); }
+.cs-vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.prose .cs-accessfig figcaption { margin-top: 0.9rem; }
+
+/* Step ruler: the same job done by hand and by prompt, drawn to one scale. Our illustration, not a timing. */
+.prose .fig.cs-rulerfig { padding: clamp(1.1rem, 3vw, 1.75rem); background: var(--ink); color: var(--cream); }
+.cs-rl-row + .cs-rl-row { margin-top: 1.3rem; }
+.cs-rl-label { display: block; margin-bottom: 0.45rem; font: 400 1.35rem/1 var(--display); text-transform: uppercase; }
+.cs-rl-row--new .cs-rl-label { color: var(--red); }
+.prose .cs-rl-bar { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.25rem; margin: 0; padding: 0; list-style: none; }
+.prose .cs-rl-bar > li { grid-column: span 1; margin: 0; padding: 0.7rem 0.1rem; border-radius: 0.4rem; background: rgba(245, 239, 232, 0.16); font: 600 clamp(0.58rem, 2.2vw, 0.78rem)/1.1 var(--body); letter-spacing: 0.02em; text-align: center; transform-origin: left; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.1s), opacity 0.5s ease calc(var(--i, 0) * 0.1s); }
+.cs-rl-row--new .cs-rl-bar > li { background: var(--red); }
+.cs-rl-axis { display: flex; justify-content: space-between; margin: 0.9rem 0 0; padding-top: 0.5rem; border-top: 2px solid rgba(245, 239, 232, 0.5); font: 600 0.68rem/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245, 239, 232, 0.75); }
+.prose .cs-rulerfig figcaption { margin-top: 0.9rem; color: var(--cream); opacity: 0.75; }
+
+/* Spectrum: pins on one line from "Claude can handle it" to "still needs a human". Vertical on phones. */
+.prose .fig.cs-spectfig { padding: clamp(1.1rem, 3vw, 2rem); background: transparent; border: 2px solid var(--ink); }
+.cs-sp-ends { display: flex; justify-content: space-between; gap: 1rem; font: 600 0.72rem/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.cs-sp-ends span:last-child { text-align: right; color: var(--red); }
+.prose .fig .cs-spectrum { position: relative; display: grid; gap: 0.9rem; margin: 1.1rem 0 0; padding: 0 0 0 1.5rem; list-style: none; }
+.cs-spectrum::before { content: ""; position: absolute; left: 0.45rem; top: 0.4rem; bottom: 0.4rem; width: 0; border-left: 3px solid var(--ink); transform-origin: top; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
+.prose .cs-spectrum > li { position: relative; margin: 0; font-weight: 600; line-height: 1.25; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 0.12s), opacity 0.4s ease calc(var(--i, 0) * 0.12s); }
+.cs-spectrum > li::before { content: ""; position: absolute; left: -1.5rem; top: 0.1rem; width: 1rem; height: 1rem; border: 3px solid var(--ink); border-radius: 50%; background: var(--cream); }
+.cs-spectrum > li:nth-child(n+4)::before { border-color: var(--red); background: var(--red); }
+@media (min-width: 760px) {
+  .prose .fig .cs-spectrum { display: block; height: 9.5rem; margin-top: 1.5rem; padding: 0; }
+  .cs-spectrum::before { left: 0; right: 0; top: 50%; bottom: auto; width: auto; border-left: 0; border-top: 3px solid var(--ink); transform-origin: left; }
+  .prose .cs-spectrum > li { position: absolute; left: var(--x); width: 8.5rem; margin: 0 0 0 -4.25rem; text-align: center; font-size: 0.92rem; }
+  .cs-spectrum > li::before { left: 50%; top: 50%; margin: -0.5rem 0 0 -0.5rem; }
+  .prose .cs-spectrum > li:nth-child(odd) { bottom: calc(50% + 1.1rem); }
+  .prose .cs-spectrum > li:nth-child(even) { top: calc(50% + 1.1rem); }
+  .cs-spectrum > li:nth-child(odd)::before { top: auto; bottom: -1.6rem; margin: 0 0 0 -0.5rem; }
+  .cs-spectrum > li:nth-child(even)::before { top: -1.6rem; margin: 0 0 0 -0.5rem; }
+}
+.prose .cs-spectfig figcaption { margin-top: 1rem; }
+
+/* ---------- Draw-in for the Claude Motion figures ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .js-fig .cs-film > li { opacity: 0; transform: translateX(1.2rem); }
+  .js-fig .fig.is-in .cs-film > li { opacity: 1; transform: none; }
+  .js-fig .cs-io-list > li { opacity: 0; transform: scale(0.85); }
+  .js-fig .fig.is-in .cs-io-list > li { opacity: 1; transform: none; }
+  .js-fig .cs-io-list > li.is-soon { opacity: 0; }
+  .js-fig .fig.is-in .cs-io-list > li.is-soon { opacity: 0.6; }
+  .js-fig .cs-dot { transform: scale(0); }
+  .js-fig .fig.is-in .cs-dot { transform: none; }
+  .js-fig .cs-rl-bar > li { opacity: 0; transform: scaleX(0.3); }
+  .js-fig .fig.is-in .cs-rl-bar > li { opacity: 1; transform: none; }
+  .js-fig .cs-spectrum::before { transform: scaleY(0); }
+  .js-fig .fig.is-in .cs-spectrum::before { transform: none; }
+  .js-fig .cs-spectrum > li { opacity: 0; transform: translateY(0.5rem); }
+  .js-fig .fig.is-in .cs-spectrum > li { opacity: 1; transform: none; }
+}
+@media (min-width: 760px) and (prefers-reduced-motion: no-preference) {
+  .js-fig .cs-spectrum::before { transform: scaleX(0); }
+  .js-fig .fig.is-in .cs-spectrum::before { transform: none; }
+}

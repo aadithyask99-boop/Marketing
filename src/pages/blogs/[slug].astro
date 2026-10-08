@@ -187,10 +187,10 @@ const schema = [
     play.addEventListener("click", () => {
       const frame = document.createElement("iframe");
       frame.src = src;
-      frame.title = "Instagram reel";
+      frame.title = box.dataset.title || "Instagram reel";
       frame.loading = "lazy";
       frame.allowFullscreen = true;
-      frame.allow = "encrypted-media; fullscreen; picture-in-picture";
+      frame.allow = "autoplay; encrypted-media; fullscreen; picture-in-picture";
       frame.referrerPolicy = "strict-origin-when-cross-origin";
       frame.setAttribute("sandbox", "allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-presentation");
       stage.replaceChildren(frame);
