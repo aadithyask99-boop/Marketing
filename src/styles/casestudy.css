@@ -444,15 +444,22 @@
 
 /* Spectrum: pins on one line from "Claude can handle it" to "still needs a human". Vertical on phones. */
 .prose .fig.cs-spectfig { padding: clamp(1.1rem, 3vw, 2rem); background: transparent; border: 2px solid var(--ink); }
-.cs-sp-ends { display: flex; justify-content: space-between; gap: 1rem; font: 600 0.72rem/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
-.cs-sp-ends span:last-child { text-align: right; color: var(--red); }
-.prose .fig .cs-spectrum { position: relative; display: grid; gap: 0.9rem; margin: 1.1rem 0 0; padding: 0 0 0 1.5rem; list-style: none; }
+.prose .fig.cs-spectfig { display: grid; gap: 0.9rem; }
+.prose .cs-sp-a, .prose .cs-sp-b { display: flex; align-items: center; gap: 0.6rem; margin: 0; font: 600 0.72rem/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.cs-sp-a::before, .cs-sp-b::before { content: ""; flex: none; width: 0.9rem; height: 0.9rem; border: 3px solid var(--ink); border-radius: 50%; background: var(--cream); }
+.prose .cs-sp-b { color: var(--red); }
+.cs-sp-b::before { border-color: var(--red); background: var(--red); }
+.prose .fig .cs-spectrum { position: relative; display: grid; gap: 0.9rem; margin: 0.3rem 0; padding: 0 0 0 1.5rem; list-style: none; }
 .cs-spectrum::before { content: ""; position: absolute; left: 0.45rem; top: 0.4rem; bottom: 0.4rem; width: 0; border-left: 3px solid var(--ink); transform-origin: top; transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1); }
 .prose .cs-spectrum > li { position: relative; margin: 0; font-weight: 600; line-height: 1.25; transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) calc(var(--i, 0) * 0.12s), opacity 0.4s ease calc(var(--i, 0) * 0.12s); }
 .cs-spectrum > li::before { content: ""; position: absolute; left: -1.5rem; top: 0.1rem; width: 1rem; height: 1rem; border: 3px solid var(--ink); border-radius: 50%; background: var(--cream); }
 .cs-spectrum > li:nth-child(n+4)::before { border-color: var(--red); background: var(--red); }
 @media (min-width: 760px) {
-  .prose .fig .cs-spectrum { display: block; height: 9.5rem; margin-top: 1.5rem; padding: 0; }
+  .prose .fig.cs-spectfig { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .prose .cs-sp-a, .prose .cs-sp-b { grid-row: 1; }
+  .prose .cs-sp-b { justify-self: end; flex-direction: row-reverse; }
+  .prose .fig .cs-spectrum { grid-column: 1 / -1; grid-row: 2; display: block; height: 9.5rem; margin-top: 0.5rem; padding: 0; }
+  .prose .cs-spectfig figcaption { grid-column: 1 / -1; grid-row: 3; }
   .cs-spectrum::before { left: 0; right: 0; top: 50%; bottom: auto; width: auto; border-left: 0; border-top: 3px solid var(--ink); transform-origin: left; }
   .prose .cs-spectrum > li { position: absolute; left: var(--x); width: 8.5rem; margin: 0 0 0 -4.25rem; text-align: center; font-size: 0.92rem; }
   .cs-spectrum > li::before { left: 50%; top: 50%; margin: -0.5rem 0 0 -0.5rem; }
@@ -461,7 +468,7 @@
   .cs-spectrum > li:nth-child(odd)::before { top: auto; bottom: -1.6rem; margin: 0 0 0 -0.5rem; }
   .cs-spectrum > li:nth-child(even)::before { top: -1.6rem; margin: 0 0 0 -0.5rem; }
 }
-.prose .cs-spectfig figcaption { margin-top: 1rem; }
+.prose .cs-spectfig figcaption { margin: 0; }
 
 /* ---------- Draw-in for the Claude Motion figures ---------- */
 @media (prefers-reduced-motion: no-preference) {
