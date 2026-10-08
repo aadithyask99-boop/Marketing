@@ -407,10 +407,13 @@
 .cs-io-core::before { bottom: 100%; }
 .cs-io-core::after { top: 100%; }
 @media (min-width: 860px) {
-  .cs-io { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 2.4rem; }
+  .cs-io { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 2.4rem; align-items: start; }
   .cs-io-col { text-align: left; }
+  .cs-io-col:first-child { text-align: right; }
   .prose .cs-io-list { justify-content: flex-start; }
-  .cs-io-core::before, .cs-io-core::after { top: 50%; bottom: auto; height: 0; width: 2.4rem; border-left: 0; border-top: 2px solid var(--red); }
+  .prose .cs-io-col:first-child .cs-io-list { justify-content: flex-end; }
+  .prose .cs-io-core { align-self: center; margin-top: 1.5rem; }
+  .cs-io-core::before, .cs-io-core::after { top: 50%; bottom: auto; height: 0; width: 2.4rem; border-left: 0; border-top: 2px solid var(--red); margin-left: 0; }
   .cs-io-core::before { right: 100%; left: auto; }
   .cs-io-core::after { left: 100%; }
 }
