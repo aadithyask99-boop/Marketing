@@ -20,6 +20,16 @@ const LABELS: [keyof Lead, string][] = [
   ["service", "Interested in"],
 ];
 
+// Tells the marketing tools a form was sent (only those that are loaded; nothing personal is passed).
+function track(newsletter: boolean) {
+  const w = window as any;
+  try {
+    w.fbq?.("track", newsletter ? "Subscribe" : "Lead");
+    if (!newsletter) w.gtag?.("event", "generate_lead");
+    w.clarity?.("event", newsletter ? "subscribe" : "lead");
+  } catch {}
+}
+
 // Posts JSON to the endpoint when one is configured; otherwise opens a
 // pre-filled email in the visitor's mail app.
 export async function submitLead(
@@ -37,6 +47,7 @@ export async function submitLead(
           source: location.pathname + location.search,
         }),
       });
+      if (res.ok) track(lead.message === "Newsletter signup");
       return { ok: res.ok, mode: "endpoint" };
     } catch {
       return { ok: false, mode: "endpoint" };

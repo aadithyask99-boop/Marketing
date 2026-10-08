@@ -6,13 +6,15 @@ interface Props { noindex?: boolean }
 const { noindex = false } = Astro.props;
 const gaId = ANALYTICS.gaId;
 const adsId = ANALYTICS.adsId;
+const metaId = ANALYTICS.metaPixelId;
+const clarityId = ANALYTICS.clarityId;
 const mode = ANALYTICS.mode;
 const on = !!gaId && !noindex;
 ---
 
 {
   on && mode === "optin" && (
-    <div class="consent" role="dialog" aria-label="Cookie choice" hidden data-consent data-ga={gaId}>
+    <div class="consent" role="dialog" aria-label="Cookie choice" hidden data-consent data-ga={gaId} data-meta={metaId} data-clarity={clarityId}>
       <p class="consent-text">We use necessary cookies and storage to make the site work. Accept to also allow analytics cookies, which show us how the site is used so we can improve it. <a href={url("/privacy")}>Privacy Policy</a></p>
       <div class="consent-actions">
         <button type="button" class="consent-btn" data-consent-decline>Necessary only</button>
@@ -23,7 +25,7 @@ const on = !!gaId && !noindex;
 }
 {
   on && mode === "notice" && (
-    <div class="consent consent--notice" role="dialog" aria-label="Cookie notice" hidden data-notice data-ga={gaId} data-ads={adsId}>
+    <div class="consent consent--notice" role="dialog" aria-label="Cookie notice" hidden data-notice data-ga={gaId} data-ads={adsId} data-meta={metaId} data-clarity={clarityId}>
       <p class="consent-text">We use cookies to see how the site is used and to show relevant ads. You can switch this off any time in our <a href={url("/privacy#cookies")}>Privacy Policy</a>.</p>
       <div class="consent-actions">
         <button type="button" class="consent-btn consent-btn--yes" data-notice-ok>Okay</button>
@@ -31,14 +33,14 @@ const on = !!gaId && !noindex;
     </div>
   )
 }
-{on && mode === "none" && <div hidden data-ga-auto data-ga={gaId}></div>}
+{on && mode === "none" && <div hidden data-ga-auto data-ga={gaId} data-clarity={clarityId}></div>}
 
 <script>
-  // Google Analytics. Three modes (ANALYTICS.mode in src/data/site.ts):
+  // Google Analytics, Microsoft Clarity and Meta Pixel. Three modes (ANALYTICS.mode in src/data/site.ts):
   //   optin  : the Accept / Necessary only bar; nothing from Google loads until Accept.
   //   notice : a one-button "Okay" notice; Google Analytics runs unless the visitor switched it off (button on the privacy page).
-  //            Google Ads signals (ad storage, user data, personalisation) are granted only after the visitor presses Okay.
-  //   none   : no notice; Google Analytics runs for everyone.
+  //            Clarity runs with analytics. Google Ads signals and the Meta Pixel start only after the visitor presses Okay.
+  //   none   : no notice; Google Analytics and Clarity run for everyone (no Meta Pixel).
   // In notice and none modes it only loads on the real domain, so test, preview and localhost visits never reach the data.
   const el = document.querySelector<HTMLElement>("[data-consent]");
   const notice = document.querySelector<HTMLElement>("[data-notice]");
@@ -61,6 +63,36 @@ const on = !!gaId && !noindex;
     w.gtag("config", adsId);
   };
 
+  // Microsoft Clarity (session recordings and heatmaps) and Meta Pixel. Real domain only.
+  let clarityOn = false;
+  let metaOn = false;
+  const loadClarity = (id?: string) => {
+    if (clarityOn || !id || !realDomain) return;
+    clarityOn = true;
+    ((c: any, l: Document, a: string, r: string, i: string) => {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      const t = l.createElement(r) as HTMLScriptElement;
+      t.async = true;
+      t.src = "https://www.clarity.ms/tag/" + i;
+      l.getElementsByTagName(r)[0].parentNode!.insertBefore(t, l.getElementsByTagName(r)[0]);
+    })(w, document, "clarity", "script", id);
+  };
+  const loadMeta = (id?: string) => {
+    if (metaOn || !id || !realDomain) return;
+    metaOn = true;
+    if (!w.fbq) {
+      const n: any = (w.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); });
+      if (!w._fbq) w._fbq = n;
+      n.push = n; n.loaded = true; n.version = "2.0"; n.queue = [];
+      const t = document.createElement("script");
+      t.async = true;
+      t.src = "https://connect.facebook.net/en_US/fbevents.js";
+      document.getElementsByTagName("script")[0].parentNode!.insertBefore(t, document.getElementsByTagName("script")[0]);
+    }
+    w.fbq("init", id);
+    w.fbq("track", "PageView");
+  };
+
   const loadGA = (id: string) => {
     if (loaded || !id) return;
     loaded = true;
@@ -76,10 +108,12 @@ const on = !!gaId && !noindex;
   };
 
   const clearGA = () => {
+    try { if (w.fbq) w.fbq("consent", "revoke"); } catch {}
+    try { if (w.clarity) w.clarity("stop"); } catch {}
     if (loaded && w.gtag) w.gtag("consent", "update", { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     document.cookie.split(";").forEach((c) => {
       const name = c.split("=")[0].trim();
-      if (name === "_ga" || name.startsWith("_ga_") || name.startsWith("_gcl_") || name === "_gac" || name.startsWith("_gac_")) {
+      if (name === "_ga" || name.startsWith("_ga_") || name.startsWith("_gcl_") || name === "_gac" || name.startsWith("_gac_") || name === "_fbp" || name === "_fbc" || name === "_clck" || name === "_clsk") {
         document.cookie = `${name}=; Max-Age=0; path=/`;
         document.cookie = `${name}=; Max-Age=0; path=/; domain=${location.hostname}`;
         document.cookie = `${name}=; Max-Age=0; path=/; domain=.${location.hostname.replace(/^www\./, "")}`;
@@ -98,28 +132,29 @@ const on = !!gaId && !noindex;
   if (el) {
     // Opt-in bar
     const KEY = "mm-consent";
-    el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { store.set(KEY, "granted"); hideBar(el); loadGA(idFrom(el)); });
+    const startAll = () => { loadGA(idFrom(el)); loadClarity(el.dataset.clarity); loadMeta(el.dataset.meta); };
+    el.querySelector("[data-consent-accept]")?.addEventListener("click", () => { store.set(KEY, "granted"); hideBar(el); startAll(); });
     el.querySelector("[data-consent-decline]")?.addEventListener("click", () => { store.set(KEY, "denied"); hideBar(el); clearGA(); });
     document.addEventListener("click", (e) => {
       if ((e.target as HTMLElement).closest("[data-consent-open]")) { store.set(KEY, null); showBar(el); }
     });
     const choice = store.get(KEY);
-    if (choice === "granted") loadGA(idFrom(el));
+    if (choice === "granted") startAll();
     else if (choice !== "denied") showBar(el);
   } else if (notice) {
     // One-button notice: analytics runs unless switched off on the privacy page; ad signals follow Okay
     adsId = notice.dataset.ads || "";
     const active = realDomain && !store.get(OFF);
-    if (active) loadGA(idFrom(notice));
-    if (active && store.get("mm-notice")) grantAds();
+    if (active) { loadGA(idFrom(notice)); loadClarity(notice.dataset.clarity); }
+    if (active && store.get("mm-notice")) { grantAds(); loadMeta(notice.dataset.meta); }
     notice.querySelector("[data-notice-ok]")?.addEventListener("click", () => {
       store.set("mm-notice", "1");
       hideBar(notice);
-      if (realDomain && !store.get(OFF)) { loadGA(idFrom(notice)); grantAds(); }
+      if (realDomain && !store.get(OFF)) { loadGA(idFrom(notice)); loadClarity(notice.dataset.clarity); grantAds(); loadMeta(notice.dataset.meta); }
     });
     if (!store.get("mm-notice")) showBar(notice);
   } else if (auto) {
-    if (realDomain) loadGA(idFrom(auto));
+    if (realDomain) { loadGA(idFrom(auto)); loadClarity(auto.dataset.clarity); }
   }
 
   // Privacy page: switch Google Analytics off or on (notice mode)

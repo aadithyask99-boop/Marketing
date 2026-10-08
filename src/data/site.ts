@@ -28,7 +28,7 @@ export const FORM_ENDPOINT: string = import.meta.env.PUBLIC_LEAD_ENDPOINT || "ht
 //   "notice" = a one-button notice ("Okay"); Google Analytics runs on the real domain unless the visitor switches it off on the privacy page (current choice).
 //   "optin"  = Accept / Necessary only bar; Google loads only after Accept (use this before remarketing or ads).
 //   "none"   = no notice, Google Analytics runs for everyone on the real domain.
-export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP", adsId: (import.meta.env.PUBLIC_ADS_ID as string | undefined) || "AW-16686403752", mode: "notice" as "none" | "notice" | "optin" };
+export const ANALYTICS = { gaId: (import.meta.env.PUBLIC_GA_ID as string | undefined) || "G-1CLZBLNEDP", adsId: (import.meta.env.PUBLIC_ADS_ID as string | undefined) || "AW-16686403752", metaPixelId: (import.meta.env.PUBLIC_META_PIXEL_ID as string | undefined) || "1106508811857683", clarityId: (import.meta.env.PUBLIC_CLARITY_ID as string | undefined) || "vfspk7jbc0", mode: "notice" as "none" | "notice" | "optin" };
 
 export const LEAD = {
   heading: "Now it's your turn.",
