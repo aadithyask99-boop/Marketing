@@ -225,7 +225,7 @@ The editorial header replaced the old red split header on all posts (no `heroSty
 - **Contents:** desktop has the sticky side rail (`ArticleToc.astro`, FAQ entry only when the post has FAQs); phones have the Contents pill (see section 18). `src/lib/toc.ts` lists H2 headings, falling back to H2 plus H3 for posts with few H2s.
 
 ## 17. Guide figures in posts
-Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: `cs-line` route (numbered stops, optional `li.is-here` and links; the customer-journey posts link to each other), `cs-check` checklist rail (big red numbers, plain rows), `cs-cards` topic cards (two columns, big red number), `cs-pull` pull quote (one sentence copied from the post), `cs-swap` instead-of pairs. One figure per post, neighbouring posts (by date) use different formats, and every item comes from the post's own text. Never add invented numbers.
+Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: `cs-line` route (numbered stops, optional `li.is-here` and links; the customer-journey posts link to each other), `cs-check` checklist rail (big red numbers, plain rows), `cs-cards` topic cards (two columns, big red number), `cs-pull` pull quote (one sentence copied from the post), `cs-swap` instead-of pairs. One figure per post, neighbouring posts (by date) use different formats (exception, 8 Oct 2026: four AI prompting posts use `cs-line` because the user wants linear infographics; vary the format again where you can), and every item comes from the post's own text. Never add invented numbers.
 
 ## 18. Phone navigation: pills that swap with the header
 - **Pattern:** below 900px, a pill in the same liquid-glass shape as the site header (3.4rem tall, rounded, blur and shadow, ink round button on the right) takes the header's place when the header slides away on scroll down, and flips away (rotateX) when the header returns on scroll up. The state is keyed to the header's `is-hidden` class (a `MutationObserver`).
@@ -243,7 +243,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - **Testimonials** are real (see Voices).
 
 ## 20. Conventions
-- British English, no em dashes, plain wording. Work and push only on `claude/fervent-clarke-uctw7x` (the branch Vercel deploys); do not create or push other branches. No pull requests.
+- British English, no em dashes, plain wording. Finished work goes straight to `claude/fervent-clarke-uctw7x` (the branch Vercel deploys) without asking first (user instruction, 8 Oct 2026); do not create or push other branches. No pull requests.
 - Use `url()` for every internal link; all internal URLs end in a slash; never hard-code old paths.
 - Verify before saying done: `npm run build`, preview, screenshot at 390px and 1440px, run the built-site link crawl (no missing targets, no dead anchors). Never claim a deploy is confirmed until the live URL has been checked.
 - Client facts are never invented. Ask first, label client-reported figures.
