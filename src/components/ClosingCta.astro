@@ -32,6 +32,7 @@ const ICONS = [
   data-email={SITE.email}
   data-service={service}
   data-success={LEAD.success}
+  data-reply={LEAD.reply}
 >
   {eyebrow && <p class="eyebrow">{eyebrow}</p>}
   <Heading id="closer-title" class="display section-title" set:html={title} />
@@ -67,7 +68,19 @@ const ICONS = [
     </div>
 
     <div class="closer-step" data-step="2" hidden>
-      <p class="closer-reply">{LEAD.reply}</p>
+      <p class="closer-reply">{LEAD.askName}</p>
+      <p class="closer-echo"></p>
+      <div class="closer-fields closer-fields--name">
+        <label class="sr-only" for="closer-name">Your name</label>
+        <input class="closer-input" id="closer-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Your name" />
+        <button class="btn closer-go" type="submit" data-cursor="Next">Next</button>
+      </div>
+      <p class="field-error closer-error" hidden></p>
+      <button class="closer-back" type="button" data-back="1">Edit my message</button>
+    </div>
+
+    <div class="closer-step" data-step="3" hidden>
+      <p class="closer-reply" data-reply>{LEAD.reply}</p>
       <p class="closer-echo"></p>
       <div class="closer-fields">
         <label class="sr-only" for="closer-email">Email</label>
@@ -80,13 +93,13 @@ const ICONS = [
           <label class="sr-only" for="closer-phone">Phone number</label>
           <input class="closer-input" id="closer-phone" name="phone" type="tel" inputmode="tel" maxlength="20" autocomplete="tel-national" placeholder="Phone number" />
         </div>
-        <button class="btn closer-go" type="submit" data-cursor="Send">Send</button>
+        <button class="btn closer-go closer-send-go" type="submit" data-cursor="Send">Send</button>
       </div>
       <p class="field-error closer-error" hidden></p>
-      <button class="closer-back" type="button">Edit my message</button>
+      <button class="closer-back" type="button" data-back="2">Back</button>
     </div>
 
-    <div class="closer-step" data-step="3" hidden>
+    <div class="closer-step" data-step="4" hidden>
       <p class="closer-thanks"></p>
       <p class="closer-echo"></p>
     </div>
@@ -106,12 +119,13 @@ const ICONS = [
   if (root && form) {
     const steps = [...form.querySelectorAll<HTMLElement>(".closer-step")];
     const msg = form.elements.namedItem("message") as HTMLInputElement;
+    const nameIn = form.elements.namedItem("name") as HTMLInputElement;
     const email = form.elements.namedItem("email") as HTMLInputElement;
     const phone = form.elements.namedItem("phone") as HTMLInputElement;
     const cc = form.elements.namedItem("cc") as HTMLSelectElement;
     const trap = form.elements.namedItem("_gotcha") as HTMLInputElement;
     const live = form.querySelector<HTMLElement>("[data-live]")!;
-    const go = form.querySelector<HTMLButtonElement>(".closer-go")!;
+    const go = form.querySelector<HTMLButtonElement>(".closer-send-go")!;
     const errors = form.querySelectorAll<HTMLElement>(".closer-error");
     let step = 1;
 
@@ -126,7 +140,7 @@ const ICONS = [
     const show = (n: number) => {
       step = n;
       steps.forEach((s) => (s.hidden = s.dataset.step !== String(n)));
-      const target = n === 1 ? msg : n === 2 ? email : null;
+      const target = n === 1 ? msg : n === 2 ? nameIn : n === 3 ? email : null;
       target?.focus();
     };
     const setError = (input: HTMLElement, text: string) => {
@@ -144,7 +158,7 @@ const ICONS = [
         p.hidden = true;
         p.textContent = "";
       });
-      [msg, email, phone].forEach((i) => i.removeAttribute("aria-invalid"));
+      [msg, nameIn, email, phone].forEach((i) => i.removeAttribute("aria-invalid"));
     };
     form.addEventListener("input", clearErrors);
 
@@ -179,10 +193,12 @@ const ICONS = [
         msg.focus();
       }),
     );
-    form.querySelector(".closer-back")?.addEventListener("click", () => {
-      clearErrors();
-      show(1);
-    });
+    form.querySelectorAll<HTMLButtonElement>(".closer-back").forEach((b) =>
+      b.addEventListener("click", () => {
+        clearErrors();
+        show(Number(b.dataset.back) || 1);
+      }),
+    );
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -194,7 +210,15 @@ const ICONS = [
         form.querySelector<HTMLElement>('[data-step="2"] .closer-echo')!.textContent = `“${message}”`;
         return show(2);
       }
-      if (step !== 2) return;
+      const who = nameIn.value.replace(/\s+/g, " ").trim();
+      if (step === 2) {
+        if (who.length < 2) return setError(nameIn, "Please tell us your name.");
+        const first = who.split(" ")[0];
+        form.querySelector<HTMLElement>("[data-reply]")!.textContent = `Thanks, ${first}. ${root.dataset.reply ?? ""}`.trim();
+        form.querySelector<HTMLElement>('[data-step="3"] .closer-echo')!.textContent = `“${message}”`;
+        return show(3);
+      }
+      if (step !== 3) return;
 
       const mail = email.value.trim();
       const digits = phone.value.replace(/[\s\-().]/g, "");
@@ -203,9 +227,9 @@ const ICONS = [
 
       const done = (text: string) => {
         form.querySelector<HTMLElement>(".closer-thanks")!.textContent = text;
-        form.querySelector<HTMLElement>('[data-step="3"] .closer-echo')!.textContent = `“${message}”`;
+        form.querySelector<HTMLElement>('[data-step="4"] .closer-echo')!.textContent = `“${message}”`;
         live.textContent = text;
-        show(3);
+        show(4);
       };
 
       if (trap.value) return done(root.dataset.success ?? "Thanks.");
@@ -213,7 +237,7 @@ const ICONS = [
       go.disabled = true;
       go.textContent = "Sending...";
       const result = await submitLead(
-        { message, email: mail, phone: `+${cc.value}${digits}`, ...(root.dataset.service ? { service: root.dataset.service } : {}) },
+        { name: who, message, email: mail, phone: `+${cc.value}${digits}`, ...(root.dataset.service ? { service: root.dataset.service } : {}) },
         { endpoint: root.dataset.endpoint ?? "", toEmail: root.dataset.email ?? "" },
       );
       go.disabled = false;

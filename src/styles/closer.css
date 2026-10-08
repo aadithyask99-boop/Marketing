@@ -107,6 +107,7 @@
 @media (min-width: 900px) {
   .closer-form { width: min(100%, 52rem); }
   .closer-fields { grid-template-columns: 1fr 1.2fr auto; align-items: start; }
+  .closer-fields--name { grid-template-columns: 1fr auto; }
 }
 @media (max-width: 599px) {
   .closer-bar { padding-left: 1rem; gap: 0.5rem; min-height: 4rem; }

@@ -35,7 +35,8 @@ export const LEAD = {
   question: "What do you want to be found for?",
   lede: "Type what you want to be found for. We'll come back with a real plan, not a sales pitch.",
   placeholder: "e.g. get my bakery found by AI",
-  reply: "Good one. Where should we send the plan?",
+  askName: "Good one. What should we call you?",
+  reply: "Where should we send the plan?",
   success: "Thanks, we've got it. We'll be in touch soon.",
   privacy: "We only use this to reply to you. No spam.",
 };
