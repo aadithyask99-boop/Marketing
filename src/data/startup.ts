@@ -35,6 +35,8 @@ export const programs = [
 
 // Website designs from the portfolio (ids in DESIGN_WALL, src/data/design.ts), shown with the price
 export const designPicks = ["web-bakwa", "web-diagramx", "web-flowergrid"];
+// Instagram grids from the portfolio wall, shown under the website designs so the page reads as a whole package
+export const socialPicks = ["ig-magic", "ig-flowergrid"];
 
 export const audience = [
   { name: "New startups", text: "You have an idea and need a credible home online before you launch." },

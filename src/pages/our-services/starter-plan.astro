@@ -6,11 +6,13 @@ import "../../styles/starter.css";
 import "../../styles/startup.css";
 import { Image } from "astro:assets";
 import auditLogo from "../../assets/blog/logo-iaudit.png";
+import brandTote from "../../assets/design/magic-personnel/07-tote.webp";
+import brandBucket from "../../assets/design/ultraseal/06-bucket.webp";
 import Voices from "../../components/Voices.astro";
 import { DESIGN_WALL } from "../../data/design";
 import { SITE, url } from "../../data/site";
 import { START, CHECK, stages, included, notIncluded, faq as baseFaq } from "../../data/starter";
-import { panelCopy, programs, designPicks, audience, auditProof, AUDIT_NOTE, extraFaq, marquee, notFit, teamNote } from "../../data/startup";
+import { panelCopy, programs, designPicks, socialPicks, audience, auditProof, AUDIT_NOTE, extraFaq, marquee, notFit, teamNote } from "../../data/startup";
 import { webPage, breadcrumbs } from "../../lib/schema";
 
 const faq = [...baseFaq, ...extraFaq];
@@ -19,6 +21,11 @@ const ARTS: Record<string, string> = {
   growth: `<svg viewBox="0 0 120 120"><rect x="16" y="68" width="20" height="34" rx="4" fill="#17090a"/><rect x="50" y="48" width="20" height="54" rx="4" fill="#17090a"/><rect x="84" y="24" width="20" height="78" rx="4" fill="#e10600"/><path d="M18 52l30-18 22 10 32-28" fill="none" stroke="#17090a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 const designs = designPicks.map((id) => DESIGN_WALL.find((w) => w.id === id)!);
+const socials = socialPicks.map((id) => DESIGN_WALL.find((w) => w.id === id)!);
+const brands = [
+  { src: brandTote, sector: "Housekeeping", alt: "Brand identity for a housekeeping business: a black, gold and blue logo with a keyhole M and a magic wand, printed on a white tote bag" },
+  { src: brandBucket, sector: "Waterproofing", alt: "Brand identity for a waterproofing company: a cartoon crab mascot in safety goggles with a paint roller, on a paint bucket label" },
+];
 const toneOf = (i: number) => (i % 2 === 0 ? "dark" : "cream");
 
 const o = Astro.site!.origin;
@@ -189,8 +196,27 @@ const schema = [
             </li>
           ))}
         </ul>
+        <p class="su-tag su-tag--sub">(And the brand and social to go with it)</p>
+        <ul class="su-shots su-shots--brand">
+          {brands.map((b, i) => (
+            <li class="su-shot" style={`--r:${i === 0 ? -1.2 : 1.2}deg; --y:${i === 0 ? "0rem" : "2.5rem"}`}>
+              <a href={url("/work/portfolio#brand-identity")} data-cursor="View" aria-label={`${b.sector} brand identity, see the portfolio`}>
+                <span class="su-frame su-frame--plain"><Image src={b.src} alt={b.alt} widths={[480, 800]} sizes="(min-width: 900px) 22vw, 70vw" loading="lazy" /></span>
+                <span class="su-cap">Brand identity · {b.sector}</span>
+              </a>
+            </li>
+          ))}
+          {socials.map((d, i) => (
+            <li class="su-shot" style={`--r:${i === 0 ? -1.2 : 1.2}deg; --y:${i === 0 ? "0rem" : "2.5rem"}`}>
+              <a href={url("/work/portfolio")} data-cursor="View" aria-label={`${d.sector} Instagram grid design, see the portfolio`}>
+                <span class="su-frame su-frame--phone"><Image src={d.src} alt={d.alt} widths={[480, 800]} sizes="(min-width: 900px) 22vw, 70vw" loading="lazy" /></span>
+                <span class="su-cap">Instagram grid · {d.sector}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
         <div class="su-designs-cta">
-          <p>Your Starter site is designed the same way, in your brand. See more of <a href={url("/work")}>how we work</a> and our <a href={url("/blogs")}>guides</a>.</p>
+          <p>Your Starter site is designed the same way, in your brand. We also design logos and Instagram grids, so it can all match. See more of <a href={url("/work")}>how we work</a> and our <a href={url("/blogs")}>guides</a>.</p>
           <a class="st-pill" href={url("/work/portfolio")} data-cursor="View">See the portfolio <i aria-hidden="true">↗</i></a>
         </div>
       </div>

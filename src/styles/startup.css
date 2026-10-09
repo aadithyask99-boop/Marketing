@@ -192,8 +192,16 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-frame img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; -webkit-user-drag: none; }
 .su-cap { display: block; margin-top: 0.75rem; font-size: 0.9rem; font-weight: 600; }
 .su-cap::before { content: "("; } .su-cap::after { content: ")"; }
+/* Second row: brand identity and Instagram grids, so the page reads as a whole package */
+.su-tag--sub { margin: clamp(1rem, 2vw, 1.5rem) 0 clamp(1.25rem, 3vw, 2rem); }
+@media (min-width: 900px) { .su-shots--brand { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.su-frame--plain { background: var(--cream); }
+.su-frame--plain img { aspect-ratio: 4 / 5; object-position: 14% 50%; }
+.su-shot:nth-child(2) .su-frame--plain img { object-position: 50% 50%; }
+.su-frame--phone { padding: 0.45rem; border: 0; border-radius: 1.6rem; background: var(--ink); }
+.su-frame--phone img { aspect-ratio: 4 / 5; object-position: top; border-radius: 1.2rem; }
 .su-designs-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: 0.5rem; }
-.su-designs-cta p { margin: 0; max-width: 28rem; font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 600; line-height: 1.2; }
+.su-designs-cta p { margin: 0; max-width: min(100%, 40rem); font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 600; line-height: 1.2; }
 .su-designs-cta .st-pill { background: var(--ink); color: var(--cream); }
 .su-designs-cta .st-pill i { background: var(--red); }
 .su-programs .su-foot { margin-top: 1.5rem; }
