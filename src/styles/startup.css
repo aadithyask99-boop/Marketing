@@ -194,12 +194,13 @@ html:not(.js-st) .su-who p { opacity: 0.75; max-height: none; }
 .su-cap::before { content: "("; } .su-cap::after { content: ")"; }
 /* Second row: brand identity and Instagram grids, so the page reads as a whole package */
 .su-tag--sub { margin: clamp(1rem, 2vw, 1.5rem) 0 clamp(1.25rem, 3vw, 2rem); }
-@media (min-width: 900px) { .su-shots--brand { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .su-shots--brand { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: start; } }
+.su-shots--brand { align-items: center; }
 .su-frame--plain { background: var(--cream); }
-.su-frame--plain img { aspect-ratio: 4 / 5; object-position: 14% 50%; }
-.su-shot:nth-child(2) .su-frame--plain img { object-position: 50% 50%; }
+.su-frame--plain img { aspect-ratio: 3 / 2; object-position: center; }
+@media (min-width: 900px) { .su-shots--brand .su-shot:nth-child(-n+2) { align-self: center; } }
 .su-frame--phone { padding: 0.45rem; border: 0; border-radius: 1.6rem; background: var(--ink); }
-.su-frame--phone img { aspect-ratio: 4 / 5; object-position: top; border-radius: 1.2rem; }
+.su-frame--phone img { aspect-ratio: 4 / 5; object-position: 50% var(--op, top); border-radius: 1.2rem; }
 .su-designs-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; margin-top: 0.5rem; }
 .su-designs-cta p { margin: 0; max-width: min(100%, 40rem); font-size: clamp(1.15rem, 2vw, 1.6rem); font-weight: 600; line-height: 1.2; }
 .su-designs-cta .st-pill { background: var(--ink); color: var(--cream); }

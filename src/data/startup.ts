@@ -37,6 +37,8 @@ export const programs = [
 export const designPicks = ["web-bakwa", "web-diagramx", "web-flowergrid"];
 // Instagram grids from the portfolio wall, shown under the website designs so the page reads as a whole package
 export const socialPicks = ["ig-magic", "ig-flowergrid"];
+// Vertical focus (percent) for each grid preview, so the crop starts at the posts and not the profile header
+export const igFocus: Record<string, string> = { "ig-magic": "61%", "ig-flowergrid": "47%" };
 
 export const audience = [
   { name: "New startups", text: "You have an idea and need a credible home online before you launch." },

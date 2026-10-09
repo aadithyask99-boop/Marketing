@@ -12,7 +12,7 @@ import Voices from "../../components/Voices.astro";
 import { DESIGN_WALL } from "../../data/design";
 import { SITE, url } from "../../data/site";
 import { START, CHECK, stages, included, notIncluded, faq as baseFaq } from "../../data/starter";
-import { panelCopy, programs, designPicks, socialPicks, audience, auditProof, AUDIT_NOTE, extraFaq, marquee, notFit, teamNote } from "../../data/startup";
+import { panelCopy, programs, designPicks, socialPicks, igFocus, audience, auditProof, AUDIT_NOTE, extraFaq, marquee, notFit, teamNote } from "../../data/startup";
 import { webPage, breadcrumbs } from "../../lib/schema";
 
 const faq = [...baseFaq, ...extraFaq];
@@ -201,7 +201,7 @@ const schema = [
           {brands.map((b, i) => (
             <li class="su-shot" style={`--r:${i === 0 ? -1.2 : 1.2}deg; --y:${i === 0 ? "0rem" : "2.5rem"}`}>
               <a href={url("/work/portfolio#brand-identity")} data-cursor="View" aria-label={`${b.sector} brand identity, see the portfolio`}>
-                <span class="su-frame su-frame--plain"><Image src={b.src} alt={b.alt} widths={[480, 800]} sizes="(min-width: 900px) 22vw, 70vw" loading="lazy" /></span>
+                <span class="su-frame su-frame--plain"><Image src={b.src} alt={b.alt} widths={[800, 1100, 1600]} sizes="(min-width: 900px) 48vw, 160vw" loading="lazy" /></span>
                 <span class="su-cap">Brand identity · {b.sector}</span>
               </a>
             </li>
@@ -209,7 +209,7 @@ const schema = [
           {socials.map((d, i) => (
             <li class="su-shot" style={`--r:${i === 0 ? -1.2 : 1.2}deg; --y:${i === 0 ? "0rem" : "2.5rem"}`}>
               <a href={url("/work/portfolio")} data-cursor="View" aria-label={`${d.sector} Instagram grid design, see the portfolio`}>
-                <span class="su-frame su-frame--phone"><Image src={d.src} alt={d.alt} widths={[480, 800]} sizes="(min-width: 900px) 22vw, 70vw" loading="lazy" /></span>
+                <span class="su-frame su-frame--phone" style={`--op:${igFocus[d.id] ?? "top"}`}><Image src={d.src} alt={d.alt} widths={[800, 900]} sizes="(min-width: 900px) 46vw, 160vw" loading="lazy" /></span>
                 <span class="su-cap">Instagram grid · {d.sector}</span>
               </a>
             </li>
