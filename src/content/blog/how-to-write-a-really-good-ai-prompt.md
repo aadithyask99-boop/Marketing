@@ -1,11 +1,11 @@
 ---
-title: "What Is an AI Prompt? How to Write a Really Good AI Prompt"
-excerpt: "Learn what an AI prompt is and how to write a really good AI prompt. Discover simple techniques for creating clearer, more effective AI instructions."
+title: "What Is an AI Prompt? A Beginner's Guide"
+excerpt: "New to AI? Learn what an AI prompt is, what makes a good one and the simple habits that help beginners get clearer, more useful answers."
 category: web-automation
 author: Maximus Mediascape
 date: 2026-09-03T12:53:36
 readMins: 7
-tldr: "Learn what an AI prompt is and how to write a really good AI prompt. Discover simple techniques for creating clearer, more effective AI instructions."
+tldr: "New to AI? Learn what an AI prompt is, what makes a good one and the simple habits that help beginners get clearer, more useful answers."
 tags: ["AEO", "AI Search", "GEO", "Marketing"]
 faq:
   - q: "What is an AI prompt?"
@@ -33,6 +33,8 @@ You may ask AI a simple question and receive an answer that is too vague, too de
 Often, the problem isn't the AI tool itself. It is the way the request was written.
 
 Learning how to write a really good AI prompt can help you communicate your request more clearly and get more useful results from tools such as ChatGPT, Claude and Gemini.
+
+This is a beginner's guide. It explains what a prompt is and covers the core habits. When you are ready to apply them to business tasks, see our guide to [writing effective AI prompts](/blogs/how-to-write-effective-ai-prompts/).
 
 ## What Is an AI Prompt?
 
@@ -94,25 +96,21 @@ Before writing your prompt, ask yourself:
 
 ### 2. Give the AI Relevant Context
 
-The first step is to tell the AI exactly what you want it to do.
+The AI only knows what you tell it. If the best answer depends on your situation, say so.
 
-A vague request can leave too much room for interpretation.
+Compare:
 
-For example:
+“Suggest a camera to buy.”
 
-“Tell me about photography.”
+with:
 
-This could produce almost anything: a history of photography, an explanation of cameras, tips for taking better photographs or information about famous photographers.
+“Suggest a camera for a complete beginner who wants to photograph family holidays and has a budget of around £500.”
 
-A clearer request would be:
-
-“Explain the three basic camera settings that beginners should understand.”
-
-The second prompt gives the AI a specific task and a clear scope.
+The second prompt gives the AI the background it needs to choose well. It does not need your life story, only the details that affect the answer.
 
 Before writing your prompt, ask yourself:
 
-**What exactly do I want the AI to do?**
+**What does the AI need to know to do this properly?**
 
 ### 3. Be Specific About What You Want
 
@@ -242,31 +240,11 @@ This is one of the most useful things to understand about AI prompting: **you do
 
 Treat the interaction as a conversation. Review the response, identify what is missing and provide another instruction.
 
-## Common AI Prompting Mistakes to Avoid
-
-Even a few small changes can make a prompt considerably more useful. Some common mistakes include:
+## The Most Common Beginner Mistakes
 
 ![Hands typing on a keyboard beside a laptop](/blog-media/how-to-write-a-really-good-ai-prompt-photo.webp)
 
-### Being Too Vague
-
-A request such as “Tell me about technology” gives AI an enormous subject with no clear direction.
-
-### Leaving Out Important Context
-
-If the answer depends on your situation, experience or objective, provide that information.
-
-### Giving Conflicting Instructions
-
-Asking for an answer that is simultaneously “extremely detailed” and “as short as possible” can create unnecessary ambiguity.
-
-### Making Every Prompt Overly Complicated
-
-Not every request needs a detailed prompt. Simple questions often work perfectly well as they are.
-
-### Assuming AI Is Always Correct
-
-A well-written prompt can improve the usefulness and relevance of a response, but it doesn't guarantee that every fact is accurate. Important information should still be checked against reliable sources.
+Most weak prompts share a few problems: they are too vague, they leave out important context, they ask for conflicting things or they trust the answer without checking it. Our guide to [common AI prompting mistakes](/blogs/common-ai-prompting-mistakes/) explains each one and how to fix it.
 
 ### A Simple Formula for Better AI Prompts
 
@@ -306,4 +284,4 @@ Maximus Mediascape helps businesses explore practical applications of **[AI auto
 
 If you're looking to move from simply experimenting with AI to using it more effectively across your digital operations, Maximus Mediascape can help you identify opportunities to put AI and automation to work.
 
-**Related guides:** [How to Write Effective AI Prompts for Better Results](/blogs/how-to-write-effective-ai-prompts/), [10 AI Prompting Techniques for Better Responses Every Time](/blogs/ai-prompting-techniques-for-better-responses/), [Common AI Prompting Mistakes and How to Fix Them](/blogs/common-ai-prompting-mistakes/).
+**Related guides:** [How to Write Effective AI Prompts: A Business Checklist](/blogs/how-to-write-effective-ai-prompts/), [10 AI Prompting Techniques for Better Responses Every Time](/blogs/ai-prompting-techniques-for-better-responses/), [10 Common AI Prompting Mistakes and How to Fix Them](/blogs/common-ai-prompting-mistakes/), [Role Prompting and Prompt Length: What Actually Helps](/blogs/role-prompting-and-prompt-length/).

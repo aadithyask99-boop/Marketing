@@ -1,5 +1,5 @@
 ---
-title: "Common AI Prompting Mistakes and How to Fix Them"
+title: "10 Common AI Prompting Mistakes and How to Fix Them"
 excerpt: "Learn how to spot and fix common AI prompting mistakes, from vague instructions to poor context, conflicting requirements and unverified information."
 category: web-automation
 author: Maximus Mediascape
@@ -361,4 +361,4 @@ For some businesses, the next step is also to look beyond individual AI tasks an
 
 The more useful question is not simply whether you are using AI. It is whether you are giving it enough direction to do something genuinely useful for your business.
 
-**Related guides:** [The Future of Work: How Human AI Collaboration is Transforming Business](/blogs/human-ai-collaboration-future-of-work/).
+**Related guides:** [How to Improve an AI Response When the First Answer Misses](/blogs/how-to-improve-ai-responses-with-follow-up-prompts/), [How to Write Effective AI Prompts: A Business Checklist](/blogs/how-to-write-effective-ai-prompts/), [Role Prompting and Prompt Length: What Actually Helps](/blogs/role-prompting-and-prompt-length/), [The Future of Work: How Human AI Collaboration is Transforming Business](/blogs/human-ai-collaboration-future-of-work/).
