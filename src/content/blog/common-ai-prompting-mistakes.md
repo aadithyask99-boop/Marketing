@@ -1,11 +1,12 @@
 ---
 title: "10 Common AI Prompting Mistakes and How to Fix Them"
-excerpt: "Learn how to spot and fix common AI prompting mistakes, from vague instructions to poor context, conflicting requirements and unverified information."
+seoTitle: "Common AI Prompting Mistakes and How to Fix Each One"
+excerpt: "Ten common AI prompting mistakes, why each one gives weak answers, and the fix. Covers vague asks, missing context, conflicting rules and unchecked facts."
 category: web-automation
 author: Maximus Mediascape
 date: 2026-10-02T07:09:16
 readMins: 10
-tldr: "Learn how to spot and fix common AI prompting mistakes, from vague instructions to poor context, conflicting requirements and unverified information."
+tldr: "Ten common AI prompting mistakes, why each one gives weak answers, and the fix. Covers vague asks, missing context, conflicting rules and unchecked facts."
 tags: ["AEO", "AI Search", "GEO", "Marketing"]
 faq:
   - q: "Why does AI give me generic answers?"

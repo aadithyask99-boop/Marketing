@@ -119,4 +119,4 @@ None of that is a reason to ignore it. It is a reason to try it with your eyes o
 
 **Source and credits:** the announcement, images and demo video belong to Anthropic. See [Build live dashboards and animate explainers with Claude](https://claude.com/resources/articles/dashboards-and-motion) (8 October 2026). We are not affiliated with Anthropic, and the opinions above are ours.
 
-**Related guides:** [How to Write Effective AI Prompts: A Business Checklist](/blogs/how-to-write-effective-ai-prompts/), [AI Prompt Examples for Business You Can Copy and Adapt](/blogs/ai-prompt-examples-for-business/), [How Google AI Mode Is Changing SEO](/blogs/how-google-ai-mode-is-changing-seo/).
+**Related guides:** [What Early Users Actually Report About Claude Motion](/blogs/claude-motion-review-early-user-experience/), [How to Write Effective AI Prompts: A Business Checklist](/blogs/how-to-write-effective-ai-prompts/), [AI Prompt Examples for Business You Can Copy and Adapt](/blogs/ai-prompt-examples-for-business/), [How Google AI Mode Is Changing SEO](/blogs/how-google-ai-mode-is-changing-seo/).
