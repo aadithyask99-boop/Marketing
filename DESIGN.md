@@ -122,6 +122,7 @@ Data lives in `src/data/site.ts` (`SITE`, `NAV`, `SERVICES`, `CATEGORIES`, `CLIE
 A campaign landing page built on the same system with a few deliberate differences: `landing` header (logo plus one "Get started" button), `footerTone="red"`, its own `starter.css` (`st-` prefix), pill buttons with a circle arrow (`.st-pill`), a green £999 badge sticker, pinned scroll scenes (statement and "how it works" on desktop; the statement is also pinned on mobile), stage tabs, a payment path, an impact carousel, glow-edged plan cards, an FAQ with one-open-at-a-time, and a sticky mobile CTA. It does **not** use the Boska accent in its headlines, which is the main place it drifts from the rest of the site; add one if you want it to feel closer to the main pages.
 
 ## 10. Things to watch
+- **Responsive images with cropping:** Astro `sizes` decides which file the browser loads (the generated width follows the `sizes` value), not the CSS box. When an image is cropped with `object-fit: cover`, it is enlarged, so ask for about twice the box width and check the source file's real width first (`img.naturalWidth`); small sources look soft if cropped tall, so show them uncropped.
 
 - Keep one idea per section and one primary CTA per view. The hero CTA on the Starter page is a single left-aligned button.
 - `.card--blue` is not blue (it is ink). Legacy class name.
@@ -129,6 +130,7 @@ A campaign landing page built on the same system with a few deliberate differenc
 - The 900px breakpoint drives pinning, sticky sidebars and the nav. Test just below and above it.
 
 ## 11. Portfolio pattern: `/work/portfolio`
+- **Image licence metadata:** the wall `ImageObject`s in `src/pages/work/portfolio.astro` carry `creditText`, `copyrightNotice`, `license` (`/terms/`) and `acquireLicensePage` (`/contact-us/`) from one `imageRights` object, to clear Search Console's Image Metadata warnings.
 
 For showcasing client work (brand boards, Instagram grids, web designs) on one page, without a page per project:
 
@@ -239,6 +241,7 @@ Figures are single-line raw HTML blocks (no blank lines) using `casestudy.css`: 
 - Tried and removed: a cartoon "M" mascot that opened a contents sheet (replaced by the pills at the user's request).
 
 ## 19. Navigation, pages and details changed
+- **Hero link copy (Services and Work):** instead of separate link lines the intro paragraph contains the links (`.svc-inline` in `services.css`, `.work-inline` in `process.css`): bold, no underline, dark (`--ink`) hover so they stay visible on the red hero.
 - **Cursor labels on parents:** nav items with a dropdown (Services, Work) carry `data-cursor="to services"` / `"to work"`, the same pill the logo shows ("to home"), so people know the parent itself is a link.
 - **Work dropdown:** `NAV` items can have `children` (Work > Portfolio). Desktop shows a chevron on Work and a liquid-glass panel (`.nav-sub`, a sibling of the pill because the pill clips) on hover or focus; ArrowDown enters it, Escape closes it. The phone menu and footer list Portfolio under Work.
 - **Featured work** (`/work/`, `FeaturedWork.astro`; the small star above its heading was removed on 7 Oct 2026): three real cards (Bakwa case study, Luna wellness chat, Bakwa Instagram grid, showing the top of the profile screenshot) plus the "Shhh" card. The results strip (`RESULTS` in `site.ts`) holds three figures from the case studies, each naming its client; client-reported figures carry an asterisk.
@@ -305,6 +308,7 @@ A second version of the Starter offer, written for startups and SMEs with a smal
 - **Who it's for** ends with a `(Not a fit?)` strip (`notFit`), only restating what is not included. **A note from the team** (`teamNote`) sits on cream right after the testimonials; it is signed by the team until a founder name and photo exist.
 
 ## 22. The plans page: `/our-services/care-and-growth-plans`
+- **Hero (12 Oct 2026):** on phones the title is four rows (`.pl-h1` `min(16.5vw, 6.5rem)`), the "See everything we do" link sits under the Compare plans button (grid like `.su-hero-cta`), and the "All prices exclude VAT." hero line is removed (price tiles, comparison, add-ons and FAQ small print still say prices exclude VAT).
 Retainer pricing (Care and Growth). **No boxes:** no bordered or filled cards, tiles or badge shapes. Structure comes only from big type, hairline rules, whitespace and alternating cream and ink bands (hero and journey cream, Care ink, Growth cream, Everything red, comparison ink, who-it's-for cream, add-ons ink, FAQ cream, closing CTA ink).
 - **Files:** `src/pages/our-services/care-and-growth-plans.astro`, `src/styles/plans.css` (prefix `pl-`; also loads `startup.css` for the stacking panels and `starter.css` for pills and the FAQ), `src/data/plans.ts` (all copy, verbatim from the client; the single source of truth, also read by the Starter page's plan section).
 - **Copy rules (from the client):** British English, no em or en dashes as punctuation, prices and terms exactly as written, prices exclude VAT (stated), no testimonials, statistics or case-study figures, no invented plans, features or discounts, no promises about rankings, AI citations, links or press. Client logos are shown by the client's request (shared `Proof` strip, same status as on the home page).
