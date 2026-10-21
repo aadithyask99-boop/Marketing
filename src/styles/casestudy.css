@@ -566,25 +566,25 @@
 }
 
 /* ---------- AI search visibility posts: coverage, week, zones, deck, shift, sheet, switches ---------- */
-/* Coverage: bars across the customer's path, one row per tool */
+/* Coverage: tools grouped by whether the visitor has clicked through yet */
 .prose .fig.cs-covfig { padding: clamp(1.1rem, 3vw, 1.75rem); background: transparent; border: 2px solid var(--ink); }
-.prose .cs-cov-head, .prose .cs-cov { margin: 0; padding: 0; list-style: none; }
-.prose .cs-cov-head { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--ink); }
-.prose .cs-cov-head > li { margin: 0; font: 600 clamp(0.58rem, 2.3vw, 0.72rem)/1.1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; text-align: center; overflow-wrap: anywhere; }
-.prose .cs-cov > li { display: grid; gap: 0.3rem; margin: 0; padding: 0.9rem 0; border-bottom: 1px solid rgba(23, 9, 10, 0.2); }
-.cs-cov-n { font: 400 1.55rem/1 var(--display); text-transform: uppercase; }
-.cs-cov-t { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0.25rem; height: 1.5rem; }
-.cs-cov-bar, .cs-cov-gap { grid-row: 1; grid-column: var(--s) / calc(var(--e) + 1); border-radius: 999px; transform-origin: left; transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.12s); }
-.cs-cov-bar { background: var(--red); }
-.cs-cov-gap { display: grid; place-items: center; border: 2px dashed rgba(23, 9, 10, 0.45); background: repeating-linear-gradient(135deg, transparent 0 0.4rem, rgba(23, 9, 10, 0.1) 0.4rem 0.8rem); }
-.cs-cov-gap em { font: 600 0.6rem/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; font-style: normal; background: var(--cream); padding: 0.1rem 0.35rem; border-radius: 999px; }
-.cs-cov-d { font-size: 0.86rem; line-height: 1.35; }
+.prose .cs-cov { display: grid; gap: 0.9rem; }
+.cs-cov-b, .cs-cov-m { margin: 0; padding: 0.9rem 1rem 1rem; border-radius: 1rem; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 0.15s), opacity 0.4s ease calc(var(--i, 0) * 0.15s); }
+.cs-cov-b { border: 2px solid var(--ink); }
+.cs-cov-m { position: relative; border: 2px dashed var(--red); background: rgba(225, 6, 0, 0.07); }
+.prose .cs-cov-h, .prose .cs-cov-s { margin: 0; }
+.cs-cov-h { font: 400 1.7rem/1 var(--display); text-transform: uppercase; color: var(--red); }
+.cs-cov-s { margin-bottom: 0.4rem; font: 600 0.72rem/1.3 var(--body); letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+.cs-cov-pill { position: absolute; top: -0.8rem; left: 1rem; padding: 0.2rem 0.7rem; border-radius: 999px; background: var(--red); color: var(--cream); font: 600 0.68rem/1.2 var(--body); letter-spacing: 0.12em; text-transform: uppercase; }
+.prose .cs-cov ul { margin: 0; padding: 0; list-style: none; }
+.prose .cs-cov li { display: grid; gap: 0.15rem; margin: 0; padding: 0.7rem 0; border-top: 1px solid rgba(23, 9, 10, 0.22); }
+.prose .cs-cov li:first-child { border-top: 0; }
+.cs-cov li strong { font: 400 1.4rem/1 var(--display); text-transform: uppercase; }
+.cs-cov li span { font-size: 0.92rem; line-height: 1.35; }
+.prose .cs-cov-n { margin: 0.5rem 0 0; padding: 0.5rem 0.7rem; border: 2px dashed rgba(23, 9, 10, 0.45); border-radius: 0.7rem; background: repeating-linear-gradient(135deg, transparent 0 0.4rem, rgba(23, 9, 10, 0.07) 0.4rem 0.8rem); font-size: 0.82rem; line-height: 1.35; }
 .cs-covfig figcaption { margin: 0.9rem 0 0; }
 @media (min-width: 760px) {
-  .prose .cs-cov-head { margin-left: 12rem; }
-  .prose .cs-cov > li { grid-template-columns: 12rem minmax(0, 1fr); align-items: center; gap: 0.3rem 0; }
-  .cs-cov-n { grid-row: span 2; font-size: 1.35rem; }
-  .cs-cov-d { grid-column: 2; }
+  .prose .cs-cov li { grid-template-columns: 14rem minmax(0, 1fr); align-items: baseline; gap: 1rem; }
 }
 
 /* Week: five tear-off calendar tiles */
@@ -684,8 +684,8 @@
 .cs-sw > li:hover .cs-sw-t i { background: var(--red); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .js-fig .cs-cov-bar, .js-fig .cs-cov-gap { transform: scaleX(0); }
-  .js-fig .fig.is-in .cs-cov-bar, .js-fig .fig.is-in .cs-cov-gap { transform: none; }
+  .js-fig .cs-cov-b, .js-fig .cs-cov-m { opacity: 0; transform: translateY(0.7rem); }
+  .js-fig .fig.is-in .cs-cov-b, .js-fig .fig.is-in .cs-cov-m { opacity: 1; transform: none; }
   .js-fig .cs-cal > li, .js-fig .cs-sw > li { opacity: 0; transform: translateY(0.7rem); }
   .js-fig .fig.is-in .cs-cal > li, .js-fig .fig.is-in .cs-sw > li { opacity: 1; transform: none; }
   .js-fig .cs-zone li, .js-fig .cs-zone-mid span { opacity: 0; transform: translateX(-0.6rem); }
