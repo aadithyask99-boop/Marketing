@@ -1,6 +1,6 @@
 # Handover: Maximus Mediascape website
 
-Read this first, then `DESIGN.md` (design system, patterns, conventions). Last updated 12 Oct 2026 (live domain, tracking, Search Console and redirect clean-up, closing-form name step, Starter brand row).
+Read this first, then `DESIGN.md` (design system, patterns, conventions). Last updated 21 Oct 2026 (live domain, tracking, Search Console and redirect clean-up, closing-form name step, Starter brand row).
 
 ## 1. Project and rules
 - **What it is:** the marketing site for Maximus Mediascape. Astro static site (`astro.config.mjs`), plain CSS (no Tailwind), a markdown content collection for the blog (`src/content/blog`, schema in `src/content.config.ts`), data in `src/data/site.ts` and `src/data/design.ts`. Brand: red `#e10600`, cream `#f5efe8`, ink `#17090a`, Bebas Neue, Mulish, Boska italic accent word.
@@ -60,6 +60,13 @@ Checked on a fresh build (54 pages), served with `astro preview`, at 390px touch
 - **Closing form (`ClosingCta.astro`, on every page):** four steps now: query, name ("Good one. What should we call you?"), email and phone, thank you. The name is sent with the lead. The long `LeadForm.astro` is not used on any page.
 - **Starter page:** a second row under "Recent website designs" shows brand identity (Magic Personnel tote, UltraSeal bucket) and two Instagram grids (Magic Personnel, Flower Grid) so the page reads as a whole package. Source images are small (about 660 px and 432 px wide), so brand shots show landscape and uncropped, and `sizes` is set so the browser loads the largest file; the Instagram previews are positioned on the grid posts, not the profile header (`igFocus` in `src/data/startup.ts`).
 - **Maximus M logo SVG:** `public/logo-m.svg` is the only SVG logo (the M mark, colour from `currentColor`). There is no SVG of the full wordmark.
+
+## 3g. Two AI search posts from Word documents (21 Oct 2026)
+- Added from the user's Word files: `what-is-ai-search-visibility-how-do-you-measure-it` (dated Wed 21 Oct 2026, the pillar) and `how-to-check-if-your-brand-appears-in-chatgpt-gemini-and-ai-search` (deliberately **backdated to Thu 15 Oct 2026** at the user's request). Both are in the `ai-search` category and link to each other, the Croydon and iAudit case studies and the other AI search guides. The LinkedIn caption in the second file is not blog copy and was not published (it was handed back to the user).
+- Figures (all new, see DESIGN.md section 17): `cs-covfig` (tool coverage along the customer path), `cs-calfig` (monthly review as a working week), `cs-zonefig` (fixes on and off your website), `cs-deckfig` (six question cards), `cs-sheetfig` (tracker as a spreadsheet), `cs-shiftfig` (Croydon before and after), `cs-swfig` (five diagnostic toggles).
+- **Heroes are provisional.** The user chose AI-generated heroes, but no Gemini key was available in the session (`.claude/skills/seo-image-gen` needs the banana extension and `GOOGLE_AI_API_KEY`; Openverse was also timing out). Both heroes are generated brand graphics (grey rings, a circle grid), made with Pillow. Replace `src/assets/blog/<slug>.webp` when real heroes exist; the frontmatter does not need to change except `imageAlt`.
+- The source document for the check post ended mid-sentence in its last FAQ answer ("Keep the same core set of"); the answer was completed with "questions so you can compare mentions, citations, recommendations and accuracy from one month to the next." Confirm the wording.
+- Verified before publishing: Ahrefs "Free AI Visibility Checker", Semrush "Free AI Visibility Tool" (AI Search Visibility Checker) and Clarity's Citations / AI Visibility report (page citations, share of authority, AI referral traffic, grounding queries) all exist as described. iAudit "thousands of AI citations" rests on the client-reported figure in the case study.
 
 ## 4. Open items (waiting on the user or client)
 **Copy to sign off** (first drafts, wording unchanged, code notes removed). New on `/our-services/starter-plan` (`src/data/startup.ts`): panel statements, the three "Built for your budget" cards, the "Who it's for" list and two extra FAQs (new business with no brand; start small and add later). Also: process timings and step copy (`PROCESS`), the About page copy (`ABOUT`), portfolio brand stories, sector labels and FAQ (`src/data/design.ts`), "Workplace software" label.
