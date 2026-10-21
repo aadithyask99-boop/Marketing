@@ -131,6 +131,8 @@
 /* Dark contact page: no full-screen gap under the form, and any seam between sections shows ink, not the red page colour */
 .closer--hero:not(.closer--red) { min-height: 0; padding-bottom: clamp(2rem, 5vw, 4rem); }
 body:has(.closer--hero:not(.closer--red)) { background: var(--ink); }
+/* Contact page: the headline sits on ink, so the x-ray hover turns letters red (ink would vanish into the background). */
+.closer--hero:not(.closer--red) h1, .closer--hero:not(.closer--red) h1 [data-xray] { --xr-rev: var(--red); }
 .closer--red { background: var(--red); }
 .closer--red .closer-bar { box-shadow: 0 1.5rem 4rem rgba(23, 9, 10, 0.3); }
 .closer--red .closer-bar:focus-within { outline-color: var(--cream); }
